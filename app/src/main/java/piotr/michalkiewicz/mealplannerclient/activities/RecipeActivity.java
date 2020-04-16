@@ -13,12 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.net.HttpURLConnection;
 import java.util.LinkedList;
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
+import piotr.michalkiewicz.mealplannerclient.connection.HttpConnectionHandler;
 import piotr.michalkiewicz.mealplannerclient.fragments.RecipeImgFragmentAdapter;
-import piotr.michalkiewicz.mealplannerclient.model.Ingredient;
+import piotr.michalkiewicz.mealplannerclient.model.FoodTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.model.RecipeIngredient;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -28,6 +33,7 @@ public class RecipeActivity extends AppCompatActivity {
     LinearLayout ingredientsList;
     ViewPager viewPager;
     ImageView temp;
+    TextView recipeTitleTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +44,21 @@ public class RecipeActivity extends AppCompatActivity {
         ingredientsList = (LinearLayout) findViewById(R.id.ingredientsList);
         imageContainer = (LinearLayout) findViewById(R.id.imageContainer);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
+        recipeTitleTV = (TextView) findViewById(R.id.recipeTitleTV);
         adapter = new RecipeImgFragmentAdapter(getSupportFragmentManager(), getPhotos());
         viewPager.setAdapter(adapter);
-        addIngredientsToList(generateRandomIngredients());
+
+        makeView();
     }
 
-    private void addIngredientsToList(List<Ingredient> ingredients){
+    private void addIngredientsToList(List<RecipeIngredient> ingredients){
 
         List<SpannableString> spannableIngredients = new LinkedList<>();
         BulletSpan bSpan = new BulletSpan(24, getResources().getColor(R.color.colorBlack));
 
-        for(Ingredient ingredient : ingredients){
-            SpannableString spannableString = new SpannableString(ingredient.getIngredientName());
-            spannableString.setSpan(bSpan,0, ingredient.getIngredientName().length(),
+        for(RecipeIngredient ingredient : ingredients){
+            SpannableString spannableString = new SpannableString(ingredient.toString());
+            spannableString.setSpan(bSpan,0, ingredient.toString().length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             spannableIngredients.add(spannableString);
         }
@@ -69,13 +77,19 @@ public class RecipeActivity extends AppCompatActivity {
         return drawableIdList;
     }
 
-    private List<Ingredient> generateRandomIngredients(){
-        LinkedList<Ingredient> list = new LinkedList<>();
-        list.add(new Ingredient("Woda"));
-        list.add(new Ingredient("Sól"));
-        list.add(new Ingredient("Ziemia"));
-        list.add(new Ingredient("Paznokcie"));
+    private void makeView(){
+        String json;
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
 
-        return list;
+            json = bundle.getString("recipeJSON");
+            if(json != null){
+                FoodTimeRecipe recipe = new Gson().fromJson(json, FoodTimeRecipe.class);
+                if (recipe != null) {
+                    recipeTitleTV.setText(recipe.getName());
+                }
+            }
+        }
     }
+
 }

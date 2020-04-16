@@ -37,7 +37,7 @@ public class MainMenuActivity extends AppCompatActivity {
         recipesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainMenuActivity.this, RecipeActivity.class);
+                Intent myIntent = new Intent(MainMenuActivity.this, RecipesActivity.class);
                 startActivity(myIntent);
             }
         });

@@ -69,6 +69,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:id="@+id/recipeTitleTV"
+        style="@style/RecipeTitle"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="@string/igredients"
         style="@style/listHeaderText"/>
     <LinearLayout

@@ -18,6 +18,10 @@
         <item name="android:textSize">20dp</item>
     </style>
     <style name="listHeaderText">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="RecipeTitle">
         <item name="android:textSize">28dp</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -26,6 +30,11 @@
     </style>
     <style name="normalText">
         <item name="android:textSize">16dp</item>
+    </style>
+    <style name="recipeListElement">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
     </style>
 
 </resources>
