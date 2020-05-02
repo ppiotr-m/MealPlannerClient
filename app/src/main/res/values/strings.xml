@@ -13,6 +13,47 @@
     <string name="title_activity_recipe">RecipeActivity</string>
     <string name="igredients">Ingredients:</string>
     <string name="howTo">How to prepare:</string>
+    <string name="recommended">Recommended</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="start_customization">Start customization</string>
+    <string name="skip_customization">Skip customization</string>
+    <string name="diet_prefer">What diet do you prefer?</string>
+    <string name="diet_standard">Standard</string>
+    <string name="diet_paleo">Paleo</string>
+    <string name="diet_vegetarian">Vegetarian</string>
+    <string name="diet_pescatarian">Pescatarian</string>
+    <string name="diet_flexitarian">Flexitarian</string>
+    <string name="diet_vegan">Vegan</string>
+    <string name="diet_low_carb">Low carb</string>
+    <string name="diet_keto">Ketogenic</string>
+    <string name="allergy_gluten">Gluten</string>
+    <string name="allergy_diary">Diary</string>
+    <string name="allergy_peanut">Peanuts</string>
+    <string name="allergy_treenuts">Tree nuts</string>
+    <string name="allergy_soy">Soy</string>
+    <string name="allergy_eggs">Eggs</string>
+    <string name="allergy_frutti_di_mare">Frutti di mare</string>
+    <string name="allergy_seasme">Sesame</string>
+    <string name="select_allergies">What allergies do you have?</string>
+    <string name="what_you_dislike">What ingredients do you dislike?</string>
+    <string name="avocado">Avocado</string>
+    <string name="beets">Beets</string>
+    <string name="bell_pepper">Bell pepper</string>
+    <string name="brussel_sprout">Brussel sprout</string>
+    <string name="egg_plant">Egg plant</string>
+    <string name="cauliflower">Cauliflower</string>
+    <string name="plan_meals_for">How many meals do you usually plan?</string>
+    <string name="servings_per_meal">How many servings per meal?</string>
+    <string name="cooking_time_per_meal">Cooking time per meal</string>
+    <string name="zero_thirty">0-30 min</string>
+    <string name="thirty_sixty">30-60 min</string>
+    <string name="sixty_plus">60+ min</string>
+    <string name="quick_n_easy">Quick and easy</string>
+    <string name="typical">Typical</string>
+    <string name="up_for_challange">I\'m up for challange!</string>\
+    <string name="next">Next</string>
+    <string name="thank_you_customization">Good work!\nYou\'ve just set up the app!\nClick "Next"
+        to jump into app!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -29,6 +29,7 @@ public class RecipesActivity extends AppCompatActivity implements ViewUpdater<Fo
 
         HttpConnectionHandler httpHandler = new HttpConnectionHandler();
         httpHandler.setView(this);
+
         httpHandler.getRandomRecipes();
     }
 

@@ -28,6 +28,7 @@ public class MainMenuActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         yourWeekBtn = (Button) findViewById(R.id.yourWeekBtn);
         yourDietBtn =  (Button) findViewById(R.id.yourDietBtn);
         recipesBtn = (Button) findViewById(R.id.recipiesBtn);
@@ -41,6 +42,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+         */
 
     }
 
