@@ -12,25 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.CustomizationFinishActivity"></activity>
-        <activity android:name=".activities.CookingTimeCustomizationActivity" />
-        <activity android:name=".activities.ServingsCustomizationActivity" />
-        <activity android:name=".activities.MealsNumberCustomizationActivity" />
-        <activity android:name=".activities.DislikedIngredientsCustomization" />
-        <activity android:name=".activities.AllergyCustomizationActivity" />
-        <activity android:name=".activities.DietCustomizationActivity" />
-        <activity android:name=".activities.StartCustomizationActivity" />
-        <activity android:name=".activities.RecipesActivity" />
+        <activity android:name=".view.activities.customization.CustomizationFinishActivity"></activity>
+        <activity android:name=".view.activities.customization.CookingTimeCustomizationActivity" />
+        <activity android:name=".view.activities.customization.ServingsCustomizationActivity" />
+        <activity android:name=".view.activities.customization.MealsNumberCustomizationActivity" />
+        <activity android:name=".view.activities.customization.DislikedIngredientsCustomization" />
+        <activity android:name=".view.activities.customization.AllergyCustomizationActivity" />
+        <activity android:name=".view.activities.customization.DietCustomizationActivity" />
+        <activity android:name=".view.activities.customization.StartCustomizationActivity" />
         <activity
-            android:name=".activities.RecipeActivity"
+            android:name=".view.activities.content.RecipeActivity"
             android:label="@string/title_activity_recipe"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.MainMenuActivity"
+            android:name=".view.activities.menus.MainMenuActivity"
             android:label="@string/title_activity_main_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".view.activities.login.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

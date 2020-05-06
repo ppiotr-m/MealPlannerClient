@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.fragments;
+package piotr.michalkiewicz.mealplannerclient.view.fragments;
 
 
 import android.graphics.drawable.Drawable;

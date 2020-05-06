@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.activities;
+package piotr.michalkiewicz.mealplannerclient.view.activities.customization;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import piotr.michalkiewicz.mealplannerclient.R;
+import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
 
 public class StartCustomizationActivity extends AppCompatActivity {
 

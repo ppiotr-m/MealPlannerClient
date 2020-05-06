@@ -36,5 +36,9 @@
         <item name="android:textStyle">bold</item>
         <item name="android:padding">10dp</item>
     </style>
+    <style name="recipeImgTextOverlay">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
 
 </resources>

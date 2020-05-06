@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.activities;
+package piotr.michalkiewicz.mealplannerclient.view.activities.content;
 
 import android.os.Bundle;
 
@@ -15,14 +15,12 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.net.HttpURLConnection;
 import java.util.LinkedList;
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.connection.HttpConnectionHandler;
-import piotr.michalkiewicz.mealplannerclient.fragments.RecipeImgFragmentAdapter;
-import piotr.michalkiewicz.mealplannerclient.model.FoodTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.view.fragments.RecipeImgFragmentAdapter;
 import piotr.michalkiewicz.mealplannerclient.model.RecipeIngredient;
 
 public class RecipeActivity extends AppCompatActivity {
@@ -84,7 +82,7 @@ public class RecipeActivity extends AppCompatActivity {
 
             json = bundle.getString("recipeJSON");
             if(json != null){
-                FoodTimeRecipe recipe = new Gson().fromJson(json, FoodTimeRecipe.class);
+                MealTimeRecipe recipe = new Gson().fromJson(json, MealTimeRecipe.class);
                 if (recipe != null) {
                     recipeTitleTV.setText(recipe.getName());
                 }

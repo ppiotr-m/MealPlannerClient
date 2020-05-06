@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.LoginActivity"
+    tools:context=".view.activities.login.LoginActivity"
     tools:showIn="@layout/activity_login"
 
     android:background="@mipmap/temp_login_bckgrnd">

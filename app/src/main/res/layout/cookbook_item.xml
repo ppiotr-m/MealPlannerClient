@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/recipeImgAndDataLayout"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gradeTV"
+            style="@style/recipeImgTextOverlay"
+            android:text="@string/grade"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewsNrTV"
+            style="@style/recipeImgTextOverlay"
+            android:text="@string/views_nr"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addRecipeToMealPlanBtn"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:drawableStart="@drawable/ic_local_pizza_black_24dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/likeRecipeBtn"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:drawableStart="@drawable/ic_favorite_border_black_24dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recipeTitleTV"
+        style="@style/recipeImgTextOverlay"/>
+
+
+</LinearLayout>

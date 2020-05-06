@@ -54,6 +54,8 @@
     <string name="next">Next</string>
     <string name="thank_you_customization">Good work!\nYou\'ve just set up the app!\nClick "Next"
         to jump into app!</string>
+    <string name="grade">Grade:</string>
+    <string name="views_nr">Views nr:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
