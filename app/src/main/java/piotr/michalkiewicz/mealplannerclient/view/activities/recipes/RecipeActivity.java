@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.activities.content;
+package piotr.michalkiewicz.mealplannerclient.view.activities.recipes;
 
 import android.os.Bundle;
 

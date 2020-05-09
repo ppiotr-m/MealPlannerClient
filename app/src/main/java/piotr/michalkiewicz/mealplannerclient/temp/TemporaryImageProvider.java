@@ -6,8 +6,6 @@ public class TemporaryImageProvider {
 
     public static Drawable getRandomImage(){
 
-
-
         return null;
     }
 

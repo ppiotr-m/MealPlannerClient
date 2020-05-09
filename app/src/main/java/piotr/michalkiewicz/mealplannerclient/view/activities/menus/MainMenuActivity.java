@@ -67,24 +67,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 }
             }
         });
-
-        /*
-        yourWeekBtn = (Button) findViewById(R.id.yourWeekBtn);
-        yourDietBtn =  (Button) findViewById(R.id.yourDietBtn);
-        recipesBtn = (Button) findViewById(R.id.recipiesBtn);
-        groceriesBtn = (Button) findViewById(R.id.groceriesBtn);
-        imageContainer = (LinearLayout) findViewById(R.id.imageContainer);
-
-        recipesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(MainMenuActivity.this, RecipesActivity.class);
-                startActivity(myIntent);
-            }
-        });
-
-         */
-
     }
 
 }

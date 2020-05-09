@@ -21,7 +21,7 @@
         <activity android:name=".view.activities.customization.DietCustomizationActivity" />
         <activity android:name=".view.activities.customization.StartCustomizationActivity" />
         <activity
-            android:name=".view.activities.content.RecipeActivity"
+            android:name=".view.activities.recipes.RecipeActivity"
             android:label="@string/title_activity_recipe"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
