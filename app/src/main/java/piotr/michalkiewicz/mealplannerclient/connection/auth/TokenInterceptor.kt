@@ -4,7 +4,7 @@ import okhttp3.*
 import java.io.IOException
 import java.util.*
 
-class BasicAuthInterceptor : Interceptor, Authenticator {
+class TokenInterceptor : Interceptor, Authenticator {
 
     // Method add header to all calls
 
