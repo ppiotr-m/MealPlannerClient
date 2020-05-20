@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RoleTester : AppCompatActivity(){
 
     private val BASIC_URL = "http://10.0.2.2:8080/"
-    private val interceptor: TokenInterceptor = TokenInterceptor()
+    private val interceptor: BasicInterceptor = BasicInterceptor()
     private var client: OkHttpClient = OkHttpClient().newBuilder().addInterceptor(interceptor).build()
     private var disposable: Disposable? = null
 

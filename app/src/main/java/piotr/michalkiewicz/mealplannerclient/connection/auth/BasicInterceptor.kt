@@ -11,7 +11,7 @@ class BasicInterceptor : Interceptor {
         var request = chain.request()
 
         request = request.newBuilder()
-                .addHeader("Authorization", credentials)
+                .addHeader("OAuth2", credentials)
 //                .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .addHeader("Accept", "application/json")
                 .build()

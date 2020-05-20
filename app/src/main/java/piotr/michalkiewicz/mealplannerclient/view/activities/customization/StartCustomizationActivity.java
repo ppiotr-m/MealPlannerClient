@@ -1,16 +1,19 @@
 package piotr.michalkiewicz.mealplannerclient.view.activities.customization;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import piotr.michalkiewicz.mealplannerclient.R;
+import piotr.michalkiewicz.mealplannerclient.connection.auth.RoleTester;
 import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
 
 public class StartCustomizationActivity extends AppCompatActivity {
+
+    RoleTester roleTester = new RoleTester();
 
     Button startCustomizationBtn;
     Button skipCustomizationBtn;
@@ -26,6 +29,7 @@ public class StartCustomizationActivity extends AppCompatActivity {
         startCustomizationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                roleTester.ping();
                 Intent myIntent = new Intent(StartCustomizationActivity.this, DietCustomizationActivity.class);
                 startActivity(myIntent);
             }

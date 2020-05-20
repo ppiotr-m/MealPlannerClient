@@ -1,5 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.connection.auth
 
+import android.accounts.AccountManager
+import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
@@ -18,6 +20,9 @@ class BasicAuth : AppCompatActivity() {
     private val interceptor: TokenInterceptor = TokenInterceptor()
     private var client: OkHttpClient = OkHttpClient().newBuilder().addInterceptor(interceptor).build()
     private var disposable: Disposable? = null
+    private val accountManager: AccountManager = AccountManager.get(this)
+    private val options = Bundle()
+
 
     private val authorization by lazy {
         BasicAuth().createAuthorizationConnection()
@@ -28,7 +33,7 @@ class BasicAuth : AppCompatActivity() {
             .create()
 
 
-    private fun createAuthorizationConnection(): Authorization {
+    private fun createAuthorizationConnection(): OAuth2 {
         val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -36,7 +41,7 @@ class BasicAuth : AppCompatActivity() {
                 .baseUrl(BASIC_URL)
                 .build()
 
-        return retrofit.create(Authorization::class.java)
+        return retrofit.create(OAuth2::class.java)
     }
 
     fun getToken() {
