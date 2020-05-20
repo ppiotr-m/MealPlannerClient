@@ -28,7 +28,8 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                authTester.ping();
+//                authTester.ping();
+                authTester.getToken();
                 Intent myIntent = new Intent(LoginActivity.this, StartCustomizationActivity.class);
                 LoginActivity.this.startActivity(myIntent);
             }
