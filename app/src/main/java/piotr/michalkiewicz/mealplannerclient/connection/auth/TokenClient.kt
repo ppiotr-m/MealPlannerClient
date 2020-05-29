@@ -6,12 +6,14 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
-import piotr.michalkiewicz.mealplannerclient.utils.BASIC_URL
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASIC_URL
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PASSWORD_GRANT_TYPE
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN_GRANT_TYPE
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AuthorizationClient() {
+class TokenClient() {
 
     private lateinit var myPreference: MyPreference
 
@@ -23,7 +25,7 @@ class AuthorizationClient() {
             .create()
 
     private val loginConnection by lazy {
-        AuthorizationClient().loginConnection()
+        TokenClient().loginConnection()
     }
 
     private fun loginConnection(): OAuth2 {
@@ -39,17 +41,29 @@ class AuthorizationClient() {
 
     fun login(context: Context, username: String, password: String) {
         initPreference(context)
-        val loginEndpoint = loginConnection.login(username, password, "password")
+        val loginEndpoint = loginConnection.login(username, password, PASSWORD_GRANT_TYPE)
         loginEndpoint.subscribeOn(Schedulers.io())
                 .subscribe({ result ->
-                    Log.i("Token ok", result.expiresIn.toString())
+                    Log.i("Token expires in: ", result.expiresIn.toString())
                     myPreference.setToken(result)
                 },
                         { error -> Log.i("Token nie ok", error.toString()) })
     }
 
-    private fun initPreference(context: Context){
-        if(!::myPreference.isInitialized){
+    fun refreshToken(context: Context) {
+        initPreference(context)
+        val refreshToken = myPreference.getRefreshToken()
+        val refreshTokenEndpoint = loginConnection.refreshToken(REFRESH_TOKEN_GRANT_TYPE , refreshToken.toString())
+        refreshTokenEndpoint.subscribeOn(Schedulers.io())
+                .subscribe({ result ->
+                    Log.i("new refreshed toked: ", result.refreshToken)
+                    myPreference.setToken(result)
+                },
+                        { error -> Log.i("Token nie ok", error.toString()) })
+    }
+
+    private fun initPreference(context: Context) {
+        if (!::myPreference.isInitialized) {
             myPreference = MyPreference(context)
         }
     }

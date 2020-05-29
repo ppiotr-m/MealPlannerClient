@@ -4,11 +4,13 @@ import android.content.Context
 import android.util.Log
 import okhttp3.*
 import java.io.IOException
-import java.util.*
 
-class AuthInterceptor(context: Context) : Interceptor,  Authenticator {
 
+class AuthInterceptor(context: Context) : Interceptor, Authenticator {
+
+    private val context: Context = context
     private val myPreference: MyPreference = MyPreference(context)
+    private val tokenClient: TokenClient = TokenClient()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
@@ -23,12 +25,18 @@ class AuthInterceptor(context: Context) : Interceptor,  Authenticator {
     override fun authenticate(route: Route?, response: Response?): Request? {
         Log.i("kurwa", "tutaj");
         var requestAvailable: Request? = null
-        try {
-            requestAvailable = response?.request()?.newBuilder()
-                    ?.addHeader("AUTH_TOKEN", UUID.randomUUID().toString())
-                    ?.build()
-            return requestAvailable
-        } catch (ex: Exception) {
+        if (response?.code() == 401) {
+            val call = tokenClient.refreshToken(context)
+            try {
+                myPreference.getToken()?.let {
+                    requestAvailable = response?.request()?.newBuilder()
+                            ?.addHeader("Authorization", "Bearer $it")
+                            ?.build()
+                }
+                return requestAvailable
+            } catch (ex: Exception) {
+                Log.i("AuthInterceptor ex: ", ex.toString())
+            }
         }
         return requestAvailable
     }

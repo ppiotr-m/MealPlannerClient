@@ -24,5 +24,4 @@ class MyPreference(context: Context) {
         editor.putInt("EXPIRES_IN", token.expiresIn)
         editor.apply()
     }
-
 }

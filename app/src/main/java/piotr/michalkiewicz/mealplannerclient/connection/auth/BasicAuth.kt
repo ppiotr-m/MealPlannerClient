@@ -53,11 +53,11 @@ class BasicAuth : AppCompatActivity() {
         }
 
         showToken.setOnClickListener {
-            Log.i("TOKEN TEST: ", myPreference.getToken().toString())
+            Log.i("TOKEN TEST: ", myPreference.getRefreshToken().toString())
         }
 
 //for test end here
 
-        AuthorizationClient().login(this, "user", "user")
+        TokenClient().login(this, "user", "user")
     }
 }
