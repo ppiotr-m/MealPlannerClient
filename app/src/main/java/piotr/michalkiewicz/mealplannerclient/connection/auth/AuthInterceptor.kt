@@ -6,18 +6,16 @@ import okhttp3.*
 import java.io.IOException
 import java.util.*
 
-class BasicInterceptor(context: Context) : Interceptor,  Authenticator {
+class AuthInterceptor(context: Context) : Interceptor,  Authenticator {
 
     private val myPreference: MyPreference = MyPreference(context)
 
     override fun intercept(chain: Interceptor.Chain): Response {
-//        val credentials = Credentials.basic("mealTime", "SjTrPoRuW/=w=8[SMcoWo=`+(-x*?M")
         val requestBuilder = chain.request().newBuilder()
 
         myPreference.getToken()?.let {
             requestBuilder.addHeader("Authorization", "Bearer $it")
         }
-
         return chain.proceed(requestBuilder.build())
     }
 
