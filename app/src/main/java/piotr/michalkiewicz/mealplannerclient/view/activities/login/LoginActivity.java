@@ -10,11 +10,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.connection.auth.BasicAuth;
-import piotr.michalkiewicz.mealplannerclient.view.activities.customization.StartCustomizationActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
     BasicAuth basicAuth = new BasicAuth();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +28,14 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                BasicAuth.ping();
-                basicAuth.getToken();
-                Intent myIntent = new Intent(LoginActivity.this, StartCustomizationActivity.class);
-                LoginActivity.this.startActivity(myIntent);
+                Intent intent = new Intent(LoginActivity.this, BasicAuth.class);
+                LoginActivity.this.startActivity(intent);
+
+//                Intent myIntent = new Intent(LoginActivity.this, StartCustomizationActivity.class);
+//                LoginActivity.this.startActivity(myIntent);
             }
         });
 
 
     }
-
 }

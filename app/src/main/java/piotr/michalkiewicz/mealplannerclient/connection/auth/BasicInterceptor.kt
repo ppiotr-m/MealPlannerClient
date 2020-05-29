@@ -1,21 +1,37 @@
 package piotr.michalkiewicz.mealplannerclient.connection.auth
 
-import okhttp3.Credentials
-import okhttp3.Interceptor
-import okhttp3.Response
+import android.content.Context
+import android.util.Log
+import okhttp3.*
+import java.io.IOException
+import java.util.*
 
-class BasicInterceptor : Interceptor {
+class BasicInterceptor(context: Context) : Interceptor,  Authenticator {
+
+    private val myPreference: MyPreference = MyPreference(context)
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val credentials = Credentials.basic("mealTime", "SjTrPoRuW/=w=8[SMcoWo=`+(-x*?M")
-        var request = chain.request()
+//        val credentials = Credentials.basic("mealTime", "SjTrPoRuW/=w=8[SMcoWo=`+(-x*?M")
+        val requestBuilder = chain.request().newBuilder()
 
-        request = request.newBuilder()
-                .addHeader("OAuth2", credentials)
-//                .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                .addHeader("Accept", "application/json")
-                .build()
+        myPreference.getToken()?.let {
+            requestBuilder.addHeader("Authorization", "Bearer $it")
+        }
 
-        return chain.proceed(request)
+        return chain.proceed(requestBuilder.build())
+    }
+
+    @Throws(IOException::class)
+    override fun authenticate(route: Route?, response: Response?): Request? {
+        Log.i("kurwa", "tutaj");
+        var requestAvailable: Request? = null
+        try {
+            requestAvailable = response?.request()?.newBuilder()
+                    ?.addHeader("AUTH_TOKEN", UUID.randomUUID().toString())
+                    ?.build()
+            return requestAvailable
+        } catch (ex: Exception) {
+        }
+        return requestAvailable
     }
 }

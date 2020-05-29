@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activities.customization.CustomizationFinishActivity"></activity>
+        <activity android:name=".connection.auth.model.BasicAuth"></activity>
+        <activity android:name=".connection.auth.model.test" />
+        <activity android:name=".view.activities.customization.CustomizationFinishActivity" />
         <activity android:name=".view.activities.customization.CookingTimeCustomizationActivity" />
         <activity android:name=".view.activities.customization.ServingsCustomizationActivity" />
         <activity android:name=".view.activities.customization.MealsNumberCustomizationActivity" />
@@ -20,6 +22,7 @@
         <activity android:name=".view.activities.customization.AllergyCustomizationActivity" />
         <activity android:name=".view.activities.customization.DietCustomizationActivity" />
         <activity android:name=".view.activities.customization.StartCustomizationActivity" />
+        <activity android:name=".connection.auth.BasicAuth" />
         <activity
             android:name=".view.activities.recipes.RecipeActivity"
             android:label="@string/title_activity_recipe"
