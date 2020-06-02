@@ -54,12 +54,15 @@ class TokenClient() {
         initPreference(context)
         val refreshToken = myPreference.getRefreshToken()
         val refreshTokenEndpoint = loginConnection.refreshToken(REFRESH_TOKEN_GRANT_TYPE , refreshToken.toString())
-        refreshTokenEndpoint.subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    Log.i("new refreshed toked: ", result.refreshToken)
-                    myPreference.setToken(result)
-                },
-                        { error -> Log.i("Token nie ok", error.toString()) })
+
+        try {
+            var response = refreshTokenEndpoint.execute()
+            var token = response.body()
+            token?.let { myPreference.setToken(it) }
+            Log.i("elo token", token.toString())
+        }catch (e: Exception) {
+            Log.i("refreshToken exception", e.toString())
+        }
     }
 
     private fun initPreference(context: Context) {

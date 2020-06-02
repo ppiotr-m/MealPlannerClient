@@ -23,15 +23,13 @@ class AuthInterceptor(context: Context) : Interceptor, Authenticator {
 
     @Throws(IOException::class)
     override fun authenticate(route: Route?, response: Response?): Request? {
-        Log.i("kurwa", "tutaj");
         var requestAvailable: Request? = null
         if (response?.code() == 401) {
             val call = tokenClient.refreshToken(context)
+
             try {
                 myPreference.getToken()?.let {
-                    requestAvailable = response?.request()?.newBuilder()
-                            ?.addHeader("Authorization", "Bearer $it")
-                            ?.build()
+                    requestAvailable = response.request().newBuilder().header("Authorization", "Bearer $it").build()
                 }
                 return requestAvailable
             } catch (ex: Exception) {
