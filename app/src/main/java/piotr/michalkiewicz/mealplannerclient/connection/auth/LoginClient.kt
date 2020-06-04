@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
+import piotr.michalkiewicz.mealplannerclient.connection.auth.interceptor.LoginInterceptor
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASIC_URL
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PASSWORD_GRANT_TYPE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN_GRANT_TYPE

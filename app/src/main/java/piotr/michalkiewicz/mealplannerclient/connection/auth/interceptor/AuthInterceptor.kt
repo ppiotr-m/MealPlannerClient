@@ -1,14 +1,15 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth
+package piotr.michalkiewicz.mealplannerclient.connection.auth.interceptor
 
 import android.content.Context
 import android.util.Log
 import okhttp3.*
+import piotr.michalkiewicz.mealplannerclient.connection.auth.LoginClient
+import piotr.michalkiewicz.mealplannerclient.connection.auth.MyPreference
 import java.io.IOException
 
 
-class AuthInterceptor(context: Context) : Interceptor, Authenticator {
+class AuthInterceptor(private val context: Context) : Interceptor, Authenticator {
 
-    private val context: Context = context
     private val myPreference: MyPreference = MyPreference(context)
     private val loginClient: LoginClient = LoginClient()
 

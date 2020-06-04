@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth
+package piotr.michalkiewicz.mealplannerclient.connection.auth.interceptor
 
 import okhttp3.Credentials
 import okhttp3.Interceptor
@@ -8,7 +8,7 @@ class LoginInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
-        val credentials = Credentials.basic("mealTime", "SjTrPoRuW/=w=8[SMcoWo=`+(-x*?M")  // toDo hide it ?
+        val credentials = Credentials.basic("mealTime", "SjTrPoRuW/=w=8[SMcoWo=`+(-x*?M")
 
         var request = chain.request()
 

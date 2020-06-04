@@ -7,22 +7,24 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.schedulers.Schedulers
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.connection.ApiInterface
 
 
-class BasicAuth : AppCompatActivity() {
+class TestAuthActivity : AppCompatActivity() {
 
     private lateinit var myPreference: MyPreference
     private lateinit var testApiService: TestApiService
-    private lateinit var testSecondTestApi: SecondTestApi
-//    private val accountManager: AccountManager = AccountManager.get(this) toDo  http://blog.udinic.com/2013/04/24/write-your-own-android-authenticator/
+    private lateinit var testTestApiSecond: TestApiSecond
+    private lateinit var apiInterface: ApiInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basic_auth)  // loading animation ?
 
         myPreference = MyPreference(this)
-        testApiService = ServiceGenerator().getApiService(this)
-        testSecondTestApi = ServiceGenerator().getApiServiceSecond(this)
+        testApiService = ServiceGenerator().getTestApiService(this)
+        testTestApiSecond = ServiceGenerator().getTestApiServiceSecond(this)
+        apiInterface = ServiceGenerator().getApiInterface(this)
 
 //for test start here
 
@@ -32,17 +34,19 @@ class BasicAuth : AppCompatActivity() {
         val showToken = findViewById<View>(R.id.button4) as Button
 
         pingNoAuth.setOnClickListener {
-            val tokenNoAuth = testSecondTestApi.pingNoAuth()
+            val tokenNoAuth = testTestApiSecond.pingNoAuth()
             tokenNoAuth.subscribeOn(Schedulers.io()).subscribe({ result ->
                 Log.i("result no auth: ", result)
             }, { er -> Log.i("ERROR no auth: ", er.toString()) })
         }
 
         pingAdmin.setOnClickListener {
-            val tokenNoAuth = testApiService.pingAdmin()
+            val tokenNoAuth = testApiService.getRandom()
             tokenNoAuth.subscribeOn(Schedulers.io()).subscribe({ result ->
-                Log.i("result no auth: ", result)
+                Log.i("result no auth: ", result.toString())
             }, { er -> Log.i("ERROR no auth: ", er.toString()) })
+
+//             apiInterface.randomRecipes.execute()
         }
 
 
@@ -60,10 +64,5 @@ class BasicAuth : AppCompatActivity() {
 //for test end here
 
         LoginClient().login(this, "user", "user")
-    }
-
-    override fun onDestroy() {
-        this.isDestroyed
-        super.onDestroy()
     }
 }

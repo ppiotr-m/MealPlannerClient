@@ -22,7 +22,7 @@
         <activity android:name=".view.activities.customization.AllergyCustomizationActivity" />
         <activity android:name=".view.activities.customization.DietCustomizationActivity" />
         <activity android:name=".view.activities.customization.StartCustomizationActivity" />
-        <activity android:name=".connection.auth.BasicAuth" />
+        <activity android:name=".connection.auth.TestAuthActivity" />
         <activity
             android:name=".view.activities.recipes.RecipeActivity"
             android:label="@string/title_activity_recipe"
