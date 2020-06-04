@@ -10,7 +10,7 @@ class AuthInterceptor(context: Context) : Interceptor, Authenticator {
 
     private val context: Context = context
     private val myPreference: MyPreference = MyPreference(context)
-    private val tokenClient: TokenClient = TokenClient()
+    private val loginClient: LoginClient = LoginClient()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
@@ -25,8 +25,7 @@ class AuthInterceptor(context: Context) : Interceptor, Authenticator {
     override fun authenticate(route: Route?, response: Response?): Request? {
         var requestAvailable: Request? = null
         if (response?.code() == 401) {
-            val call = tokenClient.refreshToken(context)
-
+            loginClient.refreshToken(context)
             try {
                 myPreference.getToken()?.let {
                     requestAvailable = response.request().newBuilder().header("Authorization", "Bearer $it").build()
@@ -35,6 +34,8 @@ class AuthInterceptor(context: Context) : Interceptor, Authenticator {
             } catch (ex: Exception) {
                 Log.i("AuthInterceptor ex: ", ex.toString())
             }
+        } else if (response?.code() == 500) {
+            return null
         }
         return requestAvailable
     }

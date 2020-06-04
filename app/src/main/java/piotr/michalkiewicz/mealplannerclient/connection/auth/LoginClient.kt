@@ -13,7 +13,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class TokenClient() {
+
+class LoginClient {
 
     private lateinit var myPreference: MyPreference
 
@@ -25,7 +26,7 @@ class TokenClient() {
             .create()
 
     private val loginConnection by lazy {
-        TokenClient().loginConnection()
+        LoginClient().loginConnection()
     }
 
     private fun loginConnection(): OAuth2 {
@@ -47,21 +48,21 @@ class TokenClient() {
                     Log.i("Token expires in: ", result.expiresIn.toString())
                     myPreference.setToken(result)
                 },
-                        { error -> Log.i("Token nie ok", error.toString()) })
+                        { error -> Log.i("Login error", error.toString()) })
     }
 
     fun refreshToken(context: Context) {
         initPreference(context)
         val refreshToken = myPreference.getRefreshToken()
-        val refreshTokenEndpoint = loginConnection.refreshToken(REFRESH_TOKEN_GRANT_TYPE , refreshToken.toString())
+        val refreshTokenEndpoint = loginConnection.refreshToken(REFRESH_TOKEN_GRANT_TYPE, refreshToken.toString())
 
         try {
-            var response = refreshTokenEndpoint.execute()
-            var token = response.body()
+            val response = refreshTokenEndpoint.execute()
+            val token = response.body()
             token?.let { myPreference.setToken(it) }
-            Log.i("elo token", token.toString())
+            Log.i("Token refershed", token?.expiresIn.toString())
         }catch (e: Exception) {
-            Log.i("refreshToken exception", e.toString())
+            Log.i("RefreshToken exception", e.toString())
         }
     }
 

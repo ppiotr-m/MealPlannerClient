@@ -13,7 +13,7 @@ class BasicAuth : AppCompatActivity() {
 
     private lateinit var myPreference: MyPreference
     private lateinit var testApiService: TestApiService
-
+    private lateinit var testSecondTestApi: SecondTestApi
 //    private val accountManager: AccountManager = AccountManager.get(this) toDo  http://blog.udinic.com/2013/04/24/write-your-own-android-authenticator/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,8 @@ class BasicAuth : AppCompatActivity() {
         setContentView(R.layout.activity_basic_auth)  // loading animation ?
 
         myPreference = MyPreference(this)
-        testApiService = TestApiClient().getApiService(this)
+        testApiService = ServiceGenerator().getApiService(this)
+        testSecondTestApi = ServiceGenerator().getApiServiceSecond(this)
 
 //for test start here
 
@@ -31,7 +32,7 @@ class BasicAuth : AppCompatActivity() {
         val showToken = findViewById<View>(R.id.button4) as Button
 
         pingNoAuth.setOnClickListener {
-            val tokenNoAuth = testApiService.pingNoAuth()
+            val tokenNoAuth = testSecondTestApi.pingNoAuth()
             tokenNoAuth.subscribeOn(Schedulers.io()).subscribe({ result ->
                 Log.i("result no auth: ", result)
             }, { er -> Log.i("ERROR no auth: ", er.toString()) })
@@ -58,6 +59,11 @@ class BasicAuth : AppCompatActivity() {
 
 //for test end here
 
-        TokenClient().login(this, "user", "user")
+        LoginClient().login(this, "user", "user")
+    }
+
+    override fun onDestroy() {
+        this.isDestroyed
+        super.onDestroy()
     }
 }

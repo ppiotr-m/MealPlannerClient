@@ -9,27 +9,39 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class TestApiClient {
+class ServiceGenerator {
 
     private lateinit var testApiService: TestApiService
+    private lateinit var secondTestApi: SecondTestApi
 
     private val gson: Gson = GsonBuilder()
             .setLenient()
             .create()
 
-    public fun getApiService(context: Context): TestApiService {
-
+    fun getApiService(context: Context): TestApiService {
         if (!::testApiService.isInitialized) {
-            val retrofit = Retrofit.Builder()
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .baseUrl(BASIC_URL)
-                    .client(okhttpClient(context))
-                    .build()
-
+            val retrofit = RetrofiBuilder(context)
             testApiService = retrofit.create(TestApiService::class.java)
         }
         return testApiService
+    }
+
+    fun getApiServiceSecond(context: Context): SecondTestApi {
+        if (!::secondTestApi.isInitialized) {
+            val retrofit = RetrofiBuilder(context)
+            secondTestApi = retrofit.create(SecondTestApi::class.java)
+        }
+        return secondTestApi
+    }
+
+    private fun RetrofiBuilder(context: Context): Retrofit {
+        val retrofit = Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(BASIC_URL)
+                .client(okhttpClient(context))
+                .build()
+        return retrofit
     }
 
     private fun okhttpClient(context: Context): OkHttpClient {
