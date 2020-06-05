@@ -1,8 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.connection.auth
 
 import io.reactivex.Observable
-import piotr.michalkiewicz.mealplannerclient.model.MealTimeRecipe
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface TestApiService {
 
@@ -13,5 +13,5 @@ interface TestApiService {
     fun pingUser(): Observable<String>
 
     @GET("/recipes/random")
-    fun getRandom(): Observable<MealTimeRecipe>
+    fun getRandom(@Query("amount")amount: Number): Observable<Any>
 }

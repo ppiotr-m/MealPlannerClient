@@ -4,12 +4,14 @@ import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Response
 
+/**
+ * Class used to login contains all necessary data
+ */
+
 class LoginInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-
         val credentials = Credentials.basic("mealTime", "SjTrPoRuW/=w=8[SMcoWo=`+(-x*?M")
-
         var request = chain.request()
 
         request = request.newBuilder()

@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button loginBtn = (Button) findViewById(R.id.loginBtn);
-
+        View login = findViewById(R.id.loginEt);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -14,6 +14,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Class contains: login method and refresh token
+ */
 
 class LoginClient {
 
@@ -41,6 +44,10 @@ class LoginClient {
         return retrofit.create(OAuth2::class.java)
     }
 
+    /**
+     * login by username/email + pass toDo make call not observable + w8 until get response
+     */
+
     fun login(context: Context, username: String, password: String) {
         initPreference(context)
         val loginEndpoint = loginConnection.login(username, password, PASSWORD_GRANT_TYPE)
@@ -51,6 +58,10 @@ class LoginClient {
                 },
                         { error -> Log.i("Login error", error.toString()) })
     }
+
+    /**
+     * refresh token and replace actual token in shared preference
+     */
 
     fun refreshToken(context: Context) {
         initPreference(context)

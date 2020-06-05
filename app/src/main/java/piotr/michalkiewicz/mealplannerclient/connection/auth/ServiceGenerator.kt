@@ -11,11 +11,32 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Class build ready service with auth
+ */
+
 class ServiceGenerator {
+
+
+    /*
+    example how to add new api
+
+     private lateinit var <variableName>: <class>
+
+    fun getApiInterface(context: Context): <class> {
+        if (!::<variableName>.isInitialized) {
+            val retrofit = retrofitBuilder(context)
+            <variableName> = retrofit.create(<class>::class.java)
+        }
+        return <variableName>
+    }
+     */
+
 
     private lateinit var testApiService: TestApiService
     private lateinit var testApiSecond: TestApiSecond
     private lateinit var apiInterface: ApiInterface
+
 
     fun getApiInterface(context: Context): ApiInterface {
         if (!::apiInterface.isInitialized) {

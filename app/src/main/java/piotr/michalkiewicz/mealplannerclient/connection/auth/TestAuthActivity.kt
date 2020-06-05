@@ -41,7 +41,7 @@ class TestAuthActivity : AppCompatActivity() {
         }
 
         pingAdmin.setOnClickListener {
-            val tokenNoAuth = testApiService.getRandom()
+            val tokenNoAuth = testApiService.getRandom(1)
             tokenNoAuth.subscribeOn(Schedulers.io()).subscribe({ result ->
                 Log.i("result no auth: ", result.toString())
             }, { er -> Log.i("ERROR no auth: ", er.toString()) })
@@ -58,11 +58,12 @@ class TestAuthActivity : AppCompatActivity() {
         }
 
         showToken.setOnClickListener {
-            Log.i("TOKEN TEST: ", myPreference.getRefreshToken().toString())
+
+
         }
 
 //for test end here
 
-        LoginClient().login(this, "user", "user")
+//        LoginClient().login(this, "user", "user")
     }
 }
