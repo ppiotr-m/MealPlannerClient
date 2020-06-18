@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 
 public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.RecipeViewHolder> {
 
-    Context context;
-    List<MealTimeRecipe> recipeList;
+    private Context context;
+    private List<MealTimeRecipe> recipeList;
 
     public RecipeRecyclerViewAdapter(Context context, List<MealTimeRecipe> recipeList){
         this.context = context;

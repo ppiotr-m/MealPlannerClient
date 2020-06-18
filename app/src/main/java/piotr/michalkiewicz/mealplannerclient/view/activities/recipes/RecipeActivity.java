@@ -1,93 +1,81 @@
 package piotr.michalkiewicz.mealplannerclient.view.activities.recipes;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.BulletSpan;
+import android.view.View;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.google.gson.Gson;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.view.fragments.RecipeImgFragmentAdapter;
-import piotr.michalkiewicz.mealplannerclient.model.RecipeIngredient;
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.view.adapters.RecipeImgFragmentAdapter;
+import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
+import piotr.michalkiewicz.mealplannerclient.view.presenters.RecipePresenter;
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity implements InitializableViewWithCategory<MealTimeRecipe> {
 
-    HorizontalScrollView horizontalScrollView;
-    LinearLayout imageContainer;
-    RecipeImgFragmentAdapter adapter;
-    LinearLayout ingredientsList;
-    ViewPager viewPager;
-    ImageView temp;
-    TextView recipeTitleTV;
+    private HorizontalScrollView horizontalScrollView;
+    private LinearLayout imageContainer;
+    private RecipeImgFragmentAdapter adapter;
+    private ViewPager viewPager;
+    private ImageView temp;
+    private Button goToIngredientsBtn;
+    private Button goToCookingStepsBtn;
+
+    private RecipePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        horizontalScrollView = (HorizontalScrollView) findViewById(R.id.horizontalScrollView);
-        ingredientsList = (LinearLayout) findViewById(R.id.ingredientsList);
-        imageContainer = (LinearLayout) findViewById(R.id.imageContainer);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        recipeTitleTV = (TextView) findViewById(R.id.recipeTitleTV);
-        adapter = new RecipeImgFragmentAdapter(getSupportFragmentManager(), getPhotos());
-        viewPager.setAdapter(adapter);
-
-        makeView();
+        init();
     }
 
-    private void addIngredientsToList(List<RecipeIngredient> ingredients){
-
-        List<SpannableString> spannableIngredients = new LinkedList<>();
-        BulletSpan bSpan = new BulletSpan(24, getResources().getColor(R.color.colorBlack));
-
-        for(RecipeIngredient ingredient : ingredients){
-            SpannableString spannableString = new SpannableString(ingredient.toString());
-            spannableString.setSpan(bSpan,0, ingredient.toString().length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannableIngredients.add(spannableString);
-        }
-        for(SpannableString s : spannableIngredients){
-            TextView tv = (TextView)getLayoutInflater().inflate(R.layout.bullet_span_element_tv, null);
-            tv.setText(s);
-            ingredientsList.addView(tv);
-        }
+    private void init(){
+        assignUIElements();
+        setOnClickListeners();
+//        adapter = new RecipeImgFragmentAdapter(getSupportFragmentManager(), getPhotos());
+//        viewPager.setAdapter(adapter);
+        presenter = new RecipePresenter(this);
+        presenter.fetchRecipe(getIntent().getStringExtra("recipeId"));
     }
 
-    private List<Integer> getPhotos(){
-        List <Integer> drawableIdList = new LinkedList<>();
-        drawableIdList.add(R.mipmap.pizza1);
-        drawableIdList.add(R.mipmap.pizza2);
-        drawableIdList.add(R.mipmap.pizza3);
-        return drawableIdList;
+    private void assignUIElements(){
+        horizontalScrollView = findViewById(R.id.horizontalScrollView);
+        imageContainer = findViewById(R.id.imageContainer);
+        viewPager = findViewById(R.id.viewPager);
+        goToCookingStepsBtn = findViewById(R.id.goToCookingStepsBtn);
+        goToIngredientsBtn = findViewById(R.id.goToIngredientsBtn);
     }
 
-    private void makeView(){
-        String json;
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-
-            json = bundle.getString("recipeJSON");
-            if(json != null){
-                MealTimeRecipe recipe = new Gson().fromJson(json, MealTimeRecipe.class);
-                if (recipe != null) {
-                    recipeTitleTV.setText(recipe.getName());
-                }
+    private void setOnClickListeners(){
+        goToIngredientsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(RecipeActivity.this,
+                        IngredientsActivity.class);
+                startActivity(myIntent);
             }
-        }
+        });
+        goToCookingStepsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(RecipeActivity.this,
+                        CookingStepsActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
+    @Override
+    public void initWithData(MealTimeRecipe data, String category) {
+
+    }
 }

@@ -11,7 +11,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 
 public class AllergyCustomizationActivity extends AppCompatActivity {
 
-    Button allergyGlutenBtn;
+    private Button allergyGlutenBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

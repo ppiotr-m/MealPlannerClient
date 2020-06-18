@@ -7,10 +7,5 @@
     android:fitsSystemWindows="true"
     tools:context=".view.activities.recipes.RecipeActivity">
 
-
-
     <include layout="@layout/content_recipe" />
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

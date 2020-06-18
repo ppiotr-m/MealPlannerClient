@@ -4,85 +4,77 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.recipes.server_connection.RecipeRepository;
 import piotr.michalkiewicz.mealplannerclient.view.adapters.RecipeRecyclerViewAdapter;
+import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
+import piotr.michalkiewicz.mealplannerclient.view.presenters.CookbookFragmentPresenter;
 
-public class CookbookScreenFragment extends Fragment {
+public class CookbookScreenFragment extends Fragment implements InitializableViewWithCategory<List<MealTimeRecipe>> {
 
-    RecyclerView randomRecipesRV;
-
-    RecyclerView randomRecipesRV2;
-    RecyclerView randomRecipesRV3;
-    RecyclerView randomRecipesRV4;
-    RecyclerView randomRecipesRV5;
-    RecyclerView randomRecipesRV6;
+ //   private final List<RecyclerView> recipesViewsForCategories = new ArrayList<>();
+    private ViewGroup recipesLayoutContainer;
+    private RecipeRepository recipeRepository;
+    private CookbookFragmentPresenter presenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.cookbook_screen_fragment, container, false);
-        randomRecipesRV = (RecyclerView) view.findViewById(R.id.randomRecipesRV);
+        View view = inflater.inflate(R.layout.fragment_cookbook_screen, container, false);
 
-        randomRecipesRV2 = (RecyclerView) view.findViewById(R.id.randomRecipesRV2);
-        randomRecipesRV3 = (RecyclerView) view.findViewById(R.id.randomRecipesRV3);
-        randomRecipesRV4 = (RecyclerView) view.findViewById(R.id.randomRecipesRV4);
-        randomRecipesRV5 = (RecyclerView) view.findViewById(R.id.randomRecipesRV5);
-        randomRecipesRV6 = (RecyclerView) view.findViewById(R.id.randomRecipesRV6);
-
-        randomRecipesRV.setAdapter(new RecipeRecyclerViewAdapter(container.getContext(), getTemporaryRecipes()));
-        randomRecipesRV.setLayoutManager(new LinearLayoutManager(container.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        randomRecipesRV2.setAdapter(new RecipeRecyclerViewAdapter(container.getContext(), getTemporaryRecipes()));
-        randomRecipesRV2.setLayoutManager(new LinearLayoutManager(container.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        randomRecipesRV3.setAdapter(new RecipeRecyclerViewAdapter(container.getContext(), getTemporaryRecipes()));
-        randomRecipesRV3.setLayoutManager(new LinearLayoutManager(container.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        randomRecipesRV4.setAdapter(new RecipeRecyclerViewAdapter(container.getContext(), getTemporaryRecipes()));
-        randomRecipesRV4.setLayoutManager(new LinearLayoutManager(container.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        randomRecipesRV5.setAdapter(new RecipeRecyclerViewAdapter(container.getContext(), getTemporaryRecipes()));
-        randomRecipesRV5.setLayoutManager(new LinearLayoutManager(container.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        randomRecipesRV6.setAdapter(new RecipeRecyclerViewAdapter(container.getContext(), getTemporaryRecipes()));
-        randomRecipesRV6.setLayoutManager(new LinearLayoutManager(container.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+        init(view);
 
         return view;
     }
 
-    private List<MealTimeRecipe> getTemporaryRecipes(){
-        List recipeList = new LinkedList<>();
+    private void init(View root){
+        assignUIElements(root);
+        presenter = new CookbookFragmentPresenter(this);
+        presenter.initWithDefaultCategories();
+    }
 
-        recipeList.add(new MealTimeRecipe("Kasza z warzywami"));
-        recipeList.add(new MealTimeRecipe("Pierogi z mięsem"));
-        recipeList.add(new MealTimeRecipe("Tuńczyk z kukurydzą"));
-        recipeList.add(new MealTimeRecipe("Kus kus z wołowiną"));
-        recipeList.add(new MealTimeRecipe("Zupa pomidorowa"));
-        recipeList.add(new MealTimeRecipe("Filety z cipek"));
-        recipeList.add(new MealTimeRecipe("Rodzynki z baraniej dupy"));
-        recipeList.add(new MealTimeRecipe("Jaja, męskie niegolone"));
-        recipeList.add(new MealTimeRecipe("Wywar z gumijagód"));
-        recipeList.add(new MealTimeRecipe("Pokrzywy z kamieniami"));
-        recipeList.add(new MealTimeRecipe("Piasek polany spermą"));
-        return recipeList;
+    private void assignUIElements(View root){
+        recipesLayoutContainer = root.findViewById(R.id.recipesByCategoriesLayoutContainer);
+    }
+
+    @Override
+    public void initWithData(List<MealTimeRecipe> data, String category) {
+        ViewGroup recipesView = createRecipeCategoryView(data, category);
+        recipesLayoutContainer.addView(recipesView);
+    }
+
+    private ViewGroup createRecipeCategoryView(List<MealTimeRecipe> data, String category){
+        LinearLayout container = new LinearLayout(getContext());
+        container.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        container.setOrientation(LinearLayout.VERTICAL);
+        TextView categoryTagTV = new TextView(
+                new ContextThemeWrapper(getContext(),R.style.listHeaderText));
+        categoryTagTV.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        categoryTagTV.setText(category);
+        RecyclerView recipesHorizontalView = new RecyclerView(getContext());
+        recipesHorizontalView.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        recipesHorizontalView.setAdapter(new RecipeRecyclerViewAdapter(getContext(), data));
+
+        container.addView(categoryTagTV);
+        container.addView(recipesHorizontalView);
+
+        return container;
     }
 }

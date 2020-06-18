@@ -21,12 +21,12 @@ import piotr.michalkiewicz.mealplannerclient.view.fragments.NutritionScreenFragm
 
 public class MainMenuActivity extends AppCompatActivity {
 
-    Button yourWeekBtn;
-    Button yourDietBtn;
-    Button recipesBtn;
-    Button groceriesBtn;
-    LinearLayout imageContainer;
-    BottomNavigationView bottomNavigationView;
+    private Button yourWeekBtn;
+    private Button yourDietBtn;
+    private Button recipesBtn;
+    private Button groceriesBtn;
+    private LinearLayout imageContainer;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Override

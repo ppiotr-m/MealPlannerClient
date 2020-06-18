@@ -11,7 +11,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 
 public class CookingTimeCustomizationActivity extends AppCompatActivity {
 
-    Button quickAndEasyBtn;
+    private Button quickAndEasyBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

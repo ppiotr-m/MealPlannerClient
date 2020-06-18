@@ -36,65 +36,63 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <Button
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/btn1"
-            android:layout_weight="1"
-        android:text="Kup\nprodukty"/>
-        <Button
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btn2"
-            android:layout_weight="1"
-            android:text="Pokaż\npodobne"/>
-        <Button
+            android:layout_height="wrap_content"
+            android:text="@string/cooking_time"
+            android:id="@+id/cookingTimeTV"/>
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btn3"
-            android:layout_weight="1"
-            android:text="Kalorie \ni \nskłądniki\nodżywcze"/>
-        <Button
+            android:layout_height="wrap_content"
+            android:text="@string/likes"
+            android:id="@+id/likedByTV"/>
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btn4"
-            android:layout_weight="1"
-            android:text="Oceń"/>
-
-
+            android:layout_height="wrap_content"
+            android:text="@string/good_for"
+            android:id="@+id/goodForTV"/>
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:id="@+id/recipeTitleTV"
-        style="@style/RecipeTitle"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/igredients"
-        style="@style/listHeaderText"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ingredientsList"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ingredients"
+            android:id="@+id/goToIngredientsBtn"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cooking_steps"
+            android:id="@+id/goToCookingStepsBtn"/>
     </LinearLayout>
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/howTo"
+        android:text="@string/about_meal"
         style="@style/listHeaderText"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/aboutMealTV"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="10dp"
-        style="@style/normalText"
-        android:text="@string/temp_recipe"/>
+        android:text="@string/comments_section"
+        android:id="@+id/commentsSectionTV"
+        style="@style/RecipeTitle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/commentsSection"
+        android:orientation="vertical"/>
+
 </LinearLayout>
 </androidx.core.widget.NestedScrollView>

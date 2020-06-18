@@ -41,7 +41,7 @@ public class RecipeImgFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_recipe_img, container, false);
 
-        singleImageView = (ImageView) v.findViewById(R.id.singleRecipeImgView);
+        singleImageView = v.findViewById(R.id.singleRecipeImgView);
         Drawable d = ResourcesCompat.getDrawable(getActivity().getResources(),
                 mDrawableId, null);
         Log.d(Constants.TAG, d.toString());

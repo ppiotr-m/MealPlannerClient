@@ -11,7 +11,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 
 public class DislikedIngredientsCustomization extends AppCompatActivity {
 
-    Button avocadoBtn;
+    private Button avocadoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

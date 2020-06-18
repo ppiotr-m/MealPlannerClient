@@ -12,7 +12,7 @@ import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActiv
 
 public class CustomizationFinishActivity extends AppCompatActivity {
 
-    Button nextBtn;
+    private Button nextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

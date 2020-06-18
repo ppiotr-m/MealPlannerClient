@@ -11,7 +11,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 
 public class MealsNumberCustomizationActivity extends AppCompatActivity {
 
-    Button oneMealnBtn;
+    private Button oneMealnBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

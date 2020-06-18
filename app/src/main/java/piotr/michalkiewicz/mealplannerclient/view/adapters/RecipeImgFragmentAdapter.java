@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.fragments;
+package piotr.michalkiewicz.mealplannerclient.view.adapters;
 
 import android.os.Bundle;
 
@@ -8,9 +8,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
+import piotr.michalkiewicz.mealplannerclient.view.fragments.RecipeImgFragment;
+
 public class RecipeImgFragmentAdapter extends FragmentStatePagerAdapter {
 
-    List <Integer> mListOfFragments;
+    private List <Integer> mListOfFragments;
 
     public RecipeImgFragmentAdapter(FragmentManager fm) {
         super(fm);

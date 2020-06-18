@@ -11,7 +11,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 
 public class DietCustomizationActivity extends AppCompatActivity {
 
-    Button standardDietBtn;
+    private Button standardDietBtn;
 
 
     @Override

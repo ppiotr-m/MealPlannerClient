@@ -12,8 +12,8 @@ import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActiv
 
 public class StartCustomizationActivity extends AppCompatActivity {
 
-    Button startCustomizationBtn;
-    Button skipCustomizationBtn;
+    private Button startCustomizationBtn;
+    private Button skipCustomizationBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

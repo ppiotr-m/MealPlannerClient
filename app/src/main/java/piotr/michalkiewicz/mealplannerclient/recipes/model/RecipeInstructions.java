@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.model;
+package piotr.michalkiewicz.mealplannerclient.recipes.model;
 
 import java.util.List;
 

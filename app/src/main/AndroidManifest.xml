@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activities.customization.CustomizationFinishActivity"></activity>
+        <activity android:name=".view.activities.recipes.CookingStepsActivity"></activity>
+        <activity android:name=".view.activities.recipes.IngredientsActivity" />
+        <activity android:name=".view.activities.customization.CustomizationFinishActivity" />
         <activity android:name=".view.activities.customization.CookingTimeCustomizationActivity" />
         <activity android:name=".view.activities.customization.ServingsCustomizationActivity" />
         <activity android:name=".view.activities.customization.MealsNumberCustomizationActivity" />

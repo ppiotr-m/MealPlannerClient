@@ -11,7 +11,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 
 public class ServingsCustomizationActivity extends AppCompatActivity {
 
-    Button twoServingsBtn;
+    private Button twoServingsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
