@@ -35,6 +35,11 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         return holder;
     }
 
+    /**
+     * 
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
 

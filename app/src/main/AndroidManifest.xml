@@ -12,8 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+<<<<<<< HEAD
         <activity android:name=".view.activities.recipes.CookingStepsActivity"></activity>
         <activity android:name=".view.activities.recipes.IngredientsActivity" />
+=======
+        <activity android:name=".connection.auth.model.BasicAuth"></activity>
+        <activity android:name=".connection.auth.model.test" />
+>>>>>>> bc1fb9a461cdd9706b4745864b1284c931101ba7
         <activity android:name=".view.activities.customization.CustomizationFinishActivity" />
         <activity android:name=".view.activities.customization.CookingTimeCustomizationActivity" />
         <activity android:name=".view.activities.customization.ServingsCustomizationActivity" />
@@ -22,6 +27,7 @@
         <activity android:name=".view.activities.customization.AllergyCustomizationActivity" />
         <activity android:name=".view.activities.customization.DietCustomizationActivity" />
         <activity android:name=".view.activities.customization.StartCustomizationActivity" />
+        <activity android:name=".connection.auth.TestAuthActivity" />
         <activity
             android:name=".view.activities.recipes.RecipeActivity"
             android:label="@string/title_activity_recipe"
