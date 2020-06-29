@@ -1,7 +1,7 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
 import io.reactivex.Observable
-import piotr.michalkiewicz.mealplannerclient.connection.auth.model.Token
+import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

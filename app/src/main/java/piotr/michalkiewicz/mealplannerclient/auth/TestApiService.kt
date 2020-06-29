@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
 import io.reactivex.Observable
 import retrofit2.http.GET

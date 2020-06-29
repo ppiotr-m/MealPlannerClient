@@ -17,7 +17,7 @@ import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.recipes.server_connection.RecipeRepository;
+import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeRepository;
 import piotr.michalkiewicz.mealplannerclient.view.adapters.RecipeRecyclerViewAdapter;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.presenters.CookbookFragmentPresenter;
@@ -41,9 +41,14 @@ public class CookbookScreenFragment extends Fragment implements InitializableVie
         return view;
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
     private void init(View root){
         assignUIElements(root);
-        presenter = new CookbookFragmentPresenter(this);
+        presenter = new CookbookFragmentPresenter(this, getContext());
         presenter.initWithDefaultCategories();
     }
 

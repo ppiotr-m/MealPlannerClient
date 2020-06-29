@@ -43,7 +43,7 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
         setOnClickListeners();
 //        adapter = new RecipeImgFragmentAdapter(getSupportFragmentManager(), getPhotos());
 //        viewPager.setAdapter(adapter);
-        presenter = new RecipePresenter(this);
+        presenter = new RecipePresenter(this, this);
         presenter.fetchRecipe(getIntent().getStringExtra("recipeId"));
     }
 

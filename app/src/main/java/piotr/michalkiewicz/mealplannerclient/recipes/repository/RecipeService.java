@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.server_connection;
+package piotr.michalkiewicz.mealplannerclient.recipes.repository;
 
 import java.util.List;
 

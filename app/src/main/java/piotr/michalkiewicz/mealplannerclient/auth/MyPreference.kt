@@ -1,7 +1,7 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
 import android.content.Context
-import piotr.michalkiewicz.mealplannerclient.connection.auth.model.Token
+import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 
 class MyPreference(context: Context) { // toDo  http://blog.udinic.com/2013/04/24/write-your-own-android-authenticator/
 

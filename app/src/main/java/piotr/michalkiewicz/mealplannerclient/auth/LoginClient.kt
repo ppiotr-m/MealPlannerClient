@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
 import android.content.Context
 import android.util.Log
@@ -6,8 +6,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
-import piotr.michalkiewicz.mealplannerclient.connection.auth.interceptor.LoginInterceptor
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASIC_URL
+import piotr.michalkiewicz.mealplannerclient.auth.interceptor.LoginInterceptor
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASE_URL
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PASSWORD_GRANT_TYPE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN_GRANT_TYPE
 import retrofit2.Retrofit
@@ -38,7 +38,7 @@ class LoginClient {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(loginClient)
-                .baseUrl(BASIC_URL)
+                .baseUrl(BASE_URL)
                 .build()
 
         return retrofit.create(OAuth2::class.java)
@@ -48,15 +48,19 @@ class LoginClient {
      * login by username/email + pass toDo make call not observable + w8 until get response
      */
 
-    fun login(context: Context, username: String, password: String) {
+    fun login(context: Context, username: String, password: String, loginListener: LoginListener) {
         initPreference(context)
         val loginEndpoint = loginConnection.login(username, password, PASSWORD_GRANT_TYPE)
         loginEndpoint.subscribeOn(Schedulers.io())
                 .subscribe({ result ->
                     Log.i("Token expires in: ", result.expiresIn.toString())
                     myPreference.setToken(result)
+                    loginListener.loginSuccessful()
                 },
-                        { error -> Log.i("Login error", error.toString()) })
+                        { error ->
+                            Log.i("Login error", error.toString())
+                            loginListener.loginFailed()
+                        })
     }
 
     /**

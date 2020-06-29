@@ -63,6 +63,7 @@
     <string name="cooking_steps">Cooking Steps</string>
     <string name="comments_section">Comments</string>
     <string name="about_meal">About:</string>
+    <string name="login_failed">Login failed</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

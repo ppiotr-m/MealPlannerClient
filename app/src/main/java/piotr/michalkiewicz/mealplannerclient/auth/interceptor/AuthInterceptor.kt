@@ -1,10 +1,10 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth.interceptor
+package piotr.michalkiewicz.mealplannerclient.auth.interceptor
 
 import android.content.Context
 import android.util.Log
 import okhttp3.*
-import piotr.michalkiewicz.mealplannerclient.connection.auth.LoginClient
-import piotr.michalkiewicz.mealplannerclient.connection.auth.MyPreference
+import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
+import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 import java.io.IOException
 
 /**

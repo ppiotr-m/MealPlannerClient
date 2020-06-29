@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth.interceptor
+package piotr.michalkiewicz.mealplannerclient.auth.interceptor
 
 import okhttp3.Credentials
 import okhttp3.Interceptor

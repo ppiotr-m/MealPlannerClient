@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.connection.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,6 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.schedulers.Schedulers
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.connection.ApiInterface
 
 
 class TestAuthActivity : AppCompatActivity() {
@@ -15,7 +14,7 @@ class TestAuthActivity : AppCompatActivity() {
     private lateinit var myPreference: MyPreference
     private lateinit var testApiService: TestApiService
     private lateinit var testTestApiSecond: TestApiSecond
-    private lateinit var apiInterface: ApiInterface
+//    private lateinit var apiInterface: ApiInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +23,7 @@ class TestAuthActivity : AppCompatActivity() {
         myPreference = MyPreference(this)
         testApiService = ServiceGenerator().getTestApiService(this)
         testTestApiSecond = ServiceGenerator().getTestApiServiceSecond(this)
-        apiInterface = ServiceGenerator().getApiInterface(this)
+//        apiInterface = ServiceGenerator().getApiInterface(this)
 
 //for test start here
 
