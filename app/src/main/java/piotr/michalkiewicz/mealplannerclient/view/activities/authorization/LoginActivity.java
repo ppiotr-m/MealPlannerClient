@@ -3,6 +3,7 @@ package piotr.michalkiewicz.mealplannerclient.view.activities.authorization;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -13,6 +14,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
+import piotr.michalkiewicz.mealplannerclient.view.activities.customization.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -20,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
     private EditText loginET;
     private EditText passwordET;
+    private View createAccountClickableTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +31,28 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        assingUiElements();
+        setOnClickListeners();
+
+    }
+
+    private void assingUiElements(){
         loginET = findViewById(R.id.loginEt);
         passwordET = findViewById(R.id.passwordEt);
-
+        createAccountClickableTV = findViewById(R.id.createAccountTV);
         loginBtn = findViewById(R.id.loginBtn);
+    }
+
+    private void setOnClickListeners(){
         loginBtn.setOnClickListener(v->{
-            login(loginET.getText().toString(), passwordET.getText().toString());
+          //  login(loginET.getText().toString(), passwordET.getText().toString());
+            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
         });
+    }
+
+    public void startCreateAccountActivity(View v){
+        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+        startActivity(intent);
     }
 
     private void login(String username, String password){

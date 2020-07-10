@@ -1,9 +1,14 @@
 package piotr.michalkiewicz.mealplannerclient.connection;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.google.gson.reflect.TypeToken;
 
 import okhttp3.OkHttpClient;
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthInterceptor;
+import piotr.michalkiewicz.mealplannerclient.recipes.model.conversion.BinaryToBitmapConverter;
+import piotr.michalkiewicz.mealplannerclient.recipes.model.conversion.CustomGsonConverterCreator;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -21,6 +26,9 @@ public class AuthorizedApiClient {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient)
                 .addConverterFactory(GsonConverterFactory.create())
+      //          .addConverterFactory(CustomGsonConverterCreator
+      //                  .createGsonConverter(new TypeToken<byte[]>(){}.getType(),
+      //                          new BinaryToBitmapConverter()))
                 .build();
     }
 

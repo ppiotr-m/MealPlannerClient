@@ -35,14 +35,16 @@ public class CookbookFragmentPresenter {
         recipeRepository.getRecipesForDiet(dietType, new Callback<List<MealTimeRecipe>>() {
             @Override
             public void onResponse(Call<List<MealTimeRecipe>> call, Response<List<MealTimeRecipe>> response) {
-                Log.i(Constants.TAG, "CookbookPresenter:getRecipesForDiet(), result body: " + response.body());
+                Log.i(Constants.TAG, "CookbookPresenter:getRecipesForDiet(), response code: " +
+                        response.code());
                 view.initWithData(response.body(), Diet.PALEO.getValue());
             }
 
             @Override
             public void onFailure(Call<List<MealTimeRecipe>> call, Throwable t) {
-                Log.d(Constants.TAG, "CookbookFragmentPresenter::initWithDefaultCategories, failed " +
-                        "getRecipesForDiet(paleo) call");
+                Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipesForDiet, failed " +
+                        "getRecipesForDiet call. URL: " + call.request().url() + "\nMessage: " +
+                        t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
             }
         });
     }
@@ -50,13 +52,29 @@ public class CookbookFragmentPresenter {
         recipeRepository.getRecipesForRecipeType(recipeType, new Callback<List<MealTimeRecipe>>() {
             @Override
             public void onResponse(Call<List<MealTimeRecipe>> call, Response<List<MealTimeRecipe>> response) {
+                Log.i(Constants.TAG, "CookbookPresenter:getRecipesForType(), response body: " + response.body());
                 view.initWithData(response.body(), RecipeType.MEAT.getValue());
             }
 
             @Override
             public void onFailure(Call<List<MealTimeRecipe>> call, Throwable t) {
-                Log.d(Constants.TAG, "CookbookFragmentPresenter::initWithDefaultCategories, failed " +
-                        "getRecipesForType(meat) call");
+                Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipesForType\nMessage: "
+                        + t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
+            }
+        });
+    }
+
+    private void getRecipesForId(String id){
+        recipeRepository.getRecipesForId(id, new Callback<MealTimeRecipe>() {
+            @Override
+            public void onResponse(Call<MealTimeRecipe> call, Response<MealTimeRecipe> response) {
+      //          view.initWithData(response.body(), RecipeType.MEAT.getValue());
+            }
+
+            @Override
+            public void onFailure(Call<MealTimeRecipe> call, Throwable t) {
+                Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipesForId\nMessage: "
+                + t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
             }
         });
     }

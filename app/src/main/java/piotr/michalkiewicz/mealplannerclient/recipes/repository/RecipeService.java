@@ -6,15 +6,16 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RecipeService {
 
-    @GET("/recipes/getById/{recipeId}")
-    Call<MealTimeRecipe> getRecipeForId(@Path("recipeId") String recipeId);
+    @GET("/recipes/getById")
+    Call<MealTimeRecipe> getRecipeForId(@Query("recipeId") String recipeId);
 
-    @GET("/recipes/getByDiet/{dietType}")
-    Call<List<MealTimeRecipe>> getRecipeForDiet(@Path("dietType") String dietType);
+    @GET("/recipes/getByDiet")
+    Call<List<MealTimeRecipe>> getRecipeForDiet(@Query("recipeDiet") String dietType);
 
-    @GET("/recipes/getByType/{recipeType}")
-    Call<MealTimeRecipe> getRecipeForType(@Path("recipeType") String recipeType);
+    @GET("/recipes/getByType")
+    Call<List<MealTimeRecipe>> getRecipeForType(@Query("recipeType") String recipeType);
 }

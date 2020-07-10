@@ -5,39 +5,43 @@ import android.content.Context;
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.connection.AuthorizedApiClient;
-import piotr.michalkiewicz.mealplannerclient.connection.SingletonApiClient;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
 
 public class RecipeRepository {
 
     private AuthorizedApiClient apiClient;
+    private RecipeService recipeService;
 
     public RecipeRepository(Context context){
         apiClient = new AuthorizedApiClient(context);
     }
 
     public void getRecipesForDiet(String dietType, Callback<List<MealTimeRecipe>> callback){
-        Call<List<MealTimeRecipe>> callAsync = getRecipeService().getRecipeForDiet(dietType);
+        initRecipeServiceIfNull();
+        Call<List<MealTimeRecipe>> callAsync = recipeService.getRecipeForDiet(dietType);
 
         callAsync.enqueue(callback);
     }
 
     public void getRecipesForId(String id, Callback<MealTimeRecipe> callback){
-        Call<MealTimeRecipe> callAsync = getRecipeService().getRecipeForId(id);
+        initRecipeServiceIfNull();
+        Call<MealTimeRecipe> callAsync = recipeService.getRecipeForId(id);
 
         callAsync.enqueue(callback);
     }
 
     public void getRecipesForRecipeType(String recipeType, Callback<List<MealTimeRecipe>> callback){
-        Call<List<MealTimeRecipe>> callAsync = getRecipeService().getRecipeForDiet(recipeType);
+        initRecipeServiceIfNull();
+        Call<List<MealTimeRecipe>> callAsync = recipeService.getRecipeForType(recipeType);
 
         callAsync.enqueue(callback);
     }
 
-    private RecipeService getRecipeService(){
-        return apiClient.createService(RecipeService.class);
+    private void initRecipeServiceIfNull(){
+        if(recipeService==null) {
+            recipeService = apiClient.createService(RecipeService.class);
+        }
     }
 }

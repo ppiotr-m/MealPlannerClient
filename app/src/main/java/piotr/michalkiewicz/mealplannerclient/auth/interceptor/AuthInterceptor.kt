@@ -5,6 +5,7 @@ import android.util.Log
 import okhttp3.*
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
+import piotr.michalkiewicz.mealplannerclient.support.Constants
 import java.io.IOException
 
 /**
@@ -22,7 +23,6 @@ class AuthInterceptor(private val context: Context) : Interceptor, Authenticator
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
-
         myPreference.getToken()?.let {
             requestBuilder.addHeader("Authorization", "Bearer $it")
         }
@@ -44,7 +44,7 @@ class AuthInterceptor(private val context: Context) : Interceptor, Authenticator
                 }
                 return requestAvailable
             } catch (ex: Exception) {
-                Log.i("AuthInterceptor ex: ", ex.toString())
+                Log.i(Constants.TAG, ex.toString())
             }
         } else if (response?.code() == 500) {
             return null

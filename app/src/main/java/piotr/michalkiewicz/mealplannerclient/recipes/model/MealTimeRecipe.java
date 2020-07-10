@@ -2,8 +2,6 @@ package piotr.michalkiewicz.mealplannerclient.recipes.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.bson.types.Binary;
-
 import java.util.Date;
 import java.util.List;
 
@@ -25,8 +23,8 @@ public class MealTimeRecipe {
     @SerializedName("recipeType")
     private List<RecipeType> recipeType;
 
-    @SerializedName("recipeIngredients")
-    private List<FoodItem> recipeIngredients;
+ //   @SerializedName("recipeIngredients")
+ //   private List<FoodItem> recipeIngredients;
 
     @SerializedName("instructionSteps")
     private List<InstructionStep> instructionSteps;
@@ -41,7 +39,7 @@ public class MealTimeRecipe {
     private List<RecipeCuisine> recipeCuisines;
 
     @SerializedName("image")
-    private Binary image;
+    private byte[] image;
 
     @SerializedName("description")
     private String description;
@@ -73,7 +71,7 @@ public class MealTimeRecipe {
     public MealTimeRecipe(String id, String name, List<RecipeType> recipeType,
                           List<FoodItem> recipeIngredients, List<InstructionStep> instructionSteps,
                           Level level, List<Diet> suitableForDiet,
-                          List<RecipeCuisine> recipeCuisines, Binary image, String description,
+                          List<RecipeCuisine> recipeCuisines, byte[] image, String description,
                           String recipeYield, String from, String madeBY, String language,
                           List<String> recipeTag, List<Comment> comments, Date dateAdded,
                           Date dateEdited, double cookTime, double totalRating, long views,
@@ -81,7 +79,7 @@ public class MealTimeRecipe {
         this.id = id;
         this.name = name;
         this.recipeType = recipeType;
-        this.recipeIngredients = recipeIngredients;
+       // this.recipeIngredients = recipeIngredients;
         this.instructionSteps = instructionSteps;
         this.level = level;
         this.suitableForDiet = suitableForDiet;
@@ -128,7 +126,7 @@ public class MealTimeRecipe {
     public void setRecipeType(List<RecipeType> recipeType) {
         this.recipeType = recipeType;
     }
-
+/*
     public List<FoodItem> getRecipeIngredients() {
         return recipeIngredients;
     }
@@ -136,7 +134,7 @@ public class MealTimeRecipe {
     public void setRecipeIngredients(List<FoodItem> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
-
+*/
     public List<InstructionStep> getInstructionSteps() {
         return instructionSteps;
     }
@@ -169,11 +167,11 @@ public class MealTimeRecipe {
         this.recipeCuisines = recipeCuisines;
     }
 
-    public Binary getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Binary image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
