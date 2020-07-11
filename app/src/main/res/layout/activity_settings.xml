@@ -10,56 +10,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/profilePhotoImgView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@mipmap/zenon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/usernameTV"
-        style="@style/listHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Zenek Wertygo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePhotoImgView" />
-
-    <TextView
-        android:id="@+id/accountInfoTV"
-        style="@style/listElementText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/settings_label"
-        android:paddingHorizontal="16dp"
-        android:text="@string/account_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTV" />
-
-    <TextView
-        android:id="@+id/accountInfoTV2"
-        style="@style/listElementText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/settings_label"
-        android:paddingHorizontal="16dp"
-        android:text="@string/meals_prefs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationTV" />
+        <ImageView
+            android:id="@+id/profilePhotoImgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@mipmap/zenon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/accountInfoTV3"
+            android:id="@+id/usernameTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Zenek Wertygo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profilePhotoImgView" />
+
+        <TextView
+            android:id="@+id/accountInfoTV"
+            style="@style/listElementText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/settings_label"
+            android:paddingHorizontal="16dp"
+            android:text="@string/account_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameTV" />
+
+        <TextView
+            android:id="@+id/mealsPreferencesTV"
+            style="@style/listElementText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/settings_label"
+            android:paddingHorizontal="16dp"
+            android:text="@string/meals_prefs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationTV" />
+
+        <TextView
+            android:id="@+id/foodPreferencesTV"
             style="@style/listElementText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -72,115 +72,157 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/portionsTV2" />
 
-    <TextView
-        android:id="@+id/emailLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/email2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/emailTV"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/emailLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/email2"
+            app:layout_constraintBaseline_toBaselineOf="@+id/emailTV"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/emailTV"
-        style="@style/normalText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:text="zenek.wertygo@gmail.com"
-        app:layout_constraintStart_toStartOf="@id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
+        <TextView
+            android:id="@+id/emailTV"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:text="zenek.wertygo@gmail.com"
+            app:layout_constraintStart_toStartOf="@id/barrier"
+            app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
 
-    <Button
-        android:id="@+id/editEmailBtn"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_chevron_right_black_18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
+        <Button
+            android:id="@+id/editEmailBtn"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
 
-    <Button
-        android:id="@+id/editPasswordBtn"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_chevron_right_black_18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTV" />
+        <Button
+            android:id="@+id/editDietBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foodPreferencesTV" />
 
-    <Button
-        android:id="@+id/editLocationBtn"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_chevron_right_black_18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTV" />
+        <Button
+            android:id="@+id/editSexBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nutritionProfileTV" />
 
-    <TextView
-        android:id="@+id/passwordLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/password2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/passwordTV"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/editHeightBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sexTV" />
 
-    <TextView
-        android:id="@+id/passwordTV"
-        style="@style/normalText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="*********"
-        app:layout_constraintStart_toEndOf="@+id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/emailTV" />
+        <Button
+            android:id="@+id/editWeightBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/heightTV" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="right"
-        app:constraint_referenced_ids="passwordLabelTV,emailLabelTV" />
+        <Button
+            android:id="@+id/editPasswordBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailTV" />
 
-    <TextView
-        android:id="@+id/locationLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/location"
-        app:layout_constraintBaseline_toBaselineOf="@+id/locationTV"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/editLocationBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordTV" />
 
-    <TextView
-        android:id="@+id/locationTV"
-        style="@style/normalText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="Naggykutas, Hungary"
-        app:layout_constraintStart_toStartOf="@id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTV" />
+        <TextView
+            android:id="@+id/passwordLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/password2"
+            app:layout_constraintBaseline_toBaselineOf="@+id/passwordTV"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/portionsLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/portions_per_meal"
-        app:layout_constraintBaseline_toBaselineOf="@+id/subtractPortionsBtn"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/passwordTV"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="*********"
+            app:layout_constraintStart_toEndOf="@+id/barrier"
+            app:layout_constraintTop_toBottomOf="@+id/emailTV" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="right"
+            app:constraint_referenced_ids="passwordLabelTV,emailLabelTV"
+            tools:layout_editor_absoluteX="67dp" />
+
+        <TextView
+            android:id="@+id/locationLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/location"
+            app:layout_constraintBaseline_toBaselineOf="@+id/locationTV"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/locationTV"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="Naggykutas, Hungary"
+            app:layout_constraintStart_toStartOf="@id/barrier"
+            app:layout_constraintTop_toBottomOf="@+id/passwordTV" />
+
+        <TextView
+            android:id="@+id/portionsLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/portions_per_meal"
+            app:layout_constraintBaseline_toBaselineOf="@+id/subtractPortionsBtn"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/cookingTimeLabelTV"
@@ -192,116 +234,297 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/portionsTV3"
             app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/portionsTV"
-        style="@style/listHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="4"
-        app:layout_constraintStart_toEndOf="@+id/subtractPortionsBtn"
-        app:layout_constraintTop_toTopOf="@+id/subtractPortionsBtn" />
+        <TextView
+            android:id="@+id/portionsTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="4"
+            app:layout_constraintEnd_toStartOf="@+id/addPortionsBtn"
+            app:layout_constraintStart_toEndOf="@+id/subtractPortionsBtn"
+            app:layout_constraintTop_toTopOf="@+id/subtractPortionsBtn" />
 
-    <TextView
-        android:id="@+id/portionsTV3"
-        style="@style/listHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="&lt;50 min"
-        app:layout_constraintStart_toEndOf="@+id/subtractCookingTimeBtn"
-        app:layout_constraintTop_toTopOf="@+id/subtractCookingTimeBtn" />
+        <TextView
+            android:id="@+id/portionsTV3"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="&lt;50 min"
+            app:layout_constraintStart_toEndOf="@+id/subtractCookingTimeBtn"
+            app:layout_constraintTop_toTopOf="@+id/subtractCookingTimeBtn" />
 
-    <TextView
-        android:id="@+id/portionsTV2"
-        style="@style/listHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="5"
-        app:layout_constraintStart_toEndOf="@+id/subtractMealsBtn"
-        app:layout_constraintTop_toTopOf="@+id/subtractMealsBtn" />
+        <TextView
+            android:id="@+id/portionsTV2"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="5"
+            app:layout_constraintEnd_toStartOf="@+id/addPortionsBtn2"
+            app:layout_constraintStart_toEndOf="@+id/subtractMealsBtn"
+            app:layout_constraintTop_toTopOf="@+id/subtractMealsBtn" />
 
-    <Button
-        android:id="@+id/subtractPortionsBtn"
-        android:layout_width="24dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_remove_red_18dp"
-        app:layout_constraintStart_toStartOf="@id/barrier2"
-        app:layout_constraintTop_toBottomOf="@+id/subtractCookingTimeBtn" />
+        <Button
+            android:id="@+id/subtractPortionsBtn"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_remove_red_18dp"
+            app:layout_constraintStart_toStartOf="@+id/subtractCookingTimeBtn"
+            app:layout_constraintTop_toBottomOf="@+id/subtractCookingTimeBtn" />
 
-    <Button
-        android:id="@+id/subtractCookingTimeBtn"
-        android:layout_width="24dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_remove_red_18dp"
-        app:layout_constraintStart_toStartOf="@id/barrier2"
-        app:layout_constraintTop_toBottomOf="@+id/accountInfoTV2" />
+        <Button
+            android:id="@+id/subtractCookingTimeBtn"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_remove_red_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintStart_toStartOf="@id/barrier2"
+            app:layout_constraintTop_toBottomOf="@+id/mealsPreferencesTV" />
 
-    <Button
-        android:id="@+id/subtractMealsBtn"
-        android:layout_width="24dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_remove_red_18dp"
-        app:layout_constraintStart_toStartOf="@id/barrier2"
-        app:layout_constraintTop_toBottomOf="@+id/subtractPortionsBtn" />
+        <Button
+            android:id="@+id/subtractMealsBtn"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_remove_red_18dp"
+            app:layout_constraintStart_toStartOf="@+id/subtractPortionsBtn"
+            app:layout_constraintTop_toBottomOf="@+id/subtractPortionsBtn" />
 
-    <Button
-        android:id="@+id/addPortionsBtn"
-        android:layout_width="24dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_add_red_18dp"
-        app:layout_constraintStart_toEndOf="@+id/portionsTV"
-        app:layout_constraintTop_toBottomOf="@+id/addPortionsBtn3" />
+        <Button
+            android:id="@+id/addPortionsBtn"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_add_red_18dp"
+            app:layout_constraintStart_toStartOf="@+id/addPortionsBtn3"
+            app:layout_constraintTop_toBottomOf="@+id/addPortionsBtn3" />
 
-    <Button
-        android:id="@+id/addPortionsBtn3"
-        android:layout_width="24dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_add_red_18dp"
-        app:layout_constraintStart_toEndOf="@+id/portionsTV3"
-        app:layout_constraintTop_toBottomOf="@+id/accountInfoTV2" />
+        <Button
+            android:id="@+id/addPortionsBtn3"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_add_red_18dp"
+            app:layout_constraintStart_toEndOf="@+id/portionsTV3"
+            app:layout_constraintTop_toBottomOf="@+id/mealsPreferencesTV" />
 
-    <Button
-        android:id="@+id/addPortionsBtn2"
-        android:layout_width="24dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_add_red_18dp"
-        app:layout_constraintStart_toEndOf="@+id/portionsTV2"
-        app:layout_constraintTop_toBottomOf="@+id/addPortionsBtn" />
+        <Button
+            android:id="@+id/addPortionsBtn2"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_add_red_18dp"
+            app:layout_constraintStart_toStartOf="@+id/addPortionsBtn"
+            app:layout_constraintTop_toBottomOf="@+id/addPortionsBtn" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="right"
-        app:constraint_referenced_ids="portionsLabelTV,mealsLabelTV,cookingTimeLabelTV"
-        tools:layout_editor_absoluteX="411dp" />
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="right"
+            app:constraint_referenced_ids="portionsLabelTV,mealsLabelTV,cookingTimeLabelTV"
+            tools:layout_editor_absoluteX="411dp" />
 
-    <TextView
-        android:id="@+id/mealsLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/meals_per_mealplan"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subtractPortionsBtn" />
+        <TextView
+            android:id="@+id/mealsLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/meals_per_mealplan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subtractPortionsBtn" />
+
+        <TextView
+            android:id="@+id/dietLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/diet_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foodPreferencesTV" />
+
+        <TextView
+            android:id="@+id/dietTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Standard"
+            app:layout_constraintStart_toStartOf="@+id/barrier3"
+            app:layout_constraintTop_toBottomOf="@+id/foodPreferencesTV" />
+
+        <TextView
+            android:id="@+id/avoidedIngredientsLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/avoided_ingredients_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup" />
+
+        <TextView
+            android:id="@+id/allergiesLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/allergies_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dietTV" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="right"
+            app:constraint_referenced_ids="allergiesLabelTV,dietLabelTV,avoidedIngredientsLabelTV"
+            tools:layout_editor_absoluteX="479dp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/allergiesChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/barrier3"
+            app:layout_constraintTop_toBottomOf="@+id/dietTV">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                style="@style/listHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:checkable="false"
+                app:closeIcon="@drawable/ic_close_dark_16dp"
+                app:closeIconEnabled="true"
+                app:layout_constraintStart_toStartOf="@+id/barrier3"
+                app:layout_constraintTop_toBottomOf="@+id/dietTV"
+                tools:text="@string/allergy_gluten" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/avoidedIngredientsChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/barrier3"
+            app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                style="@style/listHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:checkable="false"
+                app:closeIcon="@drawable/ic_close_dark_16dp"
+                app:closeIconEnabled="true"
+                app:layout_constraintStart_toStartOf="@+id/barrier3"
+                app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup"
+                tools:text="@string/allergy_gluten" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/nutritionProfileTV"
+            style="@style/listElementText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/settings_label"
+            android:paddingHorizontal="16dp"
+            android:text="@string/nutrition_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avoidedIngredientsChipGroup" />
+
+        <TextView
+            android:id="@+id/sexLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/sex_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/sexTV"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/sexTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Male"
+            app:layout_constraintStart_toStartOf="@+id/barrier4"
+            app:layout_constraintTop_toBottomOf="@+id/nutritionProfileTV" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="right"
+            app:constraint_referenced_ids="sexLabelTV,heightLabelTV"
+            tools:layout_editor_absoluteX="470dp" />
+
+        <TextView
+            android:id="@+id/heightLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/height_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/heightTV"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/heightTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="178"
+            app:layout_constraintStart_toStartOf="@+id/barrier4"
+            app:layout_constraintTop_toBottomOf="@+id/sexTV" />
+        <TextView
+            android:id="@+id/weightLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/weight_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/weightTV"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/weightTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="75kg"
+            app:layout_constraintStart_toStartOf="@+id/barrier4"
+            app:layout_constraintTop_toBottomOf="@+id/heightTV" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -82,6 +82,13 @@
     <string name="meals_per_mealplan">Meals per meal plan:</string>
     <string name="cooking_time_label">Preferred cooking time:</string>
     <string name="food_preferences"><b>Food preferences</b></string>
+    <string name="diet_label">Diet:</string>
+    <string name="allergies_label">Allergies:</string>
+    <string name="avoided_ingredients_label">Avoided ingredients:</string>
+    <string name="nutrition_profile"><b>Nutrition profile</b></string>
+    <string name="sex_label">Sex:</string>
+    <string name="height_label">Height:</string>
+    <string name="weight_label">Weight:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
