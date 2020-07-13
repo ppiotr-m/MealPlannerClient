@@ -14,7 +14,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
-import piotr.michalkiewicz.mealplannerclient.view.activities.customization.SettingsActivity;
+import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
 
 public class LoginActivity extends AppCompatActivity {

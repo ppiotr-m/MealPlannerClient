@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="piotr.michalkiewicz.mealplannerclient">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,20 +18,35 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activities.customization.SettingsActivity"></activity>
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".view.activities.settings.EditLocationActivity"
+            android:label="@string/title_activity_edit_location"></activity>
+        <activity android:name=".view.activities.settings.EditPasswordActivity" />
+        <activity android:name=".view.activities.settings.SettingsActivity" />
         <activity android:name=".view.activities.authorization.RegistrationActivity" />
         <activity android:name=".view.activities.recipes.CookingStepsActivity" />
         <activity android:name=".view.activities.recipes.IngredientsActivity" />
-        <activity android:name=".auth.model.BasicAuth" />
-        <activity android:name=".auth.model.test" />
-        <activity android:name=".view.activities.customization.CustomizationFinishActivity" />
-        <activity android:name=".view.activities.customization.CookingTimeCustomizationActivity" />
-        <activity android:name=".view.activities.customization.ServingsCustomizationActivity" />
-        <activity android:name=".view.activities.customization.MealsNumberCustomizationActivity" />
-        <activity android:name=".view.activities.customization.DislikedIngredientsCustomization" />
-        <activity android:name=".view.activities.customization.AllergyCustomizationActivity" />
-        <activity android:name=".view.activities.customization.DietCustomizationActivity" />
-        <activity android:name=".view.activities.customization.StartCustomizationActivity" />
+        <activity android:name=".view.activities.personalization.CustomizationFinishActivity" />
+        <activity android:name=".view.activities.personalization.CookingTimeCustomizationActivity" />
+        <activity android:name=".view.activities.personalization.ServingsCustomizationActivity" />
+        <activity android:name=".view.activities.personalization.MealsNumberCustomizationActivity" />
+        <activity android:name=".view.activities.personalization.DislikedIngredientsCustomization" />
+        <activity android:name=".view.activities.personalization.AllergyCustomizationActivity" />
+        <activity android:name=".view.activities.personalization.DietCustomizationActivity" />
+        <activity android:name=".view.activities.personalization.StartCustomizationActivity" />
         <activity android:name=".auth.TestAuthActivity" />
         <activity
             android:name=".view.activities.recipes.RecipeActivity"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.customization.SettingsActivity">
+    tools:context=".view.activities.settings.SettingsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -91,17 +91,6 @@
             android:layout_marginTop="20dp"
             android:text="zenek.wertygo@gmail.com"
             app:layout_constraintStart_toStartOf="@id/barrier"
-            app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
-
-        <Button
-            android:id="@+id/editEmailBtn"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_chevron_right_black_18dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
 
         <Button

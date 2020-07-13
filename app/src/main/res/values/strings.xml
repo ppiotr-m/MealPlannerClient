@@ -89,6 +89,11 @@
     <string name="sex_label">Sex:</string>
     <string name="height_label">Height:</string>
     <string name="weight_label">Weight:</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="confirm">Confirm</string>
+    <string name="location_entry_hint">Country, city</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -104,4 +109,6 @@
         stopni C. Piec przez 60 minut. Sernik studzić stopniowo wyjmując z piekarnika (najpierw po
         trochu otwierając drzwiczki i lekko wysuwając sernik, w końcu wyjąć z piekarnika).
         Zrumieniony wierzch sernika posypać cukrem pudrem lub polać polewą czekoladową.</string>
+    <string name="title_activity_change_location">Map</string>
+    <string name="title_activity_edit_location">Map</string>
 </resources>
