@@ -3,8 +3,10 @@ package piotr.michalkiewicz.mealplannerclient.view.activities.settings
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.support.Constants
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -22,5 +24,53 @@ class SettingsActivity : AppCompatActivity() {
         editLocationBtn.setOnClickListener{
             startActivity(Intent(this@SettingsActivity, EditLocationActivity::class.java))
         }
+        increaseCookingTimeBtn.setOnClickListener {
+            increasePreferredCookingTime()
+        }
+        subtractCookingTimeBtn.setOnClickListener {
+            decreasePrefferedCookingTime()
+        }
+        addPortionsBtn.setOnClickListener{
+            increasePortionsPerMeal()
+        }
+        subtractPortionsBtn.setOnClickListener{
+            decreasePortionsPerMeal()
+        }
+        addMealsPerMealPlanBtn.setOnClickListener {
+            increaseMealsPerMealplan()
+        }
+        subtractMealsBtn.setOnClickListener {
+            decreaseMealsPerMealplan()
+        }
+
     }
+
+    private fun increasePortionsPerMeal(){
+        val currentValue = portionsTV.text.toString().toInt()
+        portionsTV.setText((currentValue+1).toString())
+    }
+    private fun decreasePortionsPerMeal(){
+        val currentValue = portionsTV.text.toString().toInt()
+        portionsTV.setText((currentValue-1).toString())
+    }
+    private fun increaseMealsPerMealplan(){
+        val currentValue = mealsPerMealPlanTV.text.toString().toInt()
+        mealsPerMealPlanTV.setText((currentValue+1).toString())
+    }
+    private fun decreaseMealsPerMealplan(){
+        val currentValue = mealsPerMealPlanTV.text.toString().toInt()
+        mealsPerMealPlanTV.setText((currentValue-1).toString())
+    }
+    private fun increasePreferredCookingTime(){
+        val currentValue = preferedCookingTimeTV.text.toString().toInt()
+   //     if(currentValue<)
+        preferedCookingTimeTV.setText((currentValue+5).toString())
+    }
+    private fun decreasePrefferedCookingTime(){
+        val currentValue = preferedCookingTimeTV.text.toString().toInt()
+        if(currentValue>5) {
+            preferedCookingTimeTV.setText((currentValue - 5).toString())
+        }
+    }
+
 }
