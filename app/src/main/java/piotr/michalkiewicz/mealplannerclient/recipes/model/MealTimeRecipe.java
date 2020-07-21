@@ -38,8 +38,8 @@ public class MealTimeRecipe {
     @SerializedName("recipeCuisines")
     private List<RecipeCuisine> recipeCuisines;
 
-    @SerializedName("image")
-    private byte[] image;
+//    @SerializedName("image")
+//    private byte[] image;
 
     @SerializedName("description")
     private String description;
@@ -71,7 +71,7 @@ public class MealTimeRecipe {
     public MealTimeRecipe(String id, String name, List<RecipeType> recipeType,
                           List<FoodItem> recipeIngredients, List<InstructionStep> instructionSteps,
                           Level level, List<Diet> suitableForDiet,
-                          List<RecipeCuisine> recipeCuisines, byte[] image, String description,
+                          List<RecipeCuisine> recipeCuisines, String description,
                           String recipeYield, String from, String madeBY, String language,
                           List<String> recipeTag, List<Comment> comments, Date dateAdded,
                           Date dateEdited, double cookTime, double totalRating, long views,
@@ -84,7 +84,7 @@ public class MealTimeRecipe {
         this.level = level;
         this.suitableForDiet = suitableForDiet;
         this.recipeCuisines = recipeCuisines;
-        this.image = image;
+  //      this.image = image;
         this.description = description;
         this.recipeYield = recipeYield;
         this.from = from;
@@ -167,14 +167,14 @@ public class MealTimeRecipe {
         this.recipeCuisines = recipeCuisines;
     }
 
-    public byte[] getImage() {
+  /*  public byte[] getImage() {
         return image;
     }
 
     public void setImage(byte[] image) {
         this.image = image;
     }
-
+*/
     public String getDescription() {
         return description;
     }

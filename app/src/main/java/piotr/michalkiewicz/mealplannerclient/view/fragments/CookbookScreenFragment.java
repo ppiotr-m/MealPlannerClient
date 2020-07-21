@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -18,7 +21,10 @@ import java.util.List;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeRepository;
+import piotr.michalkiewicz.mealplannerclient.support.Constants;
+import piotr.michalkiewicz.mealplannerclient.view.activities.recipes.RecipeActivity;
 import piotr.michalkiewicz.mealplannerclient.view.adapters.RecipeRecyclerViewAdapter;
+import piotr.michalkiewicz.mealplannerclient.view.creators.RecipeCategoryViewCreator;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.presenters.CookbookFragmentPresenter;
 
@@ -58,28 +64,11 @@ public class CookbookScreenFragment extends Fragment implements InitializableVie
 
     @Override
     public void initWithData(List<MealTimeRecipe> data, String category) {
-        ViewGroup recipesView = createRecipeCategoryView(data, category);
+        ViewGroup recipesView = RecipeCategoryViewCreator.createRecipeCategoryView(data, category, getContext());
+        recipesView.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), RecipeActivity.class);
+            startActivity(intent);
+        });
         recipesLayoutContainer.addView(recipesView);
-    }
-
-    private ViewGroup createRecipeCategoryView(List<MealTimeRecipe> data, String category){
-        LinearLayout container = new LinearLayout(getContext());
-        container.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        container.setOrientation(LinearLayout.VERTICAL);
-        TextView categoryTagTV = new TextView(
-                new ContextThemeWrapper(getContext(),R.style.listHeaderText));
-        categoryTagTV.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        categoryTagTV.setText(category);
-        RecyclerView recipesHorizontalView = new RecyclerView(getContext());
-        recipesHorizontalView.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        recipesHorizontalView.setAdapter(new RecipeRecyclerViewAdapter(getContext(), data));
-
-        container.addView(categoryTagTV);
-        container.addView(recipesHorizontalView);
-
-        return container;
     }
 }

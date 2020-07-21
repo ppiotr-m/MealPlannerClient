@@ -54,8 +54,8 @@
     <string name="next">Next</string>
     <string name="thank_you_customization">Good work!\nYou\'ve just set up the app!\nClick "Next"
         to jump into app!</string>
-    <string name="grade">Grade:</string>
-    <string name="views_nr">Views nr:</string>
+    <string name="totalLikes"><b>Total likes:</b></string>
+    <string name="views_nr"><b>Views nr:</b></string>
     <string name="cooking_time">Cooking time: </string>
     <string name="likes">Likes: </string>
     <string name="good_for">Good for: </string>
@@ -94,6 +94,7 @@
     <string name="confirm_new_password">Confirm new password</string>
     <string name="confirm">Confirm</string>
     <string name="location_entry_hint">Country, city</string>
+    <string name="loading">Loading...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

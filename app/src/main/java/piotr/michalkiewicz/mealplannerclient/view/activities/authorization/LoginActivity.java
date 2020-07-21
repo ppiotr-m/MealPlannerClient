@@ -14,6 +14,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
+import piotr.michalkiewicz.mealplannerclient.view.activities.dialogs.LoadingDialog;
 import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
 
@@ -61,10 +62,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String username, String password){
+        LoadingDialog dialog = new LoadingDialog(this);
+        dialog.startLoadingDialog();
         LoginClient client = new LoginClient();
         client.login(this, username, password, new LoginListener() {
             @Override
             public void loginSuccessful() {
+                dialog.dismissDialog();
                 Intent myIntent = new Intent(LoginActivity.this, MainMenuActivity.class);
                 startActivity(myIntent);
             }

@@ -56,21 +56,16 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
     }
 
     private void setOnClickListeners(){
-        goToIngredientsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        goToIngredientsBtn.setOnClickListener(v->{
                 Intent myIntent = new Intent(RecipeActivity.this,
                         IngredientsActivity.class);
                 startActivity(myIntent);
-            }
-        });
-        goToCookingStepsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            });
+
+        goToCookingStepsBtn.setOnClickListener(v->{
                 Intent myIntent = new Intent(RecipeActivity.this,
                         CookingStepsActivity.class);
                 startActivity(myIntent);
-            }
         });
     }
 

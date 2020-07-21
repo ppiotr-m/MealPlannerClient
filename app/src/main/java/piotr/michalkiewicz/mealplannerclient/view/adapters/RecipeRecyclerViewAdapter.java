@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.view.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,13 @@ import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.view.activities.recipes.RecipeActivity;
 
 public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.RecipeViewHolder> {
 
     private Context context;
     private List<MealTimeRecipe> recipeList;
+    private final String RECIPE_ID = "recipe_id";
 
     public RecipeRecyclerViewAdapter(Context context, List<MealTimeRecipe> recipeList){
         this.context = context;
@@ -45,10 +49,14 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
         MealTimeRecipe recipe = recipeList.get(position);
 
-    //    holder.container.setBackground(TemporaryImageProvider.getRandomImage());
+        holder.viewsNrTV.setText(String.valueOf(recipe.getViews()));
         holder.recipeTitleTV.setText(recipe.getName());
-        holder.container.setBackground(context.getResources().getDrawable(R.mipmap.random_dish));
-
+        holder.gradeTV.setText(String.valueOf(recipe.getTotalLikes()));
+        holder.container.setOnClickListener(v -> {
+            Intent intent = new Intent(this.context, RecipeActivity.class);
+            intent.putExtra(RECIPE_ID, recipe.getId());
+            this.context.startActivity(intent);
+        });
     }
 
     @Override
@@ -68,10 +76,10 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            container = itemView.findViewById(R.id.recipeImgAndDataLayout);
+            container = itemView.findViewById(R.id.cookbookThumbnailContainer);
             gradeTV = itemView.findViewById(R.id.gradeTV);
             viewsNrTV = itemView.findViewById(R.id.viewsNrTV);
-            addToMealPlanBtn = itemView.findViewById(R.id.addRecipeToMealPlanBtn);
+            addToMealPlanBtn = itemView.findViewById(R.id.addToMealPlanBtn);
             likeRecipeBtn = itemView.findViewById(R.id.likeRecipeBtn);
             recipeTitleTV = itemView.findViewById(R.id.recipeTitleTV);
         }
