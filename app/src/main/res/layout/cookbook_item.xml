@@ -1,56 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="180dp"
     android:layout_height="wrap_content"
+    android:id="@+id/cookbookThumbnailContainer"
     android:orientation="vertical"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/cookbookThumbnailIV"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:id="@+id/recipeImgAndDataLayout"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/gradeTV"
-            style="@style/recipeImgTextOverlay"
-            android:text="@string/grade"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/viewsNrTV"
-            style="@style/recipeImgTextOverlay"
-            android:text="@string/views_nr"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/addRecipeToMealPlanBtn"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:drawableStart="@drawable/ic_local_pizza_black_24dp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/likeRecipeBtn"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:drawableStart="@drawable/ic_favorite_border_black_24dp"/>
-
-    </RelativeLayout>
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/random_dish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/gradeLabelTV"
+        style="@style/recipe_thumbnail_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/totalLikes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/viewsNrLabelTV"
+        style="@style/recipe_thumbnail_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/views_nr"
+        app:layout_constraintBottom_toBottomOf="@+id/cookbookThumbnailIV"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/recipeTitleTV"
-        style="@style/recipeImgTextOverlay"/>
+        style="@style/recipeImgTextOverlay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cookbookThumbnailIV" />
+
+    <Button
+        android:id="@+id/addToMealPlanBtn"
+        android:layout_width="20dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@mipmap/zenek"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/likeRecipeBtn"
+        android:layout_width="20dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cookbookThumbnailIV"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/viewsNrTV"
+        style="@style/recipe_thumbnail_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewsNrLabelTV"
+        app:layout_constraintStart_toEndOf="@+id/viewsNrLabelTV"
+        app:layout_constraintTop_toTopOf="@+id/viewsNrLabelTV" />
+
+    <TextView
+        android:id="@+id/gradeTV"
+        style="@style/recipe_thumbnail_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gradeLabelTV"
+        app:layout_constraintStart_toEndOf="@+id/gradeLabelTV"
+        app:layout_constraintTop_toTopOf="@+id/gradeLabelTV" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

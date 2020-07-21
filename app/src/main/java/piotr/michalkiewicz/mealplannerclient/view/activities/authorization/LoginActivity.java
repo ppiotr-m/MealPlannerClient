@@ -14,12 +14,14 @@ import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
-import piotr.michalkiewicz.mealplannerclient.view.activities.customization.SettingsActivity;
+import piotr.michalkiewicz.mealplannerclient.view.activities.dialogs.LoadingDialog;
+import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginBtn;
+    private Button settingsTempBtn;
     private EditText loginET;
     private EditText passwordET;
     private View createAccountClickableTV;
@@ -41,11 +43,15 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.passwordEt);
         createAccountClickableTV = findViewById(R.id.createAccountTV);
         loginBtn = findViewById(R.id.loginBtn);
+        settingsTempBtn = findViewById(R.id.settingsBtn);
     }
 
     private void setOnClickListeners(){
         loginBtn.setOnClickListener(v->{
-          //  login(loginET.getText().toString(), passwordET.getText().toString());
+           login(loginET.getText().toString(), passwordET.getText().toString());
+        });
+
+        settingsTempBtn.setOnClickListener(v->{
             startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
         });
     }
@@ -56,10 +62,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String username, String password){
+        LoadingDialog dialog = new LoadingDialog(this);
+        dialog.startLoadingDialog();
         LoginClient client = new LoginClient();
         client.login(this, username, password, new LoginListener() {
             @Override
             public void loginSuccessful() {
+                dialog.dismissDialog();
                 Intent myIntent = new Intent(LoginActivity.this, MainMenuActivity.class);
                 startActivity(myIntent);
             }

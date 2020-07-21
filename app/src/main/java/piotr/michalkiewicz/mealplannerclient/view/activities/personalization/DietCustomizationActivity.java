@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.activities.customization;
+package piotr.michalkiewicz.mealplannerclient.view.activities.personalization;
 
 import androidx.appcompat.app.AppCompatActivity;
 

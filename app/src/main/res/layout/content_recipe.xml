@@ -7,19 +7,28 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.activities.recipes.RecipeActivity"
     tools:showIn="@layout/activity_recipe">
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <ImageView
+        android:id="@+id/tempImgView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tempImgView"/>
+        android:layout_height="250dp"
+        android:src="@mipmap/zen_na_talerzu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_alignParentTop="true"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        app:layout_constraintBottom_toBottomOf="@id/tempImgView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,44 +42,36 @@
 
         </LinearLayout>
     </HorizontalScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <TextView
+            android:id="@+id/cookingTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cooking_time" />
 
         <TextView
+            android:id="@+id/likedByTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cooking_time"
-            android:id="@+id/cookingTimeTV"/>
+            android:text="@string/likes" />
+
         <TextView
+            android:id="@+id/goodForTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/likes"
-            android:id="@+id/likedByTV"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/good_for"
-            android:id="@+id/goodForTV"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:text="@string/good_for" />
         <Button
+            android:id="@+id/goToIngredientsBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/ingredients"
-            android:id="@+id/goToIngredientsBtn"/>
+            android:text="@string/ingredients" />
+
         <Button
+            android:id="@+id/goToCookingStepsBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cooking_steps"
-            android:id="@+id/goToCookingStepsBtn"/>
-    </LinearLayout>
+            android:text="@string/cooking_steps" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,5 +95,5 @@
         android:id="@+id/commentsSection"
         android:orientation="vertical"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

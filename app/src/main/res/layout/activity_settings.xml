@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.customization.SettingsActivity">
+    tools:context=".view.activities.settings.SettingsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/portionsTV2" />
+            app:layout_constraintTop_toBottomOf="@+id/mealsPerMealPlanTV" />
 
         <TextView
             android:id="@+id/emailLabelTV"
@@ -91,17 +91,6 @@
             android:layout_marginTop="20dp"
             android:text="zenek.wertygo@gmail.com"
             app:layout_constraintStart_toStartOf="@id/barrier"
-            app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
-
-        <Button
-            android:id="@+id/editEmailBtn"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_chevron_right_black_18dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
 
         <Button
@@ -231,7 +220,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="@string/cooking_time_label"
-            app:layout_constraintBaseline_toBaselineOf="@+id/portionsTV3"
+            app:layout_constraintBaseline_toBaselineOf="@+id/preferedCookingTimeTV"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -246,24 +235,24 @@
             app:layout_constraintTop_toTopOf="@+id/subtractPortionsBtn" />
 
         <TextView
-            android:id="@+id/portionsTV3"
+            android:id="@+id/preferedCookingTimeTV"
             style="@style/listHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:text="&lt;50 min"
-            app:layout_constraintStart_toEndOf="@+id/subtractCookingTimeBtn"
+            android:text="50"
+            app:layout_constraintStart_toEndOf="@+id/ampersandTV"
             app:layout_constraintTop_toTopOf="@+id/subtractCookingTimeBtn" />
 
         <TextView
-            android:id="@+id/portionsTV2"
+            android:id="@+id/mealsPerMealPlanTV"
             style="@style/listHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="5"
-            app:layout_constraintEnd_toStartOf="@+id/addPortionsBtn2"
+            app:layout_constraintEnd_toStartOf="@+id/addMealsPerMealPlanBtn"
             app:layout_constraintStart_toEndOf="@+id/subtractMealsBtn"
             app:layout_constraintTop_toTopOf="@+id/subtractMealsBtn" />
 
@@ -303,21 +292,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/ic_add_red_18dp"
-            app:layout_constraintStart_toStartOf="@+id/addPortionsBtn3"
-            app:layout_constraintTop_toBottomOf="@+id/addPortionsBtn3" />
+            app:layout_constraintStart_toStartOf="@+id/increaseCookingTimeBtn"
+            app:layout_constraintTop_toBottomOf="@+id/increaseCookingTimeBtn" />
 
         <Button
-            android:id="@+id/addPortionsBtn3"
+            android:id="@+id/increaseCookingTimeBtn"
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/ic_add_red_18dp"
-            app:layout_constraintStart_toEndOf="@+id/portionsTV3"
+            app:layout_constraintStart_toEndOf="@+id/minutesLabelTV"
             app:layout_constraintTop_toBottomOf="@+id/mealsPreferencesTV" />
 
         <Button
-            android:id="@+id/addPortionsBtn2"
+            android:id="@+id/addMealsPerMealPlanBtn"
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -524,6 +513,28 @@
             android:text="75kg"
             app:layout_constraintStart_toStartOf="@+id/barrier4"
             app:layout_constraintTop_toBottomOf="@+id/heightTV" />
+
+        <TextView
+            android:id="@+id/ampersandTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="&lt;"
+            app:layout_constraintBottom_toBottomOf="@+id/preferedCookingTimeTV"
+            app:layout_constraintStart_toEndOf="@+id/subtractCookingTimeBtn"
+            app:layout_constraintTop_toTopOf="@+id/preferedCookingTimeTV" />
+
+        <TextView
+            android:id="@+id/minutesLabelTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="min"
+            app:layout_constraintBottom_toBottomOf="@+id/preferedCookingTimeTV"
+            app:layout_constraintStart_toEndOf="@+id/preferedCookingTimeTV"
+            app:layout_constraintTop_toTopOf="@+id/preferedCookingTimeTV" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

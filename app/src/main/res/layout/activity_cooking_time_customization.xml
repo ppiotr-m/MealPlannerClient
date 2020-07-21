@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.activities.customization.CookingTimeCustomizationActivity">
+    tools:context=".view.activities.personalization.CookingTimeCustomizationActivity">
 
     <TextView
         android:layout_width="match_parent"
