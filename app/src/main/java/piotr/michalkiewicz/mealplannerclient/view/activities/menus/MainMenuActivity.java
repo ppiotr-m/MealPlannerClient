@@ -21,13 +21,7 @@ import piotr.michalkiewicz.mealplannerclient.view.fragments.NutritionScreenFragm
 
 public class MainMenuActivity extends AppCompatActivity {
 
-    private Button yourWeekBtn;
-    private Button yourDietBtn;
-    private Button recipesBtn;
-    private Button groceriesBtn;
-    private LinearLayout imageContainer;
     private BottomNavigationView bottomNavigationView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +30,26 @@ public class MainMenuActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        init();
+    }
+
+    private void init(){
+        assignUIElements();
+        setBottomNavigationMenu();
+        setFragment(new HomeScreenFragment());
+    }
+
+    private void assignUIElements(){
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+    }
+
+    private void setBottomNavigationMenu(){
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
 
                 switch (item.getItemId()){
-
                     case R.id.navigation_home:
                         selectedFragment = new HomeScreenFragment();
                         break;
@@ -58,8 +64,7 @@ public class MainMenuActivity extends AppCompatActivity {
                         break;
                 }
                 if(selectedFragment!=null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.mainMenuFragmentContainer,
-                            selectedFragment).commit();
+                    setFragment(selectedFragment);
                     return true;
                 }
                 else{
@@ -69,4 +74,8 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
+    private void setFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainMenuFragmentContainer,
+                fragment).commit();
+    }
 }

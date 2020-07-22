@@ -18,11 +18,12 @@ import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.view.activities.recipes.RecipeActivity;
 
+import static piotr.michalkiewicz.mealplannerclient.support.Constants.RECIPE_ID;
+
 public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.RecipeViewHolder> {
 
     private Context context;
     private List<MealTimeRecipe> recipeList;
-    private final String RECIPE_ID = "recipe_id";
 
     public RecipeRecyclerViewAdapter(Context context, List<MealTimeRecipe> recipeList){
         this.context = context;

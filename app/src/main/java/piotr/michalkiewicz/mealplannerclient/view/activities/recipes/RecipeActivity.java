@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import static piotr.michalkiewicz.mealplannerclient.support.Constants.RECIPE_ID;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.view.adapters.RecipeImgFragmentAdapter;
@@ -27,6 +29,10 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
     private ImageView temp;
     private Button goToIngredientsBtn;
     private Button goToCookingStepsBtn;
+    private TextView aboutMealTV;
+    private TextView cookingTimeTV;
+    private TextView likedByTV;
+    private TextView goodForTV;
 
     private RecipePresenter presenter;
 
@@ -44,7 +50,7 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
 //        adapter = new RecipeImgFragmentAdapter(getSupportFragmentManager(), getPhotos());
 //        viewPager.setAdapter(adapter);
         presenter = new RecipePresenter(this, this);
-        presenter.fetchRecipe(getIntent().getStringExtra("recipeId"));
+        presenter.fetchRecipe(getIntent().getStringExtra(RECIPE_ID));
     }
 
     private void assignUIElements(){
@@ -53,6 +59,10 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
         viewPager = findViewById(R.id.viewPager);
         goToCookingStepsBtn = findViewById(R.id.goToCookingStepsBtn);
         goToIngredientsBtn = findViewById(R.id.goToIngredientsBtn);
+        aboutMealTV = findViewById(R.id.aboutMealTV);
+        cookingTimeTV = findViewById(R.id.cookingTimeTV);
+        likedByTV = findViewById(R.id.likedByTV);
+        goodForTV = findViewById(R.id.goodForTV);
     }
 
     private void setOnClickListeners(){
@@ -71,6 +81,14 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
 
     @Override
     public void initWithData(MealTimeRecipe data, String category) {
-
+        if(data==null){
+            // TODO obsluga tego nulla
+            finish();
+            return;
+        }
+        aboutMealTV.setText(data.getDescription());
+        cookingTimeTV.setText(String.valueOf(data.getCookTime()));
+        likedByTV.setText(String.valueOf(data.getTotalLikes()));
+        goodForTV.setText("TODO");
     }
 }

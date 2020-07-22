@@ -48,7 +48,7 @@
         <item name="android:textColor">@color/colorBlack</item>
     </style>
     <style name="recipe_thumbnail_text">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
     </style>
     <style name="loading_dialog_text">

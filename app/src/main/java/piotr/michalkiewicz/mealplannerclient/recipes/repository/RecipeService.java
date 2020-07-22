@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 public interface RecipeService {
 
     @GET("/recipes/getById")
-    Call<MealTimeRecipe> getRecipeForId(@Query("recipeId") String recipeId);
+    Call<MealTimeRecipe> getRecipeForId(@Query("id") String recipeId);
 
     @GET("/recipes/getByDiet")
     Call<List<MealTimeRecipe>> getRecipeForDiet(@Query("recipeDiet") String dietType);

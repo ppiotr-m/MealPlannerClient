@@ -9,14 +9,26 @@
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp">
 
-    <ImageView
-        android:id="@+id/cookbookThumbnailIV"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:id="@+id/cookbookThumbailImgContainer"
         android:layout_marginTop="8dp"
-        android:src="@mipmap/random_dish"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/cookbookThumbnailIV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/random_dish" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/opaqueBlack" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/gradeLabelTV"
@@ -37,7 +49,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/views_nr"
-        app:layout_constraintBottom_toBottomOf="@+id/cookbookThumbnailIV"
+        app:layout_constraintBottom_toBottomOf="@+id/cookbookThumbailImgContainer"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -47,7 +59,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cookbookThumbnailIV" />
+        app:layout_constraintTop_toBottomOf="@id/cookbookThumbailImgContainer" />
 
     <Button
         android:id="@+id/addToMealPlanBtn"
@@ -65,7 +77,7 @@
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cookbookThumbnailIV"
+        app:layout_constraintBottom_toBottomOf="@+id/cookbookThumbailImgContainer"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView

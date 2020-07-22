@@ -67,7 +67,7 @@ public class CookbookFragmentPresenter {
     }
 
     private void getRecipesForId(String id){
-        recipeRepository.getRecipesForId(id, new Callback<MealTimeRecipe>() {
+        recipeRepository.getRecipeForId(id, new Callback<MealTimeRecipe>() {
             @Override
             public void onResponse(Call<MealTimeRecipe> call, Response<MealTimeRecipe> response) {
       //          view.initWithData(response.body(), RecipeType.MEAT.getValue());
@@ -75,7 +75,7 @@ public class CookbookFragmentPresenter {
 
             @Override
             public void onFailure(Call<MealTimeRecipe> call, Throwable t) {
-                Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipesForId\nMessage: "
+                Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipeForId\nMessage: "
                 + t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
             }
         });

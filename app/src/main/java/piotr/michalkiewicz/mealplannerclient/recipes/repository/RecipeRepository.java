@@ -25,7 +25,7 @@ public class RecipeRepository {
         callAsync.enqueue(callback);
     }
 
-    public void getRecipesForId(String id, Callback<MealTimeRecipe> callback){
+    public void getRecipeForId(String id, Callback<MealTimeRecipe> callback){
         initRecipeServiceIfNull();
         Call<MealTimeRecipe> callAsync = recipeService.getRecipeForId(id);
 

@@ -7,93 +7,191 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.activities.recipes.RecipeActivity"
     tools:showIn="@layout/activity_recipe">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/tempImgView"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:src="@mipmap/zen_na_talerzu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:layout_constraintBottom_toBottomOf="@id/tempImgView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/horizontalScrollView"
-        >
-        <LinearLayout
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/tempImgView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@mipmap/zen_na_talerzu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/imageContainer">
+            android:layout_alignParentTop="true"
+            app:layout_constraintBottom_toBottomOf="@id/tempImgView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
-    </HorizontalScrollView>
-    <TextView
-            android:id="@+id/cookingTimeTV"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/imageContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/cookingTimeLabelTV"
+            style="@style/normalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cooking_time" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/cooking_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tempImgView" />
+
+        <TextView
+            android:id="@+id/likedByLabelTV"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/likes"
+            app:layout_constraintStart_toStartOf="@+id/cookingTimeLabelTV"
+            app:layout_constraintTop_toBottomOf="@+id/cookingTimeLabelTV" />
+
+        <TextView
+            android:id="@+id/goodForLabelTV"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/good_for"
+            app:layout_constraintStart_toStartOf="@+id/likedByLabelTV"
+            app:layout_constraintTop_toBottomOf="@+id/likedByLabelTV" />
+
+        <LinearLayout
+            android:id="@+id/buttonsContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goodForLabelTV">
+
+            <Button
+                android:id="@+id/goToIngredientsBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="@string/ingredients"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goodForLabelTV" />
+
+            <Button
+                android:id="@+id/goToCookingStepsBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:text="@string/cooking_steps"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/goToIngredientsBtn"
+                app:layout_constraintTop_toTopOf="@+id/goToIngredientsBtn" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/aboutLabelTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/about_meal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonsContainer" />
+
+        <TextView
+            android:id="@+id/aboutMealTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutLabelTV" />
+
+        <TextView
+            android:id="@+id/commentsSectionTV"
+            style="@style/listHeaderText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/comments_section"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutMealTV" />
+
+        <LinearLayout
+            android:id="@+id/commentsSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/commentsSectionTV" />
+
+        <TextView
+            android:id="@+id/cookingTimeTV"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cookingTimeLabelTV"
+            app:layout_constraintStart_toEndOf="@id/barrier5"
+            app:layout_constraintTop_toTopOf="@+id/cookingTimeLabelTV" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="right"
+            app:constraint_referenced_ids="likedByLabelTV,cookingTimeLabelTV,goodForLabelTV"
+            tools:layout_editor_absoluteX="411dp" />
 
         <TextView
             android:id="@+id/likedByTV"
+            style="@style/normalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/likes" />
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/likedByLabelTV"
+            app:layout_constraintStart_toEndOf="@id/barrier5"
+            app:layout_constraintTop_toTopOf="@+id/likedByLabelTV" />
 
         <TextView
             android:id="@+id/goodForTV"
+            style="@style/normalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/good_for" />
-        <Button
-            android:id="@+id/goToIngredientsBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/ingredients" />
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/goodForLabelTV"
+            app:layout_constraintStart_toEndOf="@id/barrier5"
+            app:layout_constraintTop_toTopOf="@+id/goodForLabelTV" />
 
-        <Button
-            android:id="@+id/goToCookingStepsBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cooking_steps" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/about_meal"
-        style="@style/listHeaderText"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/aboutMealTV"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/comments_section"
-        android:id="@+id/commentsSectionTV"
-        style="@style/RecipeTitle"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/commentsSection"
-        android:orientation="vertical"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

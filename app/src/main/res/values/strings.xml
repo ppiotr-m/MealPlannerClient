@@ -61,8 +61,8 @@
     <string name="good_for">Good for: </string>
     <string name="ingredients">Ingredients</string>
     <string name="cooking_steps">Cooking Steps</string>
-    <string name="comments_section">Comments</string>
-    <string name="about_meal">About:</string>
+    <string name="comments_section">Comments:</string>
+    <string name="about_meal">About meal:</string>
     <string name="login_failed">Login failed</string>
     <string name="email">E-mail</string>
     <string name="email2">E-mail:</string>
@@ -95,6 +95,7 @@
     <string name="confirm">Confirm</string>
     <string name="location_entry_hint">Country, city</string>
     <string name="loading">Loading...</string>
+    <string name="your_plan"><b>Your plan:</b></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
