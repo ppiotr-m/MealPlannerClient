@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -75,7 +76,10 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void loginFailed() {
-                Log.i(Constants.TAG, "Login failed");
+                dialog.dismissDialog();
+                LoginActivity.this.runOnUiThread(()-> {
+                        Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_LONG).show();
+                });
             }
         });
     }

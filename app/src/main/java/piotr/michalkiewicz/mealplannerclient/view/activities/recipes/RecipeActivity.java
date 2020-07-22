@@ -13,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import static piotr.michalkiewicz.mealplannerclient.support.Constants.COOKING_STEPS_DATA;
+import static piotr.michalkiewicz.mealplannerclient.support.Constants.INGREDIENTS_DATA;
 import static piotr.michalkiewicz.mealplannerclient.support.Constants.RECIPE_ID;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
@@ -35,6 +40,8 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
     private TextView goodForTV;
 
     private RecipePresenter presenter;
+
+    private MealTimeRecipe data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +74,18 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
 
     private void setOnClickListeners(){
         goToIngredientsBtn.setOnClickListener(v->{
+            if(data==null) throw new RuntimeException();
                 Intent myIntent = new Intent(RecipeActivity.this,
-                        IngredientsActivity.class);
+                    IngredientsActivity.class);
+                myIntent.putExtra(INGREDIENTS_DATA, (ArrayList) data.getRecipeIngredients());
                 startActivity(myIntent);
             });
 
         goToCookingStepsBtn.setOnClickListener(v->{
+            if(data==null) throw new RuntimeException();
                 Intent myIntent = new Intent(RecipeActivity.this,
                         CookingStepsActivity.class);
+                myIntent.putExtra(COOKING_STEPS_DATA, (ArrayList) data.getInstructionSteps());
                 startActivity(myIntent);
         });
     }
@@ -86,6 +97,7 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
             finish();
             return;
         }
+        this.data = data;
         aboutMealTV.setText(data.getDescription());
         cookingTimeTV.setText(String.valueOf(data.getCookTime()));
         likedByTV.setText(String.valueOf(data.getTotalLikes()));

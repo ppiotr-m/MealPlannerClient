@@ -26,6 +26,9 @@ public class MealTimeRecipe {
  //   @SerializedName("recipeIngredients")
  //   private List<FoodItem> recipeIngredients;
 
+    @SerializedName("recipeIngredients")
+    private List<RecipeIngredient> recipeIngredients;
+
     @SerializedName("instructionSteps")
     private List<InstructionStep> instructionSteps;
 
@@ -69,7 +72,7 @@ public class MealTimeRecipe {
     private long totalLikes;
 
     public MealTimeRecipe(String id, String name, List<RecipeType> recipeType,
-                          List<FoodItem> recipeIngredients, List<InstructionStep> instructionSteps,
+                          List<RecipeIngredient> recipeIngredients, List<InstructionStep> instructionSteps,
                           Level level, List<Diet> suitableForDiet,
                           List<RecipeCuisine> recipeCuisines, String description,
                           String recipeYield, String from, String madeBY, String language,
@@ -79,7 +82,7 @@ public class MealTimeRecipe {
         this.id = id;
         this.name = name;
         this.recipeType = recipeType;
-       // this.recipeIngredients = recipeIngredients;
+        this.recipeIngredients = recipeIngredients;
         this.instructionSteps = instructionSteps;
         this.level = level;
         this.suitableForDiet = suitableForDiet;
@@ -126,15 +129,15 @@ public class MealTimeRecipe {
     public void setRecipeType(List<RecipeType> recipeType) {
         this.recipeType = recipeType;
     }
-/*
-    public List<FoodItem> getRecipeIngredients() {
+
+    public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
 
-    public void setRecipeIngredients(List<FoodItem> recipeIngredients) {
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
-*/
+
     public List<InstructionStep> getInstructionSteps() {
         return instructionSteps;
     }

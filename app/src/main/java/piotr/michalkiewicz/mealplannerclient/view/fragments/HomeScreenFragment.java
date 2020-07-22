@@ -39,10 +39,7 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
-
         init(view);
-
-        Log.i(Constants.TAG, "HomeScreenFragment::onCreateView");
 
         return view;
     }
@@ -64,8 +61,6 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
     public void initWithData(MealTimeRecipe data, int frameNr) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View recipeView;
-
-        Log.i(Constants.TAG, "HomeScreenFragment::initWithData");
 
         switch (frameNr){
             case 1: recipeView = inflater.inflate(R.layout.cookbook_item, frame1, false);
