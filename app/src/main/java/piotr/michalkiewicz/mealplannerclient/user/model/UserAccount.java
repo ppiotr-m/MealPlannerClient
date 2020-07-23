@@ -15,7 +15,9 @@ public class UserAccount {
     public static UserAccount createMockUserAccount(){
         UserAccount account = new UserAccount();
 
-        account.setId();
+        account.setId("");
+
+        return account;
     }
 
     public UserAccount() {
