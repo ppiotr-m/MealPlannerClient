@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.user.model;
 
-public class Diets {
+import java.io.Serializable;
+
+public class Diets implements Serializable {
 
     private boolean standard;
     private boolean vegetarian;

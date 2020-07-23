@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.user.model;
 
-public class Allergies {
+import java.io.Serializable;
+
+public class Allergies implements Serializable {
 
     private boolean gluten;
     private boolean dairy;

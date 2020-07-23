@@ -1,9 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.user.model;
 
+import java.io.Serializable;
+
 import piotr.michalkiewicz.mealplannerclient.user.model.enums.ActivityLevel;
 import piotr.michalkiewicz.mealplannerclient.user.model.enums.Sex;
 
-public class NutritionProfileSettings {
+public class NutritionProfileSettings implements Serializable {
 
     private Sex sex;
     private int height;
@@ -20,7 +22,7 @@ public class NutritionProfileSettings {
         settings.setWeight(75);
         settings.setAge(30);
         settings.setGoal(80);
-        settings.setActivityLevel(ActivityLevel.MODERATLY_ACTIVE);
+        settings.setActivityLevel(ActivityLevel.MODERATELY_ACTIVE);
 
         return settings;
     }

@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.user.model;
 
-public class RecipeTypesSetting {
+import java.io.Serializable;
+
+public class RecipeTypesSetting implements Serializable {
 
     private boolean soup;
     private boolean fish;

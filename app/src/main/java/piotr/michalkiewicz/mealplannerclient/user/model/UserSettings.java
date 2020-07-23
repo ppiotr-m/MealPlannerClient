@@ -1,9 +1,10 @@
 package piotr.michalkiewicz.mealplannerclient.user.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserSettings {
+public class UserSettings implements Serializable {
 
     private RecipeTypesSetting recipeTypesSetting;
     private NutritionProfileSettings nutritionProfileSettings;

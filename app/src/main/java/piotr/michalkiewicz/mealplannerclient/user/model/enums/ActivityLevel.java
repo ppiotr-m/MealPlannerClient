@@ -1,9 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.user.model.enums;
 
-public enum ActivityLevel {
-    SEDENTERY ("Sedentery"),
+import java.io.Serializable;
+
+public enum ActivityLevel implements Serializable {
+    SEDENTARY("Sedentary"),
     LIGHTLY_ACTIVE ("LightlyActive"),
-    MODERATLY_ACTIVE ("ModeratlyActive"),
+    MODERATELY_ACTIVE("ModeratelyActive"),
     VERY_ACTIVE ("VeryActive");
 
     ActivityLevel(String name){

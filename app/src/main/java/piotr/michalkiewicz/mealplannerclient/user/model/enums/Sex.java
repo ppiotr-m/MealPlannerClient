@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.user.model.enums;
 
-public enum Sex {
+import java.io.Serializable;
+
+public enum Sex implements Serializable {
     MALE ("Male"),
     FEMALE ("Female");
 

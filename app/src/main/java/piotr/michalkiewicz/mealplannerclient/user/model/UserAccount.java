@@ -1,8 +1,10 @@
 package piotr.michalkiewicz.mealplannerclient.user.model;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
-public class UserAccount {
+public class UserAccount implements Serializable {
 
     private String id;
     private String email;
@@ -16,6 +18,17 @@ public class UserAccount {
         UserAccount account = new UserAccount();
 
         account.setId("");
+        account.setEmail("aaa@bbb.com");
+        account.setName("Zenek");
+        account.setUsername("Zenon");
+        account.setPassword("aaa");
+        Set<Role> roles = new HashSet<>();
+        Role r = new Role();
+        r.setId("a");
+        r.setRole("user");
+        roles.add(r);
+        account.setRoles(roles);
+        account.setUserSettings(UserSettings.createMockUserSettings());
 
         return account;
     }
