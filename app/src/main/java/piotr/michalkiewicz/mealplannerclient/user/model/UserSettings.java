@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.user.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserSettings {
@@ -14,6 +15,26 @@ public class UserSettings {
     private int portionPreferences;
     private int cookingTimePreference;
     private int mealsPerMealPlanPreference;
+
+    public static UserSettings createMockUserSettings(){
+        UserSettings settings = new UserSettings();
+
+        settings.setRecipeTypesSetting(RecipeTypesSetting.initRecipeTypes());
+        settings.setNutritionProfileSettings(NutritionProfileSettings.createMockNutritionProfileSettings());
+        settings.setAllergies(Allergies.initAllergies());
+        settings.setDiets(Diets.initDiets());
+        settings.setUnlikeIngredients(new LinkedList<>());
+        settings.setEatenRecipes(new LinkedList<>());
+        settings.setLanguage("Polish");
+        settings.setPortionPreferences(4);
+        settings.setCookingTimePreference(60);
+        settings.setMealsPerMealPlanPreference(5);
+
+        return settings;
+    }
+
+    public UserSettings() {
+    }
 
     public UserSettings(RecipeTypesSetting recipeTypesSetting, NutritionProfileSettings nutritionProfileSettings,
                         Allergies allergies, Diets diets, List<String> unlikeIngredients,

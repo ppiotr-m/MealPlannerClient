@@ -12,6 +12,12 @@ public class UserAccount {
     private Set<Role> roles;
     private UserSettings userSettings;
 
+    public static UserAccount createMockUserAccount(){
+        UserAccount account = new UserAccount();
+
+        account.setId();
+    }
+
     public UserAccount() {
     }
 
