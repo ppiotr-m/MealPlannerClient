@@ -7,14 +7,24 @@ import android.util.Log
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.support.Constants
+import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView
+import piotr.michalkiewicz.mealplannerclient.view.presenters.SettingsActivityPresenter
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
+
+    private val presenter = SettingsActivityPresenter(this, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        init();
+    }
+
+    private fun init(){
         setOnClickListeners()
+        presenter.initSettingsViewWithData()
     }
 
     private fun setOnClickListeners() {
@@ -71,6 +81,10 @@ class SettingsActivity : AppCompatActivity() {
         if(currentValue>5) {
             preferedCookingTimeTV.setText((currentValue - 5).toString())
         }
+    }
+
+    override fun initWithData(data: UserAccount?, frameNr: Int) {
+
     }
 
 }

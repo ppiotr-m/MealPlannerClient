@@ -33,6 +33,25 @@ public class UserAccount implements Serializable {
         return account;
     }
 
+    public static UserAccount createMockUserAccountWithParams(String email, String password){
+        UserAccount account = new UserAccount();
+
+        account.setId("");
+        account.setEmail(email);
+        account.setName("Zenek");
+        account.setUsername("Zenon");
+        account.setPassword(password);
+        Set<Role> roles = new HashSet<>();
+        Role r = new Role();
+        r.setId("a");
+        r.setRole("user");
+        roles.add(r);
+        account.setRoles(roles);
+        account.setUserSettings(UserSettings.createMockUserSettings());
+
+        return account;
+    }
+
     public UserAccount() {
     }
 

@@ -25,11 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="188dp"
         android:text="@string/email"
-        app:layout_constraintBottom_toTopOf="@+id/loginEt"
-        app:layout_constraintStart_toStartOf="@+id/loginEt" />
+        app:layout_constraintBottom_toTopOf="@+id/emailET"
+        app:layout_constraintStart_toStartOf="@+id/emailET" />
 
     <EditText
-        android:id="@+id/loginEt"
+        android:id="@+id/emailET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/login_et"
@@ -46,11 +46,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/password"
-        app:layout_constraintBottom_toTopOf="@+id/passwordEt"
-        app:layout_constraintStart_toStartOf="@+id/passwordEt" />
+        app:layout_constraintBottom_toTopOf="@+id/passwordET"
+        app:layout_constraintStart_toStartOf="@+id/passwordET" />
 
     <EditText
-        android:id="@+id/passwordEt"
+        android:id="@+id/passwordET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -58,7 +58,7 @@
         android:textColorHint="@color/brightGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEt"
+        app:layout_constraintTop_toBottomOf="@+id/emailET"
         app:layout_constraintWidth_percent="0.6" />
 
     <EditText
@@ -70,7 +70,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEt"
+        app:layout_constraintTop_toBottomOf="@+id/passwordET"
         app:layout_constraintWidth_percent="0.6" />
 
     <TextView
@@ -83,7 +83,7 @@
         app:layout_constraintStart_toStartOf="@+id/confirmPasswordET" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/createAccountBtn"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
