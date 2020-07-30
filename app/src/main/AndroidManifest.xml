@@ -47,7 +47,6 @@
         <activity android:name=".view.activities.personalization.AllergyCustomizationActivity" />
         <activity android:name=".view.activities.personalization.DietCustomizationActivity" />
         <activity android:name=".view.activities.personalization.StartCustomizationActivity" />
-        <activity android:name=".auth.TestAuthActivity" />
         <activity
             android:name=".view.activities.recipes.RecipeActivity"
             android:label="@string/title_activity_recipe"

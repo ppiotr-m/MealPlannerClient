@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.activities.menus;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.fragments.CookbookScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.fragments.HomeScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.fragments.MealPlansFragment;
@@ -21,7 +19,6 @@ import piotr.michalkiewicz.mealplannerclient.view.fragments.NutritionScreenFragm
 public class MainMenuActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    public static SharedPreferences myPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +26,6 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        // I doesn't have idea yest where to put it it Must be Activity
-
-       myPreferences = getApplicationContext().getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE);
 
         init();
     }
