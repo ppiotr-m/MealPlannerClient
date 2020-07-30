@@ -2,28 +2,27 @@ package piotr.michalkiewicz.mealplannerclient.view.activities.recipes;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.COOKING_STEPS_DATA;
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.INGREDIENTS_DATA;
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.RECIPE_ID;
+import java.util.ArrayList;
+
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.view.adapters.RecipeImgFragmentAdapter;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.presenters.RecipePresenter;
+
+import static piotr.michalkiewicz.mealplannerclient.support.Constants.COOKING_STEPS_DATA;
+import static piotr.michalkiewicz.mealplannerclient.support.Constants.INGREDIENTS_DATA;
+import static piotr.michalkiewicz.mealplannerclient.support.Constants.RECIPE_ID;
 
 public class RecipeActivity extends AppCompatActivity implements InitializableViewWithCategory<MealTimeRecipe> {
 
@@ -38,6 +37,7 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
     private TextView cookingTimeTV;
     private TextView likedByTV;
     private TextView goodForTV;
+    private ImageView recipeImageView;
 
     private RecipePresenter presenter;
 
@@ -70,6 +70,7 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
         cookingTimeTV = findViewById(R.id.cookingTimeTV);
         likedByTV = findViewById(R.id.likedByTV);
         goodForTV = findViewById(R.id.goodForTV);
+        recipeImageView = findViewById(R.id.recipeImageView);
     }
 
     private void setOnClickListeners(){
@@ -92,6 +93,10 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
 
     @Override
     public void initWithData(MealTimeRecipe data, String category) {
+        Log.i("TESTY MORDO", data.toString());
+//        Bitmap convertedImage = BitmapFactory.decodeStream(rawImage);
+
+
         if(data==null){
             // TODO obsluga tego nulla
             finish();

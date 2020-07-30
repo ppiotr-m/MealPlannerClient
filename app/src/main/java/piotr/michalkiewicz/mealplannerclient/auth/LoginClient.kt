@@ -84,7 +84,7 @@ class LoginClient {
 
     private fun initPreference(context: Context) {
         if (!::myPreference.isInitialized) {
-            myPreference = MyPreference(context)
+            myPreference = MyPreference()
         }
     }
 }

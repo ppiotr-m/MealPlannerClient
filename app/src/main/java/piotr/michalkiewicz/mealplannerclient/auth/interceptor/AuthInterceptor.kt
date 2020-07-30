@@ -14,7 +14,7 @@ import java.io.IOException
 
 class AuthInterceptor(private val context: Context) : Interceptor, Authenticator {
 
-    private val myPreference: MyPreference = MyPreference(context)
+    private val myPreference: MyPreference = MyPreference()
     private val loginClient: LoginClient = LoginClient()
 
     /**

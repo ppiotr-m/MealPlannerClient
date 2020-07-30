@@ -2,7 +2,6 @@ package piotr.michalkiewicz.mealplannerclient.view.activities.authorization;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
-import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.view.activities.dialogs.LoadingDialog;
-import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -53,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         settingsTempBtn.setOnClickListener(v->{
-            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
+//            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
+
         });
     }
 

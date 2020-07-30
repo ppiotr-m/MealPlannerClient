@@ -20,7 +20,7 @@ class TestAuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basic_auth)  // loading animation ?
 
-        myPreference = MyPreference(this)
+        myPreference = MyPreference()
         testApiService = ServiceGenerator().getTestApiService(this)
         testTestApiSecond = ServiceGenerator().getTestApiServiceSecond(this)
 //        apiInterface = ServiceGenerator().getApiInterface(this)
