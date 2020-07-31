@@ -3,9 +3,12 @@ package piotr.michalkiewicz.mealplannerclient.view.activities.authorization
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_registration.*
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
+import piotr.michalkiewicz.mealplannerclient.support.Constants
 import piotr.michalkiewicz.mealplannerclient.user.account.AccountDataStorage
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository
@@ -41,8 +44,10 @@ class RegistrationActivity : AppCompatActivity() {
         repository.signUp(UserAccount.createMockUserAccountWithParams(email, password), object : Callback<UserAccount>{
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 showSignUpSuccessfulToast()
+                Log.i(Constants.TAG, "Response: " + response.message() +"\n" + response.toString())
                 AccountDataStorage.storeAccountData(response.body())
-                startActivity(Intent(this@RegistrationActivity, MainMenuActivity::class.java))
+            //    startActivity(Intent(this@RegistrationActivity, MainMenuActivity::class.java))
+                finish()
             }
 
             override fun onFailure(call: Call<UserAccount>, t: Throwable) {

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.view.activities.recipes.RecipeActivity;
+import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView;
 import piotr.michalkiewicz.mealplannerclient.view.presenters.HomeScreenPresenter;
 
@@ -30,6 +32,7 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
     private FrameLayout frame2;
     private FrameLayout frame3;
     private FrameLayout frame4;
+    private Button btn;
 
     private HomeScreenPresenter presenter;
 
@@ -55,6 +58,11 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
         frame2 = view.findViewById(R.id.secondPropFrame);
         frame3 = view.findViewById(R.id.thirdPropFrame);
         frame4 = view.findViewById(R.id.fourthPropFrame);
+        btn = view.findViewById(R.id.settingsTempBtn);
+
+        btn.setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
+        });
     }
 
     @Override
@@ -80,6 +88,7 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
 
     private View fillViewWithRecipeData(View view, MealTimeRecipe recipe){
 
+        /*
         ((TextView)view.findViewById(R.id.viewsNrTV)).setText(String.valueOf(recipe.getViews()));
         ((TextView)view.findViewById(R.id.recipeTitleTV)).setText(recipe.getName());
         ((TextView)view.findViewById(R.id.gradeTV)).setText(String.valueOf(recipe.getTotalLikes()));
@@ -88,7 +97,7 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
             intent.putExtra(RECIPE_ID, recipe.getId());
             getContext().startActivity(intent);
         });
-
+ */
         return view;
     }
 }

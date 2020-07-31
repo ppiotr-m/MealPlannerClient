@@ -6,6 +6,7 @@ import android.util.Log;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository;
+import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,9 +17,10 @@ public class SettingsActivityPresenter {
     private InitializableView view;
     private UserRepository repository;
 
-    public SettingsActivityPresenter(InitializableView view, Context context){
-        this.view = view;
-        repository = new UserRepository(context);
+    public SettingsActivityPresenter(SettingsActivity activity){
+        this.view = activity;
+        if(activity==null) Log.d(Constants.TAG, "Null context at SettingsActivityPresenter constructor");
+        repository = new UserRepository(activity);
     }
 
     public void initSettingsViewWithData(){

@@ -13,7 +13,7 @@ import piotr.michalkiewicz.mealplannerclient.view.presenters.SettingsActivityPre
 
 class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
 
-    private val presenter = SettingsActivityPresenter(this, this)
+    private val presenter = SettingsActivityPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +84,8 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
     }
 
     override fun initWithData(data: UserAccount?, frameNr: Int) {
-
+        Log.i(Constants.TAG, "User data: " + data?.email)
+        Log.i(Constants.TAG, "Init with data, 2")
     }
 
 }
