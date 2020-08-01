@@ -1,11 +1,9 @@
 package piotr.michalkiewicz.mealplannerclient.view.presenters;
 
-import android.content.Context;
-
+import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeRepository;
+import piotr.michalkiewicz.mealplannerclient.recipes.nameToDoNoRepo.RecipeService;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView;
-import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,18 +11,22 @@ import retrofit2.Response;
 public class HomeScreenPresenter {
 
     private InitializableView view;
-    private RecipeRepository recipeRepository;
+    private ServiceGenerator serviceGenerator;
 
-    public HomeScreenPresenter(InitializableView view, Context context){
+    public HomeScreenPresenter(InitializableView view) {
         this.view = view;
-        recipeRepository = new RecipeRepository(context);
+        this.serviceGenerator = new ServiceGenerator();
     }
 
-    public void initWithTemporaryRecipes(){
-        recipeRepository.getRecipeForId("5e9b0884c18f0c68c680102e", new Callback<MealTimeRecipe>() {
+    public void initWithTemporaryRecipes() {
+        RecipeService recipeService = serviceGenerator.getRecipeApi();
+
+
+        recipeService.getRecipeForId("5e9b0884c18f0c68c680102e").enqueue(new Callback<MealTimeRecipe>() {
             @Override
             public void onResponse(Call<MealTimeRecipe> call, Response<MealTimeRecipe> response) {
                 view.initWithData(response.body(), 1);
+
             }
 
             @Override
@@ -32,7 +34,8 @@ public class HomeScreenPresenter {
 
             }
         });
-        recipeRepository.getRecipeForId("5e9b410dc18f0c68c680102f", new Callback<MealTimeRecipe>() {
+
+        recipeService.getRecipeForId("5e9b410dc18f0c68c680102f").enqueue(new Callback<MealTimeRecipe>() {
             @Override
             public void onResponse(Call<MealTimeRecipe> call, Response<MealTimeRecipe> response) {
                 view.initWithData(response.body(), 2);
@@ -43,7 +46,7 @@ public class HomeScreenPresenter {
 
             }
         });
-        recipeRepository.getRecipeForId("5e9b4b20c18f0c68c6801031", new Callback<MealTimeRecipe>() {
+        recipeService.getRecipeForId("5e9b4b20c18f0c68c6801031").enqueue(new Callback<MealTimeRecipe>() {
             @Override
             public void onResponse(Call<MealTimeRecipe> call, Response<MealTimeRecipe> response) {
                 view.initWithData(response.body(), 3);
@@ -54,7 +57,7 @@ public class HomeScreenPresenter {
 
             }
         });
-        recipeRepository.getRecipeForId("5e9b4eaac18f0c68c6801032", new Callback<MealTimeRecipe>() {
+        recipeService.getRecipeForId("5e9b4eaac18f0c68c6801032").enqueue(new Callback<MealTimeRecipe>() {
             @Override
             public void onResponse(Call<MealTimeRecipe> call, Response<MealTimeRecipe> response) {
                 view.initWithData(response.body(), 4);

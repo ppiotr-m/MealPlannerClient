@@ -1,11 +1,10 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.repository;
+package piotr.michalkiewicz.mealplannerclient.recipes.nameToDoNoRepo;
 
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RecipeService {
