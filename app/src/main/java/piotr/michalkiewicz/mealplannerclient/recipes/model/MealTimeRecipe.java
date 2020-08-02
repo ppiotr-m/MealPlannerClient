@@ -1,8 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.model;
 
-import com.google.gson.annotations.SerializedName;
+import android.graphics.Bitmap;
 
-import org.bson.types.Binary;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 import java.util.List;
@@ -45,7 +45,7 @@ public class MealTimeRecipe {
     private List<RecipeCuisine> recipeCuisines;
 
     @SerializedName("image")
-    private Binary image;
+    private Bitmap image;
 
     @SerializedName("description")
     private String description;

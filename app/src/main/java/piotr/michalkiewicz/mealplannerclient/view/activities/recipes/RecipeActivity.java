@@ -2,7 +2,6 @@ package piotr.michalkiewicz.mealplannerclient.view.activities.recipes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -93,9 +92,6 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
 
     @Override
     public void initWithData(MealTimeRecipe data, String category) {
-        Log.i("TESTY MORDO", data.toString());
-//        Bitmap convertedImage = BitmapFactory.decodeStream(rawImage);
-
 
         if(data==null){
             // TODO obsluga tego nulla
@@ -103,6 +99,7 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
             return;
         }
         this.data = data;
+        recipeImageView.setImageBitmap(data.getImage());
         aboutMealTV.setText(data.getDescription());
         cookingTimeTV.setText(String.valueOf(data.getCookTime()));
         likedByTV.setText(String.valueOf(data.getTotalLikes()));
