@@ -36,21 +36,21 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // I doesn't have idea yest where to put it it Must be Activity
         myPreferences = getApplicationContext().getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE);
-        checkLoginState();
-
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        setSupportActionBar(toolbar);
         assingUiElements();
+        checkLoginState();
+        setOnClickListeners();
     }
 
     private void checkLoginState() {
         loginClient.refreshToken(Objects.requireNonNull(new MyPreference().getRefreshToken()), new LoginListener() {
             @Override
             public void loginFailed() {
-                setContentView(R.layout.activity_login);
-                setOnClickListeners();
+
             }
 
             @Override

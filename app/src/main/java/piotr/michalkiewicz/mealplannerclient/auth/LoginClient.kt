@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginClient {
 
-    private val myPreference = MyPreference()
     private var loginClient: OkHttpClient = okHttpClientBuilder()
 
     private val loginConnection by lazy {
@@ -39,7 +38,7 @@ class LoginClient {
         loginEndpoint.subscribeOn(Schedulers.io())
                 .subscribe({ result ->
                     Log.i("Token expires in: ", result.expiresIn.toString())
-                    myPreference.setToken(result)
+                    MyPreference().setToken(result)
                     loginListener.loginSuccessful()
                 },
                         { error ->
@@ -61,10 +60,14 @@ class LoginClient {
                 loginListener.loginFailed()
             }
 
-            override fun onResponse(call: Call<Token>, response: Response<Token>) {
+            override fun onResponse(call: Call<Token>, response: Response<Token>) { //toDo check method with shorter token validity
                 val token = response.body()
-                token?.let { MyPreference().setToken(it) }
-                loginListener.loginSuccessful()
+                if (response.code() == 400) {
+                    loginListener.loginFailed()
+                } else {
+                    token?.let { MyPreference().setToken(it) }
+                    loginListener.loginSuccessful()
+                }
             }
         })
     }
