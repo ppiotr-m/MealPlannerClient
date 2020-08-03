@@ -32,7 +32,6 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
     private FrameLayout frame2;
     private FrameLayout frame3;
     private FrameLayout frame4;
-    private Button btn;
 
     private HomeScreenPresenter presenter;
 
@@ -58,11 +57,6 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
         frame2 = view.findViewById(R.id.secondPropFrame);
         frame3 = view.findViewById(R.id.thirdPropFrame);
         frame4 = view.findViewById(R.id.fourthPropFrame);
-        btn = view.findViewById(R.id.settingsTempBtn);
-
-        btn.setOnClickListener(v->{
-            startActivity(new Intent(getActivity(), SettingsActivity.class));
-        });
     }
 
     @Override

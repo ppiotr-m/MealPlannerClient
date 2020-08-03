@@ -16,4 +16,7 @@ public interface UserService {
     @POST("/user/signUp")
     Call<UserAccount> signUp(@Body UserAccount userAccount);
 
+    @POST("/user/account")
+    Call<UserAccount> editAccountSettings(@Body UserAccount userAccount);
+
 }

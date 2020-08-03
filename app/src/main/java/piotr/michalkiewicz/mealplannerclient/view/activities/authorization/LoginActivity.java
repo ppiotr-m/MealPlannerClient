@@ -20,7 +20,6 @@ import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActiv
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginBtn;
-    private Button settingsTempBtn;
     private EditText loginET;
     private EditText passwordET;
     private View createAccountClickableTV;
@@ -42,16 +41,11 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.passwordET);
         createAccountClickableTV = findViewById(R.id.createAccountTV);
         loginBtn = findViewById(R.id.loginBtn);
-        settingsTempBtn = findViewById(R.id.settingsBtn);
     }
 
     private void setOnClickListeners(){
         loginBtn.setOnClickListener(v->{
            login(loginET.getText().toString(), passwordET.getText().toString());
-        });
-
-        settingsTempBtn.setOnClickListener(v->{
-            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
         });
     }
 

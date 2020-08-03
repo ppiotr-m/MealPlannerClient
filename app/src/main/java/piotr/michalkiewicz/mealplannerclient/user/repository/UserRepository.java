@@ -29,9 +29,16 @@ public class UserRepository {
 
     public void signUp(UserAccount userAccount, Callback<UserAccount> callback){
         initUserServiceIfNull();
-        Call<UserAccount> callAsyns = userService.signUp(userAccount);
+        Call<UserAccount> callAsync = userService.signUp(userAccount);
 
-        callAsyns.enqueue(callback);
+        callAsync.enqueue(callback);
+    }
+
+    public void saveUserAccountData(UserAccount data, Callback<UserAccount> callback){
+        initUserServiceIfNull();
+        Call<UserAccount> callAsync = userService.editAccountSettings(data);
+
+        callAsync.enqueue(callback);
     }
 
     private void initUserServiceIfNull(){

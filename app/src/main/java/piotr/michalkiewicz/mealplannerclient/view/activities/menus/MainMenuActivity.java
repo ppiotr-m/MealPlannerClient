@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.activities.menus;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import piotr.michalkiewicz.mealplannerclient.R;
+import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.fragments.CookbookScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.fragments.HomeScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.fragments.MealPlansFragment;
@@ -62,6 +64,9 @@ public class MainMenuActivity extends AppCompatActivity {
                     case R.id.navigation_nutrition:
                         selectedFragment = new NutritionScreenFragment();
                         break;
+                    case R.id.navigation_settings:
+                        startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
+                        return false;
                 }
                 if(selectedFragment!=null) {
                     setFragment(selectedFragment);

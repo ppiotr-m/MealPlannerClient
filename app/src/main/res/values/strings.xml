@@ -104,6 +104,7 @@
     <string name="password_confirmation_failed">Password and confrimation don\'t match.</string>
     <string name="sign_up_successful">Account has been successfully created, welcome!</string>
     <string name="sign_up_failed">Account could not be created. Contact us for support!</string>
+    <string name="password_not_match_current">Current password you provided is incorrect.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
