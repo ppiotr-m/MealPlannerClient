@@ -11,9 +11,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Objects;
+
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
+import piotr.michalkiewicz.mealplannerclient.auth.MyPreference;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.activities.dialogs.LoadingDialog;
 import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
@@ -26,19 +29,36 @@ public class LoginActivity extends AppCompatActivity {
     private EditText loginET;
     private EditText passwordET;
     private View createAccountClickableTV;
+    private LoginClient loginClient = new LoginClient();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // I doesn't have idea yest where to put it it Must be Activity
+        myPreferences = getApplicationContext().getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE);
+        checkLoginState();
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         assingUiElements();
-        setOnClickListeners();
+    }
 
-        // I doesn't have idea yest where to put it it Must be Activity
-        myPreferences = getApplicationContext().getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE);
+    private void checkLoginState() {
+        loginClient.refreshToken(Objects.requireNonNull(new MyPreference().getRefreshToken()), new LoginListener() {
+            @Override
+            public void loginFailed() {
+                setContentView(R.layout.activity_login);
+                setOnClickListeners();
+            }
+
+            @Override
+            public void loginSuccessful() {
+                Intent myIntent = new Intent(LoginActivity.this, MainMenuActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
     private void assingUiElements() {
@@ -68,8 +88,7 @@ public class LoginActivity extends AppCompatActivity {
     private void login(String username, String password) {
         LoadingDialog dialog = new LoadingDialog(this);
         dialog.startLoadingDialog();
-        LoginClient client = new LoginClient();
-        client.login(username, password, new LoginListener() {
+        loginClient.login(username, password, new LoginListener() {
             @Override
             public void loginSuccessful() {
                 dialog.dismissDialog();

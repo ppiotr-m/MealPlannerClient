@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.auth
 
 import piotr.michalkiewicz.mealplannerclient.auth.model.Token
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN_SHARED_PREF
 import piotr.michalkiewicz.mealplannerclient.view.activities.authorization.LoginActivity
 
 class MyPreference { // toDo  http://blog.udinic.com/2013/04/24/write-your-own-android-authenticator/
@@ -13,7 +14,7 @@ class MyPreference { // toDo  http://blog.udinic.com/2013/04/24/write-your-own-a
     }
 
     fun getRefreshToken(): String? {
-        return preference.getString("REFRESH_TOKEN", "")
+        return preference.getString(REFRESH_TOKEN_SHARED_PREF, "")
     }
 
     fun setToken(token: Token) {

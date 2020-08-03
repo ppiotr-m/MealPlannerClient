@@ -6,10 +6,13 @@ import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.LoginInterceptor
+import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASE_URL
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.GRANT_TYPE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PASSWORD_GRANT_TYPE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -45,28 +48,25 @@ class LoginClient {
                         })
     }
 
-
-
-//    fun login(username: String, password: String, loginListener: LoginListener) {
-//        val loginEndpoint = loginConnection.login(username, password, PASSWORD_GRANT_TYPE)
-//
-//        try {
-//            val token = loginEndpoint.execute().body()
-//            token?.let { myPreference.setToken(it) }
-//        } catch (ex: Exception){
-//            ex.printStackTrace()
-//        }
-//    }
-
     /**
      * refresh token and replace actual token in shared preference
      */
 
-    fun refreshToken() {
-        val refreshTokenEndpoint = loginConnection.refreshToken(GRANT_TYPE, REFRESH_TOKEN)
-        val tokenResponse = refreshTokenEndpoint.execute()
-        val token = tokenResponse.body()
-        token?.let { myPreference.setToken(it) }
+    fun refreshToken(refreshToken: String, loginListener: LoginListener) {
+        val refreshTokenEndpoint = loginConnection.refreshToken(REFRESH_TOKEN, refreshToken)
+
+        refreshTokenEndpoint.enqueue(object : Callback<Token> {
+            override fun onFailure(call: Call<Token>, t: Throwable) {
+                Log.i("refreshToken()", t.message)
+                loginListener.loginFailed()
+            }
+
+            override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                val token = response.body()
+                token?.let { MyPreference().setToken(it) }
+                loginListener.loginSuccessful()
+            }
+        })
     }
 
     private fun loginConnection(): OAuth2 {
