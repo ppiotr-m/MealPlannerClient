@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/tempImgView"
+            android:id="@+id/recipeImageView"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:src="@mipmap/zen_na_talerzu"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            app:layout_constraintBottom_toBottomOf="@id/tempImgView"
+            app:layout_constraintBottom_toBottomOf="@id/recipeImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -54,7 +54,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/cooking_time"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tempImgView" />
+            app:layout_constraintTop_toBottomOf="@+id/recipeImageView" />
 
         <TextView
             android:id="@+id/likedByLabelTV"

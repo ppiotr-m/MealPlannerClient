@@ -1,10 +1,10 @@
 package piotr.michalkiewicz.mealplannerclient.view.presenters;
 
-import android.content.Context;
 import android.util.Log;
 
+import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeRepository;
+import piotr.michalkiewicz.mealplannerclient.recipes.nameToDoNoRepo.RecipeService;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
 import retrofit2.Call;
@@ -13,16 +13,17 @@ import retrofit2.Response;
 
 public class RecipePresenter {
     private InitializableViewWithCategory<MealTimeRecipe> view;
-    RecipeRepository recipeRepository;
+    private final ServiceGenerator serviceGenerator;
 
-    public RecipePresenter(InitializableViewWithCategory<MealTimeRecipe> view, Context context) {
+    public RecipePresenter(InitializableViewWithCategory<MealTimeRecipe> view) {
         this.view = view;
-        recipeRepository = new RecipeRepository(context);
+        this.serviceGenerator = new ServiceGenerator();
     }
 
     public void fetchRecipe(String recipeId){
+        final RecipeService recipeService = serviceGenerator.getRecipeApi();
 
-        recipeRepository.getRecipeForId(recipeId, new Callback<MealTimeRecipe>() {
+        recipeService.getRecipeForId(recipeId).enqueue(new Callback<MealTimeRecipe>() {
             @Override
             public void onResponse(Call<MealTimeRecipe> call, Response<MealTimeRecipe> response) {
                 Log.i(Constants.TAG, "RecipePresenter::fetchRecipe()::onResponse(), responseCode: "

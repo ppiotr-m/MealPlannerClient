@@ -1,14 +1,14 @@
 package piotr.michalkiewicz.mealplannerclient.view.presenters;
 
-import android.content.Context;
 import android.util.Log;
 
 import java.util.List;
 
+import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.RecipeType;
-import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeRepository;
+import piotr.michalkiewicz.mealplannerclient.recipes.nameToDoNoRepo.RecipeService;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
 import retrofit2.Call;
@@ -18,14 +18,15 @@ import retrofit2.Response;
 public class CookbookFragmentPresenter {
 
     private InitializableViewWithCategory view;
-    private RecipeRepository recipeRepository;
+    private final ServiceGenerator serviceGenerator = new ServiceGenerator();
+    private final RecipeService recipeService = serviceGenerator.getRecipeApi();
 
-    public CookbookFragmentPresenter(InitializableViewWithCategory view, Context context){
+    public CookbookFragmentPresenter(InitializableViewWithCategory view) {
         this.view = view;
-        recipeRepository = new RecipeRepository(context);
     }
 
-    public void initWithDefaultCategories(){
+    public void initWithDefaultCategories() {
+
         getRecipesForType(RecipeType.MEAT.getValue());
         getRecipesForDiet(Diet.PALEO.getValue());
         getRecipesForType(RecipeType.SOUP.getValue());
@@ -33,8 +34,8 @@ public class CookbookFragmentPresenter {
         getRecipesForDiet(Diet.STANDARD.getValue());
     }
 
-    private void getRecipesForDiet(String dietType){
-        recipeRepository.getRecipesForDiet(dietType, new Callback<List<MealTimeRecipe>>() {
+    private void getRecipesForDiet(String dietType) {
+        recipeService.getRecipeForDiet(dietType).enqueue(new Callback<List<MealTimeRecipe>>() {
             @Override
             public void onResponse(Call<List<MealTimeRecipe>> call, Response<List<MealTimeRecipe>> response) {
                 Log.i(Constants.TAG, "CookbookPresenter:getRecipesForDiet(), response code: " +
@@ -50,8 +51,9 @@ public class CookbookFragmentPresenter {
             }
         });
     }
-    private void getRecipesForType(String recipeType){
-        recipeRepository.getRecipesForRecipeType(recipeType, new Callback<List<MealTimeRecipe>>() {
+
+    private void getRecipesForType(String recipeType) {
+        recipeService.getRecipeForType(recipeType).enqueue(new Callback<List<MealTimeRecipe>>() {
             @Override
             public void onResponse(Call<List<MealTimeRecipe>> call, Response<List<MealTimeRecipe>> response) {
                 Log.i(Constants.TAG, "CookbookPresenter:getRecipesForType(), response body: " + response.body());
@@ -66,17 +68,17 @@ public class CookbookFragmentPresenter {
         });
     }
 
-    private void getRecipesForId(String id){
-        recipeRepository.getRecipeForId(id, new Callback<MealTimeRecipe>() {
+    private void getRecipesForId(String id) {
+        recipeService.getRecipeForId(id).enqueue(new Callback<MealTimeRecipe>() {
             @Override
             public void onResponse(Call<MealTimeRecipe> call, Response<MealTimeRecipe> response) {
-      //          view.initWithData(response.body(), RecipeType.MEAT.getValue());
+                //          view.initWithData(response.body(), RecipeType.MEAT.getValue());
             }
 
             @Override
             public void onFailure(Call<MealTimeRecipe> call, Throwable t) {
                 Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipeForId\nMessage: "
-                + t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
+                        + t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
             }
         });
     }

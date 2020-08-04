@@ -2,7 +2,6 @@ package piotr.michalkiewicz.mealplannerclient.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.List;
-
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.view.activities.recipes.RecipeActivity;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView;
 import piotr.michalkiewicz.mealplannerclient.view.presenters.HomeScreenPresenter;
@@ -46,7 +42,7 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
 
     private void init(View view){
         assignUIElements(view);
-        presenter = new HomeScreenPresenter(this, getContext());
+        presenter = new HomeScreenPresenter(this);
         presenter.initWithTemporaryRecipes();
     }
 
