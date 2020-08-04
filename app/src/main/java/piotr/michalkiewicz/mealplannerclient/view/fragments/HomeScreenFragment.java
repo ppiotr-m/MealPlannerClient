@@ -1,12 +1,10 @@
 package piotr.michalkiewicz.mealplannerclient.view.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,11 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.view.activities.recipes.RecipeActivity;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView;
 import piotr.michalkiewicz.mealplannerclient.view.presenters.HomeScreenPresenter;
-
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.RECIPE_ID;
 
 public class HomeScreenFragment extends Fragment implements InitializableView<MealTimeRecipe> {
 
@@ -76,6 +71,7 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
 
     private View fillViewWithRecipeData(View view, MealTimeRecipe recipe){
 
+        /*
         ((TextView)view.findViewById(R.id.viewsNrTV)).setText(String.valueOf(recipe.getViews()));
         ((TextView)view.findViewById(R.id.recipeTitleTV)).setText(recipe.getName());
         ((TextView)view.findViewById(R.id.gradeTV)).setText(String.valueOf(recipe.getTotalLikes()));
@@ -84,7 +80,7 @@ public class HomeScreenFragment extends Fragment implements InitializableView<Me
             intent.putExtra(RECIPE_ID, recipe.getId());
             getContext().startActivity(intent);
         });
-
+ */
         return view;
     }
 }

@@ -12,5 +12,11 @@ class ConstantValues {
         const val REFRESH_TOKEN_SHARED_PREF = "REFRESH_TOKEN"
         const val GRANT_TYPE = "grant_type"
         const val MY_PREFERENCE_NAME = "mealTime"
+        @JvmStatic
+        val REFRESH_TOKEN_GRANT_TYPE = "refresh_token"
+        @JvmStatic
+        val SETTINGS_DATA = "settings_data"
+        @JvmStatic
+        val TAG = "MealPlanner"
     }
 }

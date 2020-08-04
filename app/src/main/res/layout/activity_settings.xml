@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Zenek Wertygo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profilePhotoImgView" />
@@ -170,6 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
+            android:inputType="textPassword"
             android:text="*********"
             app:layout_constraintStart_toEndOf="@+id/barrier"
             app:layout_constraintTop_toBottomOf="@+id/emailTV" />
@@ -484,6 +484,7 @@
             android:text="@string/height_label"
             app:layout_constraintBaseline_toBaselineOf="@+id/heightTV"
             app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/heightTV"
             style="@style/listHeaderText"
@@ -503,6 +504,7 @@
             android:text="@string/weight_label"
             app:layout_constraintBaseline_toBaselineOf="@+id/weightTV"
             app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/weightTV"
             style="@style/listHeaderText"
@@ -535,6 +537,29 @@
             app:layout_constraintBottom_toBottomOf="@+id/preferedCookingTimeTV"
             app:layout_constraintStart_toEndOf="@+id/preferedCookingTimeTV"
             app:layout_constraintTop_toTopOf="@+id/preferedCookingTimeTV" />
+
+        <TextView
+            android:id="@+id/weightUnitTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="kg"
+            app:layout_constraintBottom_toBottomOf="@+id/weightTV"
+            app:layout_constraintStart_toEndOf="@+id/weightTV"
+            app:layout_constraintTop_toTopOf="@+id/weightTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/heightUnitTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="cm"
+            app:layout_constraintBottom_toBottomOf="@+id/heightTV"
+            app:layout_constraintStart_toEndOf="@+id/heightTV"
+            app:layout_constraintTop_toTopOf="@+id/heightTV" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,25 +1,49 @@
 package piotr.michalkiewicz.mealplannerclient.view.activities.settings
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.support.Constants
+import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
+import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView
+import piotr.michalkiewicz.mealplannerclient.view.presenters.SettingsActivityPresenter
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
+
+    private val presenter = SettingsActivityPresenter(this)
+
+    private val editPasswordActivityContract = registerForActivityResult(EditPasswordActivityContract()) {
+        result ->
+        if(result == null) throw RuntimeException()
+        presenter.data = result
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        init()
+    }
+
+    private fun init(){
         setOnClickListeners()
+        presenter.initSettingsViewWithData()
     }
 
     private fun setOnClickListeners() {
         editPasswordBtn.setOnClickListener{
-            startActivity(Intent(this@SettingsActivity, EditPasswordActivity::class.java))
+
+            editPasswordActivityContract.launch(presenter.data)
+/*
+            val intent = Intent(this@SettingsActivity, EditPasswordActivity::class.java)
+            intent.putExtra(SETTINGS_DATA, presenter.data)
+            startActivity(intent)
+
+ */
         }
         editLocationBtn.setOnClickListener{
             startActivity(Intent(this@SettingsActivity, EditLocationActivity::class.java))
@@ -28,7 +52,7 @@ class SettingsActivity : AppCompatActivity() {
             increasePreferredCookingTime()
         }
         subtractCookingTimeBtn.setOnClickListener {
-            decreasePrefferedCookingTime()
+            decreasePreferredCookingTime()
         }
         addPortionsBtn.setOnClickListener{
             increasePortionsPerMeal()
@@ -46,31 +70,57 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun increasePortionsPerMeal(){
-        val currentValue = portionsTV.text.toString().toInt()
-        portionsTV.setText((currentValue+1).toString())
+        presenter.increasePortionsPerMeal()
+        portionsTV.text = presenter.portionsPerMeal.toString()
     }
     private fun decreasePortionsPerMeal(){
-        val currentValue = portionsTV.text.toString().toInt()
-        portionsTV.setText((currentValue-1).toString())
+        presenter.decreasePortionsPerMeal()
+        portionsTV.text = presenter.portionsPerMeal.toString()
     }
     private fun increaseMealsPerMealplan(){
-        val currentValue = mealsPerMealPlanTV.text.toString().toInt()
-        mealsPerMealPlanTV.setText((currentValue+1).toString())
+        presenter.increaseMealsPerMealPlan()
+        mealsPerMealPlanTV.text = presenter.mealsPerMealPlan.toString()
     }
     private fun decreaseMealsPerMealplan(){
-        val currentValue = mealsPerMealPlanTV.text.toString().toInt()
-        mealsPerMealPlanTV.setText((currentValue-1).toString())
+        presenter.decreaseMealsPerMealPlan()
+        mealsPerMealPlanTV.text = presenter.mealsPerMealPlan.toString()
     }
     private fun increasePreferredCookingTime(){
-        val currentValue = preferedCookingTimeTV.text.toString().toInt()
-   //     if(currentValue<)
-        preferedCookingTimeTV.setText((currentValue+5).toString())
+        presenter.increasePreferredCookingTime()
+        preferedCookingTimeTV.text = presenter.preferredCookingTime.toString()
     }
-    private fun decreasePrefferedCookingTime(){
-        val currentValue = preferedCookingTimeTV.text.toString().toInt()
-        if(currentValue>5) {
-            preferedCookingTimeTV.setText((currentValue - 5).toString())
+    private fun decreasePreferredCookingTime(){
+        presenter.decreasePreferredCookingTime()
+        preferedCookingTimeTV.text = presenter.preferredCookingTime.toString()
+    }
+
+    override fun initWithData(data: UserAccount?, frameNr: Int) {
+        emailTV.text = data?.email
+        passwordTV.text = data?.password
+        preferedCookingTimeTV.text = data?.userSettings?.cookingTimePreference?.toString()
+        portionsTV.text = data?.userSettings?.portionPreferences.toString()
+        mealsPerMealPlanTV.text = data?.userSettings?.mealsPerMealPlanPreference.toString()
+        sexTV.text = data?.userSettings?.nutritionProfileSettings?.sex?.value.toString()
+        heightTV.text = data?.userSettings?.nutritionProfileSettings?.height.toString()
+        weightTV.text = data?.userSettings?.nutritionProfileSettings?.weight.toString()
+        usernameTV.text = data?.username
+    }
+
+    inner class EditPasswordActivityContract : ActivityResultContract<UserAccount, UserAccount>(){
+        override fun createIntent(context: Context, input: UserAccount?): Intent {
+            return Intent(context, EditPasswordActivity::class.java).apply{
+                putExtra(SETTINGS_DATA, input)
+            }
         }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): UserAccount? {
+            return if(resultCode == RESULT_OK) intent?.getSerializableExtra(SETTINGS_DATA) as UserAccount else
+                null
+        }
+    }
+
+    companion object {
+        @JvmStatic val RESULT_OK = 5
     }
 
 }

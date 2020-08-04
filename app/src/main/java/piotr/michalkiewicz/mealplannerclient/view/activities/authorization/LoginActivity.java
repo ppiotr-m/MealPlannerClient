@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public static SharedPreferences myPreferences;
     private Button loginBtn;
-    private Button settingsTempBtn;
     private EditText loginET;
     private EditText passwordET;
     private View createAccountClickableTV;
@@ -61,31 +60,25 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void assingUiElements() {
-        loginET = findViewById(R.id.loginEt);
-        passwordET = findViewById(R.id.passwordEt);
+    private void assingUiElements(){
+        loginET = findViewById(R.id.emailET);
+        passwordET = findViewById(R.id.passwordET);
         createAccountClickableTV = findViewById(R.id.createAccountTV);
         loginBtn = findViewById(R.id.loginBtn);
-        settingsTempBtn = findViewById(R.id.settingsBtn);
     }
 
-    private void setOnClickListeners() {
-        loginBtn.setOnClickListener(v -> {
-            login(loginET.getText().toString(), passwordET.getText().toString());
-        });
-
-        settingsTempBtn.setOnClickListener(v -> {
-//            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
-
+    private void setOnClickListeners(){
+        loginBtn.setOnClickListener(v->{
+           login(loginET.getText().toString(), passwordET.getText().toString());
         });
     }
 
-    public void startCreateAccountActivity(View v) {
+    public void startCreateAccountActivity(View v){
         Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intent);
     }
 
-    private void login(String username, String password) {
+    private void login(String username, String password){
         LoadingDialog dialog = new LoadingDialog(this);
         dialog.startLoadingDialog();
         loginClient.login(username, password, new LoginListener() {
@@ -99,8 +92,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void loginFailed() {
                 dialog.dismissDialog();
-                LoginActivity.this.runOnUiThread(() -> {
-                    Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_LONG).show();
+                LoginActivity.this.runOnUiThread(()-> {
+                        Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_LONG).show();
                 });
             }
         });
