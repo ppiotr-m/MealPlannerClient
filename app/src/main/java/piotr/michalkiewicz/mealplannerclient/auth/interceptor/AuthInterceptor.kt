@@ -10,16 +10,13 @@ import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 
 class AuthInterceptor : Interceptor {
 
-    private lateinit var myPreference: MyPreference
-
     /**
      * method add header with oauth2 authorization
      */
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        myPreference = MyPreference()
         val requestBuilder = chain.request().newBuilder()
-        myPreference.getToken()?.let {
+        MyPreference().getToken()?.let {
             requestBuilder.addHeader("Authorization", "Bearer $it")
         }
         return chain.proceed(requestBuilder.build())

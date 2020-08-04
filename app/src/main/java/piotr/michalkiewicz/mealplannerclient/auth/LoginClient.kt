@@ -56,7 +56,7 @@ class LoginClient {
 
         refreshTokenEndpoint.enqueue(object : Callback<Token> {
             override fun onFailure(call: Call<Token>, t: Throwable) {
-                Log.i("refreshToken()", t.message)
+                Log.i("refreshToken()", t.message.toString())
                 loginListener.loginFailed()
             }
 
@@ -79,7 +79,7 @@ class LoginClient {
             token?.let { MyPreference().setToken(it) }
 
         } catch (ex: Exception) {
-            Log.i("Exception refresh T: ", ex.message)
+            Log.i("Exception refresh T: ", ex.message.toString())
         }
     }
 
