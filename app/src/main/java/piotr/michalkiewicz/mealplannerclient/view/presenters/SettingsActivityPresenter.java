@@ -17,6 +17,8 @@ public class SettingsActivityPresenter {
     private InitializableView view;
     private UserRepository repository;
     private UserAccount data;
+    private final int PORTIONS_PER_MEAL_LIMIT = 20;
+    private final int MEALS_PER_MEAL_PLAN_LIMIT = 10;
 
     public SettingsActivityPresenter(SettingsActivity activity){
         this.view = activity;
@@ -36,27 +38,61 @@ public class SettingsActivityPresenter {
         this.data = data;
     }
 
+    public int getPreferredCookingTime(){
+        return data.getUserSettings().getCookingTimePreference();
+    }
+
+    public int getPortionsPerMeal(){
+        return data.getUserSettings().getPortionPreferences();
+    }
+
+    public int getMealsPerMealPlan(){
+        return data.getUserSettings().getMealsPerMealPlanPreference();
+    }
+
     public void increasePreferredCookingTime(){
-        data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()+5);
+        if(data.getUserSettings().getCookingTimePreference()<60) {
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()+5);
+            return;
+        }
+        if(data.getUserSettings().getCookingTimePreference()>=60){
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()+15);
+        }
+
     }
 
     public void decreasePreferredCookingTime(){
-        data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()-5);
+        if(data.getUserSettings().getCookingTimePreference()<=5) return;
+        if(data.getUserSettings().getCookingTimePreference()<=60) {
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()-5);
+            return;
+        }
+        if(data.getUserSettings().getCookingTimePreference()>60){
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()-15);
+        }
     }
 
     public void increasePortionsPerMeal(){
+        if(data.getUserSettings().getPortionPreferences()>=PORTIONS_PER_MEAL_LIMIT) return;
+
         data.getUserSettings().setPortionPreferences(data.getUserSettings().getPortionPreferences()+1);
     }
 
     public void decreasePortionsPerMeal(){
+        if(data.getUserSettings().getPortionPreferences()<2) return;
+
         data.getUserSettings().setPortionPreferences(data.getUserSettings().getPortionPreferences()-1);
     }
 
     public void increaseMealsPerMealPlan(){
+        if(data.getUserSettings().getMealsPerMealPlanPreference()>=MEALS_PER_MEAL_PLAN_LIMIT) return;
+
         data.getUserSettings().setMealsPerMealPlanPreference(data.getUserSettings().getMealsPerMealPlanPreference()+1);
     }
 
     public void decreaseMealsPerMealPlan(){
+        if(data.getUserSettings().getMealsPerMealPlanPreference()<2) return;
+
         data.getUserSettings().setMealsPerMealPlanPreference(data.getUserSettings().getMealsPerMealPlanPreference()-1);
     }
 

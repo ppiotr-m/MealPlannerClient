@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.activities.settings
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,19 +47,29 @@ class EditPasswordActivity : AppCompatActivity() {
         settingsData?.password = newPasswordET.text.toString()
 
         val userRepository = UserRepository(this)
+        /*
         userRepository.saveUserAccountData(settingsData, object : Callback<UserAccount>{
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 Log.i(TAG, "Password change successful")
+                setDataForParentActivity(settingsData)
                 finish()
             }
             override fun onFailure(call: Call<UserAccount>, t: Throwable) {
                 Log.i(TAG, "Password change failed")
             }
         })
+
+         */
     }
 
     private fun getDataFromIntent(): UserAccount?{
         return intent.getSerializableExtra(SETTINGS_DATA) as? UserAccount
+    }
+
+    private fun setDataForParentActivity(data : UserAccount?){
+        val intent = Intent()
+        intent.putExtra(SETTINGS_DATA, data)
+        setResult(SettingsActivity.RESULT_OK, intent)
     }
 
     private fun checkIfPasswordMatchesCurrent(): Boolean{
