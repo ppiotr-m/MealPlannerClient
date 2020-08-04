@@ -72,6 +72,17 @@ class LoginClient {
         })
     }
 
+    fun refreshToken(refreshToken: String) {
+        val refreshTokenEndpoint = loginConnection.refreshToken(REFRESH_TOKEN, refreshToken)
+        try {
+            val token = refreshTokenEndpoint.execute().body()
+            token?.let { MyPreference().setToken(it) }
+
+        } catch (ex: Exception) {
+            Log.i("Exception refresh T: ", ex.message)
+        }
+    }
+
     private fun loginConnection(): OAuth2 {
         val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
