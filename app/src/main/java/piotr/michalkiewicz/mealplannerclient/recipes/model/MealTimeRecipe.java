@@ -8,13 +8,11 @@ import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
-import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet;
-import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Level;
-import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.RecipeCuisine;
-import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.RecipeType;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@NoArgsConstructor
 public class MealTimeRecipe {
 
     @SerializedName("id")
@@ -24,7 +22,7 @@ public class MealTimeRecipe {
     private String name;
 
     @SerializedName("recipeType")
-    private List<RecipeType> recipeType;
+    private List<String> recipeType;
 
  //   @SerializedName("recipeIngredients")
  //   private List<FoodItem> recipeIngredients;
@@ -36,13 +34,13 @@ public class MealTimeRecipe {
     private List<InstructionStep> instructionSteps;
 
     @SerializedName("level")
-    private Level level;
+    private String level;
 
     @SerializedName("suitableForDiet")
-    private List<Diet> suitableForDiet;
+    private List<String> suitableForDiet;
 
     @SerializedName("recipeCuisines")
-    private List<RecipeCuisine> recipeCuisines;
+    private List<String> recipeCuisines;
 
     @SerializedName("image")
     private Bitmap image;

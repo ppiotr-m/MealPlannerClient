@@ -6,8 +6,6 @@ import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet;
-import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.RecipeType;
 import piotr.michalkiewicz.mealplannerclient.recipes.nameToDoNoRepo.RecipeService;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableViewWithCategory;
@@ -27,11 +25,11 @@ public class CookbookFragmentPresenter {
 
     public void initWithDefaultCategories() {
 
-        getRecipesForType(RecipeType.MEAT.getValue());
-        getRecipesForDiet(Diet.PALEO.getValue());
-        getRecipesForType(RecipeType.SOUP.getValue());
-        getRecipesForDiet(Diet.VEGETARIAN.getValue());
-        getRecipesForDiet(Diet.STANDARD.getValue());
+        getRecipesForType("meat");
+        getRecipesForDiet("paleo");
+        getRecipesForType("soup");
+        getRecipesForDiet("vegetarian");
+        getRecipesForDiet("standart");
     }
 
     private void getRecipesForDiet(String dietType) {
