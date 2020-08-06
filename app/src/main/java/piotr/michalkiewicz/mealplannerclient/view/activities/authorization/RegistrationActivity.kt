@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_registration.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.support.Constants
-import piotr.michalkiewicz.mealplannerclient.user.account.AccountDataStorage
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository
 import retrofit2.Call
@@ -42,7 +41,7 @@ class RegistrationActivity : AppCompatActivity() {
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 showSignUpSuccessfulToast()
                 Log.i(Constants.TAG, "Response: " + response.message() +"\n" + response.toString())
-                AccountDataStorage.storeAccountData(response.body())
+        //        AccountDataStorage.storeAccountData(response.body())
             //    startActivity(Intent(this@RegistrationActivity, MainMenuActivity::class.java))
                 finish()
             }

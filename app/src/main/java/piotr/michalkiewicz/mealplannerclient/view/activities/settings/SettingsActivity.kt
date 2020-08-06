@@ -1,14 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.view.activities.settings
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView
 import piotr.michalkiewicz.mealplannerclient.view.presenters.SettingsActivityPresenter
 
@@ -16,10 +13,11 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
 
     private val presenter = SettingsActivityPresenter(this)
 
-    private val editPasswordActivityContract = registerForActivityResult(EditPasswordActivityContract()) {
+    private val editPasswordActivityContract = registerForActivityResult(UserAccountActivityContract()) {
         result ->
-        if(result == null) throw RuntimeException()
-        presenter.data = result
+        if(result != null) {
+            presenter.data = result
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +35,10 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
     private fun setOnClickListeners() {
         editPasswordBtn.setOnClickListener{
 
-            editPasswordActivityContract.launch(presenter.data)
-/*
-            val intent = Intent(this@SettingsActivity, EditPasswordActivity::class.java)
-            intent.putExtra(SETTINGS_DATA, presenter.data)
-            startActivity(intent)
-
- */
+            val getNewPassword = registerForActivityResult(UserAccountActivityContract()){
+                presenter.data = it
+            }
+            getNewPassword.launch(presenter.data)
         }
         editLocationBtn.setOnClickListener{
             startActivity(Intent(this@SettingsActivity, EditLocationActivity::class.java))
@@ -106,21 +101,8 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
         usernameTV.text = data?.username
     }
 
-    inner class EditPasswordActivityContract : ActivityResultContract<UserAccount, UserAccount>(){
-        override fun createIntent(context: Context, input: UserAccount?): Intent {
-            return Intent(context, EditPasswordActivity::class.java).apply{
-                putExtra(SETTINGS_DATA, input)
-            }
-        }
-
-        override fun parseResult(resultCode: Int, intent: Intent?): UserAccount? {
-            return if(resultCode == RESULT_OK) intent?.getSerializableExtra(SETTINGS_DATA) as UserAccount else
-                null
-        }
-    }
-
     companion object {
-        @JvmStatic val RESULT_OK = 5
+        @JvmStatic val RESULT_OK : Int = 1033
     }
 
 }

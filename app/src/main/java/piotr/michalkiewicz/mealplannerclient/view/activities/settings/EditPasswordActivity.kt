@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_edit_password.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
 
 class EditPasswordActivity : AppCompatActivity() {
@@ -40,8 +39,10 @@ class EditPasswordActivity : AppCompatActivity() {
 
         val settingsData = getDataFromIntent()
         settingsData?.password = newPasswordET.text.toString()
+        setDataForParentActivity(settingsData)
 
-        val userRepository = UserRepository(this)
+        finish()
+  //      val userRepository = UserRepository(this)
         /*
         userRepository.saveUserAccountData(settingsData, object : Callback<UserAccount>{
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
@@ -65,6 +66,8 @@ class EditPasswordActivity : AppCompatActivity() {
         val intent = Intent()
         intent.putExtra(SETTINGS_DATA, data)
         setResult(SettingsActivity.RESULT_OK, intent)
+
+
     }
 
     private fun checkIfPasswordMatchesCurrent(): Boolean{

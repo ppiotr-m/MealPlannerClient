@@ -93,7 +93,7 @@ public class SettingsActivityPresenter {
     }
 
     public void initSettingsViewWithData(){
-        data = UserAccount.createMockUserAccount();
+        data = UserAccount.createMockUserAccountWithParams("aaa@ddd.pl", "aaa");
         view.initWithData(data, 0);
 /*
         repository.getUserAccount(new Callback<UserAccount>() {

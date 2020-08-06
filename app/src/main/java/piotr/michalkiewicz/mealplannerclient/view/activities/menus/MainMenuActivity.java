@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import piotr.michalkiewicz.mealplannerclient.R;
+import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.fragments.CookbookScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.fragments.HomeScreenFragment;

@@ -20,6 +20,7 @@ import piotr.michalkiewicz.mealplannerclient.auth.MyPreference;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.activities.dialogs.LoadingDialog;
 import piotr.michalkiewicz.mealplannerclient.view.activities.menus.MainMenuActivity;
+import piotr.michalkiewicz.mealplannerclient.view.activities.settings.SettingsActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         assingUiElements();
         checkLoginState();
         setOnClickListeners();
+        settingsTempAccess();
     }
 
     private void checkLoginState() {
@@ -76,6 +78,13 @@ public class LoginActivity extends AppCompatActivity {
     public void startCreateAccountActivity(View v){
         Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intent);
+    }
+
+    public void settingsTempAccess(){
+        Button b = findViewById(R.id.tempSettings);
+        b.setOnClickListener(v->{
+            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
+        });
     }
 
     private void login(String username, String password){
