@@ -8,54 +8,45 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_allergies"
+        android:text="@string/what_you_dislike"
         style="@style/listElementText"
         android:layout_marginBottom="20dp"/>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_gluten"
-            android:id="@+id/allergyGlutenBtn"
+            android:text="@string/avocado"
+            android:id="@+id/avocadoBtn"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_diary"
+            android:text="@string/beets"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_eggs"
+            android:text="@string/bell_pepper"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_peanut"
+            android:text="@string/brussel_sprout"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_seasme"
+            android:text="@string/egg_plant"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_treenuts"
+            android:text="@string/cauliflower"
             />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/allergy_soy"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/allergy_frutti_di_mare"
-            />
+
     </LinearLayout>
 </LinearLayout>

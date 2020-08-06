@@ -395,23 +395,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/barrier3"
-            app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip3"
-                style="@style/listHeaderText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:checkable="false"
-                app:closeIcon="@drawable/ic_close_dark_16dp"
-                app:closeIconEnabled="true"
-                app:layout_constraintStart_toStartOf="@+id/barrier3"
-                app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup"
-                tools:text="@string/allergy_gluten" />
-        </com.google.android.material.chip.ChipGroup>
-
+            app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup"/>
         <TextView
             android:id="@+id/nutritionProfileTV"
             style="@style/listElementText"

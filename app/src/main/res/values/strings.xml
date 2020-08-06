@@ -108,6 +108,7 @@
     <string name="male_sex">Male</string>
     <string name="female_sex">Female</string>
     <string name="add_chip">+ Add</string>
+    <string name="specify_height">Specify height</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

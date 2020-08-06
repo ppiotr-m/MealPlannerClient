@@ -37,6 +37,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         presenter.initSettingsViewWithData()
         initSexSelectionRadioGroup()
         initAllergiesChipGroup()
+        initAvoidedIngredientsChipGroup()
     }
 
     private fun setOnClickListeners() {
@@ -76,6 +77,9 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
                 }
             }
         }
+        editDietBtn.setOnClickListener {
+            startLauncherForActivityResult(EditDietActivityContract())
+        }
     }
 
     private fun startLauncherForActivityResult(contract: ActivityResultContract<UserAccount, UserAccount>){
@@ -107,8 +111,26 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
     }
 
+    private fun initAvoidedIngredientsChipGroup(){
+        var childViewCounter = 0
+        presenter.data.userSettings?.unlikeIngredients?.forEach {
+            val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
+            (chipGroup.getChildAt(childViewCounter) as Chip).text = it
+            childViewCounter +=1
+        }
+        val chipGroup = layoutInflater.inflate(R.layout.add_chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
+        (chipGroup.getChildAt(childViewCounter) as Chip).text = resources.getString(R.string.add_chip)
+        chipGroup.getChildAt(childViewCounter).setOnClickListener {
+            addAvoidedIngredient()
+        }
+    }
+
     private fun addAllergy(){
         startLauncherForActivityResult(EditAllergiesActivityContract())
+    }
+
+    private fun addAvoidedIngredient(){
+        startLauncherForActivityResult(EditAvoidedIngredientsContract())
     }
 
     private fun increasePortionsPerMeal(){

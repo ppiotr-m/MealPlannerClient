@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +9,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_allergies"
+        android:text="@string/diet_prefer"
         style="@style/listElementText"
         android:layout_marginBottom="20dp"/>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,43 +19,43 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_gluten"
-            android:id="@+id/allergyGlutenBtn"
+            android:text="@string/diet_standard"
+            android:id="@+id/dietStandardBtn"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_diary"
+            android:text="@string/diet_paleo"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_eggs"
+            android:text="@string/diet_vegetarian"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_peanut"
+            android:text="@string/diet_pescatarian"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_seasme"
+            android:text="@string/diet_flexitarian"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_treenuts"
+            android:text="@string/diet_vegan"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_soy"
+            android:text="@string/diet_low_carb"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergy_frutti_di_mare"
+            android:text="@string/diet_keto"
             />
     </LinearLayout>
 </LinearLayout>
