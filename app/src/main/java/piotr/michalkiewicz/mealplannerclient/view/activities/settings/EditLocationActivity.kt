@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_change_location.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -62,6 +63,10 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
         countries.addAll(countriesTemporary.sorted().distinct())
         countrySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, countries)
+        val index = countries.indexOf((intent.getSerializableExtra(SETTINGS_DATA) as UserAccount).location)
+        if(index>=0){
+            countrySpinner.setSelection(index)
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

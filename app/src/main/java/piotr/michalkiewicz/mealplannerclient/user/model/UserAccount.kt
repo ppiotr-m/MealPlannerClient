@@ -7,10 +7,11 @@ class UserAccount : Serializable {
     var id: String? = null
     var email: String? = null
     var name: String? = null
-    var username: String? = null
+    var username: String? = "Mariola"
     var password: String? = null
-    var location: String? = null
+    var location: String? = "Poland"
     var userSettings: UserSettings? = null
+    var sex: String? = "Male"
 
     companion object{
         @JvmStatic

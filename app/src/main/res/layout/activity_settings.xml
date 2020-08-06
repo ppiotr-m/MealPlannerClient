@@ -103,16 +103,6 @@
             app:layout_constraintTop_toBottomOf="@+id/foodPreferencesTV" />
 
         <Button
-            android:id="@+id/editSexBtn"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_chevron_right_black_18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nutritionProfileTV" />
-
-        <Button
             android:id="@+id/editHeightBtn"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
@@ -120,7 +110,7 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/ic_chevron_right_black_18dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sexTV" />
+            app:layout_constraintTop_toBottomOf="@+id/sexSelectionRadioGroup" />
 
         <Button
             android:id="@+id/editWeightBtn"
@@ -451,21 +441,11 @@
             style="@style/smallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="12dp"
             android:text="@string/sex_label"
-            app:layout_constraintBaseline_toBaselineOf="@+id/sexTV"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/sexTV"
-            style="@style/listHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:text="Male"
-            app:layout_constraintStart_toStartOf="@+id/barrier4"
-            app:layout_constraintTop_toBottomOf="@+id/nutritionProfileTV" />
+            app:layout_constraintBottom_toBottomOf="@+id/sexSelectionRadioGroup"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/sexSelectionRadioGroup" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier4"
@@ -491,10 +471,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:text="178"
             app:layout_constraintStart_toStartOf="@+id/barrier4"
-            app:layout_constraintTop_toBottomOf="@+id/sexTV" />
+            app:layout_constraintTop_toBottomOf="@+id/sexSelectionRadioGroup" />
         <TextView
             android:id="@+id/weightLabelTV"
             style="@style/smallText"
@@ -561,6 +541,28 @@
             app:layout_constraintStart_toEndOf="@+id/heightTV"
             app:layout_constraintTop_toTopOf="@+id/heightTV" />
 
+        <RadioGroup
+            android:id="@+id/sexSelectionRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/barrier4"
+            app:layout_constraintTop_toBottomOf="@+id/nutritionProfileTV">
+
+            <RadioButton
+                android:id="@+id/maleRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male_sex" />
+
+            <RadioButton
+                android:id="@+id/femaleRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:text="@string/female_sex" />
+        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
