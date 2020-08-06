@@ -2,6 +2,8 @@ package piotr.michalkiewicz.mealplannerclient.view.activities.settings
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResultCaller
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
@@ -9,7 +11,7 @@ import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView
 import piotr.michalkiewicz.mealplannerclient.view.presenters.SettingsActivityPresenter
 
-class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
+class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller {
 
     private val presenter = SettingsActivityPresenter(this)
 
@@ -27,6 +29,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
         init()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        initWithData(presenter.data, 1)
+    }
+
     private fun init(){
         setOnClickListeners()
         presenter.initSettingsViewWithData()
@@ -34,11 +42,10 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount> {
 
     private fun setOnClickListeners() {
         editPasswordBtn.setOnClickListener{
-
-            val getNewPassword = registerForActivityResult(UserAccountActivityContract()){
+            val launcher = registerForActivityResult(UserAccountActivityContract()){
                 presenter.data = it
             }
-            getNewPassword.launch(presenter.data)
+            launcher?.launch(presenter.data)
         }
         editLocationBtn.setOnClickListener{
             startActivity(Intent(this@SettingsActivity, EditLocationActivity::class.java))
