@@ -6,9 +6,9 @@ import androidx.activity.result.contract.ActivityResultContract
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 
-class UserAccountActivityContract : ActivityResultContract<UserAccount, UserAccount>(){
+class EditLocationActivityContract : ActivityResultContract<UserAccount, UserAccount>(){
     override fun createIntent(context: Context, input: UserAccount?): Intent {
-        return Intent(context, EditPasswordActivity::class.java).apply{
+        return Intent(context, EditLocationActivity::class.java).apply{
             putExtra(ConstantValues.SETTINGS_DATA, input)
         }
     }

@@ -66,8 +66,6 @@ class EditPasswordActivity : AppCompatActivity() {
         val intent = Intent()
         intent.putExtra(SETTINGS_DATA, data)
         setResult(SettingsActivity.RESULT_OK, intent)
-
-
     }
 
     private fun checkIfPasswordMatchesCurrent(): Boolean{

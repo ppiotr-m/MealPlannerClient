@@ -7,8 +7,8 @@ class UserSettings {
     var diets: Diets? = null
     var unlikeIngredients: List<String>? = null
     var eatenRecipes: List<String>? = null
-    var Language: String? = null
-    var portionPreferences: Int? = null
-    var cookingTimePreference: Int? = null
-    var mealsPerMealPlanPreference: Int? = null
+    var language: String? = null
+    var portionPreferences: Int? = 4
+    var cookingTimePreference: Int? = 60
+    var mealsPerMealPlanPreference: Int? = 5
 }
