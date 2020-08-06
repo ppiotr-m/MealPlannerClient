@@ -1,9 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.user.model
 
-class UserSettings {
+import java.io.Serializable
+
+class UserSettings: Serializable {
     var recipeTypesSetting: RecipeTypesSetting? = null
     var nutritionProfileSettings: NutritionProfileSettings? = null
-    var allergies: Allergies? = null
+    var allergies: List<String>? = null
     var diets: Diets? = null
     var unlikeIngredients: List<String>? = null
     var eatenRecipes: List<String>? = null

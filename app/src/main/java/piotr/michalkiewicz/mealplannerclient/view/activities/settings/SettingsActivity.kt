@@ -1,13 +1,12 @@
 package piotr.michalkiewicz.mealplannerclient.view.activities.settings
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.CompoundButton
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
@@ -37,14 +36,15 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         setOnClickListeners()
         presenter.initSettingsViewWithData()
         initSexSelectionRadioGroup()
+        initAllergiesChipGroup()
     }
 
     private fun setOnClickListeners() {
         editPasswordBtn.setOnClickListener{
-            setLauncherForActivityResult(EditPasswordActivityContract())
+            startLauncherForActivityResult(EditPasswordActivityContract())
         }
         editLocationBtn.setOnClickListener{
-            setLauncherForActivityResult(EditLocationActivityContract())
+            startLauncherForActivityResult(EditLocationActivityContract())
         }
         increaseCookingTimeBtn.setOnClickListener {
             increasePreferredCookingTime()
@@ -76,10 +76,9 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
                 }
             }
         }
-
     }
 
-    private fun setLauncherForActivityResult(contract: ActivityResultContract<UserAccount, UserAccount>){
+    private fun startLauncherForActivityResult(contract: ActivityResultContract<UserAccount, UserAccount>){
         val launcher = registerForActivityResult(contract){
             if(it!=null) {
                 presenter.data = it
@@ -92,6 +91,24 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         if(presenter.data.sex==null) return
         if(presenter.data.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
+    }
+
+    private fun initAllergiesChipGroup(){
+        var childViewCounter = 0
+        presenter.data.userSettings?.allergies?.forEach {
+            val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, allergiesChipGroup) as ChipGroup
+            (chipGroup.getChildAt(childViewCounter) as Chip).text = it
+            childViewCounter +=1
+        }
+        val chipGroup = layoutInflater.inflate(R.layout.add_chip_element_layout, allergiesChipGroup) as ChipGroup
+        (chipGroup.getChildAt(childViewCounter) as Chip).text = resources.getString(R.string.add_chip)
+        chipGroup.getChildAt(childViewCounter).setOnClickListener {
+            addAllergy()
+        }
+    }
+
+    private fun addAllergy(){
+        startLauncherForActivityResult(EditAllergiesActivityContract())
     }
 
     private fun increasePortionsPerMeal(){
