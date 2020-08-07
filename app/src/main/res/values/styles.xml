@@ -54,5 +54,8 @@
     <style name="loading_dialog_text">
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="search_icon_top_label">
+        <item name="android:textSize">16sp</item>
+    </style>
 
 </resources>
