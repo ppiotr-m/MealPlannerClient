@@ -17,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activities.settings.EditDietActivity"></activity>
+        <activity android:name=".view.activities.settings.EditWeightActivity"></activity>
+        <activity android:name=".view.activities.settings.EditHeightActivity" />
+        <activity android:name=".view.activities.settings.EditDietActivity" />
         <activity android:name=".view.activities.settings.EditAvoidedIngredientsActivity" />
         <activity android:name=".view.activities.settings.EditAllergiesActivity" />
         <!--

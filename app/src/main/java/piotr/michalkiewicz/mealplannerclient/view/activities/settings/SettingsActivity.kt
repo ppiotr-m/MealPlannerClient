@@ -13,7 +13,7 @@ import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView
 import piotr.michalkiewicz.mealplannerclient.view.presenters.SettingsActivityPresenter
 
-class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller {
+class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller{
 
     private val presenter = SettingsActivityPresenter(this)
     private val MALE = "Male"
@@ -80,6 +80,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         editDietBtn.setOnClickListener {
             startLauncherForActivityResult(EditDietActivityContract())
         }
+        editHeightBtn.setOnClickListener {
+            startLauncherForActivityResult(EditHeightActivityContract())
+        }
+        editWeightBtn.setOnClickListener {
+            startLauncherForActivityResult(EditWeightActivityContract())
+        }
     }
 
     private fun startLauncherForActivityResult(contract: ActivityResultContract<UserAccount, UserAccount>){
@@ -101,7 +107,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         var childViewCounter = 0
         presenter.data.userSettings?.allergies?.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, allergiesChipGroup) as ChipGroup
-            (chipGroup.getChildAt(childViewCounter) as Chip).text = it
+            val chip = chipGroup.getChildAt(childViewCounter) as Chip
+            chip.text = it
+            chip.setOnCloseIconClickListener {
+                allergiesChipGroup.removeView(it)
+                // TODO implement storing in data object
+            }
             childViewCounter +=1
         }
         val chipGroup = layoutInflater.inflate(R.layout.add_chip_element_layout, allergiesChipGroup) as ChipGroup

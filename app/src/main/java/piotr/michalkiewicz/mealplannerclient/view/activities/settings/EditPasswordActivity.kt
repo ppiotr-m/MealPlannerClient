@@ -40,8 +40,8 @@ class EditPasswordActivity : AppCompatActivity() {
         val settingsData = getDataFromIntent()
         settingsData?.password = newPasswordET.text.toString()
         setDataForParentActivity(settingsData)
-
         finish()
+
   //      val userRepository = UserRepository(this)
         /*
         userRepository.saveUserAccountData(settingsData, object : Callback<UserAccount>{
