@@ -42,13 +42,6 @@
         <activity android:name=".view.activities.authorization.RegistrationActivity" />
         <activity android:name=".view.activities.recipes.CookingStepsActivity" />
         <activity android:name=".view.activities.recipes.IngredientsActivity" />
-        <activity android:name=".view.activities.personalization.CustomizationFinishActivity" />
-        <activity android:name=".view.activities.personalization.CookingTimeCustomizationActivity" />
-        <activity android:name=".view.activities.personalization.ServingsCustomizationActivity" />
-        <activity android:name=".view.activities.personalization.MealsNumberCustomizationActivity" />
-        <activity android:name=".view.activities.personalization.DislikedIngredientsCustomization" />
-        <activity android:name=".view.activities.personalization.AllergyCustomizationActivity" />
-        <activity android:name=".view.activities.personalization.DietCustomizationActivity" />
         <activity android:name=".view.activities.personalization.StartCustomizationActivity" />
         <activity
             android:name=".view.activities.recipes.RecipeActivity"

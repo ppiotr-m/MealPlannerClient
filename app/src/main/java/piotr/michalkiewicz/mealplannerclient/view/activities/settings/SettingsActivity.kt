@@ -10,6 +10,7 @@ import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import piotr.michalkiewicz.mealplannerclient.view.interfaces.InitializableView
 import piotr.michalkiewicz.mealplannerclient.view.presenters.SettingsActivityPresenter
 
@@ -35,9 +36,6 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     private fun init(){
         setOnClickListeners()
         presenter.initSettingsViewWithData()
-        initSexSelectionRadioGroup()
-        initAllergiesChipGroup()
-        initAvoidedIngredientsChipGroup()
     }
 
     private fun setOnClickListeners() {
@@ -97,15 +95,15 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         launcher?.launch(presenter.data)
     }
 
-    private fun initSexSelectionRadioGroup(){
-        if(presenter.data.sex==null) return
-        if(presenter.data.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
+    private fun initSexSelectionRadioGroup(userAccount: UserAccount?){
+        if(userAccount?.sex==null) return
+        if(userAccount.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
-    private fun initAllergiesChipGroup(){
+    private fun initAllergiesChipGroup(userSettings: UserSettings?){
         var childViewCounter = 0
-        presenter.data.userSettings?.allergies?.forEach {
+        userSettings?.allergies?.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, allergiesChipGroup) as ChipGroup
             val chip = chipGroup.getChildAt(childViewCounter) as Chip
             chip.text = it
@@ -122,9 +120,9 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
     }
 
-    private fun initAvoidedIngredientsChipGroup(){
+    private fun initAvoidedIngredientsChipGroup(userSettings: UserSettings?){
         var childViewCounter = 0
-        presenter.data.userSettings?.unlikeIngredients?.forEach {
+        userSettings?.unlikeIngredients?.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
             (chipGroup.getChildAt(childViewCounter) as Chip).text = it
             childViewCounter +=1
@@ -179,6 +177,9 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         heightTV.text = data?.userSettings?.nutritionProfileSettings?.height.toString()
         weightTV.text = data?.userSettings?.nutritionProfileSettings?.weight.toString()
         usernameTV.text = data?.username
+        initAvoidedIngredientsChipGroup(data?.userSettings)
+        initAllergiesChipGroup(data?.userSettings)
+        initSexSelectionRadioGroup(data)
     }
 
     companion object {

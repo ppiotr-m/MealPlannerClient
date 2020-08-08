@@ -12,6 +12,10 @@ public class SettingsActivityPresenter {
 
     private final int PORTIONS_PER_MEAL_LIMIT = 20;
     private final int MEALS_PER_MEAL_PLAN_LIMIT = 10;
+    private final int COOKING_TIME_SMALL_STEP = 5;
+    private final int COOKING_TIME_MEDIUM_STEP = 15;
+    private final int COOKING_TIME_BIG_STEP = 30;
+    private final int COOKIG_TIME_LIMIT = 600;
     private InitializableView view;
     private UserRepository repository;
     private UserAccount data;
@@ -48,24 +52,29 @@ public class SettingsActivityPresenter {
 
     public void increasePreferredCookingTime(){
         if(data.getUserSettings().getCookingTimePreference()<60) {
-            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()+5);
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()+COOKING_TIME_SMALL_STEP);
             return;
         }
-        if(data.getUserSettings().getCookingTimePreference()>=60){
-            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()+15);
+        if(data.getUserSettings().getCookingTimePreference()<120){
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()+COOKING_TIME_MEDIUM_STEP);
+            return;
         }
-
+        if(data.getUserSettings().getCookingTimePreference()<COOKIG_TIME_LIMIT) {
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference() + COOKING_TIME_BIG_STEP);
+        }
     }
 
     public void decreasePreferredCookingTime(){
         if(data.getUserSettings().getCookingTimePreference()<=5) return;
         if(data.getUserSettings().getCookingTimePreference()<=60) {
-            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()-5);
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()-COOKING_TIME_SMALL_STEP);
             return;
         }
-        if(data.getUserSettings().getCookingTimePreference()>60){
-            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()-15);
+        if(data.getUserSettings().getCookingTimePreference()<=120){
+            data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()-COOKING_TIME_MEDIUM_STEP);
+            return;
         }
+        data.getUserSettings().setCookingTimePreference(data.getUserSettings().getCookingTimePreference()-COOKING_TIME_BIG_STEP);
     }
 
     public void increasePortionsPerMeal(){
