@@ -2,9 +2,9 @@ package piotr.michalkiewicz.mealplannerclient.view.settings.presenters;
 
 import android.util.Log;
 
-import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository;
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.common.InitializableView;
 
@@ -23,7 +23,6 @@ public class SettingsActivityPresenter {
     public SettingsActivityPresenter(SettingsActivity activity){
         this.view = activity;
         if(activity==null) {
-            Log.d(Constants.TAG, "Null context at SettingsActivityPresenter constructor");
             return;
         }
     //  Commented until settings repo connection is implemented

@@ -6,9 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_registration.*
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.support.Constants
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
         repository.signUp(UserAccount.createMockUserAccountWithParams(email, password), object : Callback<UserAccount>{
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 showSignUpSuccessfulToast()
-                Log.i(Constants.TAG, "Response: " + response.message() +"\n" + response.toString())
+                Log.i(ConstantValues.TAG, "Response: " + response.message() +"\n" + response.toString())
         //        AccountDataStorage.storeAccountData(response.body())
             //    startActivity(Intent(this@RegistrationActivity, MainMenuActivity::class.java))
                 finish()

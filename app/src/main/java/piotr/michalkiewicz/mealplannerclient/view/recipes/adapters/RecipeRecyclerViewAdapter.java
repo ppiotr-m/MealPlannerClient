@@ -15,9 +15,8 @@ import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity;
-
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.RECIPE_ID;
 
 public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.RecipeViewHolder> {
 
@@ -54,7 +53,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         holder.gradeTV.setText(String.valueOf(recipe.getTotalLikes()));
         holder.container.setOnClickListener(v -> {
             Intent intent = new Intent(this.context, RecipeActivity.class);
-            intent.putExtra(RECIPE_ID, recipe.getId());
+            intent.putExtra(ConstantValues.RECIPE_ID, recipe.getId());
             this.context.startActivity(intent);
         });
     }

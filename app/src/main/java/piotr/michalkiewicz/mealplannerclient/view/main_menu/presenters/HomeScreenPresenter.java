@@ -2,7 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.view.main_menu.presenters;
 
 import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.recipes.nameToDoNoRepo.RecipeService;
+import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeService;
 import piotr.michalkiewicz.mealplannerclient.view.common.InitializableView;
 import retrofit2.Call;
 import retrofit2.Callback;

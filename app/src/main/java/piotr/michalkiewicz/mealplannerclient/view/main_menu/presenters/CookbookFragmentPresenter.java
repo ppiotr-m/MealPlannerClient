@@ -4,10 +4,10 @@ import android.util.Log;
 
 import java.util.List;
 
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.recipes.nameToDoNoRepo.RecipeService;
-import piotr.michalkiewicz.mealplannerclient.support.Constants;
+import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeService;
 import piotr.michalkiewicz.mealplannerclient.view.common.InitializableViewWithCategory;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,14 +36,14 @@ public class CookbookFragmentPresenter {
         recipeService.getRecipeForDiet(dietType).enqueue(new Callback<List<MealTimeRecipe>>() {
             @Override
             public void onResponse(Call<List<MealTimeRecipe>> call, Response<List<MealTimeRecipe>> response) {
-                Log.i(Constants.TAG, "CookbookPresenter:getRecipesForDiet(), response code: " +
+                Log.i(ConstantValues.TAG, "CookbookPresenter:getRecipesForDiet(), response code: " +
                         response.code());
                 view.initWithData(response.body(), "Diet type: " + dietType);
             }
 
             @Override
             public void onFailure(Call<List<MealTimeRecipe>> call, Throwable t) {
-                Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipesForDiet, failed " +
+                Log.d(ConstantValues.TAG, "CookbookFragmentPresenter::getRecipesForDiet, failed " +
                         "getRecipesForDiet call. URL: " + call.request().url() + "\nMessage: " +
                         t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
             }
@@ -54,13 +54,13 @@ public class CookbookFragmentPresenter {
         recipeService.getRecipeForType(recipeType).enqueue(new Callback<List<MealTimeRecipe>>() {
             @Override
             public void onResponse(Call<List<MealTimeRecipe>> call, Response<List<MealTimeRecipe>> response) {
-                Log.i(Constants.TAG, "CookbookPresenter:getRecipesForType(), response body: " + response.body());
+                Log.i(ConstantValues.TAG, "CookbookPresenter:getRecipesForType(), response body: " + response.body());
                 view.initWithData(response.body(), "Recipe type: " + recipeType);
             }
 
             @Override
             public void onFailure(Call<List<MealTimeRecipe>> call, Throwable t) {
-                Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipesForType\nMessage: "
+                Log.d(ConstantValues.TAG, "CookbookFragmentPresenter::getRecipesForType\nMessage: "
                         + t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
             }
         });
@@ -75,7 +75,7 @@ public class CookbookFragmentPresenter {
 
             @Override
             public void onFailure(Call<MealTimeRecipe> call, Throwable t) {
-                Log.d(Constants.TAG, "CookbookFragmentPresenter::getRecipeForId\nMessage: "
+                Log.d(ConstantValues.TAG, "CookbookFragmentPresenter::getRecipeForId\nMessage: "
                         + t.getMessage() + "\nLocalized message: " + t.getLocalizedMessage());
             }
         });

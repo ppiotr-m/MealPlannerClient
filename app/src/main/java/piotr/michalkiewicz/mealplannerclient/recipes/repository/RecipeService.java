@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.nameToDoNoRepo;
+package piotr.michalkiewicz.mealplannerclient.recipes.repository;
 
 import java.util.List;
 

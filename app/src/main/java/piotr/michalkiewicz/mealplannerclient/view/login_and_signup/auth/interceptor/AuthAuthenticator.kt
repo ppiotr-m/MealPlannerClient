@@ -5,9 +5,9 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.LoginClient
 import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.MyPreference
-import piotr.michalkiewicz.mealplannerclient.support.Constants
 import java.io.IOException
 
 class AuthAuthenticator: Authenticator {
@@ -30,7 +30,7 @@ class AuthAuthenticator: Authenticator {
                 }
                 return requestAvailable
             } catch (ex: Exception) {
-                Log.i(Constants.TAG, ex.toString())
+                Log.i(ConstantValues.TAG, ex.toString())
             }
         } else if (response?.code() == 500) {
             return null

@@ -19,9 +19,9 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeImgFrag
 import piotr.michalkiewicz.mealplannerclient.view.common.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.presenters.RecipePresenter;
 
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.COOKING_STEPS_DATA;
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.INGREDIENTS_DATA;
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.RECIPE_ID;
+import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.COOKING_STEPS_DATA;
+import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
+import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.RECIPE_ID;
 
 public class RecipeActivity extends AppCompatActivity implements InitializableViewWithCategory<MealTimeRecipe> {
 

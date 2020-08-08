@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient;
 
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.INGREDIENTS_DATA;
+import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
 
 public class IngredientsActivity extends AppCompatActivity {
 

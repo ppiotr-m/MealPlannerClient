@@ -3,8 +3,8 @@ package piotr.michalkiewicz.mealplannerclient.user.repository;
 import android.content.Context;
 import android.util.Log;
 
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.ServiceGenerator;
-import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,7 +15,6 @@ public class UserRepository {
     private UserService userService;
 
     public UserRepository(Context context){
-        if(context==null) Log.d(Constants.TAG, "Null context at UserRepository constructor");
         apiClient = new ServiceGenerator();
     }
 

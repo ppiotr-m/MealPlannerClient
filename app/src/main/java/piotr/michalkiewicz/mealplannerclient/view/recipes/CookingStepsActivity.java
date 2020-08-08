@@ -14,9 +14,9 @@ import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep;
-import piotr.michalkiewicz.mealplannerclient.support.Constants;
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 
-import static piotr.michalkiewicz.mealplannerclient.support.Constants.COOKING_STEPS_DATA;
+import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.COOKING_STEPS_DATA;
 
 public class CookingStepsActivity extends AppCompatActivity {
 
@@ -36,7 +36,7 @@ public class CookingStepsActivity extends AppCompatActivity {
 
         if(data==null) throw new RuntimeException();
 
-        Log.i(Constants.TAG, "Data size:" + data.size());
+        Log.i(ConstantValues.TAG, "Data size:" + data.size());
 
         assignUIElements();
         initView();
