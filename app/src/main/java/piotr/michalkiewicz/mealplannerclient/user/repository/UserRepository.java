@@ -3,7 +3,7 @@ package piotr.michalkiewicz.mealplannerclient.user.repository;
 import android.content.Context;
 import android.util.Log;
 
-import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
+import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.support.Constants;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import retrofit2.Call;
