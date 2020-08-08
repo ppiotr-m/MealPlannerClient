@@ -1,7 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings.presenters;
 
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
-import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository;
+import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView;
 
@@ -14,7 +14,7 @@ public class SettingsActivityPresenter {
     private final int COOKING_TIME_BIG_STEP = 30;
     private final int COOKIG_TIME_LIMIT = 600;
     private InitializableView view;
-    private UserRepository repository;
+    private UserServiceGenerator repository;
     private UserAccount data;
 
     public SettingsActivityPresenter(SettingsActivity activity){

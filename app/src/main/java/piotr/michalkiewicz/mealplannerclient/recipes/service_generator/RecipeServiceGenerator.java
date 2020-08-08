@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.repository;
+package piotr.michalkiewicz.mealplannerclient.recipes.service_generator;
 
 import android.content.Context;
 
@@ -9,12 +9,12 @@ import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class RecipeRepository {
+public class RecipeServiceGenerator {
 
     private ServiceGenerator apiClient;
     private RecipeService recipeService;
 
-    public RecipeRepository(Context context){
+    public RecipeServiceGenerator(Context context){
         apiClient = new ServiceGenerator();
     }
 

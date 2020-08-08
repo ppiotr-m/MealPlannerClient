@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.user.repository;
+package piotr.michalkiewicz.mealplannerclient.user.service_generator;
 
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import retrofit2.Call;

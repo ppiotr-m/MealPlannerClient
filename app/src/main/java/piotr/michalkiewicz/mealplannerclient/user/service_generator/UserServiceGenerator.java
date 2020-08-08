@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.user.repository;
+package piotr.michalkiewicz.mealplannerclient.user.service_generator;
 
 import android.content.Context;
 
@@ -7,12 +7,12 @@ import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class UserRepository {
+public class UserServiceGenerator {
 
     private ServiceGenerator apiClient;
     private UserService userService;
 
-    public UserRepository(Context context){
+    public UserServiceGenerator(Context context){
         apiClient = new ServiceGenerator();
     }
 

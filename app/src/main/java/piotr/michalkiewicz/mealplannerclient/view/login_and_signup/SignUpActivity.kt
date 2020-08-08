@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_registration.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository
+import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
             showPasswordConfirmationFailureToast()
             return
         }
-        val repository = UserRepository(this)
+        val repository = UserServiceGenerator(this)
         repository.signUp(UserAccount.createMockUserAccountWithParams(email, password), object : Callback<UserAccount>{
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 showSignUpSuccessfulToast()

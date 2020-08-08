@@ -7,8 +7,8 @@ import okhttp3.OkHttpClient
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthAuthenticator
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthInterceptor
 import piotr.michalkiewicz.mealplannerclient.recipes.model.conversion.BinaryToBitmapConverter
-import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeService
-import piotr.michalkiewicz.mealplannerclient.user.repository.UserService
+import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeService
+import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserService
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

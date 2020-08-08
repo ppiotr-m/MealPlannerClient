@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.repository;
+package piotr.michalkiewicz.mealplannerclient.recipes.service_generator;
 
 import java.util.List;
 
