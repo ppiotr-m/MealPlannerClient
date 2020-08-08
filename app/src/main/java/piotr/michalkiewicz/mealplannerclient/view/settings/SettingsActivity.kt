@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
-import piotr.michalkiewicz.mealplannerclient.view.common.InitializableView
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
 import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
 
 class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller{

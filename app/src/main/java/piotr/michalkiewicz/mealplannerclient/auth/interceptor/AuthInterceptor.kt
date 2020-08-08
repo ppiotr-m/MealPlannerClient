@@ -1,8 +1,8 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.interceptor
+package piotr.michalkiewicz.mealplannerclient.auth.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.MyPreference
+import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 
 /**
  * Interceptor to add header with token must be in all requests

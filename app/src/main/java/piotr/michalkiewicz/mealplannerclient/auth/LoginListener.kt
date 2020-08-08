@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
 interface LoginListener {
     fun loginSuccessful();

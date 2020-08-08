@@ -1,6 +1,6 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.model.Token
+import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN_SHARED_PREF
 import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.LoginActivity
 

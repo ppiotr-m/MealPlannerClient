@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.view.common.InitializableView;
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.presenters.HomeScreenPresenter;
 
 public class HomeScreenFragment extends Fragment implements InitializableView<MealTimeRecipe> {

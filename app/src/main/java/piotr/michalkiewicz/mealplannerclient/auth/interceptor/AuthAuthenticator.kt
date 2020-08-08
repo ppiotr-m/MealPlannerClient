@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.interceptor
+package piotr.michalkiewicz.mealplannerclient.auth.interceptor
 
 import android.util.Log
 import okhttp3.Authenticator
@@ -6,8 +6,8 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.LoginClient
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.MyPreference
+import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
+import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 import java.io.IOException
 
 class AuthAuthenticator: Authenticator {

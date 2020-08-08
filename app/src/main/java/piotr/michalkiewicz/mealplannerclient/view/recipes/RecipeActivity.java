@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeImgFragmentAdapter;
-import piotr.michalkiewicz.mealplannerclient.view.common.InitializableViewWithCategory;
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.presenters.RecipePresenter;
 
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.COOKING_STEPS_DATA;

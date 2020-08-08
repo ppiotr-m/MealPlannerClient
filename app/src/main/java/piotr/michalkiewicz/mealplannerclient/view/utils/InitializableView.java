@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.common;
+package piotr.michalkiewicz.mealplannerclient.view.utils;
 
 public interface InitializableView<T> {
     //  frameNr is a temporary thing, will be deleted after real implementation of HomeScreen is done

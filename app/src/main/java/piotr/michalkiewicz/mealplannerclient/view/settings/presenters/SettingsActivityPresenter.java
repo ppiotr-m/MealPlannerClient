@@ -1,12 +1,9 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings.presenters;
 
-import android.util.Log;
-
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import piotr.michalkiewicz.mealplannerclient.user.repository.UserRepository;
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
-import piotr.michalkiewicz.mealplannerclient.view.common.InitializableView;
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView;
 
 public class SettingsActivityPresenter {
 

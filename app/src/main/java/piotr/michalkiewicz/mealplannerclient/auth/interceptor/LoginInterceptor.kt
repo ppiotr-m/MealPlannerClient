@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.interceptor
+package piotr.michalkiewicz.mealplannerclient.auth.interceptor
 
 import okhttp3.Credentials
 import okhttp3.Interceptor

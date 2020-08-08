@@ -16,7 +16,7 @@ import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeCategoryViewCreator;
-import piotr.michalkiewicz.mealplannerclient.view.common.InitializableViewWithCategory;
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.presenters.CookbookFragmentPresenter;
 
 public class CookbookScreenFragment extends Fragment implements InitializableViewWithCategory<List<MealTimeRecipe>> {

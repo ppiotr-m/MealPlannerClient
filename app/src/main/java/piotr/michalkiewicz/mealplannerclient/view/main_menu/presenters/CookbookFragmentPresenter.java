@@ -5,10 +5,10 @@ import android.util.Log;
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.ServiceGenerator;
+import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeService;
-import piotr.michalkiewicz.mealplannerclient.view.common.InitializableViewWithCategory;
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCategory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

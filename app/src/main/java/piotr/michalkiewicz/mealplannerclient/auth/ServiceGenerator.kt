@@ -1,11 +1,11 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
 import android.graphics.Bitmap
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.interceptor.AuthAuthenticator
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.interceptor.AuthInterceptor
+import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthAuthenticator
+import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthInterceptor
 import piotr.michalkiewicz.mealplannerclient.recipes.model.conversion.BinaryToBitmapConverter
 import piotr.michalkiewicz.mealplannerclient.recipes.repository.RecipeService
 import piotr.michalkiewicz.mealplannerclient.user.repository.UserService

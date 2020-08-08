@@ -14,9 +14,9 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Objects;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.LoginClient;
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.LoginListener;
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.MyPreference;
+import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
+import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
+import piotr.michalkiewicz.mealplannerclient.auth.MyPreference;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;

@@ -1,12 +1,12 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth
+package piotr.michalkiewicz.mealplannerclient.auth
 
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.interceptor.LoginInterceptor
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.model.Token
+import piotr.michalkiewicz.mealplannerclient.auth.interceptor.LoginInterceptor
+import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASE_URL
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PASSWORD_GRANT_TYPE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN

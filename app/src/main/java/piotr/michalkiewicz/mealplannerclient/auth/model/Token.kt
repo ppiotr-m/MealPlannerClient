@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.auth.model
+package piotr.michalkiewicz.mealplannerclient.auth.model
 
 import com.google.gson.annotations.SerializedName
 
