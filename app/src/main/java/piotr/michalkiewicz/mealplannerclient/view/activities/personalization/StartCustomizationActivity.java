@@ -26,8 +26,7 @@ public class StartCustomizationActivity extends AppCompatActivity {
         startCustomizationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(StartCustomizationActivity.this, DietCustomizationActivity.class);
-                startActivity(myIntent);
+                // TODO Start customization here
             }
         });
 

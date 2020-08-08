@@ -40,10 +40,10 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
 
     private fun setOnClickListeners() {
         editPasswordBtn.setOnClickListener{
-            startLauncherForActivityResult(EditPasswordActivityContract())
+            startLauncherForActivityResult(SettingsActivityContract(EditPasswordActivity::class))
         }
         editLocationBtn.setOnClickListener{
-            startLauncherForActivityResult(EditLocationActivityContract())
+            startLauncherForActivityResult(SettingsActivityContract(EditLocationActivity::class))
         }
         increaseCookingTimeBtn.setOnClickListener {
             increasePreferredCookingTime()
@@ -76,13 +76,13 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
             }
         }
         editDietBtn.setOnClickListener {
-            startLauncherForActivityResult(EditDietActivityContract())
+            startLauncherForActivityResult(SettingsActivityContract(EditDietActivity::class))
         }
         editHeightBtn.setOnClickListener {
-            startLauncherForActivityResult(EditHeightActivityContract())
+            startLauncherForActivityResult(SettingsActivityContract(EditHeightActivity::class))
         }
         editWeightBtn.setOnClickListener {
-            startLauncherForActivityResult(EditWeightActivityContract())
+            startLauncherForActivityResult(SettingsActivityContract(EditWeightActivity::class))
         }
     }
 
@@ -135,11 +135,11 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     }
 
     private fun addAllergy(){
-        startLauncherForActivityResult(EditAllergiesActivityContract())
+        startLauncherForActivityResult(SettingsActivityContract(EditAllergiesActivity::class))
     }
 
     private fun addAvoidedIngredient(){
-        startLauncherForActivityResult(EditAvoidedIngredientsContract())
+        startLauncherForActivityResult(SettingsActivityContract(EditAvoidedIngredientsActivity::class))
     }
 
     private fun increasePortionsPerMeal(){
