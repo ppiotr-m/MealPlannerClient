@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.recipes;
+package piotr.michalkiewicz.mealplannerclient.view.main_menu;
 
 import android.content.Context;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeRecyclerViewAdapter;
 
 public final class RecipeCategoryViewCreator {
 
@@ -32,7 +31,7 @@ public final class RecipeCategoryViewCreator {
         RecyclerView recipesHorizontalView = new RecyclerView(context);
         recipesHorizontalView.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        recipesHorizontalView.setAdapter(new RecipeRecyclerViewAdapter(context, data));
+        recipesHorizontalView.setAdapter(new RecipeRecyclerViewAdapterDepr(context, data));
         recipesHorizontalView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         container.addView(categoryTagTV);

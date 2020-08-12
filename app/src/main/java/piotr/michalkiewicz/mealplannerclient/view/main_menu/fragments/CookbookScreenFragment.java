@@ -9,13 +9,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity;
-import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeCategoryViewCreator;
+import piotr.michalkiewicz.mealplannerclient.view.main_menu.RecipeCategoryViewCreator;
+import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeRecyclerViewAdapter;
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.presenters.CookbookFragmentPresenter;
 
@@ -23,6 +26,7 @@ public class CookbookScreenFragment extends Fragment implements InitializableVie
 
     private ViewGroup recipesLayoutContainer;
     private CookbookFragmentPresenter presenter;
+    private final int itemViewCacheSize = 20;
 
     @Nullable
     @Override
@@ -52,11 +56,36 @@ public class CookbookScreenFragment extends Fragment implements InitializableVie
 
     @Override
     public void initWithData(List<MealTimeRecipe> data, String category) {
-        ViewGroup recipesView = RecipeCategoryViewCreator.createRecipeCategoryView(data, category, getContext());
+        ViewGroup recipesView = createRecipesHorizontalRecyclerView(data);
         recipesView.setOnClickListener(v->{
             Intent intent = new Intent(getActivity(), RecipeActivity.class);
             startActivity(intent);
         });
         recipesLayoutContainer.addView(recipesView);
+    }
+
+    private ViewGroup createRecipesHorizontalRecyclerView(List<MealTimeRecipe> data){
+        RecyclerView recyclerView = (RecyclerView) LayoutInflater.from(getContext())
+                .inflate(R.layout.recipes_list_recycler_view, recipesLayoutContainer, false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(new RecipeRecyclerViewAdapter(data));
+        recyclerView.addOnScrollListener(createRecipesOnScrollListener());
+        recyclerView.setItemViewCacheSize(itemViewCacheSize);
+        return recyclerView;
+    }
+
+    //  TODO Implement abstract methods
+    private RecyclerView.OnScrollListener createRecipesOnScrollListener(){
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        };
     }
 }

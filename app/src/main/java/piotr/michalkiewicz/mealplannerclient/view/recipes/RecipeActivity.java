@@ -92,7 +92,6 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
 
     @Override
     public void initWithData(MealTimeRecipe data, String category) {
-
         if(data==null){
             // TODO obsluga tego nulla
             finish();

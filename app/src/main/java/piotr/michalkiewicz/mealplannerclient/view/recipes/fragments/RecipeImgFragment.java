@@ -34,7 +34,6 @@ public class RecipeImgFragment extends Fragment {
         mDrawableId = getArguments() != null ? getArguments().getInt("drawable_id") : 1;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,5 +48,4 @@ public class RecipeImgFragment extends Fragment {
         return  v;
 
     }
-
 }

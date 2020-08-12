@@ -61,4 +61,5 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.3.0-alpha06'
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    implementation "androidx.cardview:cardview:1.0.0"
 }
