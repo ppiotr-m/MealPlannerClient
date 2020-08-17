@@ -16,6 +16,7 @@ import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.view.main_menu.RecipesRecyclerViewScrollListener;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.RecipeCategoryViewCreator;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeRecyclerViewAdapter;
@@ -69,23 +70,10 @@ public class CookbookScreenFragment extends Fragment implements InitializableVie
                 .inflate(R.layout.recipes_list_recycler_view, recipesLayoutContainer, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new RecipeRecyclerViewAdapter(data));
-        recyclerView.addOnScrollListener(createRecipesOnScrollListener());
+        recyclerView.addOnScrollListener(new RecipesRecyclerViewScrollListener(new LinearLayoutManager(getContext())));
         recyclerView.setItemViewCacheSize(itemViewCacheSize);
         return recyclerView;
     }
 
-    //  TODO Implement abstract methods
-    private RecyclerView.OnScrollListener createRecipesOnScrollListener(){
-        return new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        };
-    }
 }
