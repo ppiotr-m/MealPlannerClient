@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.personalization.fragments.DietCustomizationFragment">
+    android:background="#FFFFFF"
+    tools:context=".view.personalization.fragments.DietCustomFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constrainDietCust"
@@ -22,43 +23,51 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <Button
-                android:id="@+id/dietStandardBtn"
+                android:id="@+id/standartDietBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diet_standard" />
 
             <Button
+                android:id="@+id/paleoDietBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diet_paleo" />
 
             <Button
+                android:id="@+id/vegetarianDietBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diet_vegetarian" />
 
             <Button
+                android:id="@+id/pescatarianDietBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diet_pescatarian" />
 
             <Button
+                android:id="@+id/flexitarianDietBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diet_flexitarian" />
 
             <Button
+                android:id="@+id/veganDietBtn"
                 android:layout_width="169dp"
                 android:layout_height="wrap_content"
                 android:text="@string/diet_vegan" />
 
             <Button
+                android:id="@+id/lowCarbDietBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diet_low_carb" />
 
             <Button
+                android:id="@+id/ketoDietBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diet_keto" />

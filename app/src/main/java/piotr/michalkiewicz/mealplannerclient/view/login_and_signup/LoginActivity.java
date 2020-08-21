@@ -19,7 +19,7 @@ import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity;
-import piotr.michalkiewicz.mealplannerclient.view.personalization.StartCustomizationActivity;
+import piotr.michalkiewicz.mealplannerclient.view.personalization.StartCustomActivity;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void loginSuccessful() {
                 dialog.dismissDialog();
-                Intent myIntent = new Intent(LoginActivity.this, StartCustomizationActivity.class);
+                Intent myIntent = new Intent(LoginActivity.this, StartCustomActivity.class);
                 startActivity(myIntent);
             }
 

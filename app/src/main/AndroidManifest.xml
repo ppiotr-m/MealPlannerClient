@@ -42,7 +42,7 @@
         <activity android:name="piotr.michalkiewicz.mealplannerclient.view.login_and_signup.SignUpActivity" />
         <activity android:name=".view.recipes.CookingStepsActivity" />
         <activity android:name=".view.recipes.IngredientsActivity" />
-        <activity android:name=".view.personalization.StartCustomizationActivity" />
+        <activity android:name=".view.personalization.StartCustomActivity" />
         <activity
             android:name=".view.recipes.RecipeActivity"
             android:label="@string/title_activity_recipe"
