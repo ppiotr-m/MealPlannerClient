@@ -14,7 +14,7 @@
 
 
         <LinearLayout
-            android:id="@+id/linearLayoutDiet"
+            android:id="@+id/linearButtonsDiet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="70dp"
             android:text="@string/diet_prefer"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayoutDiet"
+            app:layout_constraintBottom_toTopOf="@+id/linearButtonsDiet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
