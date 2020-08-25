@@ -33,7 +33,7 @@ class UserAccount : Serializable {
         @JvmStatic
         fun createMockSettings(): UserSettings{
             val settings = UserSettings()
-   //         settings.allergies = listOf("Nuts", "Soy")
+            settings.allergies = listOf("Nuts", "Soy")
             settings.cookingTimePreference = 60
             settings.mealsPerMealPlanPreference = 5
             settings.portionPreferences =4

@@ -73,12 +73,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         sexSelectionRadioGroup.setOnCheckedChangeListener { _, i ->
             if(i == R.id.maleRadioBtn){
                 if(findViewById<RadioButton>(i).isChecked){
-                    presenter.data?.sex = MALE
+                    presenter.data?.userSettings?.sex = MALE
                 }
             }
             else{
                 if(findViewById<RadioButton>(i).isChecked){
-                    presenter.data?.sex = FEMALE
+                    presenter.data?.userSettings?.sex = FEMALE
                 }
             }
         }
@@ -103,8 +103,8 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     }
 
     private fun initSexSelectionRadioGroup(userAccount: UserAccount?){
-        if(userAccount?.sex==null) return
-        if(userAccount.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
+        if(userAccount?.userSettings?.sex==null) return
+        if(userAccount?.userSettings?.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
