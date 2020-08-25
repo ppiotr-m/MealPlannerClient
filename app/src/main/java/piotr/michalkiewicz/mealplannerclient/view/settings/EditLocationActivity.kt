@@ -48,7 +48,7 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     private fun setDataForParentActivity(data : UserAccount?){
         val intent = Intent()
-        intent.putExtra(ConstantValues.SETTINGS_DATA, data)
+        intent.putExtra(SETTINGS_DATA, data)
         setResult(SettingsActivity.RESULT_OK, intent)
     }
 

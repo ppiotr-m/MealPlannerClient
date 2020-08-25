@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContract
@@ -11,8 +13,9 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
-import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
 
 class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller{
 
@@ -23,14 +26,18 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
         init()
     }
 
     override fun onResume() {
         super.onResume()
-
         initWithData(presenter.data, 1)
+    }
+
+    override fun onPause() {
+        Log.i(ContentValues.TAG, "onPause");
+        super.onPause()
+        presenter.saveSettingsServerSide()
     }
 
     private fun init(){
@@ -101,6 +108,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
+    /*
     private fun initAllergiesChipGroup(userSettings: UserSettings?){
         var childViewCounter = 0
         userSettings?.allergies?.forEach {
@@ -119,6 +127,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
             addAllergy()
         }
     }
+     */
 
     private fun initAvoidedIngredientsChipGroup(userSettings: UserSettings?){
         var childViewCounter = 0
@@ -178,7 +187,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         weightTV.text = data?.userSettings?.nutritionProfileSettings?.weight.toString()
         usernameTV.text = data?.username
         initAvoidedIngredientsChipGroup(data?.userSettings)
-        initAllergiesChipGroup(data?.userSettings)
+  //      initAllergiesChipGroup(data?.userSettings)
         initSexSelectionRadioGroup(data)
     }
 

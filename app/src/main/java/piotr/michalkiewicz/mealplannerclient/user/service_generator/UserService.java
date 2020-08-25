@@ -1,9 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.user.service_generator;
 
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
+import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface UserService {
@@ -14,7 +16,10 @@ public interface UserService {
     @POST("/user/signUp")
     Call<UserAccount> signUp(@Body UserAccount userAccount);
 
-    @POST("/user/account")
-    Call<UserAccount> editAccountSettings(@Body UserAccount userAccount);
+    @POST("/user/userAccount")
+    Call<UserAccount> updateAccount(@Body UserAccount userAccount);
+
+    @POST("/user/settings")
+    Call<UserAccount> updateSettings(@Body UserSettings userSettings);
 
 }

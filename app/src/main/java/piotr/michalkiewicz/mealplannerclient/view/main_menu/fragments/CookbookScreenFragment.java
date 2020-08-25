@@ -12,22 +12,28 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
+import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.RecipesRecyclerViewScrollListener;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity;
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.RecipeCategoryViewCreator;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeRecyclerViewAdapter;
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.presenters.CookbookFragmentPresenter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CookbookScreenFragment extends Fragment implements InitializableViewWithCategory<List<MealTimeRecipe>> {
 
     private ViewGroup recipesLayoutContainer;
     private CookbookFragmentPresenter presenter;
     private final int itemViewCacheSize = 20;
+    private final RecipeServiceGenerator recipeServiceGenerator = new RecipeServiceGenerator(getContext());
 
     @Nullable
     @Override
@@ -70,7 +76,22 @@ public class CookbookScreenFragment extends Fragment implements InitializableVie
                 .inflate(R.layout.recipes_list_recycler_view, recipesLayoutContainer, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new RecipeRecyclerViewAdapter(data));
-        recyclerView.addOnScrollListener(new RecipesRecyclerViewScrollListener(new LinearLayoutManager(getContext())));
+        recyclerView.addOnScrollListener(new RecipesRecyclerViewScrollListener(getContext()){
+            @Override
+            public void onLoadMore(int pageNumber, @NotNull RecyclerView recyclerView) {
+                recipeServiceGenerator.getRecipesForDiet("standard", new Callback<List<MealTimeRecipe>>() {
+                    @Override
+                    public void onResponse(Call<List<MealTimeRecipe>> call, Response<List<MealTimeRecipe>> response) {
+                  //      recyclerView.getAdapter().
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<MealTimeRecipe>> call, Throwable t) {
+
+                    }
+                }, pageNumber);
+            }
+        });
         recyclerView.setItemViewCacheSize(itemViewCacheSize);
         return recyclerView;
     }

@@ -27,17 +27,18 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setOnClickListeners(){
         createAccountBtn.setOnClickListener {
-            signUp(emailET.text.toString(), passwordET.text.toString(), confirmPasswordET.text.toString())
+            signUp(emailET.text.toString(), passwordET.text.toString(), confirmPasswordET.text.toString(),
+            usernameET.text.toString())
         }
     }
 
-    private fun signUp(email: String, password: String, passwordConfrimation: String){
+    private fun signUp(email: String, password: String, passwordConfrimation: String, username: String){
         if(password!=(passwordConfrimation)) {
             showPasswordConfirmationFailureToast()
             return
         }
-        val repository = UserServiceGenerator(this)
-        repository.signUp(UserAccount.createMockUserAccountWithParams(email, password), object : Callback<UserAccount>{
+        val repository = UserServiceGenerator()
+        repository.signUp(UserAccount.createMockUserAccountWithParams(email, password, username), object : Callback<UserAccount>{
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 showSignUpSuccessfulToast()
                 Log.i(ConstantValues.TAG, "Response: " + response.message() +"\n" + response.toString())

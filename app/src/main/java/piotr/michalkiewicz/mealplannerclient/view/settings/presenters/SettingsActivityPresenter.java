@@ -1,9 +1,18 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings.presenters;
 
+import android.content.Context;
+import android.util.Log;
+
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator;
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 public class SettingsActivityPresenter {
 
@@ -14,7 +23,6 @@ public class SettingsActivityPresenter {
     private final int COOKING_TIME_BIG_STEP = 30;
     private final int COOKIG_TIME_LIMIT = 600;
     private InitializableView view;
-    private UserServiceGenerator repository;
     private UserAccount data;
 
     public SettingsActivityPresenter(SettingsActivity activity){
@@ -98,22 +106,38 @@ public class SettingsActivityPresenter {
     }
 
     public void initSettingsViewWithData(){
-        data = UserAccount.createMockUserAccount();
-        view.initWithData(data, 0);
-/*
-        repository.getUserAccount(new Callback<UserAccount>() {
+        UserServiceGenerator userServiceGenerator = new UserServiceGenerator();
+
+        userServiceGenerator.getUserAccount(new Callback<UserAccount>() {
             @Override
             public void onResponse(Call<UserAccount> call, Response<UserAccount> response) {
                 view.initWithData(response.body(), 1);
+                data = response.body();
+                Log.d(ConstantValues.TAG, "Settings meals: " + response.body().getUserSettings().getMealsPerMealPlanPreference());
             }
 
             @Override
             public void onFailure(Call<UserAccount> call, Throwable t) {
-                Log.i(Constants.TAG, "SettingsActivityPresenter::initSettingsViewWithData failed");
+                Log.i(ConstantValues.TAG, "SettingsActivityPresenter::initSettingsViewWithData failed\n " +
+                        t.getLocalizedMessage());
             }
         });
+    }
 
- */
+    public void saveSettingsServerSide(){
+        UserServiceGenerator userServiceGenerator = new UserServiceGenerator();
+        Log.d(ConstantValues.TAG, "Settings portions: " + data.getUserSettings().getPortionPreferences());
+        data.getUserSettings().setPortionPreferences(3);
+        userServiceGenerator.saveUserSettings(data.getUserSettings(), new Callback<UserAccount>() {
+            @Override
+            public void onResponse(Call<UserAccount> call, Response<UserAccount> response) {
+                Log.i(ConstantValues.TAG, "SettingsActivityPresenter::saveSettingsServerSide response:" + response.message());
+            }
 
+            @Override
+            public void onFailure(Call<UserAccount> call, Throwable t) {
+                Log.i(ConstantValues.TAG, "SettingsActivityPresenter::saveSettingsServerSide failure:" + t.getLocalizedMessage());
+            }
+        });
     }
 }

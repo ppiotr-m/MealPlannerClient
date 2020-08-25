@@ -39,6 +39,30 @@ public class RecipeServiceGenerator {
         callAsync.enqueue(callback);
     }
 
+    public void getRecipesForRecipeType(String recipeType, Callback<List<MealTimeRecipe>> callback,
+                                        int pageNr){
+        initRecipeServiceIfNull();
+        Call<List<MealTimeRecipe>> callAsync = recipeService.getRecipeForType(recipeType, pageNr);
+
+        callAsync.enqueue(callback);
+    }
+
+    public void getRecipesForDiet(String dietType, Callback<List<MealTimeRecipe>> callback,
+                                        int pageNr){
+        initRecipeServiceIfNull();
+        Call<List<MealTimeRecipe>> callAsync = recipeService.getRecipeForDiet(dietType, pageNr);
+
+        callAsync.enqueue(callback);
+    }
+
+    public void getRecipesForTag(String tag, Callback<List<MealTimeRecipe>> callback,
+                                        int pageNr){
+        initRecipeServiceIfNull();
+        Call<List<MealTimeRecipe>> callAsync = recipeService.getRecipeForTag(tag, pageNr);
+
+        callAsync.enqueue(callback);
+    }
+
     private void initRecipeServiceIfNull(){
         if(recipeService==null) {
             recipeService = apiClient.getRecipeApi();

@@ -1,9 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.view.main_menu
 
+import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeServiceGenerator
 
-class RecipesRecyclerViewScrollListener : RecyclerView.OnScrollListener {
+abstract class RecipesRecyclerViewScrollListener : RecyclerView.OnScrollListener {
     private var layoutManager : LinearLayoutManager
     private val visibleThreshold = 10
     private var currentPage = 0
@@ -13,8 +15,11 @@ class RecipesRecyclerViewScrollListener : RecyclerView.OnScrollListener {
     private var totalItemCount = 0
     private var lastVisibleItemPosition = 0
 
-    constructor(layoutManager: LinearLayoutManager){
-        this.layoutManager = layoutManager
+    private lateinit var recipeServiceGenerator: RecipeServiceGenerator
+
+    constructor(context: Context){
+        this.layoutManager = LinearLayoutManager(context)
+        recipeServiceGenerator = RecipeServiceGenerator(context)
     }
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -47,7 +52,5 @@ class RecipesRecyclerViewScrollListener : RecyclerView.OnScrollListener {
         loading = true
     }
 
-    private fun onLoadMore(pageNumber : Int, recyclerView: RecyclerView){
-        // TODO
-    }
+    abstract fun onLoadMore(pageNumber : Int, recyclerView: RecyclerView)
 }

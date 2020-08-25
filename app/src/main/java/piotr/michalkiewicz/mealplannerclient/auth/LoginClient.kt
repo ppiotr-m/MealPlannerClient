@@ -10,6 +10,7 @@ import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASE_URL
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PASSWORD_GRANT_TYPE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,12 +38,12 @@ class LoginClient {
         val loginEndpoint = loginConnection.login(username, password, PASSWORD_GRANT_TYPE)
         loginEndpoint.subscribeOn(Schedulers.io())
                 .subscribe({ result ->
-                    Log.i("Token expires in: ", result.expiresIn.toString())
+                    Log.i(TAG, result.expiresIn.toString())
                     MyPreference().setToken(result)
                     loginListener.loginSuccessful()
                 },
                         { error ->
-                            Log.i("Login error", error.toString())
+                            Log.i(TAG, error.toString())
                             loginListener.loginFailed()
                         })
     }

@@ -4,14 +4,11 @@ import java.io.Serializable
 
 class UserAccount : Serializable {
 
-    var id: String? = null
     var email: String? = null
-    var name: String? = null
-    var username: String? = "Mariola"
+    var username: String? = null
     var password: String? = null
     var location: String? = "Poland"
     var userSettings: UserSettings? = null
-    var sex: String? = "Male"
 
     companion object{
 
@@ -25,17 +22,18 @@ class UserAccount : Serializable {
         }
 
         @JvmStatic
-        fun createMockUserAccountWithParams(email: String?, password: String?): UserAccount{
+        fun createMockUserAccountWithParams(email: String?, password: String?, username: String?): UserAccount{
             val account = UserAccount()
+            account.username = username
             account.email = email
             account.password = password
-            account.userSettings = createMockSettings()
+    //        account.userSettings = createMockSettings()
             return account
         }
         @JvmStatic
         fun createMockSettings(): UserSettings{
             val settings = UserSettings()
-            settings.allergies = listOf("Nuts", "Soy")
+   //         settings.allergies = listOf("Nuts", "Soy")
             settings.cookingTimePreference = 60
             settings.mealsPerMealPlanPreference = 5
             settings.portionPreferences =4
