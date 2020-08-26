@@ -13,7 +13,7 @@ public interface UserService {
     @GET("/user/userAccount")
     Call<UserAccount> getUserAccount();
 
-    @POST("/user/signUp")
+    @POST("/user/singUp")
     Call<UserAccount> signUp(@Body UserAccount userAccount);
 
     @POST("/user/userAccount")

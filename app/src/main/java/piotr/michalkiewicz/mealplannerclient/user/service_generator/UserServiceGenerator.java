@@ -8,6 +8,8 @@ import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.PASSWORD_GRANT_TYPE;
+
 public class UserServiceGenerator {
 
     private ServiceGenerator apiClient;
@@ -26,7 +28,8 @@ public class UserServiceGenerator {
 
     public void signUp(UserAccount userAccount, Callback<UserAccount> callback){
         SignUpService signUpService = apiClient.getSignUpApi();
-        Call<UserAccount> callAsync = signUpService.signUp(userAccount);
+        Call<UserAccount> callAsync = signUpService.signUp(userAccount.getUsername(),
+                userAccount.getEmail(), userAccount.getPassword(), PASSWORD_GRANT_TYPE);
 
         callAsync.enqueue(callback);
     }

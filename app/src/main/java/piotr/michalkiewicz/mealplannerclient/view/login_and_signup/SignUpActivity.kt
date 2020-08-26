@@ -37,8 +37,8 @@ class SignUpActivity : AppCompatActivity() {
             showPasswordConfirmationFailureToast()
             return
         }
-        val repository = UserServiceGenerator()
-        repository.signUp(UserAccount.createMockUserAccountWithParams(email, password, username), object : Callback<UserAccount>{
+        val userService = UserServiceGenerator()
+        userService.signUp(UserAccount.createMockUserAccountWithParams(email, password, username), object : Callback<UserAccount>{
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 showSignUpSuccessfulToast()
                 Log.i(ConstantValues.TAG, "Response: " + response.message() +"\n" + response.toString())
@@ -55,19 +55,22 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun showSignUpSuccessfulToast(){
         this@SignUpActivity.runOnUiThread{
-            Toast.makeText(this@SignUpActivity, R.string.sign_up_successful, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@SignUpActivity, R.string.sign_up_successful,
+                    Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun showPasswordConfirmationFailureToast(){
         this@SignUpActivity.runOnUiThread{
-            Toast.makeText(this@SignUpActivity, R.string.password_confirmation_failed, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@SignUpActivity, R.string.password_confirmation_failed,
+                    Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun showSignUpFailureServerSideToast(){
         this@SignUpActivity.runOnUiThread{
-            Toast.makeText(this@SignUpActivity, R.string.sign_up_failed, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@SignUpActivity, R.string.sign_up_failed,
+                    Toast.LENGTH_SHORT).show()
         }
     }
 }
