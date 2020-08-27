@@ -48,7 +48,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkLoginState() {
-        loginClient.refreshToken(Objects.requireNonNull(new MyPreference().getRefreshToken()), new LoginListener() {
+        String refreshToken = new MyPreference().getRefreshToken();
+        if(refreshToken == null || refreshToken.length() > 10){
+            return;
+        }
+        loginClient.refreshToken(Objects.requireNonNull(refreshToken), new LoginListener() {
             @Override
             public void loginFailed() {
 

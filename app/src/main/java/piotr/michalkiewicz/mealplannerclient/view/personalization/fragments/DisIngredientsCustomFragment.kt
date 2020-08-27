@@ -58,7 +58,11 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
 
         confirmBtn.setOnClickListener {
             fragmentCallback.onListSelect(productsList, this)
-            runMealsNumberCustomizationFragment()
+            if (goBack) {
+                closeFragment()
+            } else {
+                runMealsNumberCustomizationFragment()
+            }
         }
     }
 
@@ -84,7 +88,7 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
     private fun runMealsNumberCustomizationFragment() {
         activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, MealsNumberCustomizationFragment.newInstance())
+                ?.replace(R.id.dietCustomizationFragment, MealsNumberCustomizationFragment.newInstance(false))
                 ?.addToBackStack(null)
                 ?.commit()
     }

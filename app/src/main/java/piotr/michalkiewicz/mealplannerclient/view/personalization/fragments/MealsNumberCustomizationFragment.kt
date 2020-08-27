@@ -9,6 +9,8 @@ import piotr.michalkiewicz.mealplannerclient.R
 
 class MealsNumberCustomizationFragment : Fragment() {
 
+    private var goBack = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_meals_number_customization, container, false)
@@ -16,7 +18,8 @@ class MealsNumberCustomizationFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-                MealsNumberCustomizationFragment().apply {}
+        fun newInstance(shouldGoBack: Boolean) = MealsNumberCustomizationFragment().apply {
+            goBack = shouldGoBack
+        }
     }
 }

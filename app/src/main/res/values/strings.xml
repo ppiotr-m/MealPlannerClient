@@ -135,4 +135,14 @@
         Zrumieniony wierzch sernika posypać cukrem pudrem lub polać polewą czekoladową.</string>
     <string name="title_activity_change_location">Map</string>
     <string name="title_activity_edit_location">Map</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="portion_amount_in_meal">Portion amount in meal</string>
+    <string name="preferred_cooking_time">Preferred cooking time in minutes</string>
+    <string name="fifteenmin">15</string>
+    <string name="thirteenmin">30</string>
+    <string name="fortyfivemin">45</string>
+    <string name="sixteenmin">60</string>
 </resources>
