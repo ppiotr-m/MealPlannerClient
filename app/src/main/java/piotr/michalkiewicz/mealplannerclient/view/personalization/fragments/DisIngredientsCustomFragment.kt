@@ -18,6 +18,7 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
     private val buttonsIds = ArrayList<Int>()
     private val productsList = ArrayList<String>()
     private lateinit var confirmBtn: Button
+    private var goBack = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -26,8 +27,9 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-                DisIngredientsCustomFragment().apply {}
+        fun newInstance(shouldGoBack: Boolean) = DisIngredientsCustomFragment().apply {
+            goBack = shouldGoBack
+        }
     }
 
     override fun onAttach(context: Context) {

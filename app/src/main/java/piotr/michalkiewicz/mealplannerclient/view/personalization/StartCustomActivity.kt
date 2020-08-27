@@ -43,7 +43,7 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
 //            ServingsCustomizationActivity
 //            CustomizationFinishActivity
             fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.add(R.id.dietCustomizationFragment, DietCustomFragment.newInstance())
+            fragmentTransaction.add(R.id.dietCustomizationFragment, DietCustomFragment.newInstance(false))
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
 

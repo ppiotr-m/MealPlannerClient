@@ -15,6 +15,7 @@ class DietCustomFragment : Fragment(), View.OnClickListener {
 
     private lateinit var fragmentCallback: FragmentCallback
     private val buttonsIds = ArrayList<Int>()
+    private var goBack = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -23,7 +24,8 @@ class DietCustomFragment : Fragment(), View.OnClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance() = DietCustomFragment().apply {
+        fun newInstance(shouldGoBack: Boolean) = DietCustomFragment().apply {
+            goBack = shouldGoBack
         }
     }
 
@@ -41,8 +43,8 @@ class DietCustomFragment : Fragment(), View.OnClickListener {
                 buttonsIds.add(v.id)
             }
         }
-        for(buttonId in buttonsIds){
-         addClick(buttonId)
+        for (buttonId in buttonsIds) {
+            addClick(buttonId)
         }
         super.onViewStateRestored(savedInstanceState)
     }
@@ -57,13 +59,18 @@ class DietCustomFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         fragmentCallback.onVariableSelect(activity?.findViewById<Button>(v.id)?.text.toString(), this)
-        runDislikeIngredientsFragment()
+
+        if (goBack) {
+            closeFragment()
+        } else {
+            runDislikeIngredientsFragment()
+        }
     }
 
     private fun runDislikeIngredientsFragment() {
         activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, DisIngredientsCustomFragment.newInstance())
+                ?.replace(R.id.dietCustomizationFragment, DisIngredientsCustomFragment.newInstance(false))
                 ?.addToBackStack(null)
                 ?.commit()
     }
