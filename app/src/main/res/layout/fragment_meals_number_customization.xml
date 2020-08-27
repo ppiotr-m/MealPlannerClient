@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/textView13"
         android:layout_width="304dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:text="@string/portion_amount_in_meal"
         android:textAlignment="center"
@@ -25,20 +25,32 @@
     <TextView
         android:id="@+id/textView15"
         android:layout_width="351dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:text="@string/preferred_cooking_time"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/portionAmountLayout" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="351dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Meal per plan"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/portionPreferenceLayout" />
 
     <LinearLayout
-        android:id="@+id/Cooking"
-        android:layout_width="375dp"
-        android:layout_height="68dp"
+        android:id="@+id/portionAmountLayout"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/one" />
+
         <Button
             android:id="@+id/portionTwo"
             android:layout_width="wrap_content"
@@ -77,8 +90,8 @@
 
     <LinearLayout
         android:id="@+id/portionPreferenceLayout"
-        android:layout_width="375dp"
-        android:layout_height="68dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/fifteenmin" />
+
         <Button
             android:id="@+id/thirteenMin"
             android:layout_width="wrap_content"
@@ -116,41 +130,51 @@
 
     <LinearLayout
         android:id="@+id/mealPerPlan"
-        android:layout_width="375dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="232dp"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15">
+        app:layout_constraintTop_toBottomOf="@+id/textView16">
 
         <Button
-            android:id="@+id/fifteenMin"
+            android:id="@+id/oneMealBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/fifteenmin" />
-        <Button
-            android:id="@+id/thirteenMin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/thirteenmin" />
+            android:text="@string/one" />
 
         <Button
-            android:id="@+id/fortyFiveMin"
+            android:id="@+id/twoMealsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/fortyfivemin" />
+            android:text="@string/two" />
 
         <Button
-            android:id="@+id/sixteenMin"
+            android:id="@+id/threeMealsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/sixteenmin" />
+            android:text="@string/three" />
+
+        <Button
+            android:id="@+id/fourMealsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/four" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

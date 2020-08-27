@@ -18,7 +18,6 @@ import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity;
 import piotr.michalkiewicz.mealplannerclient.view.personalization.StartCustomActivity;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
 
@@ -49,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkLoginState() {
         String refreshToken = new MyPreference().getRefreshToken();
-        if(refreshToken == null || refreshToken.length() > 10){
+        if(refreshToken == null || refreshToken.length() < 10){
             return;
         }
         loginClient.refreshToken(Objects.requireNonNull(refreshToken), new LoginListener() {
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void loginSuccessful() {
-                Intent myIntent = new Intent(LoginActivity.this, MainMenuActivity.class);
+                Intent myIntent = new Intent(LoginActivity.this, StartCustomActivity.class); //toDo change it
                 startActivity(myIntent);
             }
         });
@@ -98,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void loginSuccessful() {
                 dialog.dismissDialog();
-                Intent myIntent = new Intent(LoginActivity.this, StartCustomActivity.class);
+                Intent myIntent = new Intent(LoginActivity.this, StartCustomActivity.class); //toDo change it
                 startActivity(myIntent);
             }
 

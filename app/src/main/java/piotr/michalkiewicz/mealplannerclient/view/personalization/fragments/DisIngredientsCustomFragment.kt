@@ -15,7 +15,6 @@ import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
 
     private lateinit var fragmentCallback: FragmentCallback
-    private val buttonsIds = ArrayList<Int>()
     private val productsList = ArrayList<String>()
     private lateinit var confirmBtn: Button
     private var goBack = true
@@ -38,8 +37,15 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutIngredientsButtons)
         initConfirmButton()
-        val linearLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutIngredientsButtons)
+        initIngredientsButtons(buttonsLayout)
+
+        super.onViewStateRestored(savedInstanceState)
+    }
+
+    private fun initIngredientsButtons(linearLayout: LinearLayout?) {
+        val buttonsIds = ArrayList<Int>()
 
         for (i in 0 until linearLayout!!.childCount) {
             val v: View = linearLayout.getChildAt(i)
@@ -50,7 +56,6 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
         for (buttonId in buttonsIds) {
             addClick(buttonId)
         }
-        super.onViewStateRestored(savedInstanceState)
     }
 
     private fun initConfirmButton() {
