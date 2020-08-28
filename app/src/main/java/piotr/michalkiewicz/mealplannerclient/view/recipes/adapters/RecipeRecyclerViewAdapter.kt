@@ -3,7 +3,6 @@ package piotr.michalkiewicz.mealplannerclient.view.recipes.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recipe_card_view.view.*
 import piotr.michalkiewicz.mealplannerclient.R
@@ -20,7 +19,7 @@ class RecipeRecyclerViewAdapter(private val dataSet: List<MealTimeRecipe>): Recy
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        holder.recipeCardView.cookbookThumbnailIV.setImageBitmap(dataSet[position].image)
+        holder.recipeCardView.cookbookThumbnailImgView.setImageBitmap(dataSet[position].image)
         holder.recipeCardView.recipeTitleTV.text = dataSet[position].name
         holder.recipeCardView.gradeTV.text = dataSet[position].totalRating.toString()
     }
