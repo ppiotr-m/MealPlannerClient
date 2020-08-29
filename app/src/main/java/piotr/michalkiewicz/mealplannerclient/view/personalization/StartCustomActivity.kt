@@ -2,7 +2,6 @@ package piotr.michalkiewicz.mealplannerclient.view.personalization
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -37,17 +36,14 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
     }
 
     private fun implButtons() {
-        startCustomizationBtn.setOnClickListener(View.OnClickListener {
-//            AllergyCustomizationActivity.java
-//            ServingsCustomizationActivity
-//            CustomizationFinishActivity
+        startCustomizationBtn.setOnClickListener {
             fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.add(R.id.dietCustomizationFragment, DietCustomFragment.newInstance(false))
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
 
             // TODO Start customization here
-        })
+        }
 
         skipCustomizationBtn.setOnClickListener {
             val myIntent = Intent(this@StartCustomActivity, MainMenuActivity::class.java)
