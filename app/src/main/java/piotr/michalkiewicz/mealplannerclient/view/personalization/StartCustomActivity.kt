@@ -2,7 +2,6 @@ package piotr.michalkiewicz.mealplannerclient.view.personalization
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity
+import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.AllergyCustomizationFragment
 import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.DietCustomFragment
 import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.DisIngredientsCustomFragment
 import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.MealsNumberCustomizationFragment
@@ -76,7 +76,7 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
     override fun onListSelect(variable: List<String>, from: Fragment) {
         when (from::class) {
             DisIngredientsCustomFragment::class -> userSettings.unlikeIngredients = variable
+            AllergyCustomizationFragment::class -> userSettings.allergies = variable
         }
-        Log.i("onListSelect", userSettings.toString())
     }
 }

@@ -126,9 +126,17 @@ class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
             if (goBack) {
                 closeFragment()
             } else {
-                AllergyCustomizationFragment()
+                runAllergyCustomizationFragment()
             }
         }
+    }
+
+    private fun runAllergyCustomizationFragment() {
+        activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.dietCustomizationFragment, AllergyCustomizationFragment.newInstance(shouldGoBack = false))
+                ?.addToBackStack(null)
+                ?.commit()
     }
 
     override fun onAttach(context: Context) {
