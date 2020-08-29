@@ -13,6 +13,7 @@ import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity
 import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.DietCustomFragment
 import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.DisIngredientsCustomFragment
+import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.MealsNumberCustomizationFragment
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
 class StartCustomActivity : AppCompatActivity(), FragmentCallback {
@@ -38,8 +39,6 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
     private fun implButtons() {
         startCustomizationBtn.setOnClickListener(View.OnClickListener {
 //            AllergyCustomizationActivity.java
-//            DislikedIngredientsCustomization
-//            MealsNumberCustomizationActivity
 //            ServingsCustomizationActivity
 //            CustomizationFinishActivity
             fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -57,14 +56,25 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
     }
 
     override fun onVariableSelect(variable: String, from: Fragment) {
-        when(from::class){
+        when (from::class) {
             DietCustomFragment::class -> userSettings.diets = variable
         }
-        Log.i("onVariableSelect", userSettings.toString())
+    }
+
+    override fun onVariableSelectMulti(variable: String, from: Fragment, fieldName: String) {
+        when (from::class) {
+            MealsNumberCustomizationFragment::class -> {
+                when (fieldName) {
+                    UserSettings::portionPreferences.name -> userSettings.portionPreferences = variable.toInt()
+                    UserSettings::cookingTimePreference.name -> userSettings.cookingTimePreference = variable.toInt()
+                    UserSettings::mealsPerMealPlanPreference.name -> userSettings.mealsPerMealPlanPreference = variable.toInt()
+                }
+            }
+        }
     }
 
     override fun onListSelect(variable: List<String>, from: Fragment) {
-        when(from::class){
+        when (from::class) {
             DisIngredientsCustomFragment::class -> userSettings.unlikeIngredients = variable
         }
         Log.i("onListSelect", userSettings.toString())

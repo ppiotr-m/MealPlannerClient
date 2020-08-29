@@ -2,14 +2,17 @@ package piotr.michalkiewicz.mealplannerclient.view.personalization.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHECKED_BUTTON_COLOR
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
 class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
@@ -17,6 +20,7 @@ class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
     private lateinit var fragmentCallback: FragmentCallback
     private lateinit var confirmBtn: Button
     private var goBack = true
+    private var initBaseValues = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -25,20 +29,35 @@ class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = MealsNumberCustomizationFragment().apply {
+        fun newInstance(shouldGoBack: Boolean, shouldInitBaseValues: Boolean) = MealsNumberCustomizationFragment().apply {
             goBack = shouldGoBack
+            initBaseValues = shouldInitBaseValues
         }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         val portionAmountButtonsLayout = activity?.findViewById<LinearLayout>(R.id.portionAmountLayout)
-        val portionPreferenceButtonsLayout = activity?.findViewById<LinearLayout>(R.id.portionPreferenceLayout)
-        val mealsAmountButtonsLayout = activity?.findViewById<LinearLayout>(R.id.mealPerPlan)
+        val portionPreferenceButtonsLayout = activity?.findViewById<LinearLayout>(R.id.cookingTimePreferenceLayout)
+        val mealsAmountButtonsLayout = activity?.findViewById<LinearLayout>(R.id.mealPerPlanLayout)
 
         initConfirmButton()
         initCustomizationButtons(listOf(portionAmountButtonsLayout, portionPreferenceButtonsLayout, mealsAmountButtonsLayout))
-
+        if (initBaseValues) {
+            initBaseButtonsValues()
+        }
         super.onViewStateRestored(savedInstanceState)
+    }
+
+    private fun initBaseButtonsValues() {
+        val baseValues = UserSettings.getBaseCookingValues()
+
+        for ((key, value) in baseValues) {
+            when (key) {
+                UserSettings::portionPreferences.name -> markButton(value, activity?.findViewById(R.id.portionAmountLayout)!!)
+                UserSettings::cookingTimePreference.name -> markButton(value, activity?.findViewById(R.id.cookingTimePreferenceLayout)!!)
+                UserSettings::mealsPerMealPlanPreference.name -> markButton(value, activity?.findViewById(R.id.mealPerPlanLayout)!!)
+            }
+        }
     }
 
     private fun initCustomizationButtons(linearLayouts: List<LinearLayout?>) {
@@ -67,18 +86,47 @@ class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         val element = activity?.findViewById<Button>(v.id)?.text.toString()
-        Log.i("ELELELE", element)
+        val parent: LinearLayout = v.parent as LinearLayout
+        var fieldName = ""
+
+        when (parent.id) {
+            R.id.portionAmountLayout -> fieldName = UserSettings::portionPreferences.name
+            R.id.cookingTimePreferenceLayout -> fieldName = UserSettings::cookingTimePreference.name
+            R.id.mealPerPlanLayout -> fieldName = UserSettings::mealsPerMealPlanPreference.name
+        }
+        fragmentCallback.onVariableSelectMulti(element, this, fieldName)
+        markButton(v, parent)
+    }
+
+    private fun markButton(v: View, parent: LinearLayout) {
+        parent.children.iterator().forEach {
+            if (it.id != v.id) {
+                it.setBackgroundColor(DEFAULT_BUTTON_COLOR)
+            } else {
+                it.setBackgroundColor(CHECKED_BUTTON_COLOR)
+            }
+        }
+    }
+
+    private fun markButton(v: Int, parent: LinearLayout) {
+        parent.children.iterator().forEach {
+            it as Button
+            if (it.text.toString() != v.toString()) {
+                it.setBackgroundColor(DEFAULT_BUTTON_COLOR)
+            } else {
+                it.setBackgroundColor(CHECKED_BUTTON_COLOR)
+            }
+        }
     }
 
     private fun initConfirmButton() {
         confirmBtn = activity?.findViewById(R.id.confirmButton)!!
 
         confirmBtn.setOnClickListener {
-//            fragmentCallback.onListSelect(productsList, this)
             if (goBack) {
                 closeFragment()
             } else {
-//                runMealsNumberCustomizationFragment()
+                AllergyCustomizationFragment()
             }
         }
     }

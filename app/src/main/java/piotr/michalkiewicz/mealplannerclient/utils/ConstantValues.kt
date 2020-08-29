@@ -1,5 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.utils
 
+import android.graphics.Color
+
 class ConstantValues {
     companion object {
         //DEV cieniu local host
@@ -18,5 +20,8 @@ class ConstantValues {
         const val RECIPE_ID = "recipe_id"
         const val INGREDIENTS_DATA = "ingredients"
         const val COOKING_STEPS_DATA = "cooking_steps"
+
+        const val CHECKED_BUTTON_COLOR = Color.LTGRAY
+        const val DEFAULT_BUTTON_COLOR = Color.RED
     }
 }
