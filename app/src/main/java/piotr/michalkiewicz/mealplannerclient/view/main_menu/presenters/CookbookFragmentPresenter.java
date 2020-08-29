@@ -4,10 +4,10 @@ import android.util.Log;
 
 import java.util.List;
 
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
-import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeService;
+import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeServiceGenerator;
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCategory;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,8 +16,8 @@ import retrofit2.Response;
 public class CookbookFragmentPresenter {
 
     private InitializableViewWithCategory view;
-    private final ServiceGenerator serviceGenerator = new ServiceGenerator();
-    private final RecipeService recipeService = serviceGenerator.getRecipeApi();
+    private final RecipeServiceGenerator serviceGenerator = new RecipeServiceGenerator();
+    private final RecipeService recipeService = serviceGenerator.recipeService;
 
     public CookbookFragmentPresenter(InitializableViewWithCategory view) {
         this.view = view;

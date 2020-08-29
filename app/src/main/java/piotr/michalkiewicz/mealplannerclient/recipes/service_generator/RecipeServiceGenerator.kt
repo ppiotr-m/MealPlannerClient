@@ -1,48 +1,32 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.service_generator;
+package piotr.michalkiewicz.mealplannerclient.recipes.service_generator
 
-import android.content.Context;
+import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import retrofit2.Callback
 
-import java.util.List;
+class RecipeServiceGenerator : ServiceGenerator() {
 
-import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
-import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
-import retrofit2.Call;
-import retrofit2.Callback;
+    lateinit var recipeService: RecipeService //todo private all API methods should be here need to move from RecipePresenter
 
-public class RecipeServiceGenerator {
-
-    private ServiceGenerator apiClient;
-    private RecipeService recipeService;
-
-    public RecipeServiceGenerator(Context context){
-        apiClient = new ServiceGenerator();
-    }
-
-    public void getRecipesForDiet(String dietType, Callback<List<MealTimeRecipe>> callback){
-        initRecipeServiceIfNull();
-        Call<List<MealTimeRecipe>> callAsync = recipeService.getRecipeForDiet(dietType);
-
-        callAsync.enqueue(callback);
-    }
-
-    public void getRecipeForId(String id, Callback<MealTimeRecipe> callback){
-        initRecipeServiceIfNull();
-        Call<MealTimeRecipe> callAsync = recipeService.getRecipeForId(id);
-
-        callAsync.enqueue(callback);
-    }
-
-    public void getRecipesForRecipeType(String recipeType, Callback<List<MealTimeRecipe>> callback){
-        initRecipeServiceIfNull();
-        Call<List<MealTimeRecipe>> callAsync = recipeService.getRecipeForType(recipeType);
-
-        callAsync.enqueue(callback);
-    }
-
-    private void initRecipeServiceIfNull(){
-        if(recipeService==null) {
-            recipeService = apiClient.getRecipeApi();
+    init {
+        if (!::recipeService.isInitialized) {
+            val retrofit = retrofitBuilder()
+            recipeService = retrofit.create(RecipeService::class.java)
         }
     }
-}
 
+    fun getRecipesForDiet(dietType: String?, callback: Callback<List<MealTimeRecipe>>?) {
+        val callAsync = recipeService.getRecipeForDiet(dietType)
+        callAsync.enqueue(callback)
+    }
+
+    fun getRecipeForId(id: String?, callback: Callback<MealTimeRecipe>?) {
+        val callAsync = recipeService.getRecipeForId(id)
+        callAsync.enqueue(callback)
+    }
+
+    fun getRecipesForRecipeType(recipeType: String?, callback: Callback<List<MealTimeRecipe>>?) {
+        val callAsync = recipeService.getRecipeForType(recipeType)
+        callAsync.enqueue(callback)
+    }
+}

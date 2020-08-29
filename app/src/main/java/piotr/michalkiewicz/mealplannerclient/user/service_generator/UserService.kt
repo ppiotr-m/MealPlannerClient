@@ -1,20 +1,19 @@
-package piotr.michalkiewicz.mealplannerclient.user.service_generator;
+package piotr.michalkiewicz.mealplannerclient.user.service_generator
 
-import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
+import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
 
-public interface UserService {
+interface UserService {
 
     @GET("/user/userAccount")
-    Call<UserAccount> getUserAccount();
+    fun getUserAccount(): Call<UserAccount>
 
     @POST("/user/signUp")
-    Call<UserAccount> signUp(@Body UserAccount userAccount);
+    fun signUp(@Body userAccount: UserAccount): Call<UserAccount>
 
     @POST("/user/account")
-    Call<UserAccount> editAccountSettings(@Body UserAccount userAccount);
-
+    fun editAccountSettings(@Body userAccount: UserAccount?): Call<UserAccount>
 }

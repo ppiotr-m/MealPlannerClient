@@ -36,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
             showPasswordConfirmationFailureToast()
             return
         }
-        val repository = UserServiceGenerator(this)
+        val repository = UserServiceGenerator()
         repository.signUp(UserAccount.createMockUserAccountWithParams(email, password), object : Callback<UserAccount>{
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 showSignUpSuccessfulToast()

@@ -1,45 +1,32 @@
-package piotr.michalkiewicz.mealplannerclient.user.service_generator;
+package piotr.michalkiewicz.mealplannerclient.user.service_generator
 
-import android.content.Context;
+import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import retrofit2.Callback
 
-import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
-import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
-import retrofit2.Call;
-import retrofit2.Callback;
+class UserServiceGenerator: ServiceGenerator() {
 
-public class UserServiceGenerator {
+    private lateinit var userService: UserService
 
-    private ServiceGenerator apiClient;
-    private UserService userService;
-
-    public UserServiceGenerator(Context context){
-        apiClient = new ServiceGenerator();
-    }
-
-    public void getUserAccount(Callback<UserAccount> callback){
-        initUserServiceIfNull();
-        Call<UserAccount> callAsync = userService.getUserAccount();
-
-        callAsync.enqueue(callback);
-    }
-
-    public void signUp(UserAccount userAccount, Callback<UserAccount> callback){
-        initUserServiceIfNull();
-        Call<UserAccount> callAsync = userService.signUp(userAccount);
-
-        callAsync.enqueue(callback);
-    }
-
-    public void saveUserAccountData(UserAccount data, Callback<UserAccount> callback){
-        initUserServiceIfNull();
-        Call<UserAccount> callAsync = userService.editAccountSettings(data);
-
-        callAsync.enqueue(callback);
-    }
-
-    private void initUserServiceIfNull(){
-        if(userService==null) {
-            userService = apiClient.getUserApi();
+    init {
+        if (!::userService.isInitialized) {
+            val retrofit = retrofitBuilder()
+            userService = retrofit.create(UserService::class.java)
         }
+    }
+
+    fun getUserAccount(callback: Callback<UserAccount>) {
+        val callAsync = userService.getUserAccount()
+        callAsync.enqueue(callback)
+    }
+
+    fun signUp(userAccount: UserAccount, callback: Callback<UserAccount>) {
+        val callAsync = userService.signUp(userAccount)
+        callAsync.enqueue(callback)
+    }
+
+    fun saveUserAccountData(data: UserAccount, callback: Callback<UserAccount>) {
+        val callAsync = userService.editAccountSettings(data)
+        callAsync.enqueue(callback)
     }
 }

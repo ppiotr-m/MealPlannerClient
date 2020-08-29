@@ -1,8 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.view.main_menu.presenters;
 
-import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeService;
+import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,15 +11,15 @@ import retrofit2.Response;
 public class HomeScreenPresenter {
 
     private InitializableView view;
-    private ServiceGenerator serviceGenerator;
+    private RecipeServiceGenerator serviceGenerator;
 
     public HomeScreenPresenter(InitializableView view) {
         this.view = view;
-        this.serviceGenerator = new ServiceGenerator();
+        this.serviceGenerator = new RecipeServiceGenerator();
     }
 
     public void initWithTemporaryRecipes() {
-        RecipeService recipeService = serviceGenerator.getRecipeApi();
+        RecipeService recipeService = serviceGenerator.recipeService;
 
 
         recipeService.getRecipeForId("5e9b0884c18f0c68c680102e").enqueue(new Callback<MealTimeRecipe>() {
