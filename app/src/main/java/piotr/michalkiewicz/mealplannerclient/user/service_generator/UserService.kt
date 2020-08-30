@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.user.service_generator
 
+import io.reactivex.Observable
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,5 +17,8 @@ interface UserService {
     fun signUp(@Body userAccount: UserAccount): Call<UserAccount>
 
     @POST("/user/account")
-    fun editAccountSettings(@Body userAccount: UserAccount?): Call<UserAccount>
+    fun editAccountSettings(@Body userAccount: UserAccount): Call<UserAccount>  //toDo delete ?
+
+    @POST("/user/settings")
+    fun updateUserSettings(@Body userSettings: UserSettings): Observable<UserAccount>
 }

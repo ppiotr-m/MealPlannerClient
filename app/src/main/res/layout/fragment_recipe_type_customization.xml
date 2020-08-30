@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".view.personalization.fragments.DisIngredientsCustomizationFragment">
-
+    tools:context=".view.personalization.fragments.RecipeTypeCustomizationFragment">
 
     <TextView
         android:id="@+id/textView14"
@@ -15,56 +14,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="66dp"
-        android:text="@string/what_you_dislike"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutIngredientsButtons"
+        android:text="@string/what_type_of_recipe_you_don_t_like_cooking"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutRecipeTypesButtons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayoutIngredientsButtons"
-        android:layout_width="wrap_content"
+        android:id="@+id/linearLayoutRecipeTypesButtons"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <!--TODO LIST OF BUTTONS ON FLY FROM BACKEND ALL INGREDIENTS FROM DB automatic create ids they are useless-->
-        <Button
-            android:id="@+id/avoca6doBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/avocado" />
 
         <Button
-            android:id="@+id/avoc5adoBtn"
+            android:id="@+id/soupBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/beets" />
+            android:text="@string/soup" />
 
         <Button
-            android:id="@+id/avoc4adoBtn"
+            android:id="@+id/fishBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bell_pepper" />
+            android:text="@string/fish" />
 
         <Button
-            android:id="@+id/avoca3doBtn"
+            android:id="@+id/pastaBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/brussel_sprout" />
+            android:text="@string/pasta" />
 
         <Button
-            android:id="@+id/avoca2doBtn"
+            android:id="@+id/grillBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/egg_plant" />
-
-        <Button
-            android:id="@+id/avo1cadoBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cauliflower" />
+            android:text="@string/grill" />
 
     </LinearLayout>
 
@@ -77,4 +64,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

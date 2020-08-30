@@ -1,10 +1,13 @@
 package piotr.michalkiewicz.mealplannerclient.user.service_generator
 
+import android.util.Log
+import io.reactivex.schedulers.Schedulers
 import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import retrofit2.Callback
 
-class UserServiceGenerator: ServiceGenerator() {
+class UserServiceGenerator : ServiceGenerator() {
 
     private lateinit var userService: UserService
 
@@ -25,8 +28,18 @@ class UserServiceGenerator: ServiceGenerator() {
         callAsync.enqueue(callback)
     }
 
-    fun saveUserAccountData(data: UserAccount, callback: Callback<UserAccount>) {
+    fun saveUserAccountData(data: UserAccount, callback: Callback<UserAccount>) {  //toDo delete ?
         val callAsync = userService.editAccountSettings(data)
         callAsync.enqueue(callback)
+    }
+
+    fun updateUserSettings(settings: UserSettings) {
+        val updateUserSettingsAPI = userService.updateUserSettings(settings)
+        updateUserSettingsAPI.subscribeOn(Schedulers.io())
+                .subscribe({ result ->
+                    Log.i("updateUserSettings", result.toString())
+                }, { error ->
+                    Log.i("error", error.toString())
+                })
     }
 }

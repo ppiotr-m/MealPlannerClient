@@ -7,28 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
-import piotr.michalkiewicz.mealplannerclient.view.personalization.StartCustomActivity
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
-class AllergyCustomizationFragment : Fragment(), View.OnClickListener {
+class RecipeTypeCustomizationFragment : Fragment(), View.OnClickListener {
 
-    private val allergiesList = ArrayList<String>()
     private lateinit var fragmentCallback: FragmentCallback
-    private var goBack = true
+    private val recipeTypeList = ArrayList<String>()
     private lateinit var confirmBtn: Button
+    private var goBack = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_allergy_customization, container, false)
+        return inflater.inflate(R.layout.fragment_recipe_type_customization, container, false)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = AllergyCustomizationFragment().apply {
+        fun newInstance(shouldGoBack: Boolean) = RecipeTypeCustomizationFragment().apply {
             goBack = shouldGoBack
         }
     }
@@ -39,23 +37,14 @@ class AllergyCustomizationFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        initAllergyButtons()
+        val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutRecipeTypesButtons)
         initConfirmButton()
+        initIngredientsButtons(buttonsLayout)
 
         super.onViewStateRestored(savedInstanceState)
     }
 
-    private fun initAllergyButtons() {
-        val allergiesLinearLayout = activity?.findViewById<LinearLayout>(R.id.allergiesLinearLayout)
-        val insideLayouts: Sequence<View>? = allergiesLinearLayout?.children
-
-        insideLayouts?.iterator()?.forEach {
-            it as LinearLayout
-            initButtonsFromLayout(it)
-        }
-    }
-
-    private fun initButtonsFromLayout(linearLayout: LinearLayout?) {
+    private fun initIngredientsButtons(linearLayout: LinearLayout?) {
         val buttonsIds = ArrayList<Int>()
 
         for (i in 0 until linearLayout!!.childCount) {
@@ -69,20 +58,25 @@ class AllergyCustomizationFragment : Fragment(), View.OnClickListener {
         }
     }
 
-
     private fun initConfirmButton() {
         confirmBtn = activity?.findViewById(R.id.confirmButton)!!
 
         confirmBtn.setOnClickListener {
-            fragmentCallback.onListSelect(allergiesList, this)
+            fragmentCallback.onListSelect(recipeTypeList, this)
             if (goBack) {
                 closeFragment()
             } else {
-                //End of customization
-                closeFragment()
-                (activity as StartCustomActivity).updateUserSettings()
+                runMealsNumberCustomizationFragment()
             }
         }
+    }
+
+    private fun runMealsNumberCustomizationFragment() {
+        activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.dietCustomizationFragment, MealsNumberCustomizationFragment.newInstance(shouldGoBack = false, shouldInitBaseValues = true))
+                ?.addToBackStack(null)
+                ?.commit()
     }
 
     private fun addClick(id: Int) {
@@ -99,12 +93,12 @@ class AllergyCustomizationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun markButton(element: String, v: View) {
-        if (!allergiesList.contains(element)) {
+        if (!recipeTypeList.contains(element)) {
             activity?.findViewById<Button>(v.id)?.setBackgroundColor(ConstantValues.CHECKED_BUTTON_COLOR)
-            allergiesList.add(element)
+            recipeTypeList.add(element)
         } else {
             activity?.findViewById<Button>(v.id)?.setBackgroundColor(ConstantValues.DEFAULT_BUTTON_COLOR)
-            allergiesList.remove(element)
+            recipeTypeList.remove(element)
         }
     }
 

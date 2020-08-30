@@ -8,11 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
+import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity
-import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.AllergyCustomizationFragment
-import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.DietCustomFragment
-import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.DisIngredientsCustomFragment
-import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.MealsNumberCustomizationFragment
+import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.*
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
 class StartCustomActivity : AppCompatActivity(), FragmentCallback {
@@ -21,6 +19,7 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
     private lateinit var skipCustomizationBtn: Button
     private lateinit var fragmentTransaction: FragmentTransaction
     private val userSettings = UserSettings()
+    private lateinit var userServiceGenerator: UserServiceGenerator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,22 +37,21 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
     private fun implButtons() {
         startCustomizationBtn.setOnClickListener {
             fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.add(R.id.dietCustomizationFragment, DietCustomFragment.newInstance(false))
+            fragmentTransaction.add(R.id.dietCustomizationFragment, DietCustomizationFragment.newInstance(false))
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
-
-            // TODO Start customization here
         }
 
         skipCustomizationBtn.setOnClickListener {
             val myIntent = Intent(this@StartCustomActivity, MainMenuActivity::class.java)
+            updateUserSettings()
             startActivity(myIntent)
         }
     }
 
     override fun onVariableSelect(variable: String, from: Fragment) {
         when (from::class) {
-            DietCustomFragment::class -> userSettings.diets = variable
+            DietCustomizationFragment::class -> userSettings.diets = variable
         }
     }
 
@@ -71,8 +69,15 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
 
     override fun onListSelect(variable: List<String>, from: Fragment) {
         when (from::class) {
-            DisIngredientsCustomFragment::class -> userSettings.unlikeIngredients = variable
+            DisIngredientsCustomizationFragment::class -> userSettings.unlikeIngredients = variable
             AllergyCustomizationFragment::class -> userSettings.allergies = variable
+            RecipeTypeCustomizationFragment::class -> userSettings.recipeTypes = variable
         }
+    }
+
+    fun updateUserSettings(){
+        userSettings.customizationDone = true
+        userServiceGenerator = UserServiceGenerator()
+        userServiceGenerator.updateUserSettings(userSettings)
     }
 }

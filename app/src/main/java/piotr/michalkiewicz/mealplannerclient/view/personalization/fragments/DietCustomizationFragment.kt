@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
-class DietCustomFragment : Fragment(), View.OnClickListener {
+class DietCustomizationFragment : Fragment(), View.OnClickListener {
 
     private lateinit var fragmentCallback: FragmentCallback
     private val buttonsIds = ArrayList<Int>()
@@ -24,7 +24,7 @@ class DietCustomFragment : Fragment(), View.OnClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = DietCustomFragment().apply {
+        fun newInstance(shouldGoBack: Boolean) = DietCustomizationFragment().apply {
             goBack = shouldGoBack
         }
     }
@@ -70,7 +70,7 @@ class DietCustomFragment : Fragment(), View.OnClickListener {
     private fun runDislikeIngredientsFragment() {
         activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, DisIngredientsCustomFragment.newInstance(false))
+                ?.replace(R.id.dietCustomizationFragment, DisIngredientsCustomizationFragment.newInstance(false))
                 ?.addToBackStack(null)
                 ?.commit()
     }

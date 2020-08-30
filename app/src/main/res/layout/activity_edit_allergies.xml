@@ -45,8 +45,8 @@
                 <ToggleButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/allergy_diary"
-                    android:textOff="@string/allergy_diary"/>
+                    android:text="@string/allergy_dairy"
+                    android:textOff="@string/allergy_dairy"/>
 
                 <ToggleButton
                     android:layout_width="match_parent"

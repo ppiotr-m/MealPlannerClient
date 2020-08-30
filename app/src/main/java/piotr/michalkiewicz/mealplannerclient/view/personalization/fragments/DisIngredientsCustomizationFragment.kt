@@ -13,7 +13,7 @@ import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHEC
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
-class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
+class DisIngredientsCustomizationFragment : Fragment(), View.OnClickListener {
 
     private lateinit var fragmentCallback: FragmentCallback
     private val productsList = ArrayList<String>()
@@ -27,7 +27,7 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = DisIngredientsCustomFragment().apply {
+        fun newInstance(shouldGoBack: Boolean) = DisIngredientsCustomizationFragment().apply {
             goBack = shouldGoBack
         }
     }
@@ -67,9 +67,17 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
             if (goBack) {
                 closeFragment()
             } else {
-                runMealsNumberCustomizationFragment()
+                runRecipeTypeCustomizationFragment()
             }
         }
+    }
+
+    private fun runRecipeTypeCustomizationFragment() {
+        activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.dietCustomizationFragment, RecipeTypeCustomizationFragment.newInstance(shouldGoBack = false))
+                ?.addToBackStack(null)
+                ?.commit()
     }
 
     private fun addClick(id: Int) {
@@ -93,14 +101,6 @@ class DisIngredientsCustomFragment : Fragment(), View.OnClickListener {
             activity?.findViewById<Button>(v.id)?.setBackgroundColor(DEFAULT_BUTTON_COLOR)
             productsList.remove(element)
         }
-    }
-
-    private fun runMealsNumberCustomizationFragment() {
-        activity?.supportFragmentManager
-                ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, MealsNumberCustomizationFragment.newInstance(shouldGoBack = false, shouldInitBaseValues = true))
-                ?.addToBackStack(null)
-                ?.commit()
     }
 
     private fun closeFragment() {
