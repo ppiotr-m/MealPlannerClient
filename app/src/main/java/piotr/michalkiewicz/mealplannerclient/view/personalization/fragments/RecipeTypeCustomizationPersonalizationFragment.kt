@@ -1,20 +1,18 @@
 package piotr.michalkiewicz.mealplannerclient.view.personalization.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
-import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
+import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.RECIPE_TYPE_CUSTOMIZATION_BUTTONS
 
-class RecipeTypeCustomizationFragment : Fragment(), View.OnClickListener {
+class RecipeTypeCustomizationPersonalizationFragment : PersonalizationFragment(), View.OnClickListener {
 
-    private lateinit var fragmentCallback: FragmentCallback
     private val recipeTypeList = ArrayList<String>()
     private lateinit var confirmBtn: Button
     private var goBack = true
@@ -26,25 +24,21 @@ class RecipeTypeCustomizationFragment : Fragment(), View.OnClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = RecipeTypeCustomizationFragment().apply {
+        fun newInstance(shouldGoBack: Boolean) = RecipeTypeCustomizationPersonalizationFragment().apply {
             goBack = shouldGoBack
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        fragmentCallback = context as FragmentCallback
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutRecipeTypesButtons)
         initConfirmButton()
-        initIngredientsButtons(buttonsLayout)
+        addButtonsToLayout(buttonsLayout, RECIPE_TYPE_CUSTOMIZATION_BUTTONS, 3)
+        initCustomizationButtons(buttonsLayout)
 
         super.onViewStateRestored(savedInstanceState)
     }
 
-    private fun initIngredientsButtons(linearLayout: LinearLayout?) {
+    private fun initCustomizationButtons(linearLayout: LinearLayout?) {
         val buttonsIds = ArrayList<Int>()
 
         for (i in 0 until linearLayout!!.childCount) {
@@ -74,7 +68,7 @@ class RecipeTypeCustomizationFragment : Fragment(), View.OnClickListener {
     private fun runMealsNumberCustomizationFragment() {
         activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, MealsNumberCustomizationFragment.newInstance(shouldGoBack = false, shouldInitBaseValues = true))
+                ?.replace(R.id.dietCustomizationFragment, MealsNumberCustomizationPersonalizationFragment.newInstance(shouldGoBack = false, shouldInitBaseValues = true))
                 ?.addToBackStack(null)
                 ?.commit()
     }
@@ -100,9 +94,5 @@ class RecipeTypeCustomizationFragment : Fragment(), View.OnClickListener {
             activity?.findViewById<Button>(v.id)?.setBackgroundColor(ConstantValues.DEFAULT_BUTTON_COLOR)
             recipeTypeList.remove(element)
         }
-    }
-
-    private fun closeFragment() {
-        activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 }

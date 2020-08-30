@@ -7,17 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.core.view.children
-import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
+import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
 import piotr.michalkiewicz.mealplannerclient.view.personalization.StartCustomActivity
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.ALLERGIES_CUSTOMIZATION_BUTTONS
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
-class AllergyCustomizationFragment : Fragment(), View.OnClickListener {
+class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickListener {
 
     private val allergiesList = ArrayList<String>()
-    private lateinit var fragmentCallback: FragmentCallback
     private var goBack = true
     private lateinit var confirmBtn: Button
 
@@ -39,20 +38,12 @@ class AllergyCustomizationFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        initAllergyButtons()
+        val allergiesLinearLayout = activity?.findViewById<LinearLayout>(R.id.allergiesLinearLayout)
+        addButtonsToLayout(allergiesLinearLayout, ALLERGIES_CUSTOMIZATION_BUTTONS, 1)
         initConfirmButton()
+        initButtonsFromLayout(allergiesLinearLayout)
 
         super.onViewStateRestored(savedInstanceState)
-    }
-
-    private fun initAllergyButtons() {
-        val allergiesLinearLayout = activity?.findViewById<LinearLayout>(R.id.allergiesLinearLayout)
-        val insideLayouts: Sequence<View>? = allergiesLinearLayout?.children
-
-        insideLayouts?.iterator()?.forEach {
-            it as LinearLayout
-            initButtonsFromLayout(it)
-        }
     }
 
     private fun initButtonsFromLayout(linearLayout: LinearLayout?) {
@@ -106,9 +97,5 @@ class AllergyCustomizationFragment : Fragment(), View.OnClickListener {
             activity?.findViewById<Button>(v.id)?.setBackgroundColor(ConstantValues.DEFAULT_BUTTON_COLOR)
             allergiesList.remove(element)
         }
-    }
-
-    private fun closeFragment() {
-        activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 }

@@ -8,16 +8,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.view.children
-import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHECKED_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
+import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
-class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
+class MealsNumberCustomizationPersonalizationFragment : PersonalizationFragment(), View.OnClickListener {
 
-    private lateinit var fragmentCallback: FragmentCallback
     private lateinit var confirmBtn: Button
     private var goBack = true
     private var initBaseValues = false
@@ -29,7 +28,7 @@ class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance(shouldGoBack: Boolean, shouldInitBaseValues: Boolean) = MealsNumberCustomizationFragment().apply {
+        fun newInstance(shouldGoBack: Boolean, shouldInitBaseValues: Boolean) = MealsNumberCustomizationPersonalizationFragment().apply {
             goBack = shouldGoBack
             initBaseValues = shouldInitBaseValues
         }
@@ -37,11 +36,15 @@ class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         val portionAmountButtonsLayout = activity?.findViewById<LinearLayout>(R.id.portionAmountLayout)
-        val portionPreferenceButtonsLayout = activity?.findViewById<LinearLayout>(R.id.cookingTimePreferenceLayout)
+        val cookingTimeButtonsLayout = activity?.findViewById<LinearLayout>(R.id.cookingTimePreferenceLayout)
         val mealsAmountButtonsLayout = activity?.findViewById<LinearLayout>(R.id.mealPerPlanLayout)
 
+//        addButtonsToLayout(portionAmountButtonsLayout, BASIC_PORTION_CUSTOMIZATION_BUTTONS, 1)   //toDO button android:layout_weight="1" or set layout_width
+//        addButtonsToLayout(cookingTimeButtonsLayout, BASIC_COOKING_TIME_CUSTOMIZATION_BUTTONS, 2) //toDO button android:layout_weight="1" or set layout_width
+//        addButtonsToLayout(mealsAmountButtonsLayout, BASIC_MEALS_PER_CUSTOMIZATION_BUTTONS, 3) //toDO button android:layout_weight="1" or set layout_width
+
         initConfirmButton()
-        initCustomizationButtons(listOf(portionAmountButtonsLayout, portionPreferenceButtonsLayout, mealsAmountButtonsLayout))
+        initCustomizationButtons(listOf(portionAmountButtonsLayout, cookingTimeButtonsLayout, mealsAmountButtonsLayout))
         if (initBaseValues) {
             initBaseButtonsValues()
         }
@@ -142,9 +145,5 @@ class MealsNumberCustomizationFragment : Fragment(), View.OnClickListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         fragmentCallback = context as FragmentCallback
-    }
-
-    private fun closeFragment() {
-        activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 }

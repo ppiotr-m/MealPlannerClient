@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.DIETS_CUSTOMIZATION_BUTTONS
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
-class DietCustomizationFragment : Fragment(), View.OnClickListener {
+class DietCustomizationFragment : PersonalizationFragment(), View.OnClickListener {
 
-    private lateinit var fragmentCallback: FragmentCallback
     private val buttonsIds = ArrayList<Int>()
     private var goBack = true
 
@@ -35,8 +35,14 @@ class DietCustomizationFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        val linearLayout = activity?.findViewById<LinearLayout>(R.id.linearButtonsDiet)
+        val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearButtonsDiet)
+        addButtonsToLayout(buttonsLayout, DIETS_CUSTOMIZATION_BUTTONS, 1)
+        initDietCustomizationButtons(buttonsLayout)
 
+        super.onViewStateRestored(savedInstanceState)
+    }
+
+    private fun initDietCustomizationButtons(linearLayout: LinearLayout?) {
         for (i in 0 until linearLayout!!.childCount) {
             val v: View = linearLayout.getChildAt(i)
             if (v is Button) {
@@ -46,7 +52,6 @@ class DietCustomizationFragment : Fragment(), View.OnClickListener {
         for (buttonId in buttonsIds) {
             addClick(buttonId)
         }
-        super.onViewStateRestored(savedInstanceState)
     }
 
     private fun addClick(id: Int) {
@@ -73,9 +78,5 @@ class DietCustomizationFragment : Fragment(), View.OnClickListener {
                 ?.replace(R.id.dietCustomizationFragment, DisIngredientsCustomizationFragment.newInstance(false))
                 ?.addToBackStack(null)
                 ?.commit()
-    }
-
-    private fun closeFragment() {
-        activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 }

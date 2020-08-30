@@ -57,7 +57,7 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
 
     override fun onVariableSelectMulti(variable: String, from: Fragment, fieldName: String) {
         when (from::class) {
-            MealsNumberCustomizationFragment::class -> {
+            MealsNumberCustomizationPersonalizationFragment::class -> {
                 when (fieldName) {
                     UserSettings::portionPreferences.name -> userSettings.portionPreferences = variable.toInt()
                     UserSettings::cookingTimePreference.name -> userSettings.cookingTimePreference = variable.toInt()
@@ -71,7 +71,7 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
         when (from::class) {
             DisIngredientsCustomizationFragment::class -> userSettings.unlikeIngredients = variable
             AllergyCustomizationFragment::class -> userSettings.allergies = variable
-            RecipeTypeCustomizationFragment::class -> userSettings.recipeTypes = variable
+            RecipeTypeCustomizationPersonalizationFragment::class -> userSettings.recipeTypes = variable
         }
     }
 

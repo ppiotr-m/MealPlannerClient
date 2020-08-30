@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHECKED_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
+import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.DIS_LIKE_INGREDIENTS_CUSTOMIZATION_BUTTONS
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
-class DisIngredientsCustomizationFragment : Fragment(), View.OnClickListener {
+class DisIngredientsCustomizationFragment : PersonalizationFragment(), View.OnClickListener {
 
-    private lateinit var fragmentCallback: FragmentCallback
     private val productsList = ArrayList<String>()
     private lateinit var confirmBtn: Button
     private var goBack = true
@@ -40,6 +40,7 @@ class DisIngredientsCustomizationFragment : Fragment(), View.OnClickListener {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutIngredientsButtons)
         initConfirmButton()
+        addButtonsToLayout(buttonsLayout, DIS_LIKE_INGREDIENTS_CUSTOMIZATION_BUTTONS, 1)
         initIngredientsButtons(buttonsLayout)
 
         super.onViewStateRestored(savedInstanceState)
@@ -75,7 +76,7 @@ class DisIngredientsCustomizationFragment : Fragment(), View.OnClickListener {
     private fun runRecipeTypeCustomizationFragment() {
         activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, RecipeTypeCustomizationFragment.newInstance(shouldGoBack = false))
+                ?.replace(R.id.dietCustomizationFragment, RecipeTypeCustomizationPersonalizationFragment.newInstance(shouldGoBack = false))
                 ?.addToBackStack(null)
                 ?.commit()
     }
@@ -101,9 +102,5 @@ class DisIngredientsCustomizationFragment : Fragment(), View.OnClickListener {
             activity?.findViewById<Button>(v.id)?.setBackgroundColor(DEFAULT_BUTTON_COLOR)
             productsList.remove(element)
         }
-    }
-
-    private fun closeFragment() {
-        activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 }
