@@ -13,6 +13,9 @@ import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHECKED_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.BASIC_COOKING_TIME_CUSTOMIZATION_BUTTONS
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.BASIC_MEALS_PER_CUSTOMIZATION_BUTTONS
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.BASIC_PORTION_CUSTOMIZATION_BUTTONS
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
 class MealsNumberCustomizationPersonalizationFragment : PersonalizationFragment(), View.OnClickListener {
@@ -39,9 +42,9 @@ class MealsNumberCustomizationPersonalizationFragment : PersonalizationFragment(
         val cookingTimeButtonsLayout = activity?.findViewById<LinearLayout>(R.id.cookingTimePreferenceLayout)
         val mealsAmountButtonsLayout = activity?.findViewById<LinearLayout>(R.id.mealPerPlanLayout)
 
-//        addButtonsToLayout(portionAmountButtonsLayout, BASIC_PORTION_CUSTOMIZATION_BUTTONS, 1)   //toDO button android:layout_weight="1" or set layout_width
-//        addButtonsToLayout(cookingTimeButtonsLayout, BASIC_COOKING_TIME_CUSTOMIZATION_BUTTONS, 2) //toDO button android:layout_weight="1" or set layout_width
-//        addButtonsToLayout(mealsAmountButtonsLayout, BASIC_MEALS_PER_CUSTOMIZATION_BUTTONS, 3) //toDO button android:layout_weight="1" or set layout_width
+        addButtonsToLayout(portionAmountButtonsLayout, BASIC_PORTION_CUSTOMIZATION_BUTTONS, 1)
+        addButtonsToLayout(cookingTimeButtonsLayout, BASIC_COOKING_TIME_CUSTOMIZATION_BUTTONS, 2)
+        addButtonsToLayout(mealsAmountButtonsLayout, BASIC_MEALS_PER_CUSTOMIZATION_BUTTONS, 3)
 
         initConfirmButton()
         initCustomizationButtons(listOf(portionAmountButtonsLayout, cookingTimeButtonsLayout, mealsAmountButtonsLayout))
@@ -70,6 +73,7 @@ class MealsNumberCustomizationPersonalizationFragment : PersonalizationFragment(
             for (i in 0 until it!!.childCount) {
                 val v: View = it.getChildAt(i)
                 if (v is Button) {
+                    v.layoutParams.width = 150
                     buttonsIds.add(v.id)
                 }
             }
