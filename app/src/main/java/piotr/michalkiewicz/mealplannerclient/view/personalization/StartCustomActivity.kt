@@ -72,6 +72,7 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
             DisIngredientsCustomizationFragment::class -> userSettings.unlikeIngredients = variable
             AllergyCustomizationFragment::class -> userSettings.allergies = variable
             RecipeTypeCustomizationPersonalizationFragment::class -> userSettings.recipeTypes = variable
+            CuisineCustomizationFragment::class -> userSettings.cuisine = variable
         }
     }
 

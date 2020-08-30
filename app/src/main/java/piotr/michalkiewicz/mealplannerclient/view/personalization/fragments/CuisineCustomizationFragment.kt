@@ -7,32 +7,31 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
-import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.RECIPE_TYPE_CUSTOMIZATION_BUTTONS
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues
 
-class RecipeTypeCustomizationPersonalizationFragment : PersonalizationFragment(), View.OnClickListener {
+class CuisineCustomizationFragment : PersonalizationFragment(), View.OnClickListener {
 
-    private val recipeTypeList = ArrayList<String>()
+    private val cuisineList = ArrayList<String>()
     private lateinit var confirmBtn: Button
     private var goBack = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_recipe_type_customization, container, false)
+        return inflater.inflate(R.layout.fragment_cuisine_customization, container, false)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = RecipeTypeCustomizationPersonalizationFragment().apply {
+        fun newInstance(shouldGoBack: Boolean) = CuisineCustomizationFragment().apply {
             goBack = shouldGoBack
         }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutRecipeTypesButtons)
+        val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutCuisineButtons)
         initConfirmButton()
-        addButtonsToLayout(buttonsLayout, RECIPE_TYPE_CUSTOMIZATION_BUTTONS, 3)
+        addButtonsToLayout(buttonsLayout, ConstantValues.CUISINE_CUSTOMIZATION_BUTTONS, 3)
         initCustomizationButtons(buttonsLayout)
 
         super.onViewStateRestored(savedInstanceState)
@@ -56,19 +55,19 @@ class RecipeTypeCustomizationPersonalizationFragment : PersonalizationFragment()
         confirmBtn = activity?.findViewById(R.id.confirmButton)!!
 
         confirmBtn.setOnClickListener {
-            fragmentCallback.onListSelect(recipeTypeList, this)
+            fragmentCallback.onListSelect(cuisineList, this)
             if (goBack) {
                 closeFragment()
             } else {
-                runCuisineCustomizationFragment()
+                runMealsNumberCustomizationFragment()
             }
         }
     }
 
-    private fun runCuisineCustomizationFragment() {
+    private fun runMealsNumberCustomizationFragment() {
         activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, CuisineCustomizationFragment.newInstance(shouldGoBack = false))
+                ?.replace(R.id.dietCustomizationFragment, MealsNumberCustomizationPersonalizationFragment.newInstance(shouldGoBack = false, shouldInitBaseValues = true))
                 ?.addToBackStack(null)
                 ?.commit()
     }
@@ -87,12 +86,12 @@ class RecipeTypeCustomizationPersonalizationFragment : PersonalizationFragment()
     }
 
     private fun markButton(element: String, v: View) {
-        if (!recipeTypeList.contains(element)) {
-            activity?.findViewById<Button>(v.id)?.setBackgroundColor(ConstantValues.CHECKED_BUTTON_COLOR)
-            recipeTypeList.add(element)
+        if (!cuisineList.contains(element)) {
+            activity?.findViewById<Button>(v.id)?.setBackgroundColor(piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.CHECKED_BUTTON_COLOR)
+            cuisineList.add(element)
         } else {
-            activity?.findViewById<Button>(v.id)?.setBackgroundColor(ConstantValues.DEFAULT_BUTTON_COLOR)
-            recipeTypeList.remove(element)
+            activity?.findViewById<Button>(v.id)?.setBackgroundColor(piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.DEFAULT_BUTTON_COLOR)
+            cuisineList.remove(element)
         }
     }
 }

@@ -2,7 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.user.model
 
 import java.io.Serializable
 
-class UserSettings : Serializable {
+class UserSettings : Serializable { //toDo re write it in correct way
 
     //If change values change them to on backend user package Constant class
 
@@ -16,6 +16,7 @@ class UserSettings : Serializable {
     var diets: String = ""
     var unlikeIngredients: List<String> = emptyList()
     var eatenRecipes: List<String> = emptyList()
+    var cuisine: List<String> = emptyList()
     var language: String = ""
     var portionPreferences: Int = BASIC_PORTION_PREFERENCE
     var cookingTimePreference: Int = BASIC_COOKING_TIME_PREFERENCE
