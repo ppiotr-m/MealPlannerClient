@@ -9,7 +9,6 @@ class UserSettings: Serializable {
    var allergies: List<String>? = null
    var diet: String? = null
    var unlikeIngredients: List<String>? = null
-   var eatenRecipes: List<String>? = null
    var language: String? = null
    var portionPreferences: Int? = 4
    var cookingTimePreference: Int? = 60

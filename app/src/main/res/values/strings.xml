@@ -119,6 +119,10 @@
     <string name="weight_out_of_range">Value must be between 30 and 400</string>
     <string name="other">Other</string>
     <string name="username">Username</string>
+    <string name="password_too_short">Password must be at least 6 characters long.</string>
+    <string name="sign_up_server_error">There was an error during account creation,
+        please contact administrator for help.</string>
+    <string name="invalid_email">Invalid email. Please correct.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

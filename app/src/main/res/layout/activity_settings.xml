@@ -465,7 +465,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="75kg"
+            android:text="75"
             app:layout_constraintStart_toStartOf="@+id/barrier4"
             app:layout_constraintTop_toBottomOf="@+id/heightTV" />
 
@@ -492,7 +492,7 @@
             app:layout_constraintTop_toTopOf="@+id/preferedCookingTimeTV" />
 
         <TextView
-            android:id="@+id/weightUnitTV"
+            android:id="@+id/weightUnitTextView"
             style="@style/listHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -504,7 +504,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/weightUnitTV"
+            android:id="@+id/heightUnitTextView"
             style="@style/listHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

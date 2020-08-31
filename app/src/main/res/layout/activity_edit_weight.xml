@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="@+id/weightET" />
 
     <TextView
-        android:id="@+id/weightUnitTV"
+        android:id="@+id/weightUnitTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"

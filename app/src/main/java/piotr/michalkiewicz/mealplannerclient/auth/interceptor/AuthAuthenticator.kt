@@ -19,20 +19,22 @@ class AuthAuthenticator: Authenticator {
      * Method automatically refresh token if get response with 401, if get 500 must return null to avoid multi same queries to refresh token.
      */
 
+
+
     @Throws(IOException::class)
-    override fun authenticate(route: Route?, response: Response?): Request? {
+    override fun authenticate(route: Route?, response: Response): Request? {
         var requestAvailable: Request? = null
-        if (response?.code() == 401) {
+        if (response?.code == 401) {
             loginClient.refreshToken(myPreference.getRefreshToken().toString())
             try {
                 myPreference.getToken()?.let {
-                    requestAvailable = response.request().newBuilder().header("Authorization", "Bearer $it").build()
+                    requestAvailable = response.request.newBuilder().header("Authorization", "Bearer $it").build()
                 }
                 return requestAvailable
             } catch (ex: Exception) {
                 Log.i(ConstantValues.TAG, ex.toString())
             }
-        } else if (response?.code() == 500) {
+        } else if (response?.code == 500) {
             return null
         }
         return requestAvailable

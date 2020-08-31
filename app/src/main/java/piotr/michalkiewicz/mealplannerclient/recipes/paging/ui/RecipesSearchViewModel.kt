@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.recipes.view_model
+package piotr.michalkiewicz.mealplannerclient.recipes.paging.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +13,7 @@ class RecipesSearchViewModel(private val recipesPagedServiceGenerator: RecipesPa
 
     private var currentSearchResult: Flow<PagingData<MealTimeRecipe>>? = null
 
-    fun searchRepo(queryString: String): Flow<PagingData<MealTimeRecipe>> {
+    fun searchRecipe(queryString: String): Flow<PagingData<MealTimeRecipe>> {
         val lastResult = currentSearchResult
         if (queryString == currentQueryValue && lastResult != null) {
             return lastResult

@@ -9,6 +9,7 @@ class UserAccount : Serializable {
     var password: String? = null
     var location: String? = "Poland"
     var userSettings: UserSettings? = null
+    var eatenRecipes: List<String>? = null
 
     companion object{
 

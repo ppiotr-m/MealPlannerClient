@@ -2,16 +2,15 @@ package piotr.michalkiewicz.mealplannerclient.recipes.paging.data
 
 import androidx.paging.PagingSource
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
-import piotr.michalkiewicz.mealplannerclient.recipes.paging.api.RecipesPagedServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.recipes.paging.api.RecipePagedService
 import retrofit2.HttpException
 import java.io.IOException
 
-class RecipesDataSource(private val recipeServiceGenerator: RecipesPagedServiceGenerator,
+const val RECIPES_STARTING_PAGE_INDEX = 0
+
+class RecipesDataSource(private val recipeServiceGenerator: RecipePagedService,
                         private val queryParam: String) :
         PagingSource<Int, MealTimeRecipe>() {
-
-    const val RECIPES_STARTING_PAGE_INDEX = 0;
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MealTimeRecipe> {
 

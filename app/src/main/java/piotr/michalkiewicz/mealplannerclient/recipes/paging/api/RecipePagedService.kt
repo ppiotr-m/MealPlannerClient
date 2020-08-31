@@ -3,7 +3,7 @@ package piotr.michalkiewicz.mealplannerclient.recipes.paging.api
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import retrofit2.http.POST
 
-interface RecipeServicePagedService {
+interface RecipePagedService {
     @POST("/recipes/getByDiet")
-    suspend fun getRecipeForDiet(): RecipeSearchResponse
+    suspend fun getRecipesForDiet(dietType: String): RecipeSearchResponse
 }
