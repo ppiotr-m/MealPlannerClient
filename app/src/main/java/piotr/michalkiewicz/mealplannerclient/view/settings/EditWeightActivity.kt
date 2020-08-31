@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_edit_height.*
+import kotlinx.android.synthetic.main.activity_edit_height.cancelWeightBtn
+import kotlinx.android.synthetic.main.activity_edit_height.confirmWeightBtn
+import kotlinx.android.synthetic.main.activity_edit_weight.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues

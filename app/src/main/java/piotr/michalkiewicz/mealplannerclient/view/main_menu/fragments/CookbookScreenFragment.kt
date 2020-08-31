@@ -9,15 +9,12 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookbookScreenBinding
-import piotr.michalkiewicz.mealplannerclient.recipes.paging.ui.RecipesAdapter
-import piotr.michalkiewicz.mealplannerclient.recipes.paging.ui.RecipesSearchViewModel
 
 class CookbookScreenFragment : Fragment() {
 
-    private lateinit var binding: FragmentCookbookScreenBinding
-    private lateinit var viewModel: RecipesSearchViewModel
-    private val adapter = RecipesAdapter()
+//    private lateinit var binding: FragmentCookbookScreenBinding
+ //   private lateinit var viewModel: RecipesSearchViewModel
+ //   private val adapter = RecipesAdapter()
     private var searchJob: Job? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +26,7 @@ class CookbookScreenFragment : Fragment() {
         return null
     }
 
+    /*
     private fun search(query: String) {
         // Make sure we cancel the previous job before creating a new one
         searchJob?.cancel()
@@ -38,6 +36,8 @@ class CookbookScreenFragment : Fragment() {
             }
         }
     }
+
+     */
 
     /*
     private fun updateRepoListFromInput() {

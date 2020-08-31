@@ -22,6 +22,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     private val presenter = SettingsActivityPresenter(this)
     private val MALE = "Male"
     private val FEMALE = "Female"
+    private val ABSENT_DATA = "N/A"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,24 +52,6 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
         editLocationBtn.setOnClickListener{
             startLauncherForActivityResult(SettingsActivityContract(EditLocationActivity::class))
-        }
-        increaseCookingTimeBtn.setOnClickListener {
-            increasePreferredCookingTime()
-        }
-        subtractCookingTimeBtn.setOnClickListener {
-            decreasePreferredCookingTime()
-        }
-        addPortionsBtn.setOnClickListener{
-            increasePortionsPerMeal()
-        }
-        subtractPortionsBtn.setOnClickListener{
-            decreasePortionsPerMeal()
-        }
-        addMealsPerMealPlanBtn.setOnClickListener {
-            increaseMealsPerMealplan()
-        }
-        subtractMealsBtn.setOnClickListener {
-            decreaseMealsPerMealplan()
         }
         sexSelectionRadioGroup.setOnCheckedChangeListener { _, i ->
             if(i == R.id.maleRadioBtn){
@@ -151,40 +134,22 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         startLauncherForActivityResult(SettingsActivityContract(EditAvoidedIngredientsActivity::class))
     }
 
-    private fun increasePortionsPerMeal(){
-        presenter.increasePortionsPerMeal()
-        portionsTV.text = presenter.portionsPerMeal.toString()
-    }
-    private fun decreasePortionsPerMeal(){
-        presenter.decreasePortionsPerMeal()
-        portionsTV.text = presenter.portionsPerMeal.toString()
-    }
-    private fun increaseMealsPerMealplan(){
-        presenter.increaseMealsPerMealPlan()
-        mealsPerMealPlanTV.text = presenter.mealsPerMealPlan.toString()
-    }
-    private fun decreaseMealsPerMealplan(){
-        presenter.decreaseMealsPerMealPlan()
-        mealsPerMealPlanTV.text = presenter.mealsPerMealPlan.toString()
-    }
-    private fun increasePreferredCookingTime(){
-        presenter.increasePreferredCookingTime()
-        preferedCookingTimeTV.text = presenter.preferredCookingTime.toString()
-    }
-    private fun decreasePreferredCookingTime(){
-        presenter.decreasePreferredCookingTime()
-        preferedCookingTimeTV.text = presenter.preferredCookingTime.toString()
-    }
-
     override fun initWithData(data: UserAccount?, frameNr: Int) {
         emailTV.text = data?.email
         passwordTV.text = data?.password
         locationTV.text = data?.location
-        preferedCookingTimeTV.text = data?.userSettings?.cookingTimePreference?.toString()
-        portionsTV.text = data?.userSettings?.portionPreferences.toString()
-        mealsPerMealPlanTV.text = data?.userSettings?.mealsPerMealPlanPreference.toString()
-        heightTV.text = data?.userSettings?.nutritionProfileSettings?.height.toString()
-        weightTV.text = data?.userSettings?.nutritionProfileSettings?.weight.toString()
+        if(data?.userSettings?.nutritionProfileSettings?.height == null){
+            heightTV.text = ABSENT_DATA
+        }
+        else {
+            heightTV.text = data?.userSettings?.nutritionProfileSettings?.height.toString()
+        }
+        if(data?.userSettings?.nutritionProfileSettings?.weight == null){
+            weightTV.text = ABSENT_DATA
+        }
+        else {
+            weightTV.text = data?.userSettings?.nutritionProfileSettings?.weight.toString()
+        }
         usernameTV.text = data?.username
         initAvoidedIngredientsChipGroup(data?.userSettings)
   //      initAllergiesChipGroup(data?.userSettings)

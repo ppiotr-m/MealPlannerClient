@@ -123,6 +123,7 @@
     <string name="sign_up_server_error">There was an error during account creation,
         please contact administrator for help.</string>
     <string name="invalid_email">Invalid email. Please correct.</string>
+    <string name="sign_up_incomplete_data">You need to fill in all the fields!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

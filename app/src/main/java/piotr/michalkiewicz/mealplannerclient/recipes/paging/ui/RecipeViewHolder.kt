@@ -43,8 +43,9 @@ class RecipeViewHolder(val recipeCardView: View): RecyclerView.ViewHolder(recipe
 
     companion object {
         fun create(parent: ViewGroup): RecipeViewHolder {
+            // TODO Change cooking_item to recipe_card_view
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.recipe_card_view, parent, false)
+                    .inflate(R.layout.cookbook_item, parent, false)
             return RecipeViewHolder(view)
         }
     }

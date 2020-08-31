@@ -40,7 +40,11 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
         confirmLocationBtn.setOnClickListener {
             val data = intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as? UserAccount
+            if(data == null) {
+                Log.d(ConstantValues.TAG, "Data is null")
+            }
             data?.location = selectedLocation
+            Log.d(ConstantValues.TAG, "Data::location: " + data?.location)
             setDataForParentActivity(data)
             finish()
         }

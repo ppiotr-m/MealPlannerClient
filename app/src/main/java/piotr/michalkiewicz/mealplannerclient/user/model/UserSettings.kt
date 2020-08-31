@@ -2,16 +2,19 @@ package piotr.michalkiewicz.mealplannerclient.user.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.*
 
 class UserSettings: Serializable {
- //   var recipeTypesSetting: RecipeTypesSetting? = null
-   var nutritionProfileSettings: NutritionProfileSettings? = null
-   var allergies: List<String>? = null
-   var diet: String? = null
-   var unlikeIngredients: List<String>? = null
-   var language: String? = null
-   var portionPreferences: Int? = 4
-   var cookingTimePreference: Int? = 60
-   var mealsPerMealPlanPreference: Int? = 5
-   var sex: String? = "Male"
+  var nutritionProfileSettings: NutritionProfileSettings? = null
+  var allergies: List<String>? = LinkedList()
+  var unlikeIngredients: List<String>? = LinkedList()
+  var diet: String? = "Standard"
+  var language: String? = null
+  var sex: String? = "Male"
+
+  override fun toString(): String {
+    return "Diet: " + diet + "\nLanguage: " + language + "\nSex: " + sex +
+            "\n" + nutritionProfileSettings.toString() + "\n" + "Allergies: " + allergies.toString() +
+            "\nDisliked ingredients: " + unlikeIngredients.toString()
+  }
 }

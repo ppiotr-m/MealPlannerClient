@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.settings.EditHeightActivity">
 
-    <EditText
-        android:id="@+id/weightET"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:ems="10"
-        android:hint="75"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.6" />
-
     <TextView
         android:id="@+id/weightEditionLabelTV"
         android:layout_width="wrap_content"
@@ -39,6 +25,7 @@
         app:layout_constraintStart_toEndOf="@+id/weightEditionLabelTV" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -65,4 +52,16 @@
             android:paddingLeft="4dp"
             android:text="@android:string/ok" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/weightET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.6"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

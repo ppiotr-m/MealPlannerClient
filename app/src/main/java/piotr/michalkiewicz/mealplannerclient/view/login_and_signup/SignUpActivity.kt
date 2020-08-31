@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.login_and_signup
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -39,12 +40,9 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun signUp(){
-        if(!validateEmail()){
-            return
-        }
-        if(!validatePassword()) {
-            return
-        }
+        if(!checkIfAllFieldsFilled()) return
+        if(!validateEmail()) return
+        if(!validatePassword()) return
 
         val userService = UserServiceGenerator()
         userService.signUp(UserAccount.createMockUserAccountWithParams(emailET.text.toString(),
@@ -68,28 +66,21 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun validateEmail(): Boolean {
-        if(emailET.text.toString().length<MIN_EMAIL_LENGTH)
-        if(emailET.text.toString().matches(EMAIL_REGEX)) return true
+        if(emailET.text.toString().length>=MIN_EMAIL_LENGTH &&
+                emailET.text.toString().matches(EMAIL_REGEX)) return true
 
-        showInvalidEmailToast()
+        emailET.error = resources.getString(R.string.invalid_email)
         return false
-    }
-
-    private fun showInvalidEmailToast(){
-        this@SignUpActivity.runOnUiThread{
-            Toast.makeText(this@SignUpActivity, R.string.invalid_email,
-                    Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun validatePassword(): Boolean{
         if(passwordET.text.toString().length<MIN_PASSWORD_LENGTH ||
                 passwordET.text.toString().length>MAX_PASSWORD_LENGTH){
-            showPasswordTooShortFailureToast()
+            passwordET.error = resources.getString(R.string.password_too_short)
             return false
         }
         if(passwordET.text.toString() != confirmPasswordET.text.toString()){
-            showPasswordConfirmationFailureToast()
+            confirmPasswordET.error = resources.getString(R.string.password_confirmation_failed)
             return false
         }
         return true
@@ -102,24 +93,28 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun showPasswordConfirmationFailureToast(){
-        this@SignUpActivity.runOnUiThread{
-            Toast.makeText(this@SignUpActivity, R.string.password_confirmation_failed,
-                    Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun showPasswordTooShortFailureToast(){
-        this@SignUpActivity.runOnUiThread{
-            Toast.makeText(this@SignUpActivity, R.string.password_too_short,
-                    Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun showSignUpFailureServerSideToast(){
         this@SignUpActivity.runOnUiThread{
             Toast.makeText(this@SignUpActivity, R.string.sign_up_failed,
                     Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showIncompleteDataToast(){
+        this@SignUpActivity.runOnUiThread{
+            Toast.makeText(this@SignUpActivity, R.string.sign_up_incomplete_data,
+                    Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkIfAllFieldsFilled(): Boolean {
+        if(usernameET.text.toString().isEmpty() || emailET.text.isEmpty() || passwordET.text.isEmpty()
+                || confirmPasswordET.text.isEmpty()){
+            showIncompleteDataToast()
+            return false
+        }
+        else{
+            return true
         }
     }
 }
