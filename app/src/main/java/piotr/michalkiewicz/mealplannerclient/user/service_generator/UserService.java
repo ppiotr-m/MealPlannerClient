@@ -20,6 +20,6 @@ public interface UserService {
     Call<UserAccount> updateAccount(@Body UserAccount userAccount);
 
     @POST("/user/settings")
-    Call<UserAccount> updateSettings(@Body UserSettings userSettings);
+    Call<UserSettings> updateSettings(@Body UserSettings userSettings);
 
 }

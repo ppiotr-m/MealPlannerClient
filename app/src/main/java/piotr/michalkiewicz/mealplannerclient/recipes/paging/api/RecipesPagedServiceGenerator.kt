@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.paging.data.RecipesDataSource
 
-class RecipesPagedServiceGenerator (private val recipeServiceGenerator: RecipePagedService){
+class RecipesPagedServiceGenerator (private val recipePagedService: RecipePagedService){
 
     companion object {
         private const val NETWORK_PAGE_SIZE = 50
@@ -19,7 +19,7 @@ class RecipesPagedServiceGenerator (private val recipeServiceGenerator: RecipePa
                         pageSize = NETWORK_PAGE_SIZE,
                         enablePlaceholders = false
                 ),
-                pagingSourceFactory = { RecipesDataSource(recipeServiceGenerator, dietType) }
+                pagingSourceFactory = { RecipesDataSource(recipePagedService, dietType) }
         ).flow
     }
 }

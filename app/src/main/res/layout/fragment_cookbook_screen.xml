@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recipesByCategoriesLayoutContainer"
-        android:orientation="vertical"/>
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/temporaryRecipesRecyclerView"/>
+
+    </LinearLayout>
 </ScrollView>
 </layout>

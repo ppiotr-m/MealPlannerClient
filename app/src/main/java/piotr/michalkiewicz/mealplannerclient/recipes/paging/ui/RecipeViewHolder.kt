@@ -10,9 +10,8 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 
 class RecipeViewHolder(val recipeCardView: View): RecyclerView.ViewHolder(recipeCardView) {
-    private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeTitleTV)
-    private val grade: TextView = recipeCardView.findViewById(R.id.gradeTV)
-    private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.cookbookThumbnailImgView)
+    private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
+    private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.recipeCardThumbnail)
 
     private var recipe: MealTimeRecipe? = null
 
@@ -24,7 +23,6 @@ class RecipeViewHolder(val recipeCardView: View): RecyclerView.ViewHolder(recipe
         if (recipe == null) {
             val resources = itemView.resources
             recipeTitle.text = resources.getString(R.string.loading)
-            grade.visibility = View.GONE
             cookbookThumbnail.visibility = View.GONE
         } else {
             showRepoData(recipe)
@@ -34,10 +32,8 @@ class RecipeViewHolder(val recipeCardView: View): RecyclerView.ViewHolder(recipe
     private fun showRepoData(recipe: MealTimeRecipe) {
         this.recipe = recipe
         recipeTitle.text = recipe.name
-        grade.text = recipe.totalRating.toString()
         cookbookThumbnail.setImageBitmap(recipe.image)
 
-        grade.visibility = View.VISIBLE
         cookbookThumbnail.visibility = View.VISIBLE
     }
 
@@ -45,7 +41,7 @@ class RecipeViewHolder(val recipeCardView: View): RecyclerView.ViewHolder(recipe
         fun create(parent: ViewGroup): RecipeViewHolder {
             // TODO Change cooking_item to recipe_card_view
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.cookbook_item, parent, false)
+                    .inflate(R.layout.recipe_list_item, parent, false)
             return RecipeViewHolder(view)
         }
     }

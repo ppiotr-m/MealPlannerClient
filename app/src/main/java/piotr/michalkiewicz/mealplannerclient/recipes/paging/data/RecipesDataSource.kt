@@ -8,7 +8,7 @@ import java.io.IOException
 
 const val RECIPES_STARTING_PAGE_INDEX = 0
 
-class RecipesDataSource(private val recipeServiceGenerator: RecipePagedService,
+class RecipesDataSource(private val recipePagedService: RecipePagedService,
                         private val queryParam: String) :
         PagingSource<Int, MealTimeRecipe>() {
 
@@ -17,7 +17,7 @@ class RecipesDataSource(private val recipeServiceGenerator: RecipePagedService,
         val position = params.key ?: RECIPES_STARTING_PAGE_INDEX
 
         return try {
-            val result = recipeServiceGenerator.getRecipesForDiet(queryParam)
+            val result = recipePagedService.getRecipesForDiet(queryParam, position)
             val resultData = result.recipes
             LoadResult.Page(
                 data = resultData,

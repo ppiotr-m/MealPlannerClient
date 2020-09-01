@@ -41,9 +41,9 @@ public class UserServiceGenerator {
         callAsync.enqueue(callback);
     }
 
-    public void saveUserSettings(UserSettings userSettings, Callback<UserAccount> callback){
+    public void saveUserSettings(UserSettings userSettings, Callback<UserSettings> callback){
         initUserServiceIfNull();
-        Call<UserAccount> callAsync = userService.updateSettings(userSettings);
+        Call<UserSettings> callAsync = userService.updateSettings(userSettings);
 
         callAsync.enqueue(callback);
     }

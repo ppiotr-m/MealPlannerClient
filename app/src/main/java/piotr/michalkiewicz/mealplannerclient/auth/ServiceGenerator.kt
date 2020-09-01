@@ -8,6 +8,7 @@ import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthAuthenticator
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthInterceptor
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.SignUpInterceptor
 import piotr.michalkiewicz.mealplannerclient.recipes.model.conversion.BinaryToBitmapConverter
+import piotr.michalkiewicz.mealplannerclient.recipes.paging.api.RecipePagedService
 import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeService
 import piotr.michalkiewicz.mealplannerclient.user.service_generator.SignUpService
 import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserService
@@ -50,15 +51,6 @@ class ServiceGenerator {
         return signUpService
     }
 
-    private fun retrofitBuilder(): Retrofit {
-        return Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(BASE_URL)
-                .client(okHttpClient())
-                .build()
-    }
-
     private fun signUpRetrofitBuilder(): Retrofit {
         return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -68,21 +60,37 @@ class ServiceGenerator {
                 .build()
     }
 
-    private val gson: Gson = GsonBuilder()
-            .registerTypeAdapter(Bitmap::class.java, BinaryToBitmapConverter())
-            .setLenient()
-            .create()
-
-    private fun okHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-                .addInterceptor(AuthInterceptor())
-                .authenticator(AuthAuthenticator())
-                .build()
-    }
-
     private fun signUpOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
                 .addInterceptor(SignUpInterceptor())
                 .build()
+    }
+
+    companion object{
+
+        private val gson: Gson = GsonBuilder()
+                .registerTypeAdapter(Bitmap::class.java, BinaryToBitmapConverter())
+                .setLenient()
+                .create()
+
+        private fun okHttpClient(): OkHttpClient {
+            return OkHttpClient.Builder()
+                    .addInterceptor(AuthInterceptor())
+                    .authenticator(AuthAuthenticator())
+                    .build()
+        }
+
+        private fun retrofitBuilder(): Retrofit {
+            return Retrofit.Builder()
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .baseUrl(BASE_URL)
+                    .client(okHttpClient())
+                    .build()
+        }
+
+        fun getRecipesPagedApi(): RecipePagedService {
+            return retrofitBuilder().create(RecipePagedService::class.java)
+        }
     }
 }
