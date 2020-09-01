@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 
-class RecipeViewHolder(val recipeCardView: View): RecyclerView.ViewHolder(recipeCardView) {
+class RecipeViewHolder(val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
     private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.recipeCardThumbnail)
 
     private var recipe: MealTimeRecipe? = null
 
-    init{
+    init {
         // TODO Implement click listener
     }
 
@@ -33,13 +33,11 @@ class RecipeViewHolder(val recipeCardView: View): RecyclerView.ViewHolder(recipe
         this.recipe = recipe
         recipeTitle.text = recipe.name
         cookbookThumbnail.setImageBitmap(recipe.image)
-
         cookbookThumbnail.visibility = View.VISIBLE
     }
 
     companion object {
         fun create(parent: ViewGroup): RecipeViewHolder {
-            // TODO Change cooking_item to recipe_card_view
             val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.recipe_list_item, parent, false)
             return RecipeViewHolder(view)
