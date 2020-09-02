@@ -10,15 +10,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Job
+import com.mealplannerclient.R
+import com.mealplannerclient.databinding.FragmentCookbookScreenBinding
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookbookScreenBinding
-import piotr.michalkiewicz.mealplannerclient.recipes.paging.Injection
-import piotr.michalkiewicz.mealplannerclient.recipes.paging.ui.RecipesAdapter
-import piotr.michalkiewicz.mealplannerclient.recipes.paging.ui.RecipesSearchViewModel
+import piotr.michalkiewicz.mealplannerclient.recipes.Injection
+import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
+import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
 
 
 class CookbookScreenFragment : Fragment() {
@@ -26,12 +24,11 @@ class CookbookScreenFragment : Fragment() {
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
     private var adapter = RecipesAdapter()
-    private var searchJob: Job? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_cookbook_screen, container, false)
-        val manager = LinearLayoutManager(context)
+        val manager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         view.findViewById<RecyclerView>(R.id.temporaryRecipesRecyclerView).layoutManager = manager
         view.findViewById<RecyclerView>(R.id.temporaryRecipesRecyclerView).setHasFixedSize(true)
 
@@ -61,15 +58,5 @@ class CookbookScreenFragment : Fragment() {
 
     private fun initAdapter(recyclerView: RecyclerView) {
         recyclerView.adapter = adapter
-    }
-
-    private fun search(query: String) {
-        // Make sure we cancel the previous job before creating a new one
-        searchJob?.cancel()
-        searchJob = viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.searchRecipe(query).collectLatest {
-                adapter.submitData(it)
-            }
-        }
     }
 }

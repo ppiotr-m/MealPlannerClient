@@ -1,7 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.user.service_generator;
 
-import android.content.Context;
-
 import piotr.michalkiewicz.mealplannerclient.auth.ServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings;
@@ -9,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.PASSWORD_GRANT_TYPE;
+
 
 public class UserServiceGenerator {
 

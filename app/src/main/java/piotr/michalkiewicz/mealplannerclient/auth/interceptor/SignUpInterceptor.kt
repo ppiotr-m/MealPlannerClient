@@ -3,7 +3,6 @@ package piotr.michalkiewicz.mealplannerclient.auth.interceptor
 import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Response
-import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 
 class SignUpInterceptor : Interceptor {
 

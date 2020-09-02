@@ -9,17 +9,14 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_settings.*
-import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
-import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
-import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
 
-class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller{
+class SettingsActivity : AppCompatActivity(), piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView<UserAccount>, ActivityResultCaller {
 
-    private val presenter = SettingsActivityPresenter(this)
+    private val presenter = piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter(this)
     private val MALE = "Male"
     private val FEMALE = "Female"
     private val ABSENT_DATA = "N/A"
@@ -32,11 +29,11 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
 
     override fun onResume() {
         super.onResume()
-        initWithData(presenter.data, 1)
+        initWithData(presenter.data)
     }
 
     override fun onPause() {
-        Log.i(ContentValues.TAG, "onPause");
+        Log.i(ContentValues.TAG, "onPause")
         super.onPause()
         presenter.saveSettingsServerSide()
     }
@@ -82,12 +79,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
                 presenter.data = it
             }
         }
-        launcher?.launch(presenter.data)
+        launcher.launch(presenter.data)
     }
 
-    private fun initSexSelectionRadioGroup(userAccount: UserAccount?){
-        if(userAccount?.userSettings?.sex==null) return
-        if(userAccount?.userSettings?.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
+    private fun initSexSelectionRadioGroup(userAccount: UserAccount?) {
+        if (userAccount?.userSettings?.sex == null) return
+        if (userAccount.userSettings?.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
@@ -134,21 +131,20 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         startLauncherForActivityResult(SettingsActivityContract(EditAvoidedIngredientsActivity::class))
     }
 
-    override fun initWithData(data: UserAccount?, frameNr: Int) {
+    override fun initWithData(data: UserAccount?) {
         emailTV.text = data?.email
         passwordTV.text = data?.password
         locationTV.text = data?.location
-        if(data?.userSettings?.nutritionProfileSettings?.height == null){
+        if (data?.userSettings?.nutritionProfileSettings?.height == null) {
             heightTV.text = ABSENT_DATA
+        } else {
+            heightTV.text = data.userSettings?.nutritionProfileSettings?.height.toString()
         }
-        else {
-            heightTV.text = data?.userSettings?.nutritionProfileSettings?.height.toString()
-        }
-        if(data?.userSettings?.nutritionProfileSettings?.weight == null){
+        if (data?.userSettings?.nutritionProfileSettings?.weight == null) {
             weightTV.text = ABSENT_DATA
         }
         else {
-            weightTV.text = data?.userSettings?.nutritionProfileSettings?.weight.toString()
+            weightTV.text = data.userSettings?.nutritionProfileSettings?.weight.toString()
         }
         usernameTV.text = data?.username
         initAvoidedIngredientsChipGroup(data?.userSettings)

@@ -2,9 +2,6 @@ package piotr.michalkiewicz.mealplannerclient.user.model;
 
 import java.io.Serializable;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class Allergies implements Serializable {
 
     private boolean gluten;

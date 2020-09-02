@@ -14,7 +14,6 @@ import java.lang.reflect.Type;
 
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 
-
 public class BinaryToBitmapConverter implements JsonDeserializer<Bitmap> {
 
     @Override

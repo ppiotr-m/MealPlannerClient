@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings.presenters;
 
-import android.content.Context;
 import android.util.Log;
 
 import piotr.michalkiewicz.mealplannerclient.user.model.NutritionProfileSettings;
@@ -13,8 +12,6 @@ import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.ContentValues.TAG;
 
 public class SettingsActivityPresenter {
 
@@ -48,7 +45,7 @@ public class SettingsActivityPresenter {
                     data.getUserSettings().setNutritionProfileSettings(new NutritionProfileSettings());
                 }
 
-                view.initWithData(data, 1);
+                view.initWithData(data);
             }
 
             @Override

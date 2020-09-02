@@ -7,9 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class MealTimeRecipe {
 
     @SerializedName("id")

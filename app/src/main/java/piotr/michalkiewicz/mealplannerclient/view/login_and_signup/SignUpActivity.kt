@@ -1,14 +1,12 @@
 package piotr.michalkiewicz.mealplannerclient.view.login_and_signup
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_registration.*
-import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,7 +42,7 @@ class SignUpActivity : AppCompatActivity() {
         if(!validateEmail()) return
         if(!validatePassword()) return
 
-        val userService = UserServiceGenerator()
+        val userService = piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator()
         userService.signUp(UserAccount.createMockUserAccountWithParams(emailET.text.toString(),
                 passwordET.text.toString(), usernameET.text.toString()), object : Callback<UserAccount>{
 

@@ -11,15 +11,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.mealplannerclient.R;
+
 import java.util.Objects;
 
-import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity;
-import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

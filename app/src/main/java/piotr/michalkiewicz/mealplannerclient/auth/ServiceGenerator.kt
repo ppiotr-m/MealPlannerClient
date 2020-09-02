@@ -7,11 +7,8 @@ import okhttp3.OkHttpClient
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthAuthenticator
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthInterceptor
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.SignUpInterceptor
-import piotr.michalkiewicz.mealplannerclient.recipes.model.conversion.BinaryToBitmapConverter
-import piotr.michalkiewicz.mealplannerclient.recipes.paging.api.RecipePagedService
-import piotr.michalkiewicz.mealplannerclient.recipes.service_generator.RecipeService
+import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipesPagedService
 import piotr.michalkiewicz.mealplannerclient.user.service_generator.SignUpService
-import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserService
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -23,22 +20,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ServiceGenerator {
 
-    private lateinit var recipeService: RecipeService
-    private lateinit var userService: UserService
+    private lateinit var recipeService: piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeService
+    private lateinit var userService: piotr.michalkiewicz.mealplannerclient.user.service_generator.UserService
     private lateinit var signUpService: SignUpService
 
-    fun getRecipeApi(): RecipeService {
+    fun getRecipeApi(): piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeService {
         if (!::recipeService.isInitialized) {
             val retrofit = retrofitBuilder()
-            recipeService = retrofit.create(RecipeService::class.java)
+            recipeService = retrofit.create(piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeService::class.java)
         }
         return recipeService
     }
 
-    fun getUserApi(): UserService {
+    fun getUserApi(): piotr.michalkiewicz.mealplannerclient.user.service_generator.UserService {
         if (!::userService.isInitialized) {
             val retrofit = retrofitBuilder()
-            userService = retrofit.create(UserService::class.java)
+            userService = retrofit.create(piotr.michalkiewicz.mealplannerclient.user.service_generator.UserService::class.java)
         }
         return userService
     }
@@ -69,7 +66,7 @@ class ServiceGenerator {
     companion object{
 
         private val gson: Gson = GsonBuilder()
-                .registerTypeAdapter(Bitmap::class.java, BinaryToBitmapConverter())
+                .registerTypeAdapter(Bitmap::class.java, piotr.michalkiewicz.mealplannerclient.recipes.model.conversion.BinaryToBitmapConverter())
                 .setLenient()
                 .create()
 
@@ -89,8 +86,8 @@ class ServiceGenerator {
                     .build()
         }
 
-        fun getRecipesPagedApi(): RecipePagedService {
-            return retrofitBuilder().create(RecipePagedService::class.java)
+        fun getRecipesPagedApi(): RecipesPagedService {
+            return retrofitBuilder().create(RecipesPagedService::class.java)
         }
     }
 }
