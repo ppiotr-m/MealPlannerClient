@@ -17,7 +17,7 @@ class RecipesDataSource(private val recipePagedService: RecipesPagedService,
 
         return try {
 
-            val resultData = recipePagedService.getRecipesForDiet("STANDARD")
+            val resultData = recipePagedService.getRecipesPageForDiet("STANDARD", position)
             LoadResult.Page(
                     data = resultData,
                     prevKey = if (position == RECIPES_STARTING_PAGE_INDEX) null else position - 1,
