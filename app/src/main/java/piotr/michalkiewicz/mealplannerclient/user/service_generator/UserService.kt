@@ -2,6 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.user.service_generator
 
 import io.reactivex.Observable
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import retrofit2.Call
 import retrofit2.http.Body
@@ -21,4 +22,7 @@ interface UserService {
 
     @POST("/user/settings")
     fun updateUserSettings(@Body userSettings: UserSettings): Observable<UserAccount>
+
+    @POST("/user/preference")
+    fun updateUserPreference(@Body userPreference: UserPreference): Observable<UserAccount>
 }

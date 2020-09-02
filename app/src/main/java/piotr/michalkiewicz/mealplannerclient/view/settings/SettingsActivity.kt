@@ -10,9 +10,9 @@ import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
-import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
+import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
 import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
 
 class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller{
 
@@ -92,7 +92,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
                 presenter.data = it
             }
         }
-        launcher?.launch(presenter.data)
+        launcher.launch(presenter.data)
     }
 
     private fun initSexSelectionRadioGroup(userAccount: UserAccount?){
@@ -101,9 +101,9 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
-    private fun initAllergiesChipGroup(userSettings: UserSettings?){
+    private fun initAllergiesChipGroup(userPreference: UserPreference){
         var childViewCounter = 0
-        userSettings?.allergies?.forEach {
+        userPreference.allergies.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, allergiesChipGroup) as ChipGroup
             val chip = chipGroup.getChildAt(childViewCounter) as Chip
             chip.text = it
@@ -120,9 +120,9 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
     }
 
-    private fun initAvoidedIngredientsChipGroup(userSettings: UserSettings?){
+    private fun initAvoidedIngredientsChipGroup(userSettings: UserPreference){
         var childViewCounter = 0
-        userSettings?.unlikeIngredients?.forEach {
+        userSettings.unlikeIngredients.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
             (chipGroup.getChildAt(childViewCounter) as Chip).text = it
             childViewCounter +=1
@@ -167,18 +167,18 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         preferedCookingTimeTV.text = presenter.preferredCookingTime.toString()
     }
 
-    override fun initWithData(data: UserAccount?, frameNr: Int) {
-        emailTV.text = data?.email
-        passwordTV.text = data?.password
-        locationTV.text = data?.location
-        preferedCookingTimeTV.text = data?.userSettings?.cookingTimePreference?.toString()
-        portionsTV.text = data?.userSettings?.portionPreferences.toString()
-        mealsPerMealPlanTV.text = data?.userSettings?.mealsPerMealPlanPreference.toString()
-        heightTV.text = data?.userSettings?.nutritionProfileSettings?.height.toString()
-        weightTV.text = data?.userSettings?.nutritionProfileSettings?.weight.toString()
-        usernameTV.text = data?.username
-        initAvoidedIngredientsChipGroup(data?.userSettings)
-        initAllergiesChipGroup(data?.userSettings)
+    override fun initWithData(data: UserAccount, frameNr: Int) {
+        emailTV.text = data.email
+        passwordTV.text = data.password
+        locationTV.text = data.location
+        preferedCookingTimeTV.text = data.userSettings?.UserPreference?.cookingTimePreference?.toString()
+        portionsTV.text = data.userSettings?.UserPreference?.portionPreferences.toString()
+        mealsPerMealPlanTV.text = data.userSettings?.UserPreference?.mealsPerMealPlanPreference.toString()
+        heightTV.text = data.userSettings?.nutritionProfileSettings?.height.toString()
+        weightTV.text = data.userSettings?.nutritionProfileSettings?.weight.toString()
+        usernameTV.text = data.username
+        initAvoidedIngredientsChipGroup(data.userSettings?.UserPreference!!)
+        initAllergiesChipGroup(data.userSettings?.UserPreference!!)
         initSexSelectionRadioGroup(data)
     }
 

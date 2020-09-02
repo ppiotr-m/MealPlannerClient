@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
+import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
 import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity
 import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.*
@@ -18,7 +18,7 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
     private lateinit var startCustomizationBtn: Button
     private lateinit var skipCustomizationBtn: Button
     private lateinit var fragmentTransaction: FragmentTransaction
-    private val userSettings = UserSettings()
+    private val userPreference = UserPreference()
     private lateinit var userServiceGenerator: UserServiceGenerator
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
 
     override fun onVariableSelect(variable: String, from: Fragment) {
         when (from::class) {
-            DietCustomizationFragment::class -> userSettings.diets = variable
+            DietCustomizationFragment::class -> userPreference.diet = variable
         }
     }
 
@@ -59,9 +59,9 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
         when (from::class) {
             MealsNumberCustomizationPersonalizationFragment::class -> {
                 when (fieldName) {
-                    UserSettings::portionPreferences.name -> userSettings.portionPreferences = variable.toInt()
-                    UserSettings::cookingTimePreference.name -> userSettings.cookingTimePreference = variable.toInt()
-                    UserSettings::mealsPerMealPlanPreference.name -> userSettings.mealsPerMealPlanPreference = variable.toInt()
+                    UserPreference::portionPreferences.name -> userPreference.portionPreferences = variable.toInt()
+                    UserPreference::cookingTimePreference.name -> userPreference.cookingTimePreference = variable.toInt()
+                    UserPreference::mealsPerMealPlanPreference.name -> userPreference.mealsPerMealPlanPreference = variable.toInt()
                 }
             }
         }
@@ -69,16 +69,15 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
 
     override fun onListSelect(variable: List<String>, from: Fragment) {
         when (from::class) {
-            DisIngredientsCustomizationFragment::class -> userSettings.unlikeIngredients = variable
-            AllergyCustomizationFragment::class -> userSettings.allergies = variable
-            RecipeTypeCustomizationPersonalizationFragment::class -> userSettings.recipeTypes = variable
-            CuisineCustomizationFragment::class -> userSettings.cuisine = variable
+            DisIngredientsCustomizationFragment::class -> userPreference.unlikeIngredients = variable
+            AllergyCustomizationFragment::class -> userPreference.allergies = variable
+            RecipeTypeCustomizationPersonalizationFragment::class -> userPreference.recipeTypes = variable
+            CuisineCustomizationFragment::class -> userPreference.cuisine = variable
         }
     }
 
     fun updateUserSettings(){
-        userSettings.customizationDone = true
         userServiceGenerator = UserServiceGenerator()
-        userServiceGenerator.updateUserSettings(userSettings)
+        userServiceGenerator.updateUserPreference(userPreference)
     }
 }

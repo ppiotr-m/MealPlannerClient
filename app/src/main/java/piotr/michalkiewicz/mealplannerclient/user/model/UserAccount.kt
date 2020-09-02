@@ -35,10 +35,11 @@ class UserAccount : Serializable {
         @JvmStatic
         fun createMockSettings(): UserSettings{
             val settings = UserSettings()
-            settings.allergies = listOf("Nuts", "Soy")
-            settings.cookingTimePreference = 60
-            settings.mealsPerMealPlanPreference = 5
-            settings.portionPreferences =4
+            val userPreference = UserPreference()
+            userPreference.allergies = listOf("Nuts", "Soy")
+            userPreference.cookingTimePreference = 60
+            userPreference.mealsPerMealPlanPreference = 5
+            userPreference.portionPreferences =4
             val nutritionProfileSettings = NutritionProfileSettings()
             nutritionProfileSettings.height = 178
             nutritionProfileSettings.weight = 75

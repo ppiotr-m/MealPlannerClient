@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.view.children
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
+import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHECKED_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
@@ -55,13 +55,13 @@ class MealsNumberCustomizationPersonalizationFragment : PersonalizationFragment(
     }
 
     private fun initBaseButtonsValues() {
-        val baseValues = UserSettings.getBaseCookingValues()
+        val baseValues = UserPreference.getBaseCookingValues()
 
         for ((key, value) in baseValues) {
             when (key) {
-                UserSettings::portionPreferences.name -> markButton(value, activity?.findViewById(R.id.portionAmountLayout)!!)
-                UserSettings::cookingTimePreference.name -> markButton(value, activity?.findViewById(R.id.cookingTimePreferenceLayout)!!)
-                UserSettings::mealsPerMealPlanPreference.name -> markButton(value, activity?.findViewById(R.id.mealPerPlanLayout)!!)
+                UserPreference::portionPreferences.name -> markButton(value, activity?.findViewById(R.id.portionAmountLayout)!!)
+                UserPreference::cookingTimePreference.name -> markButton(value, activity?.findViewById(R.id.cookingTimePreferenceLayout)!!)
+                UserPreference::mealsPerMealPlanPreference.name -> markButton(value, activity?.findViewById(R.id.mealPerPlanLayout)!!)
             }
         }
     }
@@ -97,9 +97,9 @@ class MealsNumberCustomizationPersonalizationFragment : PersonalizationFragment(
         var fieldName = ""
 
         when (parent.id) {
-            R.id.portionAmountLayout -> fieldName = UserSettings::portionPreferences.name
-            R.id.cookingTimePreferenceLayout -> fieldName = UserSettings::cookingTimePreference.name
-            R.id.mealPerPlanLayout -> fieldName = UserSettings::mealsPerMealPlanPreference.name
+            R.id.portionAmountLayout -> fieldName = UserPreference::portionPreferences.name
+            R.id.cookingTimePreferenceLayout -> fieldName = UserPreference::cookingTimePreference.name
+            R.id.mealPerPlanLayout -> fieldName = UserPreference::mealsPerMealPlanPreference.name
         }
         fragmentCallback.onVariableSelectMulti(element, this, fieldName)
         markButton(v, parent)
