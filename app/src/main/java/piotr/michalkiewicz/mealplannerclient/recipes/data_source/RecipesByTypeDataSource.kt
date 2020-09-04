@@ -6,9 +6,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import retrofit2.HttpException
 import java.io.IOException
 
-const val RECIPES_STARTING_PAGE_INDEX = 1
-
-class RecipesDataSource(private val recipePagedService: RecipesPagedService,
+class RecipesByTypeDataSource(private val recipePagedService: RecipesPagedService,
                         private val queryParam: String) :
         PagingSource<Int, MealTimeRecipe>() {
 
@@ -17,7 +15,7 @@ class RecipesDataSource(private val recipePagedService: RecipesPagedService,
         val position = params.key ?: RECIPES_STARTING_PAGE_INDEX
 
         return try {
-            val resultData = recipePagedService.getRecipesPageForDiet("STANDARD", position)
+            val resultData = recipePagedService.getRecipesPageForType("VEGETARIAN", position)
             LoadResult.Page(
                     data = resultData.recipes,
                     prevKey = if (position == RECIPES_STARTING_PAGE_INDEX) null else position - 1,

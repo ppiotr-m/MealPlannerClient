@@ -9,7 +9,15 @@ interface RecipesPagedService {
     @GET("/recipes/getByDiet")
     suspend fun getRecipesForDiet(@Query("recipeDiet") recipeDiet: String): List<MealTimeRecipe>
 
-    @GET("/recipes/getPageByDiet")
+    @GET("/recipes/getRecipesPageByDiet")
     suspend fun getRecipesPageForDiet(@Query("dietType") recipeDiet: String,
+                                      @Query("pageNr") pageNr: Int): RecipesSearchResponse
+
+    @GET("/recipes/getRecipesPageByType")
+    suspend fun getRecipesPageForType(@Query("recipeType") recipeType: String,
+                                      @Query("pageNr") pageNr: Int): RecipesSearchResponse
+
+    @GET("/recipes/getRecipesPageByTag")
+    suspend fun getRecipesPageForTag(@Query("tag") tag: String,
                                       @Query("pageNr") pageNr: Int): RecipesSearchResponse
 }
