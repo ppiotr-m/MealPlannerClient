@@ -11,9 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mealplannerclient.R
 import com.mealplannerclient.databinding.FragmentCookbookScreenBinding
+import kotlinx.android.synthetic.main.fragment_cookbook_screen.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
@@ -26,6 +28,7 @@ class CookbookScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
+    private lateinit var viewModel2: RecipesSearchViewModel
     private var adapter = RecipesAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,19 +50,7 @@ class CookbookScreenFragment : Fragment() {
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
                 .get(RecipesSearchViewModel::class.java)
 
-        binding.temporaryRecipesRecyclerView.addItemDecoration(DividerItemDecoration(context,
-                DividerItemDecoration.HORIZONTAL))
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.apiData.collect {
-                it.let {
-                    adapter.submitData(it)
-                }
-            }
-        }
-
-
-        //      attachRecipesRecyclerView("diet", "Standard")
+        attachRecipesRecyclerView("diet", "Standard")
     }
 
     private fun initAdapter(recyclerView: RecyclerView) {
@@ -78,7 +69,8 @@ class CookbookScreenFragment : Fragment() {
     }
 
     private fun createHorizontalRecipesList(labelText: String): View {
-        val view = layoutInflater.inflate(R.layout.horizontal_recipes_list, null)
+        val view = layoutInflater.inflate(R.layout.horizontal_recipes_list,
+                recipesByCategoriesLayoutContainer)
         view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text = labelText
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.recipesHorizontalRecyclerView)
         horizontalRecyclerView.layoutManager =
@@ -92,7 +84,6 @@ class CookbookScreenFragment : Fragment() {
 
     private fun attachRecipesRecyclerView(category: String, categoryValue: String) {
         val recipesHorizontalListWithLabel = createHorizontalRecipesList(categoryValue)
-        binding.recipesByCategoriesLayoutContainer.addView(recipesHorizontalListWithLabel)
         launchCoroutineForRecyclerView(recipesHorizontalListWithLabel
                 .findViewById(R.id.recipesHorizontalRecyclerView))
     }
