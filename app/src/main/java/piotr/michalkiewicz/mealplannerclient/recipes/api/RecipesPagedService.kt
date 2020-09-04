@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.api
 
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipesSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,5 +11,5 @@ interface RecipesPagedService {
 
     @GET("/recipes/getPageByDiet")
     suspend fun getRecipesPageForDiet(@Query("dietType") recipeDiet: String,
-                                      @Query("pageNr") pageNr: Int): List<MealTimeRecipe>
+                                      @Query("pageNr") pageNr: Int): RecipesSearchResponse
 }

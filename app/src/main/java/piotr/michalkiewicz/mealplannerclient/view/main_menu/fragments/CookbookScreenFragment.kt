@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,7 @@ import com.mealplannerclient.databinding.FragmentCookbookScreenBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
 
@@ -32,7 +35,7 @@ class CookbookScreenFragment : Fragment() {
         view.findViewById<RecyclerView>(R.id.temporaryRecipesRecyclerView).layoutManager = manager
         view.findViewById<RecyclerView>(R.id.temporaryRecipesRecyclerView).setHasFixedSize(true)
 
-        initAdapter(view.findViewById<RecyclerView>(R.id.temporaryRecipesRecyclerView))
+        initAdapter(view.findViewById(R.id.temporaryRecipesRecyclerView))
         return view
     }
 
@@ -44,8 +47,8 @@ class CookbookScreenFragment : Fragment() {
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
                 .get(RecipesSearchViewModel::class.java)
 
-        val decoration = DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
-        binding.temporaryRecipesRecyclerView.addItemDecoration(decoration)
+        binding.temporaryRecipesRecyclerView.addItemDecoration(DividerItemDecoration(context,
+                DividerItemDecoration.HORIZONTAL))
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.apiData.collect {
@@ -54,9 +57,43 @@ class CookbookScreenFragment : Fragment() {
                 }
             }
         }
+
+
+        //      attachRecipesRecyclerView("diet", "Standard")
     }
 
     private fun initAdapter(recyclerView: RecyclerView) {
         recyclerView.adapter = adapter
+    }
+
+    private fun launchCoroutineForRecyclerView(recyclerView: RecyclerView) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.apiData.collect {
+                it.let {
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
+                            .submitData(it)
+                }
+            }
+        }
+    }
+
+    private fun createHorizontalRecipesList(labelText: String): View {
+        val view = layoutInflater.inflate(R.layout.horizontal_recipes_list, null)
+        view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text = labelText
+        val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.recipesHorizontalRecyclerView)
+        horizontalRecyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        horizontalRecyclerView.adapter = RecipesAdapter()
+        horizontalRecyclerView.addItemDecoration(DividerItemDecoration(context,
+                DividerItemDecoration.HORIZONTAL))
+
+        return view
+    }
+
+    private fun attachRecipesRecyclerView(category: String, categoryValue: String) {
+        val recipesHorizontalListWithLabel = createHorizontalRecipesList(categoryValue)
+        binding.recipesByCategoriesLayoutContainer.addView(recipesHorizontalListWithLabel)
+        launchCoroutineForRecyclerView(recipesHorizontalListWithLabel
+                .findViewById(R.id.recipesHorizontalRecyclerView))
     }
 }

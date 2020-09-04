@@ -14,6 +14,5 @@ class RecipesSearchViewModel(private val recipesPagedService: RecipesPagedServic
             PagingConfig(PAGE_SIZE)
     ) {
         RecipesDataSource(recipePagedService = recipesPagedService, queryParam = "Standard")
-    }.flow
-            .cachedIn(viewModelScope)
+    }.flow.cachedIn(viewModelScope)
 }

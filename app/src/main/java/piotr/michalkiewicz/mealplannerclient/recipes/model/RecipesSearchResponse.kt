@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class RecipesSearchResponse(
 
-        @SerializedName("total_count") val total: Int = 0,
-        @SerializedName("recipes") val recipes: List<piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe> = emptyList(),
+        @SerializedName("totalPagesCount") val total: Int = 0,
+        @SerializedName("result") val recipes: List<MealTimeRecipe> = emptyList(),
         val nextPage: Int? = null
 )
