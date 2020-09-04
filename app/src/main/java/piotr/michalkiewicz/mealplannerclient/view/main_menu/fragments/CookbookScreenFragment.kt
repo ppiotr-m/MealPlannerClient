@@ -27,6 +27,7 @@ class CookbookScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
+    private lateinit var viewModel2: RecipesSearchViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -40,9 +41,11 @@ class CookbookScreenFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
                 .get(RecipesSearchViewModel::class.java)
+        viewModel2 = ViewModelProvider(this, Injection.provideViewModelFactory())
+                .get(RecipesSearchViewModel::class.java)
 
         attachRecipesRecyclerView("diet", "STANDARD")
- //       attachRecipesRecyclerView("type", "VEGETARIAN")
+        attachRecipesRecyclerView("type", "VEGETARIAN")
  //       attachRecipesRecyclerView("tag", "light")
     }
 
@@ -59,7 +62,7 @@ class CookbookScreenFragment : Fragment() {
 
     private fun launchCoroutineByTypeForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.recipesByTypeApiData(queryParam).collect {
+            viewModel2.recipesByTypeApiData(queryParam).collect {
                 it.let {
                     (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
                             .submitData(it)
