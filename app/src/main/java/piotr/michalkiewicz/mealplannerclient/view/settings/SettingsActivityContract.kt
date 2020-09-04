@@ -9,7 +9,7 @@ import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import kotlin.reflect.KClass
 
 class SettingsActivityContract: ActivityResultContract<UserAccount, UserAccount> {
-    var classObject: KClass<out Activity>? = null
+    private var classObject: KClass<out Activity>? = null
 
     constructor(classObject: KClass<out Activity>): super(){
         this.classObject = classObject

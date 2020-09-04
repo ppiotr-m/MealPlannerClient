@@ -1,11 +1,12 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_edit_height.*
-import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 
@@ -29,7 +30,8 @@ class EditHeightActivity : AppCompatActivity() {
     private fun setNewHeightAndFinish(){
         if(checkInput()) {
             val userData = getDataFromIntent()
-            userData?.userSettings?.nutritionProfileSettings?.height = weightET.text.toString().toInt()
+            userData?.userSettings?.nutritionProfileSettings?.height = heightET.text.toString().toInt()
+            Log.d(ConstantValues.TAG, "EditHeightActivity::height = " + userData?.userSettings?.nutritionProfileSettings?.height)
             setDataForParentActivity(userData)
             finish()
         }
@@ -49,7 +51,7 @@ class EditHeightActivity : AppCompatActivity() {
     }
 
     private fun checkInput(): Boolean{
-        if(weightET.text.toString().toInt() in 100..300) return true
+        if(heightET.text.toString().toInt() in 100..300) return true
         return false
     }
 }

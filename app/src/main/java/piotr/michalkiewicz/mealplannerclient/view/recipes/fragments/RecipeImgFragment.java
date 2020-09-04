@@ -3,17 +3,17 @@ package piotr.michalkiewicz.mealplannerclient.view.recipes.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import piotr.michalkiewicz.mealplannerclient.R;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+
+import com.mealplannerclient.R;
+
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 
 
@@ -34,7 +34,6 @@ public class RecipeImgFragment extends Fragment {
         mDrawableId = getArguments() != null ? getArguments().getInt("drawable_id") : 1;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,5 +48,4 @@ public class RecipeImgFragment extends Fragment {
         return  v;
 
     }
-
 }

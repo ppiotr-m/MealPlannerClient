@@ -1,11 +1,13 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_edit_height.*
-import piotr.michalkiewicz.mealplannerclient.R
+import androidx.appcompat.app.AppCompatActivity
+import com.mealplannerclient.R
+import kotlinx.android.synthetic.main.activity_edit_height.cancelWeightBtn
+import kotlinx.android.synthetic.main.activity_edit_height.confirmWeightBtn
+import kotlinx.android.synthetic.main.activity_edit_weight.*
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 

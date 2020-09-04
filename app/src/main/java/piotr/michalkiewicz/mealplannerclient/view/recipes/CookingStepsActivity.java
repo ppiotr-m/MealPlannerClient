@@ -1,7 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.mealplannerclient.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 

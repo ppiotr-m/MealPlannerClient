@@ -1,36 +1,41 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_settings.*
-import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
-import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
-import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
 
-class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller{
+class SettingsActivity : AppCompatActivity(), piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView<UserAccount>, ActivityResultCaller {
 
-    private val presenter = SettingsActivityPresenter(this)
+    private val presenter = piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter(this)
     private val MALE = "Male"
     private val FEMALE = "Female"
+    private val ABSENT_DATA = "N/A"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
         init()
     }
 
     override fun onResume() {
         super.onResume()
+        initWithData(presenter.data)
+    }
 
-        initWithData(presenter.data, 1)
+    override fun onPause() {
+        Log.i(ContentValues.TAG, "onPause")
+        super.onPause()
+        presenter.saveSettingsServerSide()
     }
 
     private fun init(){
@@ -45,33 +50,15 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         editLocationBtn.setOnClickListener{
             startLauncherForActivityResult(SettingsActivityContract(EditLocationActivity::class))
         }
-        increaseCookingTimeBtn.setOnClickListener {
-            increasePreferredCookingTime()
-        }
-        subtractCookingTimeBtn.setOnClickListener {
-            decreasePreferredCookingTime()
-        }
-        addPortionsBtn.setOnClickListener{
-            increasePortionsPerMeal()
-        }
-        subtractPortionsBtn.setOnClickListener{
-            decreasePortionsPerMeal()
-        }
-        addMealsPerMealPlanBtn.setOnClickListener {
-            increaseMealsPerMealplan()
-        }
-        subtractMealsBtn.setOnClickListener {
-            decreaseMealsPerMealplan()
-        }
         sexSelectionRadioGroup.setOnCheckedChangeListener { _, i ->
             if(i == R.id.maleRadioBtn){
                 if(findViewById<RadioButton>(i).isChecked){
-                    presenter.data?.sex = MALE
+                    presenter.data?.userSettings?.sex = MALE
                 }
             }
             else{
                 if(findViewById<RadioButton>(i).isChecked){
-                    presenter.data?.sex = FEMALE
+                    presenter.data?.userSettings?.sex = FEMALE
                 }
             }
         }
@@ -92,15 +79,16 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
                 presenter.data = it
             }
         }
-        launcher?.launch(presenter.data)
+        launcher.launch(presenter.data)
     }
 
-    private fun initSexSelectionRadioGroup(userAccount: UserAccount?){
-        if(userAccount?.sex==null) return
-        if(userAccount.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
+    private fun initSexSelectionRadioGroup(userAccount: UserAccount?) {
+        if (userAccount?.userSettings?.sex == null) return
+        if (userAccount.userSettings?.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
+    /*
     private fun initAllergiesChipGroup(userSettings: UserSettings?){
         var childViewCounter = 0
         userSettings?.allergies?.forEach {
@@ -119,6 +107,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
             addAllergy()
         }
     }
+     */
 
     private fun initAvoidedIngredientsChipGroup(userSettings: UserSettings?){
         var childViewCounter = 0
@@ -142,43 +131,24 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         startLauncherForActivityResult(SettingsActivityContract(EditAvoidedIngredientsActivity::class))
     }
 
-    private fun increasePortionsPerMeal(){
-        presenter.increasePortionsPerMeal()
-        portionsTV.text = presenter.portionsPerMeal.toString()
-    }
-    private fun decreasePortionsPerMeal(){
-        presenter.decreasePortionsPerMeal()
-        portionsTV.text = presenter.portionsPerMeal.toString()
-    }
-    private fun increaseMealsPerMealplan(){
-        presenter.increaseMealsPerMealPlan()
-        mealsPerMealPlanTV.text = presenter.mealsPerMealPlan.toString()
-    }
-    private fun decreaseMealsPerMealplan(){
-        presenter.decreaseMealsPerMealPlan()
-        mealsPerMealPlanTV.text = presenter.mealsPerMealPlan.toString()
-    }
-    private fun increasePreferredCookingTime(){
-        presenter.increasePreferredCookingTime()
-        preferedCookingTimeTV.text = presenter.preferredCookingTime.toString()
-    }
-    private fun decreasePreferredCookingTime(){
-        presenter.decreasePreferredCookingTime()
-        preferedCookingTimeTV.text = presenter.preferredCookingTime.toString()
-    }
-
-    override fun initWithData(data: UserAccount?, frameNr: Int) {
+    override fun initWithData(data: UserAccount?) {
         emailTV.text = data?.email
         passwordTV.text = data?.password
         locationTV.text = data?.location
-        preferedCookingTimeTV.text = data?.userSettings?.cookingTimePreference?.toString()
-        portionsTV.text = data?.userSettings?.portionPreferences.toString()
-        mealsPerMealPlanTV.text = data?.userSettings?.mealsPerMealPlanPreference.toString()
-        heightTV.text = data?.userSettings?.nutritionProfileSettings?.height.toString()
-        weightTV.text = data?.userSettings?.nutritionProfileSettings?.weight.toString()
+        if (data?.userSettings?.nutritionProfileSettings?.height == null) {
+            heightTV.text = ABSENT_DATA
+        } else {
+            heightTV.text = data.userSettings?.nutritionProfileSettings?.height.toString()
+        }
+        if (data?.userSettings?.nutritionProfileSettings?.weight == null) {
+            weightTV.text = ABSENT_DATA
+        }
+        else {
+            weightTV.text = data.userSettings?.nutritionProfileSettings?.weight.toString()
+        }
         usernameTV.text = data?.username
         initAvoidedIngredientsChipGroup(data?.userSettings)
-        initAllergiesChipGroup(data?.userSettings)
+  //      initAllergiesChipGroup(data?.userSettings)
         initSexSelectionRadioGroup(data)
     }
 

@@ -44,32 +44,18 @@
             app:layout_constraintTop_toBottomOf="@+id/usernameTV" />
 
         <TextView
-            android:id="@+id/mealsPreferencesTV"
-            style="@style/listElementText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/settings_label"
-            android:paddingHorizontal="16dp"
-            android:text="@string/meals_prefs"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationTV" />
-
-        <TextView
             android:id="@+id/foodPreferencesTV"
             style="@style/listElementText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/settings_label"
             android:paddingHorizontal="16dp"
             android:text="@string/food_preferences"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mealsPerMealPlanTV" />
+            app:layout_constraintTop_toBottomOf="@+id/locationTV" />
 
         <TextView
             android:id="@+id/emailLabelTV"
@@ -193,135 +179,12 @@
             app:layout_constraintStart_toStartOf="@id/barrier"
             app:layout_constraintTop_toBottomOf="@+id/passwordTV" />
 
-        <TextView
-            android:id="@+id/portionsLabelTV"
-            style="@style/smallText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/portions_per_meal"
-            app:layout_constraintBaseline_toBaselineOf="@+id/subtractPortionsBtn"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/cookingTimeLabelTV"
-            style="@style/smallText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="@string/cooking_time_label"
-            app:layout_constraintBaseline_toBaselineOf="@+id/preferedCookingTimeTV"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/portionsTV"
-            style="@style/listHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="4"
-            app:layout_constraintEnd_toStartOf="@+id/addPortionsBtn"
-            app:layout_constraintStart_toEndOf="@+id/subtractPortionsBtn"
-            app:layout_constraintTop_toTopOf="@+id/subtractPortionsBtn" />
-
-        <TextView
-            android:id="@+id/preferedCookingTimeTV"
-            style="@style/listHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:text="50"
-            app:layout_constraintStart_toEndOf="@+id/ampersandTV"
-            app:layout_constraintTop_toTopOf="@+id/subtractCookingTimeBtn" />
-
-        <TextView
-            android:id="@+id/mealsPerMealPlanTV"
-            style="@style/listHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="5"
-            app:layout_constraintEnd_toStartOf="@+id/addMealsPerMealPlanBtn"
-            app:layout_constraintStart_toEndOf="@+id/subtractMealsBtn"
-            app:layout_constraintTop_toTopOf="@+id/subtractMealsBtn" />
-
-        <Button
-            android:id="@+id/subtractPortionsBtn"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_remove_red_18dp"
-            app:layout_constraintStart_toStartOf="@+id/subtractCookingTimeBtn"
-            app:layout_constraintTop_toBottomOf="@+id/subtractCookingTimeBtn" />
-
-        <Button
-            android:id="@+id/subtractCookingTimeBtn"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_remove_red_18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toStartOf="@id/barrier2"
-            app:layout_constraintTop_toBottomOf="@+id/mealsPreferencesTV" />
-
-        <Button
-            android:id="@+id/subtractMealsBtn"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_remove_red_18dp"
-            app:layout_constraintStart_toStartOf="@+id/subtractPortionsBtn"
-            app:layout_constraintTop_toBottomOf="@+id/subtractPortionsBtn" />
-
-        <Button
-            android:id="@+id/addPortionsBtn"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_add_red_18dp"
-            app:layout_constraintStart_toStartOf="@+id/increaseCookingTimeBtn"
-            app:layout_constraintTop_toBottomOf="@+id/increaseCookingTimeBtn" />
-
-        <Button
-            android:id="@+id/increaseCookingTimeBtn"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/ic_add_red_18dp"
-            app:layout_constraintStart_toEndOf="@+id/minutesLabelTV"
-            app:layout_constraintTop_toBottomOf="@+id/mealsPreferencesTV" />
-
-        <Button
-            android:id="@+id/addMealsPerMealPlanBtn"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_add_red_18dp"
-            app:layout_constraintStart_toStartOf="@+id/addPortionsBtn"
-            app:layout_constraintTop_toBottomOf="@+id/addPortionsBtn" />
-
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="right"
-            app:constraint_referenced_ids="portionsLabelTV,mealsLabelTV,cookingTimeLabelTV"
             tools:layout_editor_absoluteX="411dp" />
-
-        <TextView
-            android:id="@+id/mealsLabelTV"
-            style="@style/smallText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/meals_per_mealplan"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subtractPortionsBtn" />
 
         <TextView
             android:id="@+id/dietLabelTV"
@@ -354,7 +217,7 @@
             android:layout_marginTop="32dp"
             android:text="@string/avoided_ingredients_label"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/allergiesLabelTV" />
 
         <TextView
             android:id="@+id/allergiesLabelTV"
@@ -365,7 +228,7 @@
             android:layout_marginTop="32dp"
             android:text="@string/allergies_label"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dietTV" />
+            app:layout_constraintTop_toBottomOf="@+id/dietLabelTV" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier3"
@@ -380,28 +243,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="@id/barrier3"
-            app:layout_constraintTop_toBottomOf="@+id/dietTV">
-        </com.google.android.material.chip.ChipGroup>
+            app:layout_constraintTop_toBottomOf="@+id/dietTV"></com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/avoidedIngredientsChipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/barrier3"
-            app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup"/>
+            app:layout_constraintTop_toBottomOf="@+id/allergiesChipGroup" />
+
         <TextView
             android:id="@+id/nutritionProfileTV"
             style="@style/listElementText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="48dp"
             android:background="@drawable/settings_label"
             android:paddingHorizontal="16dp"
             android:text="@string/nutrition_profile"
@@ -465,34 +328,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="75kg"
+            android:text="75"
             app:layout_constraintStart_toStartOf="@+id/barrier4"
             app:layout_constraintTop_toBottomOf="@+id/heightTV" />
 
         <TextView
-            android:id="@+id/ampersandTV"
-            style="@style/listHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="&lt;"
-            app:layout_constraintBottom_toBottomOf="@+id/preferedCookingTimeTV"
-            app:layout_constraintStart_toEndOf="@+id/subtractCookingTimeBtn"
-            app:layout_constraintTop_toTopOf="@+id/preferedCookingTimeTV" />
-
-        <TextView
-            android:id="@+id/minutesLabelTV"
-            style="@style/listHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="min"
-            app:layout_constraintBottom_toBottomOf="@+id/preferedCookingTimeTV"
-            app:layout_constraintStart_toEndOf="@+id/preferedCookingTimeTV"
-            app:layout_constraintTop_toTopOf="@+id/preferedCookingTimeTV" />
-
-        <TextView
-            android:id="@+id/weightUnitTV"
+            android:id="@+id/weightUnitTextView"
             style="@style/listHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -504,7 +345,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/weightUnitTV"
+            android:id="@+id/heightUnitTextView"
             style="@style/listHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

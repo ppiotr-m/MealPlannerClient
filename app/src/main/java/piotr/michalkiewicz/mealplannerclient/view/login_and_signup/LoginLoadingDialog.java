@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
-import piotr.michalkiewicz.mealplannerclient.R;
+import com.mealplannerclient.R;
 
 public class LoginLoadingDialog {
 

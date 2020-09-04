@@ -11,13 +11,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.mealplannerclient.R;
+
 import java.util.ArrayList;
 
-import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeImgFragmentAdapter;
-import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCategory;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.presenters.RecipePresenter;
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCategory;
 
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.COOKING_STEPS_DATA;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
@@ -92,7 +93,6 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
 
     @Override
     public void initWithData(MealTimeRecipe data, String category) {
-
         if(data==null){
             // TODO obsluga tego nulla
             finish();

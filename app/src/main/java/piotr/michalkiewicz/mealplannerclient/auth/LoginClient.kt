@@ -10,6 +10,7 @@ import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASE_URL
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PASSWORD_GRANT_TYPE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,23 +27,23 @@ class LoginClient {
     private var loginClient: OkHttpClient = okHttpClientBuilder()
 
     private val loginConnection by lazy {
-        LoginClient().loginConnection()
+        piotr.michalkiewicz.mealplannerclient.auth.LoginClient().loginConnection()
     }
 
     /**
      * login by username/email + pass toDo make call not observable + w8 until get response
      */
 
-    fun login(username: String, password: String, loginListener: LoginListener) {
+    fun login(username: String, password: String, loginListener: piotr.michalkiewicz.mealplannerclient.auth.LoginListener) {
         val loginEndpoint = loginConnection.login(username, password, PASSWORD_GRANT_TYPE)
         loginEndpoint.subscribeOn(Schedulers.io())
                 .subscribe({ result ->
-                    Log.i("Token expires in: ", result.expiresIn.toString())
-                    MyPreference().setToken(result)
+                    Log.i(TAG, result.expiresIn.toString())
+                    piotr.michalkiewicz.mealplannerclient.auth.MyPreference().setToken(result)
                     loginListener.loginSuccessful()
                 },
                         { error ->
-                            Log.i("Login error", error.toString())
+                            Log.i(TAG, error.toString())
                             loginListener.loginFailed()
                         })
     }
@@ -51,7 +52,7 @@ class LoginClient {
      * refresh token and replace actual token in shared preference
      */
 
-    fun refreshToken(refreshToken: String, loginListener: LoginListener) {
+    fun refreshToken(refreshToken: String, loginListener: piotr.michalkiewicz.mealplannerclient.auth.LoginListener) {
         val refreshTokenEndpoint = loginConnection.refreshToken(REFRESH_TOKEN, refreshToken)
 
         refreshTokenEndpoint.enqueue(object : Callback<Token> {
@@ -65,7 +66,7 @@ class LoginClient {
                 if (response.code() == 400) {
                     loginListener.loginFailed()
                 } else {
-                    token?.let { MyPreference().setToken(it) }
+                    token?.let { piotr.michalkiewicz.mealplannerclient.auth.MyPreference().setToken(it) }
                     loginListener.loginSuccessful()
                 }
             }
@@ -83,7 +84,7 @@ class LoginClient {
         }
     }
 
-    private fun loginConnection(): OAuth2 {
+    private fun loginConnection(): piotr.michalkiewicz.mealplannerclient.auth.OAuth2 {
         val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -91,7 +92,7 @@ class LoginClient {
                 .baseUrl(BASE_URL)
                 .build()
 
-        return retrofit.create(OAuth2::class.java)
+        return retrofit.create(piotr.michalkiewicz.mealplannerclient.auth.OAuth2::class.java)
     }
 
     private fun okHttpClientBuilder() =

@@ -7,7 +7,7 @@
     tools:context=".view.settings.EditHeightActivity">
 
     <EditText
-        android:id="@+id/weightET"
+        android:id="@+id/heightET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -25,11 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/height_edition_label"
-        app:layout_constraintBottom_toTopOf="@+id/weightET"
-        app:layout_constraintStart_toStartOf="@+id/weightET" />
+        app:layout_constraintBottom_toTopOf="@+id/heightET"
+        app:layout_constraintStart_toStartOf="@+id/heightET" />
 
     <TextView
-        android:id="@+id/weightUnitTV"
+        android:id="@+id/weightUnitTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
@@ -43,7 +43,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightET"
+        app:layout_constraintTop_toBottomOf="@+id/heightET"
         app:layout_constraintWidth_percent="0.6">
 
         <Button

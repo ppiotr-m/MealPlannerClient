@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_change_location.*
-import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
@@ -40,7 +40,11 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
         confirmLocationBtn.setOnClickListener {
             val data = intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as? UserAccount
+            if(data == null) {
+                Log.d(ConstantValues.TAG, "Data is null")
+            }
             data?.location = selectedLocation
+            Log.d(ConstantValues.TAG, "Data::location: " + data?.location)
             setDataForParentActivity(data)
             finish()
         }
@@ -48,7 +52,7 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     private fun setDataForParentActivity(data : UserAccount?){
         val intent = Intent()
-        intent.putExtra(ConstantValues.SETTINGS_DATA, data)
+        intent.putExtra(SETTINGS_DATA, data)
         setResult(SettingsActivity.RESULT_OK, intent)
     }
 
