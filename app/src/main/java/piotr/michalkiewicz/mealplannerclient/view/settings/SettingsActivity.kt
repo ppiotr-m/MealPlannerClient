@@ -131,7 +131,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
 
     override fun initWithData(data: UserAccount?) {
         emailTV.text = data?.email
-        passwordTV.text = data?.password
+        passwordTV.text = "aaaaaaaa"
         locationTV.text = data?.location
         if (data?.userSettings?.nutritionProfileSettings?.height == null) {
             heightTV.text = ABSENT_DATA

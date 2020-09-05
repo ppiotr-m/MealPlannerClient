@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 interface UserService {
 
-    @GET("/user/userAccount")
+    @GET("/user/account")
     fun getUserAccount(): Call<UserAccount>
 
     @POST("/user/signUp")
