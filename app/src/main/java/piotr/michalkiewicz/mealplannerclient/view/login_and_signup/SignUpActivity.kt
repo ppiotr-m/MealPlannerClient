@@ -15,6 +15,7 @@ import retrofit2.Response
 class SignUpActivity : AppCompatActivity() {
 
     private val HTTP_OK_CODE = 200
+    private val HTTP_OK_CODE_CREATED = 201
     private val MIN_EMAIL_LENGTH = 6
     private val MIN_PASSWORD_LENGTH = 6
     private val MAX_PASSWORD_LENGTH = 50
@@ -43,18 +44,17 @@ class SignUpActivity : AppCompatActivity() {
         if(!validatePassword()) return
 
         val userService = piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator()
-        userService.signUp(UserAccount.createMockUserAccountWithParams(emailET.text.toString(),
-                passwordET.text.toString(), usernameET.text.toString()), object : Callback<UserAccount>{
+        userService.signUp(UserAccount.createUserAccount(emailET.text.toString(),
+                passwordET.text.toString(), usernameET.text.toString()), object : Callback<UserAccount> {
 
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
-                if(response.code()==HTTP_OK_CODE){
+                if (response.code() == HTTP_OK_CODE || response.code() == HTTP_OK_CODE_CREATED) {
                     showSignUpSuccessfulToast()
                     finish()
-                }
-                else{
+                } else {
                     showSignUpFailureServerSideToast()
                 }
-                Log.i(ConstantValues.TAG, "Response: " + response.message() +"\n" + response.toString())
+                Log.i(ConstantValues.TAG, "Response: " + response.message() + "\n" + response.toString())
             }
 
             override fun onFailure(call: Call<UserAccount>, t: Throwable) {

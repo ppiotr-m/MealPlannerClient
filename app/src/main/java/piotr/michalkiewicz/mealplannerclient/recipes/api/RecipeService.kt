@@ -31,4 +31,7 @@ interface RecipeService {
     @GET("/recipes/getRecipesPageByTag")
     suspend fun getRecipesPageForTag(@Query("tag") tag: String,
                                      @Query("pageNr") pageNr: Int): RecipesSearchResponse
+
+    @GET("/recipes/all")
+    suspend fun getAllRecipes(): RecipesSearchResponse
 }

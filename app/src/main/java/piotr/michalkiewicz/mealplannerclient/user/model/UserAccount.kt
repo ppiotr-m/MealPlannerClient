@@ -23,16 +23,17 @@ class UserAccount : Serializable {
         }
 
         @JvmStatic
-        fun createMockUserAccountWithParams(email: String?, password: String?, username: String?): UserAccount{
+        fun createUserAccount(email: String?, password: String?, username: String?): UserAccount {
             val account = UserAccount()
             account.username = username
             account.email = email
             account.password = password
-    //        account.userSettings = createMockSettings()
+            //        account.userSettings = createMockSettings()
             return account
         }
+
         @JvmStatic
-        fun createMockSettings(): UserSettings{
+        fun createMockSettings(): UserSettings {
             val settings = UserSettings()
             val userPreference = UserPreference()
             userPreference.allergies = listOf("Nuts", "Soy")
