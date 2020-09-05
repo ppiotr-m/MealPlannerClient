@@ -3,8 +3,8 @@ package piotr.michalkiewicz.mealplannerclient.view.settings
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_edit_allergies.*
+import piotr.michalkiewicz.mealplannerclient.R
 
 class EditAllergiesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

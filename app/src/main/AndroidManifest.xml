@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mealplannerclient">
+    package="piotr.michalkiewicz.mealplannerclient">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -40,15 +40,15 @@
         <activity android:name="piotr.michalkiewicz.mealplannerclient.view.settings.EditPasswordActivity" />
         <activity android:name="piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity" />
         <activity android:name="piotr.michalkiewicz.mealplannerclient.view.login_and_signup.SignUpActivity" />
-        <activity android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.CookingStepsActivity" />
-        <activity android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.IngredientsActivity" />
-        <activity android:name="piotr.michalkiewicz.mealplannerclient.view.personalization.StartCustomizationActivity" />
+        <activity android:name=".view.recipes.CookingStepsActivity" />
+        <activity android:name=".view.recipes.IngredientsActivity" />
+        <activity android:name=".view.personalization.StartCustomActivity" />
         <activity
-            android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity"
+            android:name=".view.recipes.RecipeActivity"
             android:label="@string/title_activity_recipe"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity"
+            android:name=".view.main_menu.MainMenuActivity"
             android:label="@string/title_activity_main_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

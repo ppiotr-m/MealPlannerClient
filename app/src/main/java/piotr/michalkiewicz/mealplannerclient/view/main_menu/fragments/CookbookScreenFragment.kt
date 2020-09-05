@@ -12,11 +12,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mealplannerclient.R
-import com.mealplannerclient.databinding.FragmentCookbookScreenBinding
 import kotlinx.android.synthetic.main.fragment_cookbook_screen.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookbookScreenBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
@@ -45,7 +45,7 @@ class CookbookScreenFragment : Fragment() {
                 .get(RecipesSearchViewModel::class.java)
 
         attachRecipesRecyclerView("diet", "STANDARD")
-        attachRecipesRecyclerView("type", "VEGETARIAN")
+//        attachRecipesRecyclerView("type", "VEGETARIAN")
  //       attachRecipesRecyclerView("tag", "light")
     }
 

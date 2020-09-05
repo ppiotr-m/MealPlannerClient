@@ -2,7 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.view.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.R
 
 class EditAvoidedIngredientsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

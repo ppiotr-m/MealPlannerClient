@@ -7,20 +7,20 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipesPagedService
+import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeService
+import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByDietDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTagDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTypeDataSource
-import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByDietDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE_SIZE
 
-class RecipesSearchViewModel(private val recipesPagedService: RecipesPagedService) : ViewModel() {
+class RecipesSearchViewModel(private val recipeService: RecipeService) : ViewModel() {
 
     fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipe>>{
         return Pager(
                 PagingConfig(PAGE_SIZE)
         ) {
-            RecipesByDietDataSource(recipePagedService = recipesPagedService, queryParam = queryParam)
+            RecipesByDietDataSource(recipeService = recipeService, queryParam = queryParam)
         }.flow.cachedIn(viewModelScope)
     }
 
@@ -28,7 +28,7 @@ class RecipesSearchViewModel(private val recipesPagedService: RecipesPagedServic
         return Pager(
                 PagingConfig(PAGE_SIZE)
         ) {
-            RecipesByTypeDataSource(recipePagedService = recipesPagedService, queryParam = queryParam)
+            RecipesByTypeDataSource(recipeService = recipeService, queryParam = queryParam)
         }.flow.cachedIn(viewModelScope)
     }
 
@@ -36,7 +36,7 @@ class RecipesSearchViewModel(private val recipesPagedService: RecipesPagedServic
         return Pager(
                 PagingConfig(PAGE_SIZE)
         ) {
-            RecipesByTagDataSource(recipePagedService = recipesPagedService, queryParam = queryParam)
+            RecipesByTagDataSource(recipeService = recipeService, queryParam = queryParam)
         }.flow.cachedIn(viewModelScope)
     }
 }

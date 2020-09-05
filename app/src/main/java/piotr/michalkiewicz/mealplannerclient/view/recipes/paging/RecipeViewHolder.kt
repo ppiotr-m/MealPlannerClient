@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.R
 
 class RecipeViewHolder(val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)

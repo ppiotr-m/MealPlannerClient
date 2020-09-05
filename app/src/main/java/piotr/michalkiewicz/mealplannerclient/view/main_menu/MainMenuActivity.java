@@ -10,8 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mealplannerclient.R;
 
+import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.CookbookScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.HomeScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.MealPlansFragment;

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_edit_height.*
+import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 

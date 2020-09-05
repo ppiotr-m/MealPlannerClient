@@ -11,10 +11,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.mealplannerclient.R;
-
 import java.util.ArrayList;
 
+import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeImgFragmentAdapter;
 import piotr.michalkiewicz.mealplannerclient.view.recipes.presenters.RecipePresenter;

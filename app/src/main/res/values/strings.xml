@@ -27,7 +27,7 @@
     <string name="diet_low_carb">Low carb</string>
     <string name="diet_keto">Ketogenic</string>
     <string name="allergy_gluten">Gluten</string>
-    <string name="allergy_diary">Diary</string>
+    <string name="allergy_dairy">Dairy</string>
     <string name="allergy_peanut">Peanuts</string>
     <string name="allergy_treenuts">Tree nuts</string>
     <string name="allergy_soy">Soy</string>
@@ -129,4 +129,22 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_change_location">Map</string>
     <string name="title_activity_edit_location">Map</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="portion_amount_in_meal">Portion amount in meal</string>
+    <string name="preferred_cooking_time">Preferred cooking time in minutes</string>
+    <string name="fifteenmin">15</string>
+    <string name="thirteenmin">30</string>
+    <string name="fortyfivemin">45</string>
+    <string name="sixteenmin">60</string>
+    <string name="five">5</string>
+    <string name="finish">finish</string>
+    <string name="soup">Soup</string>
+    <string name="fish">Fish</string>
+    <string name="pasta">Pasta</string>
+    <string name="what_type_of_recipe_you_don_t_like_cooking">What type of recipe you don\'t like cooking</string>
+    <string name="grill">Grill</string>
+    <string name="meals_planer_logo">Meals planer logo</string>
 </resources>

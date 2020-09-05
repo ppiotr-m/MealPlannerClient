@@ -12,8 +12,7 @@ import android.widget.ImageView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import com.mealplannerclient.R;
-
+import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 
 

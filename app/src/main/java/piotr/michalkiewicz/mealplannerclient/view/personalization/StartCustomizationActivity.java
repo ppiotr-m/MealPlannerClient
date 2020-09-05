@@ -7,8 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mealplannerclient.R;
-
+import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity;
 
 public class StartCustomizationActivity extends AppCompatActivity {
@@ -38,6 +37,5 @@ public class StartCustomizationActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
     }
 }

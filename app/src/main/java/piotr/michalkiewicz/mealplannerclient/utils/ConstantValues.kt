@@ -1,12 +1,14 @@
 package piotr.michalkiewicz.mealplannerclient.utils
 
+import android.graphics.Color
+
 class ConstantValues {
     companion object {
         //DEV cieniu local host
-        const val BASE_URL = "http://192.168.1.10:8080"
+//      const val BASE_URL = "http://192.168.1.10:8080"
 
         //Kolej localhost
-        //       const val BASE_URL = "http://10.0.2.2:8080/"
+        const val BASE_URL = "http://10.0.2.2:8080/"
         const val PASSWORD_GRANT_TYPE = "password"
         const val REFRESH_TOKEN = "refresh_token"
         const val REFRESH_TOKEN_SHARED_PREF = "REFRESH_TOKEN"
@@ -18,6 +20,9 @@ class ConstantValues {
         const val RECIPE_ID = "recipe_id"
         const val INGREDIENTS_DATA = "ingredients"
         const val COOKING_STEPS_DATA = "cooking_steps"
+
+        const val CHECKED_BUTTON_COLOR = Color.LTGRAY
+        const val DEFAULT_BUTTON_COLOR = Color.RED
         const val PAGE_SIZE = 20
     }
 }

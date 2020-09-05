@@ -11,10 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.mealplannerclient.R;
-
 import java.util.Objects;
 
+import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient;
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener;
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference;
@@ -46,7 +45,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkLoginState() {
-        loginClient.refreshToken(Objects.requireNonNull(new MyPreference().getRefreshToken()), new LoginListener() {
+        String refreshToken = new MyPreference().getRefreshToken();
+        if(refreshToken == null || refreshToken.length() < 10){
+            return;
+        }
+        loginClient.refreshToken(Objects.requireNonNull(refreshToken), new LoginListener() {
             @Override
             public void loginFailed() {
 
@@ -85,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void loginSuccessful() {
                 dialog.dismissDialog();
-                Intent myIntent = new Intent(LoginActivity.this, MainMenuActivity.class);
+                Intent myIntent = new Intent(LoginActivity.this, MainMenuActivity.class); // todo if customization done main else cusomization
                 startActivity(myIntent);
             }
 

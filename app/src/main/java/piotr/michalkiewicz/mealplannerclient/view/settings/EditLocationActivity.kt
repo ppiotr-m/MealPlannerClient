@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_change_location.*
+import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA

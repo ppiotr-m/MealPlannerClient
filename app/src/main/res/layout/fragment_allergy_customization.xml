@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".view.personalization.fragments.AllergyCustomizationFragment">
+
+    <TextView
+        android:id="@+id/WhatAllergiesText"
+        style="@style/listElementText"
+        android:layout_width="341dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/select_allergies"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/allergiesLinearLayout"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <Button
+            android:id="@+id/allergyGlutenBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_gluten" />
+
+        <Button
+            android:id="@+id/allergyDiaryBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_dairy"
+            android:textOff="@string/allergy_dairy" />
+
+        <Button
+            android:id="@+id/allergyEggsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_eggs"
+            android:textOff="@string/allergy_eggs" />
+
+        <Button
+            android:id="@+id/allergyPeanutsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_peanut"
+            android:textOff="@string/allergy_peanut" />
+
+
+        <Button
+            android:id="@+id/allergySesameBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_seasme"
+            android:textOff="@string/allergy_seasme" />
+
+        <Button
+            android:id="@+id/allergyTreeNutsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_treenuts"
+            android:textOff="@string/allergy_treenuts" />
+
+        <Button
+            android:id="@+id/allergySoyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_soy"
+            android:textOff="@string/allergy_soy" />
+
+        <Button
+            android:id="@+id/allergyFruttiBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_frutti_di_mare"
+            android:textOff="@string/allergy_frutti_di_mare" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/finish"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

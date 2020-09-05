@@ -1,22 +1,23 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import android.widget.RadioButton
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.mealplannerclient.R
 import kotlinx.android.synthetic.main.activity_settings.*
+import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
+import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
+import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
 
-class SettingsActivity : AppCompatActivity(), piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView<UserAccount>, ActivityResultCaller {
+class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller {
 
-    private val presenter = piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter(this)
+    private val presenter = SettingsActivityPresenter(this)
     private val MALE = "Male"
     private val FEMALE = "Female"
     private val ABSENT_DATA = "N/A"
@@ -33,7 +34,6 @@ class SettingsActivity : AppCompatActivity(), piotr.michalkiewicz.mealplannercli
     }
 
     override fun onPause() {
-        Log.i(ContentValues.TAG, "onPause")
         super.onPause()
         presenter.saveSettingsServerSide()
     }
@@ -88,10 +88,9 @@ class SettingsActivity : AppCompatActivity(), piotr.michalkiewicz.mealplannercli
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
-    /*
-    private fun initAllergiesChipGroup(userSettings: UserSettings?){
+    private fun initAllergiesChipGroup(userPreference: UserPreference){
         var childViewCounter = 0
-        userSettings?.allergies?.forEach {
+        userPreference.allergies.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, allergiesChipGroup) as ChipGroup
             val chip = chipGroup.getChildAt(childViewCounter) as Chip
             chip.text = it
@@ -107,11 +106,10 @@ class SettingsActivity : AppCompatActivity(), piotr.michalkiewicz.mealplannercli
             addAllergy()
         }
     }
-     */
 
     private fun initAvoidedIngredientsChipGroup(userSettings: UserSettings?){
         var childViewCounter = 0
-        userSettings?.unlikeIngredients?.forEach {
+        userSettings?.UserPreference?.unlikeIngredients?.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
             (chipGroup.getChildAt(childViewCounter) as Chip).text = it
             childViewCounter +=1

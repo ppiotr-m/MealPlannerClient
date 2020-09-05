@@ -1,14 +1,14 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.data_source
 
 import androidx.paging.PagingSource
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipesPagedService
+import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeService
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import retrofit2.HttpException
 import java.io.IOException
 
 const val RECIPES_STARTING_PAGE_INDEX = 1
 
-class RecipesByDietDataSource(private val recipePagedService: RecipesPagedService,
+class RecipesByDietDataSource(private val recipeService: RecipeService,
                               private val queryParam: String) :
         PagingSource<Int, MealTimeRecipe>() {
 
@@ -17,7 +17,8 @@ class RecipesByDietDataSource(private val recipePagedService: RecipesPagedServic
         val position = params.key ?: RECIPES_STARTING_PAGE_INDEX
 
         return try {
-            val resultData = recipePagedService.getRecipesPageForDiet(queryParam, position)
+//            val resultData = recipeService.getRecipesPageForDiet(queryParam, position)
+            val resultData = recipeService.getRecipesPageForDiet(queryParam, position)
             LoadResult.Page(
                     data = resultData.recipes,
                     prevKey = if (position == RECIPES_STARTING_PAGE_INDEX) null else position - 1,
