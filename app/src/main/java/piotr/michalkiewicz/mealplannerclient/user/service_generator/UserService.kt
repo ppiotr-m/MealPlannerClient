@@ -16,7 +16,7 @@ interface UserService {
     fun signUp(@Body userAccount: UserAccount): Call<UserAccount>
 
     @POST("/user/account")
-    fun editAccountSettings(@Body userAccount: UserAccount): Call<UserAccount>  //toDo delete ?
+    fun editAccountSettings(@Body userAccount: UserAccount): Call<UserAccount>
 
     @POST("/user/settings")
     fun updateUserSettings(@Body userSettings: UserSettings): Observable<UserAccount>
