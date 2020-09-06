@@ -4,6 +4,7 @@ import android.util.Log;
 
 import piotr.michalkiewicz.mealplannerclient.user.model.NutritionProfileSettings;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
+import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings;
 import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
@@ -43,6 +44,9 @@ public class SettingsActivityPresenter {
                 if (data.getUserSettings() != null) {
                     if (data.getUserSettings().getNutritionProfileSettings() == null) {
                         data.getUserSettings().setNutritionProfileSettings(new NutritionProfileSettings());
+                    }
+                    if (data.getUserSettings().getUserPreference() == null) {
+                        data.getUserSettings().setUserPreference(new UserPreference());
                     }
                 } else {
                     data.setUserSettings(new UserSettings());

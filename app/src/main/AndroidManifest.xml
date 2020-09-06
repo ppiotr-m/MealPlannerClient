@@ -20,7 +20,7 @@
         <activity android:name="piotr.michalkiewicz.mealplannerclient.view.settings.EditWeightActivity"></activity>
         <activity android:name="piotr.michalkiewicz.mealplannerclient.view.settings.EditHeightActivity" />
         <activity android:name="piotr.michalkiewicz.mealplannerclient.view.settings.EditDietActivity" />
-        <activity android:name="piotr.michalkiewicz.mealplannerclient.view.settings.EditAvoidedIngredientsActivity" />
+        <activity android:name="piotr.michalkiewicz.mealplannerclient.view.settings.EditDislikedIngredientsActivity" />
         <activity android:name="piotr.michalkiewicz.mealplannerclient.view.settings.EditAllergiesActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

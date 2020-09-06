@@ -40,11 +40,11 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
         confirmLocationBtn.setOnClickListener {
             val data = intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as? UserAccount
-            if(data == null) {
+            if (data == null) {
                 Log.d(ConstantValues.TAG, "Data is null")
             }
-            data?.location = selectedLocation
-            Log.d(ConstantValues.TAG, "Data::location: " + data?.location)
+            data?.userSettings?.location = selectedLocation ?: ""
+            Log.d(ConstantValues.TAG, "Data::location: " + data?.userSettings?.location)
             setDataForParentActivity(data)
             finish()
         }
@@ -61,14 +61,16 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         val countriesTemporary = ArrayList<String>()
 
         locales.forEach {
-            if(it.displayCountry.isNotEmpty()) {
+            if (it.displayCountry.isNotEmpty()) {
                 countriesTemporary.add(it.displayCountry)
             }
         }
         countries.addAll(countriesTemporary.sorted().distinct())
         countrySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, countries)
-        val index = countries.indexOf((intent.getSerializableExtra(SETTINGS_DATA) as UserAccount).location)
-        if(index>=0){
+        val index = countries.indexOf((intent.getSerializableExtra(SETTINGS_DATA) as UserAccount)
+                .userSettings
+                ?.location)
+        if (index >= 0) {
             countrySpinner.setSelection(index)
         }
     }

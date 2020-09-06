@@ -7,7 +7,6 @@ class UserAccount : Serializable {
     var email: String? = null
     var username: String? = null
     var password: String? = null
-    var location: String? = "Poland"
     var userSettings: UserSettings? = null
     var eatenRecipes: List<String>? = null
 

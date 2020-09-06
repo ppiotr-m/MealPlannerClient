@@ -33,5 +33,5 @@ interface RecipeService {
                                      @Query("pageNr") pageNr: Int): RecipesSearchResponse
 
     @GET("/recipes/all")
-    suspend fun getAllRecipes(): RecipesSearchResponse
+    suspend fun getAllRecipes(): List<MealTimeRecipe>
 }

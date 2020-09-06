@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_cookbook_screen.*
@@ -27,7 +26,7 @@ class CookbookScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
-    private lateinit var viewModel2: RecipesSearchViewModel
+    private val recipesListIds = ArrayList<Int>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,12 +40,8 @@ class CookbookScreenFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
                 .get(RecipesSearchViewModel::class.java)
-        viewModel2 = ViewModelProvider(this, Injection.provideViewModelFactory())
-                .get(RecipesSearchViewModel::class.java)
 
-        attachRecipesRecyclerView("diet", "STANDARD")
-//        attachRecipesRecyclerView("type", "VEGETARIAN")
- //       attachRecipesRecyclerView("tag", "light")
+        initRecipeRecyclerViews()
     }
 
     private fun launchCoroutineByDietForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
@@ -60,9 +55,18 @@ class CookbookScreenFragment : Fragment() {
         }
     }
 
+    private fun initRecipeRecyclerViews() {
+        attachRecipesRecyclerView("", "")
+        attachRecipesRecyclerView("diet", "STANDARD")
+        attachRecipesRecyclerView("diet", "VEGETARIAN")
+        attachRecipesRecyclerView("diet", "PALEO")
+//        attachRecipesRecyclerView("type", "VEGETARIAN")
+        //    attachRecipesRecyclerView("tag", "light")
+    }
+
     private fun launchCoroutineByTypeForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel2.recipesByTypeApiData(queryParam).collect {
+            viewModel.recipesByTypeApiData(queryParam).collect {
                 it.let {
                     (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
                             .submitData(it)
@@ -82,24 +86,50 @@ class CookbookScreenFragment : Fragment() {
         }
     }
 
+    private fun launchCoroutineAllRecipesForRecyclerView(recyclerView: RecyclerView) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.allRecipesApiData().collect {
+                it.let {
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
+                            .submitData(it)
+                }
+            }
+        }
+    }
+
     private fun createHorizontalRecipesList(labelText: String): View {
-        val view = layoutInflater.inflate(R.layout.horizontal_recipes_list,
-                recipesByCategoriesLayoutContainer)
-        view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text = labelText
+        val root = layoutInflater.inflate(R.layout.horizontal_recipes_list,
+                recipesByCategoriesLayoutContainer, true) as ViewGroup
+
+        val view = root.getChildAt(root.childCount - 1)
+
+        //       val view = root.findViewById<LinearLayout>(R.id.recipesRecyclerViewContainer)
+        //    val view = createRecipesList(labelText)
+
+        if (labelText.isEmpty()) {
+            view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text = resources.getString(R.string.all)
+        } else {
+            view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text = labelText
+        }
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.recipesHorizontalRecyclerView)
         horizontalRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         horizontalRecyclerView.adapter = RecipesAdapter()
-        horizontalRecyclerView.addItemDecoration(DividerItemDecoration(context,
-                DividerItemDecoration.HORIZONTAL))
 
         return view
     }
 
     private fun attachRecipesRecyclerView(category: String, categoryValue: String) {
         val recipesHorizontalListWithLabel = createHorizontalRecipesList(categoryValue)
+        //       binding.recipesByCategoriesLayoutContainer.addView(recipesHorizontalListWithLabel)
+        //       binding.recipesByCategoriesLayoutContainer.requestLayout()
 
-        when(category){
+        if (category.isEmpty() || categoryValue.isEmpty()) {
+            launchCoroutineAllRecipesForRecyclerView(recipesHorizontalListWithLabel
+                    .findViewById(R.id.recipesHorizontalRecyclerView))
+        }
+
+        when (category) {
             "diet" -> launchCoroutineByDietForRecyclerView(recipesHorizontalListWithLabel
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
             "type" -> launchCoroutineByTypeForRecyclerView(recipesHorizontalListWithLabel

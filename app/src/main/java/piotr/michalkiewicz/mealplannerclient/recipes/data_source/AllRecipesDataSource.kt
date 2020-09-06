@@ -6,8 +6,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import retrofit2.HttpException
 import java.io.IOException
 
-class AllRecipesDataSource(private val recipeService: RecipeService,
-                           private val queryParam: String) :
+class AllRecipesDataSource(private val recipeService: RecipeService) :
         PagingSource<Int, MealTimeRecipe>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MealTimeRecipe> {
@@ -17,9 +16,9 @@ class AllRecipesDataSource(private val recipeService: RecipeService,
         return try {
             val resultData = recipeService.getAllRecipes()
             LoadResult.Page(
-                    data = resultData.recipes,
+                    data = resultData,
                     prevKey = if (position == RECIPES_STARTING_PAGE_INDEX) null else position - 1,
-                    nextKey = if (resultData.recipes.isEmpty()) null else position + 1
+                    nextKey = if (resultData.isEmpty()) null else position + 1
             )
         } catch (exception: IOException) {
             return LoadResult.Error(exception)

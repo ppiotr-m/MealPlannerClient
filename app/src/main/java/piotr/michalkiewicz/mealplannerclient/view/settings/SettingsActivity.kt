@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContract
@@ -10,8 +11,7 @@ import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
-import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
 
@@ -31,6 +31,14 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     override fun onResume() {
         super.onResume()
         initWithData(presenter.data)
+
+        if (presenter.data != null) {
+            presenter.data.userSettings?.userPreference?.unlikeIngredients?.forEach {
+                Log.d(TAG, "Settings, onResume(), infredient: " + it)
+            }
+        } else {
+            Log.d(TAG, "Data is null")
+        }
     }
 
     override fun onPause() {
@@ -88,9 +96,10 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
-    private fun initAllergiesChipGroup(userPreference: UserPreference){
+    private fun initAllergiesChipGroup(userAccount: UserAccount?) {
         var childViewCounter = 0
-        userPreference.allergies.forEach {
+        allergiesChipGroup.removeAllViews()
+        userAccount?.userSettings?.userPreference?.allergies?.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, allergiesChipGroup) as ChipGroup
             val chip = chipGroup.getChildAt(childViewCounter) as Chip
             chip.text = it
@@ -98,7 +107,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
                 allergiesChipGroup.removeView(it)
                 // TODO implement storing in data object
             }
-            childViewCounter +=1
+            childViewCounter += 1
         }
         val chipGroup = layoutInflater.inflate(R.layout.add_chip_element_layout, allergiesChipGroup) as ChipGroup
         (chipGroup.getChildAt(childViewCounter) as Chip).text = resources.getString(R.string.add_chip)
@@ -107,12 +116,13 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
     }
 
-    private fun initAvoidedIngredientsChipGroup(userSettings: UserSettings?){
+    private fun initAvoidedIngredientsChipGroup(userAccount: UserAccount?) {
         var childViewCounter = 0
-        userSettings?.UserPreference?.unlikeIngredients?.forEach {
+        avoidedIngredientsChipGroup.removeAllViews()
+        userAccount?.userSettings?.userPreference?.unlikeIngredients?.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
             (chipGroup.getChildAt(childViewCounter) as Chip).text = it
-            childViewCounter +=1
+            childViewCounter += 1
         }
         val chipGroup = layoutInflater.inflate(R.layout.add_chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
         (chipGroup.getChildAt(childViewCounter) as Chip).text = resources.getString(R.string.add_chip)
@@ -126,13 +136,14 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     }
 
     private fun addAvoidedIngredient(){
-        startLauncherForActivityResult(SettingsActivityContract(EditAvoidedIngredientsActivity::class))
+        startLauncherForActivityResult(SettingsActivityContract(EditDislikedIngredientsActivity::class))
     }
 
     override fun initWithData(data: UserAccount?) {
         emailTV.text = data?.email
-        passwordTV.text = "aaaaaaaa"
-        locationTV.text = data?.location
+        passwordTV.text = "--------"
+        locationTV.text = data?.userSettings?.location
+        dietTV.text = data?.userSettings?.userPreference?.diet
         if (data?.userSettings?.nutritionProfileSettings?.height == null) {
             heightTV.text = ABSENT_DATA
         } else {
@@ -140,13 +151,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
         if (data?.userSettings?.nutritionProfileSettings?.weight == null) {
             weightTV.text = ABSENT_DATA
-        }
-        else {
+        } else {
             weightTV.text = data.userSettings?.nutritionProfileSettings?.weight.toString()
         }
         usernameTV.text = data?.username
-        initAvoidedIngredientsChipGroup(data?.userSettings)
-  //      initAllergiesChipGroup(data?.userSettings)
+        initAvoidedIngredientsChipGroup(data)
+        initAllergiesChipGroup(data)
         initSexSelectionRadioGroup(data)
     }
 

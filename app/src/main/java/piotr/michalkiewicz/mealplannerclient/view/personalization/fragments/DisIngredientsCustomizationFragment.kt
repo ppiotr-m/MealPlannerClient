@@ -61,8 +61,6 @@ class DisIngredientsCustomizationFragment : PersonalizationFragment(), View.OnCl
     }
 
     private fun initConfirmButton() {
-        confirmBtn = activity?.findViewById(R.id.confirmButton)!!
-
         confirmBtn.setOnClickListener {
             fragmentCallback.onListSelect(productsList, this)
             if (goBack) {
