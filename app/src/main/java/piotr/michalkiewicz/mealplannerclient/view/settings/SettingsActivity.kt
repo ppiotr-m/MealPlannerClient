@@ -3,6 +3,7 @@ package piotr.michalkiewicz.mealplannerclient.view.settings
 import android.os.Bundle
 import android.util.Log
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     private val MALE = "Male"
     private val FEMALE = "Female"
     private val ABSENT_DATA = "N/A"
+    private var firstOnResumeExection = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +32,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
 
     override fun onResume() {
         super.onResume()
+        if(firstOnResumeExection) {
+            firstOnResumeExection = false
+            return
+        }
         initWithData(presenter.data)
 
-        if (presenter.data != null) {
-            presenter.data.userSettings?.userPreference?.unlikeIngredients?.forEach {
-                Log.d(TAG, "Settings, onResume(), infredient: " + it)
-            }
-        } else {
-            Log.d(TAG, "Data is null")
-        }
     }
 
     override fun onPause() {
@@ -139,7 +138,16 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         startLauncherForActivityResult(SettingsActivityContract(EditDislikedIngredientsActivity::class))
     }
 
+    private fun showDataNullToast(){
+        Toast.makeText(this, R.string.no_settings_data_received, Toast.LENGTH_LONG).show()
+    }
+
     override fun initWithData(data: UserAccount?) {
+        if(data == null){
+            showDataNullToast()
+            finish()
+            return
+        }
         emailTV.text = data?.email
         passwordTV.text = "--------"
         locationTV.text = data?.userSettings?.location

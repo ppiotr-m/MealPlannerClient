@@ -147,5 +147,7 @@
     <string name="pasta">Pasta</string>
     <string name="what_type_of_recipe_you_don_t_like_cooking">What type of recipe you don\'t like cooking</string>
     <string name="grill">Grill</string>
+    <string name="no_settings_data_received">We are sorry but there was problem with server connection.
+    Please contact our support.</string>
     <string name="meals_planer_logo">Meals planer logo</string>
 </resources>

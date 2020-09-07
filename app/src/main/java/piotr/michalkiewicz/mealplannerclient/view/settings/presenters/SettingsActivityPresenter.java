@@ -14,6 +14,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
+
 public class SettingsActivityPresenter {
 
     private InitializableView view;
@@ -41,6 +43,11 @@ public class SettingsActivityPresenter {
             @Override
             public void onResponse(Call<UserAccount> call, Response<UserAccount> response) {
                 data = response.body();
+                Log.i(TAG, response.message() + "\n" + response.toString());
+                if(data==null){
+                    view.initWithData(null);
+                    return;
+                }
                 if (data.getUserSettings() != null) {
                     if (data.getUserSettings().getNutritionProfileSettings() == null) {
                         data.getUserSettings().setNutritionProfileSettings(new NutritionProfileSettings());
@@ -64,9 +71,10 @@ public class SettingsActivityPresenter {
     }
 
     public void saveSettingsServerSide(){
-        UserServiceGenerator userServiceGenerator = new UserServiceGenerator();
-        Log.d(ConstantValues.TAG, "Saving settings to server:\n" + data.getUserSettings().toString());
-
-        userServiceGenerator.updateUserSettings(data.getUserSettings());
+        if(data != null) {
+            UserServiceGenerator userServiceGenerator = new UserServiceGenerator();
+            userServiceGenerator.updateUserSettings(data.getUserSettings());
+        }
+        //  TODO Implemented action for null data
     }
 }

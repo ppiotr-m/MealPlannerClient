@@ -74,7 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
-            android:text="zenek.wertygo@gmail.com"
             app:layout_constraintStart_toStartOf="@id/barrier"
             app:layout_constraintTop_toBottomOf="@+id/accountInfoTV" />
 
@@ -175,7 +174,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:text="Naggykutas, Hungary"
             app:layout_constraintStart_toStartOf="@id/barrier"
             app:layout_constraintTop_toBottomOf="@+id/passwordTV" />
 
@@ -204,7 +202,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="Standard"
             app:layout_constraintStart_toStartOf="@+id/barrier3"
             app:layout_constraintTop_toBottomOf="@+id/foodPreferencesTV" />
 
