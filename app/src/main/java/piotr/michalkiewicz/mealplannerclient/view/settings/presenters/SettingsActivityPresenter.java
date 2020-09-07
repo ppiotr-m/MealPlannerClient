@@ -2,10 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.view.settings.presenters;
 
 import android.util.Log;
 
-import piotr.michalkiewicz.mealplannerclient.user.model.NutritionProfileSettings;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
-import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference;
-import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings;
 import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
@@ -35,21 +32,19 @@ public class SettingsActivityPresenter {
     }
 
     public void initSettingsViewWithData(){
+        if (data != null) {
+            view.initWithData(data);
+            return;
+        }
         UserServiceGenerator userServiceGenerator = new UserServiceGenerator();
 
         userServiceGenerator.getUserAccount(new Callback<UserAccount>() {
             @Override
             public void onResponse(Call<UserAccount> call, Response<UserAccount> response) {
                 data = response.body();
-                if (data.getUserSettings() != null) {
-                    if (data.getUserSettings().getNutritionProfileSettings() == null) {
-                        data.getUserSettings().setNutritionProfileSettings(new NutritionProfileSettings());
-                    }
-                    if (data.getUserSettings().getUserPreference() == null) {
-                        data.getUserSettings().setUserPreference(new UserPreference());
-                    }
-                } else {
-                    data.setUserSettings(new UserSettings());
+                if (data == null) {
+                    view.initWithData(null);
+                    return;
                 }
 
                 view.initWithData(data);
@@ -63,10 +58,19 @@ public class SettingsActivityPresenter {
         });
     }
 
-    public void saveSettingsServerSide(){
-        UserServiceGenerator userServiceGenerator = new UserServiceGenerator();
-        Log.d(ConstantValues.TAG, "Saving settings to server:\n" + data.getUserSettings().toString());
+    public void saveSettingsServerSide() {
+        if (data != null) {
+            UserServiceGenerator userServiceGenerator = new UserServiceGenerator();
+            userServiceGenerator.updateUserSettings(data.getUserSettings());
+        }
+        //  TODO Implemented action for null data
+    }
 
-        userServiceGenerator.updateUserSettings(data.getUserSettings());
+    public void removeAvoidedIngredient(String ingredientName) {
+        data.getUserSettings().getUserPreference().getUnlikeIngredients().remove(ingredientName);
+    }
+
+    public void removeAllergy(String allergyName) {
+        data.getUserSettings().getUserPreference().getAllergies().remove(allergyName);
     }
 }

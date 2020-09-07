@@ -32,64 +32,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/leftSelectionButtonsLayout"
             android:orientation="vertical">
 
-                <ToggleButton
-                    android:id="@+id/allergyGlutenBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textOn="@string/allergy_gluten"
-                    android:textOff="@string/allergy_gluten"
-                    />
-
-                <ToggleButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/allergy_dairy"
-                    android:textOff="@string/allergy_dairy"/>
-
-                <ToggleButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/allergy_eggs"
-                    android:textOff="@string/allergy_eggs"/>
-
-                <ToggleButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/allergy_peanut"
-                    android:textOff="@string/allergy_peanut"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:id="@+id/rightSelectionButtonsLayout"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <ToggleButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/allergy_seasme"
-                android:textOff="@string/allergy_seasme"/>
-
-            <ToggleButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/allergy_treenuts"
-                android:textOff="@string/allergy_treenuts"/>
-
-            <ToggleButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/allergy_soy"
-                android:textOff="@string/allergy_soy"/>
-
-            <ToggleButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/allergy_frutti_di_mare"
-                android:textOff="@string/allergy_frutti_di_mare"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -124,5 +78,17 @@
         app:layout_constraintTop_toBottomOf="@+id/allergySearchET">
 
     </com.google.android.material.chip.ChipGroup>
+
+    <Button
+        android:id="@+id/allergiesAndIngredientsEditConfirmBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,73 +1,101 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
-import kotlinx.android.synthetic.main.fragment_disliked_ingredients_cust.*
+import kotlinx.android.synthetic.main.activity_edit_allergies.*
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
-import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHECKED_BUTTON_COLOR
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
+import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.DIS_LIKE_INGREDIENTS_CUSTOMIZATION_BUTTONS
+import java.util.*
+import kotlin.collections.ArrayList
 
-class EditDislikedIngredientsActivity : AppCompatActivity(), View.OnClickListener {
+class EditDislikedIngredientsActivity : DataPassingActivity(), View.OnClickListener {
 
     private val productsList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_disliked_ingredients_cust)
+        setContentView(R.layout.activity_edit_allergies)
 
+        init()
+    }
+
+    private fun init() {
         initConfirmButton()
-        addButtonsToLayout(linearLayoutIngredientsButtons,
-                ConstantValues.DIS_LIKE_INGREDIENTS_CUSTOMIZATION_BUTTONS, 1)
-        initIngredientsButtons(linearLayoutIngredientsButtons)
+        addButtonsToLayout(rightSelectionButtonsLayout, leftSelectionButtonsLayout,
+                DIS_LIKE_INGREDIENTS_CUSTOMIZATION_BUTTONS, 1)
+        initIngredientsButtons(leftSelectionButtonsLayout)
+        initIngredientsButtons(rightSelectionButtonsLayout)
+        setAutoCompleteTextView()
+    }
 
+    private fun setAutoCompleteTextView() {
+        allergySearchET.setAdapter(ArrayAdapter<String>(
+                this, android.R.layout.simple_dropdown_item_1line, getProductsMock()))
+    }
+
+    private fun getProductsMock(): List<String> {
+        return listOf("Sunflower", "Beer", "Bread", "Rice", "Pasta", "Orange", "Kiwi", "Banana",
+                "Avocado", "Watermelon", "Citron", "Lemon", "Fish", "Grenadine", "Homars", "Imbir",
+                "Jalapeno", "Mango", "Strawberry", "Turkey", "Tuna")
     }
 
     private fun initConfirmButton() {
-        confirmButton.text = resources.getString(R.string.confirm)
-        confirmButton.setOnClickListener {
+        allergiesAndIngredientsEditConfirmBtn.text = resources.getString(R.string.confirm)
+        allergiesAndIngredientsEditConfirmBtn.setOnClickListener {
             setNewResultAndFinish()
         }
     }
 
     private fun setNewResultAndFinish() {
         val userData = getDataFromIntent()
-        userData?.userSettings?.userPreference?.unlikeIngredients = productsList
-        productsList.forEach {
-            Log.d(TAG, it)
-        }
+        userData.userSettings.userPreference.unlikeIngredients = productsList
         setDataForParentActivity(userData)
+
         finish()
     }
 
-    private fun getDataFromIntent(): UserAccount? {
-        return intent.getSerializableExtra(SETTINGS_DATA) as? UserAccount
-    }
-
-    private fun setDataForParentActivity(data: UserAccount?) {
-        val intent = Intent()
-        intent.putExtra(SETTINGS_DATA, data)
-        setResult(SettingsActivity.RESULT_OK, intent)
-    }
-
-    private fun addButtonsToLayout(buttonsLayout: LinearLayout?, buttonsNames: MutableList<String>,
+    private fun addButtonsToLayout(leftButtonsLayout: LinearLayout?,
+                                   rightButtonsLayout: LinearLayout?,
+                                   buttonsNames: MutableList<String>,
                                    idPrefix: Int) {
-        removeAllChildren(buttonsLayout)
+        removeAllChildren(leftButtonsLayout)
+        removeAllChildren(rightButtonsLayout)
 
-        for ((index, text) in buttonsNames.withIndex()) {
+        val pairOfLists = divideListIntoTwoLists(buttonsNames)
+
+        for ((index, text) in pairOfLists.first.withIndex()) {
             val button = MaterialButton(this)
             button.text = text
             button.id = ("$idPrefix$index").toInt()
-            Log.i(text, button.id.toString())
-            buttonsLayout?.addView(button)
+            leftButtonsLayout?.addView(button)
         }
+
+        for ((index, text) in pairOfLists.second.withIndex()) {
+            val button = MaterialButton(this)
+            button.text = text
+            button.id = ("$idPrefix$index").toInt()
+            rightButtonsLayout?.addView(button)
+        }
+    }
+
+    private fun divideListIntoTwoLists(list: List<String>): Pair<List<String>, List<String>> {
+        val result = Pair(LinkedList<String>(), LinkedList<String>())
+
+        if (list.size % 2 == 0) {
+            result.first.addAll(list.subList(0, (list.size / 2)))
+            result.second.addAll(list.subList(list.size / 2, list.size))
+        } else {
+            result.first.addAll(list.subList(0, (list.size / 2) + 1))
+            result.second.addAll(list.subList((list.size / 2) + 1, list.size))
+        }
+
+        return result
     }
 
     private fun removeAllChildren(layoutToClear: LinearLayout?) {
@@ -77,25 +105,19 @@ class EditDislikedIngredientsActivity : AppCompatActivity(), View.OnClickListene
         }
     }
 
-    private fun addClick(id: Int) {
-        try {
-            linearLayoutIngredientsButtons.findViewById<View>(id).setOnClickListener(this)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
     override fun onClick(v: View) {
-        val element = findViewById<Button>(v.id)?.text.toString()
-        markButton(element, v)
+        if (v is Button) {
+            val element = v.text.toString()
+            markButton(element, v)
+        }
     }
 
     private fun markButton(element: String, v: View) {
         if (!productsList.contains(element)) {
-            findViewById<Button>(v.id)?.setBackgroundColor(piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.CHECKED_BUTTON_COLOR)
+            v.setBackgroundColor(CHECKED_BUTTON_COLOR)
             productsList.add(element)
         } else {
-            findViewById<Button>(v.id)?.setBackgroundColor(piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.DEFAULT_BUTTON_COLOR)
+            v.setBackgroundColor(DEFAULT_BUTTON_COLOR)
             productsList.remove(element)
         }
     }
@@ -107,10 +129,12 @@ class EditDislikedIngredientsActivity : AppCompatActivity(), View.OnClickListene
             val v: View = linearLayout.getChildAt(i)
             if (v is Button) {
                 buttonsIds.add(v.id)
+                v.setOnClickListener(this)
+                val dislikedProductsList = getDataFromIntent().userSettings.userPreference.unlikeIngredients
+                if (dislikedProductsList.contains(v.text.toString())) {
+                    markButton(v.text.toString(), v)
+                }
             }
-        }
-        for (buttonId in buttonsIds) {
-            addClick(buttonId)
         }
     }
 }

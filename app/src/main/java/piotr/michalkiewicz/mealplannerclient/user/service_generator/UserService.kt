@@ -31,7 +31,7 @@ interface UserService {
                @Field("grant_type") grantType: String):
             Call<UserAccount>
 
-    @POST("/user/userAccount")
+    @POST("/user/account")
     fun updateAccount(@Body userAccount: UserAccount): Call<UserAccount>
 
     @POST("/user/settings")

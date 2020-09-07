@@ -1,24 +1,21 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_edit_height.*
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.user.model.NutritionProfileSettings
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 
-class EditHeightActivity : AppCompatActivity() {
+class EditHeightActivity : DataPassingActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_height)
 
-        setOnClicKListeners()
+        setOnClickListeners()
     }
 
-    private fun setOnClicKListeners(){
+    private fun setOnClickListeners() {
         confirmWeightBtn.setOnClickListener {
             setNewHeightAndFinish()
         }
@@ -30,28 +27,23 @@ class EditHeightActivity : AppCompatActivity() {
     private fun setNewHeightAndFinish(){
         if(checkInput()) {
             val userData = getDataFromIntent()
-            userData?.userSettings?.nutritionProfileSettings?.height = heightET.text.toString().toInt()
-            Log.d(ConstantValues.TAG, "EditHeightActivity::height = " + userData?.userSettings?.nutritionProfileSettings?.height)
+            createNutritionProfileSettingsIfNull(userData)
+            userData.userSettings.nutritionProfileSettings?.height = heightET.text.toString().toInt()
             setDataForParentActivity(userData)
             finish()
-        }
-        else{
+        } else {
             Toast.makeText(this, R.string.height_out_of_range, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun getDataFromIntent(): UserAccount?{
-        return intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as? UserAccount
+    private fun createNutritionProfileSettingsIfNull(userAccount: UserAccount) {
+        if (userAccount.userSettings.nutritionProfileSettings == null) {
+            userAccount.userSettings.nutritionProfileSettings = NutritionProfileSettings()
+        }
     }
 
-    private fun setDataForParentActivity(data : UserAccount?){
-        val intent = Intent()
-        intent.putExtra(ConstantValues.SETTINGS_DATA, data)
-        setResult(SettingsActivity.RESULT_OK, intent)
-    }
-
-    private fun checkInput(): Boolean{
-        if(heightET.text.toString().toInt() in 100..300) return true
+    private fun checkInput(): Boolean {
+        if (heightET.text.toString().toInt() in 100..300) return true
         return false
     }
 }
