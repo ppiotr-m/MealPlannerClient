@@ -58,7 +58,7 @@ public class MealTimeRecipe {
     @SerializedName("dateEdited")
     private Date dateEdited;
     @SerializedName("cookTime")
-    private double cookTime;
+    private int cookTime;
     @SerializedName("totalRating")
     private double totalRating;
     @SerializedName("views")
@@ -210,11 +210,11 @@ public class MealTimeRecipe {
         this.dateEdited = dateEdited;
     }
 
-    public double getCookTime() {
+    public int getCookTime() {
         return cookTime;
     }
 
-    public void setCookTime(double cookTime) {
+    public void setCookTime(int cookTime) {
         this.cookTime = cookTime;
     }
 
@@ -240,5 +240,33 @@ public class MealTimeRecipe {
 
     public void setTotalLikes(long totalLikes) {
         this.totalLikes = totalLikes;
+    }
+
+    @Override
+    public String toString() {
+        return "MealTimeRecipe{" +
+                "id='" + id + "\n" +
+                ", name='" + name + "\n" +
+                ", recipeType=" + recipeType + "\n" +
+                ", recipeIngredients=" + recipeIngredients + "\n" +
+                ", instructionSteps=" + instructionSteps + "\n" +
+                ", level='" + level + "\n" +
+                ", suitableForDiet=" + suitableForDiet + "\n" +
+                ", recipeCuisines=" + recipeCuisines + "\n" +
+                ", image=" + image + "\n" +
+                ", description='" + description + "\n" +
+                ", recipeYield='" + recipeYield + "\n" +
+                ", from='" + from + "\n" +
+                ", madeBY='" + madeBY + "\n" +
+                ", language='" + language + "\n" +
+                ", recipeTag=" + recipeTag + "\n" +
+                ", comments=" + comments + "\n" +
+                ", dateAdded=" + dateAdded + "\n" +
+                ", dateEdited=" + dateEdited + "\n" +
+                ", cookTime=" + cookTime + "\n" +
+                ", totalRating=" + totalRating + "\n" +
+                ", views=" + views + "\n" +
+                ", totalLikes=" + totalLikes +
+                '}';
     }
 }

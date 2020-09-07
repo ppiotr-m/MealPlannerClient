@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.settings.EditActivityLevelActivity"></activity>
+        <activity android:name=".view.recipes.CookingModeActivity"></activity>
+        <activity android:name=".view.settings.EditActivityLevelActivity" />
         <activity android:name=".view.settings.EditAgeActivity" />
         <activity android:name=".view.settings.EditGoalActivity" />
         <activity android:name=".view.settings.EditWeightActivity" />

@@ -116,6 +116,8 @@
     <string name="centimeters">centimeters</string>
     <string name="inches">inches</string>
     <string name="kg">kg</string>
+    <string name="next_step">Next step</string>
+    <string name="finish_cooking">Finish cooking</string>
     <string name="lbs">cm</string>
     <string name="height_out_of_range">Value must be between 100 and 300</string>
     <string name="weight_out_of_range">Value must be between 30 and 400</string>
@@ -158,4 +160,6 @@
     <string name="age">Age:</string>
     <string name="activity_level">Activity level:</string>
     <string name="age_out_of_range">Age is out of range</string>
+    <string name="activity_level_spinner_label">Select your activity level</string>
+    <string name="country_spinner_label">Select your country</string>
 </resources>

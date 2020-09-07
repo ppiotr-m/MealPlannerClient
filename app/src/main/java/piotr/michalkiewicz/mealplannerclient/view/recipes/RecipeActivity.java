@@ -2,6 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.view.recipes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableViewWithCat
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.COOKING_STEPS_DATA;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.RECIPE_ID;
+import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.TAG;
 
 public class RecipeActivity extends AppCompatActivity implements InitializableViewWithCategory<MealTimeRecipe> {
 
@@ -92,16 +94,20 @@ public class RecipeActivity extends AppCompatActivity implements InitializableVi
 
     @Override
     public void initWithData(MealTimeRecipe data, String category) {
-        if(data==null){
+        if (data == null) {
             // TODO obsluga tego nulla
             finish();
             return;
         }
+
+        Log.i(TAG, data.toString());
+
         this.data = data;
         recipeImageView.setImageBitmap(data.getImage());
         aboutMealTV.setText(data.getDescription());
         cookingTimeTV.setText(String.valueOf(data.getCookTime()));
         likedByTV.setText(String.valueOf(data.getTotalLikes()));
-        goodForTV.setText("TODO");
+        //  TODO Apply proper data
+        goodForTV.setText(String.valueOf(data.getSuitableForDiet().get(0)));
     }
 }
