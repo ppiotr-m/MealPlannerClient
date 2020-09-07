@@ -13,7 +13,7 @@ import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.DIETS_CUSTOMIZATION_BUTTONS
 
-class EditDietActivity : AppCompatActivity(), View.OnClickListener {
+class EditDietActivity : DataPassingActivity(), View.OnClickListener {
 
     private val buttonsIds = ArrayList<Int>()
 
@@ -59,15 +59,4 @@ class EditDietActivity : AppCompatActivity(), View.OnClickListener {
         setDataForParentActivity(userData)
         finish()
     }
-
-    private fun getDataFromIntent(): UserAccount? {
-        return intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as? UserAccount
-    }
-
-    private fun setDataForParentActivity(data: UserAccount?) {
-        val intent = Intent()
-        intent.putExtra(ConstantValues.SETTINGS_DATA, data)
-        setResult(SettingsActivity.RESULT_OK, intent)
-    }
-
 }

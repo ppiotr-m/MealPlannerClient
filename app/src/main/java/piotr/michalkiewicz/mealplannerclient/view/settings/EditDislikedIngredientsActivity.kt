@@ -15,7 +15,7 @@ import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETT
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues
 
-class EditDislikedIngredientsActivity : AppCompatActivity(), View.OnClickListener {
+class EditDislikedIngredientsActivity : DataPassingActivity(), View.OnClickListener {
 
     private val productsList = ArrayList<String>()
 
@@ -45,16 +45,6 @@ class EditDislikedIngredientsActivity : AppCompatActivity(), View.OnClickListene
         }
         setDataForParentActivity(userData)
         finish()
-    }
-
-    private fun getDataFromIntent(): UserAccount? {
-        return intent.getSerializableExtra(SETTINGS_DATA) as? UserAccount
-    }
-
-    private fun setDataForParentActivity(data: UserAccount?) {
-        val intent = Intent()
-        intent.putExtra(SETTINGS_DATA, data)
-        setResult(SettingsActivity.RESULT_OK, intent)
     }
 
     private fun addButtonsToLayout(buttonsLayout: LinearLayout?, buttonsNames: MutableList<String>,

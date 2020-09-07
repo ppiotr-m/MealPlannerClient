@@ -15,7 +15,7 @@ import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETT
 import java.util.*
 import kotlin.collections.ArrayList
 
-class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class EditLocationActivity : DataPassingActivity(), AdapterView.OnItemSelectedListener {
 
     private var selectedLocation : String? = ""
     private val countries = ArrayList<String>()
@@ -39,7 +39,7 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             finish()
         }
         confirmLocationBtn.setOnClickListener {
-            val data = intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as? UserAccount
+            val data = getDataFromIntent()
             if (data == null) {
                 Log.d(ConstantValues.TAG, "Data is null")
             }
@@ -48,12 +48,6 @@ class EditLocationActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
             setDataForParentActivity(data)
             finish()
         }
-    }
-
-    private fun setDataForParentActivity(data : UserAccount?){
-        val intent = Intent()
-        intent.putExtra(SETTINGS_DATA, data)
-        setResult(SettingsActivity.RESULT_OK, intent)
     }
 
     private fun initSpinner(){

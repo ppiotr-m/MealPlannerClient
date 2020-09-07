@@ -1,7 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCaller
@@ -12,7 +11,6 @@ import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.activity_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
 
@@ -22,7 +20,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     private val MALE = "Male"
     private val FEMALE = "Female"
     private val ABSENT_DATA = "N/A"
-    private var firstOnResumeExection = true
+    private var firstOnResumeExecution = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +30,8 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
 
     override fun onResume() {
         super.onResume()
-        if(firstOnResumeExection) {
-            firstOnResumeExection = false
+        if(firstOnResumeExecution) {
+            firstOnResumeExecution = false
             return
         }
         initWithData(presenter.data)

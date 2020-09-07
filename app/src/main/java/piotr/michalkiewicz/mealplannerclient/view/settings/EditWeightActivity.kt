@@ -11,15 +11,15 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 
-class EditWeightActivity : AppCompatActivity() {
+class EditWeightActivity : DataPassingActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_weight)
 
-        setOnClicKListeners()
+        setOnClickListeners()
     }
 
-    private fun setOnClicKListeners(){
+    private fun setOnClickListeners(){
         confirmWeightBtn.setOnClickListener {
             setNewWeightAndFinish()
         }
@@ -38,16 +38,6 @@ class EditWeightActivity : AppCompatActivity() {
         else{
             Toast.makeText(this, R.string.weight_out_of_range, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun getDataFromIntent(): UserAccount?{
-        return intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as? UserAccount
-    }
-
-    private fun setDataForParentActivity(data : UserAccount?){
-        val intent = Intent()
-        intent.putExtra(ConstantValues.SETTINGS_DATA, data)
-        setResult(SettingsActivity.RESULT_OK, intent)
     }
 
     private fun checkInput(): Boolean{

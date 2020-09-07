@@ -9,7 +9,7 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
 
-class EditPasswordActivity : AppCompatActivity() {
+class EditPasswordActivity : DataPassingActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,16 +56,6 @@ class EditPasswordActivity : AppCompatActivity() {
         })
 
          */
-    }
-
-    private fun getDataFromIntent(): UserAccount?{
-        return intent.getSerializableExtra(SETTINGS_DATA) as? UserAccount
-    }
-
-    private fun setDataForParentActivity(data : UserAccount?){
-        val intent = Intent()
-        intent.putExtra(SETTINGS_DATA, data)
-        setResult(SettingsActivity.RESULT_OK, intent)
     }
 
     private fun checkIfPasswordMatchesCurrent(): Boolean{

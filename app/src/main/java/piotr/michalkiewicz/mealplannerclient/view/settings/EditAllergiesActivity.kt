@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_edit_allergies.*
 import piotr.michalkiewicz.mealplannerclient.R
 
-class EditAllergiesActivity : AppCompatActivity() {
+class EditAllergiesActivity : DataPassingActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_allergies)
