@@ -7,11 +7,11 @@ import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 
 abstract class DataPassingActivity: AppCompatActivity() {
 
-    fun getDataFromIntent(): UserAccount?{
-        return intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as? UserAccount
+    fun getDataFromIntent(): UserAccount {
+        return intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as UserAccount
     }
 
-    fun setDataForParentActivity(data : UserAccount?){
+    fun setDataForParentActivity(data: UserAccount?) {
         val intent = Intent()
         intent.putExtra(ConstantValues.SETTINGS_DATA, data)
         setResult(SettingsActivity.RESULT_OK, intent)

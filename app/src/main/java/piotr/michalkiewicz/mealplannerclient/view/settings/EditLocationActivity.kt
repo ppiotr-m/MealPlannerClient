@@ -1,29 +1,24 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_change_location.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
 import java.util.*
 import kotlin.collections.ArrayList
 
 class EditLocationActivity : DataPassingActivity(), AdapterView.OnItemSelectedListener {
 
-    private var selectedLocation : String? = ""
+    private var selectedLocation: String = ""
     private val countries = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_location)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
         init()
     }
@@ -40,11 +35,8 @@ class EditLocationActivity : DataPassingActivity(), AdapterView.OnItemSelectedLi
         }
         confirmLocationBtn.setOnClickListener {
             val data = getDataFromIntent()
-            if (data == null) {
-                Log.d(ConstantValues.TAG, "Data is null")
-            }
-            data?.userSettings?.location = selectedLocation ?: ""
-            Log.d(ConstantValues.TAG, "Data::location: " + data?.userSettings?.location)
+
+            data.userSettings.location = selectedLocation
             setDataForParentActivity(data)
             finish()
         }
@@ -63,7 +55,7 @@ class EditLocationActivity : DataPassingActivity(), AdapterView.OnItemSelectedLi
         countrySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, countries)
         val index = countries.indexOf((intent.getSerializableExtra(SETTINGS_DATA) as UserAccount)
                 .userSettings
-                ?.location)
+                .location)
         if (index >= 0) {
             countrySpinner.setSelection(index)
         }
@@ -75,7 +67,6 @@ class EditLocationActivity : DataPassingActivity(), AdapterView.OnItemSelectedLi
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         selectedLocation = p0?.selectedItem.toString()
-        Log.i(ConstantValues.TAG, "Location: " + selectedLocation)
     }
 }
 

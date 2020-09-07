@@ -1,17 +1,15 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_disliked_ingredients_cust.*
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SETTINGS_DATA
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHECKED_BUTTON_COLOR
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues
 
@@ -39,7 +37,7 @@ class EditDislikedIngredientsActivity : DataPassingActivity(), View.OnClickListe
 
     private fun setNewResultAndFinish() {
         val userData = getDataFromIntent()
-        userData?.userSettings?.userPreference?.unlikeIngredients = productsList
+        userData.userSettings.userPreference.unlikeIngredients = productsList
         productsList.forEach {
             Log.d(TAG, it)
         }
@@ -55,7 +53,6 @@ class EditDislikedIngredientsActivity : DataPassingActivity(), View.OnClickListe
             val button = MaterialButton(this)
             button.text = text
             button.id = ("$idPrefix$index").toInt()
-            Log.i(text, button.id.toString())
             buttonsLayout?.addView(button)
         }
     }
@@ -76,16 +73,18 @@ class EditDislikedIngredientsActivity : DataPassingActivity(), View.OnClickListe
     }
 
     override fun onClick(v: View) {
-        val element = findViewById<Button>(v.id)?.text.toString()
-        markButton(element, v)
+        if (v is Button) {
+            val element = v.text.toString()
+            markButton(element, v)
+        }
     }
 
     private fun markButton(element: String, v: View) {
         if (!productsList.contains(element)) {
-            findViewById<Button>(v.id)?.setBackgroundColor(piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.CHECKED_BUTTON_COLOR)
+            v.setBackgroundColor(CHECKED_BUTTON_COLOR)
             productsList.add(element)
         } else {
-            findViewById<Button>(v.id)?.setBackgroundColor(piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.DEFAULT_BUTTON_COLOR)
+            v.setBackgroundColor(DEFAULT_BUTTON_COLOR)
             productsList.remove(element)
         }
     }
@@ -97,6 +96,10 @@ class EditDislikedIngredientsActivity : DataPassingActivity(), View.OnClickListe
             val v: View = linearLayout.getChildAt(i)
             if (v is Button) {
                 buttonsIds.add(v.id)
+                val dislikedProductsList = getDataFromIntent().userSettings.userPreference.unlikeIngredients
+                if (dislikedProductsList.contains(v.text.toString())) {
+                    markButton(v.text.toString(), v)
+                }
             }
         }
         for (buttonId in buttonsIds) {

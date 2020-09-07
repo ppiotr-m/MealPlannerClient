@@ -58,12 +58,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         sexSelectionRadioGroup.setOnCheckedChangeListener { _, i ->
             if(i == R.id.maleRadioBtn){
                 if(findViewById<RadioButton>(i).isChecked){
-                    presenter.data?.userSettings?.sex = MALE
+                    presenter.data.userSettings.sex = MALE
                 }
             }
             else{
                 if(findViewById<RadioButton>(i).isChecked){
-                    presenter.data?.userSettings?.sex = FEMALE
+                    presenter.data.userSettings.sex = FEMALE
                 }
             }
         }
@@ -78,25 +78,24 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
     }
 
-    private fun startLauncherForActivityResult(contract: ActivityResultContract<UserAccount, UserAccount>){
-        val launcher = registerForActivityResult(contract){
-            if(it!=null) {
+    private fun startLauncherForActivityResult(contract: ActivityResultContract<UserAccount, UserAccount>) {
+        val launcher = registerForActivityResult(contract) {
+            if (it != null) {
                 presenter.data = it
             }
         }
         launcher.launch(presenter.data)
     }
 
-    private fun initSexSelectionRadioGroup(userAccount: UserAccount?) {
-        if (userAccount?.userSettings?.sex == null) return
-        if (userAccount.userSettings?.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
+    private fun initSexSelectionRadioGroup(userAccount: UserAccount) {
+        if (userAccount.userSettings.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
 
-    private fun initAllergiesChipGroup(userAccount: UserAccount?) {
+    private fun initAllergiesChipGroup(userAccount: UserAccount) {
         var childViewCounter = 0
         allergiesChipGroup.removeAllViews()
-        userAccount?.userSettings?.userPreference?.allergies?.forEach {
+        userAccount.userSettings.userPreference.allergies.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, allergiesChipGroup) as ChipGroup
             val chip = chipGroup.getChildAt(childViewCounter) as Chip
             chip.text = it
@@ -113,10 +112,10 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
     }
 
-    private fun initAvoidedIngredientsChipGroup(userAccount: UserAccount?) {
+    private fun initAvoidedIngredientsChipGroup(userAccount: UserAccount) {
         var childViewCounter = 0
         avoidedIngredientsChipGroup.removeAllViews()
-        userAccount?.userSettings?.userPreference?.unlikeIngredients?.forEach {
+        userAccount.userSettings.userPreference.unlikeIngredients.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
             (chipGroup.getChildAt(childViewCounter) as Chip).text = it
             childViewCounter += 1
@@ -141,26 +140,26 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     }
 
     override fun initWithData(data: UserAccount?) {
-        if(data == null){
+        if (data == null) {
             showDataNullToast()
             finish()
             return
         }
-        emailTV.text = data?.email
+        emailTV.text = data.email
         passwordTV.text = "--------"
-        locationTV.text = data?.userSettings?.location
-        dietTV.text = data?.userSettings?.userPreference?.diet
-        if (data?.userSettings?.nutritionProfileSettings?.height == null) {
+        locationTV.text = data.userSettings.location
+        dietTV.text = data.userSettings.userPreference.diet
+        if (data.userSettings.nutritionProfileSettings.height == null) {
             heightTV.text = ABSENT_DATA
         } else {
-            heightTV.text = data.userSettings?.nutritionProfileSettings?.height.toString()
+            heightTV.text = data.userSettings.nutritionProfileSettings.height.toString()
         }
-        if (data?.userSettings?.nutritionProfileSettings?.weight == null) {
+        if (data.userSettings.nutritionProfileSettings.weight == null) {
             weightTV.text = ABSENT_DATA
         } else {
-            weightTV.text = data.userSettings?.nutritionProfileSettings?.weight.toString()
+            weightTV.text = data.userSettings.nutritionProfileSettings.weight.toString()
         }
-        usernameTV.text = data?.username
+        usernameTV.text = data.username
         initAvoidedIngredientsChipGroup(data)
         initAllergiesChipGroup(data)
         initSexSelectionRadioGroup(data)
