@@ -35,7 +35,6 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
             return
         }
         initWithData(presenter.data)
-
     }
 
     override fun onPause() {
@@ -76,6 +75,15 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         editWeightBtn.setOnClickListener {
             startLauncherForActivityResult(SettingsActivityContract(EditWeightActivity::class))
         }
+        editGoalBtn.setOnClickListener {
+            startLauncherForActivityResult(SettingsActivityContract(EditGoalActivity::class))
+        }
+        editAgeBtn.setOnClickListener {
+            startLauncherForActivityResult(SettingsActivityContract(EditAgeActivity::class))
+        }
+        editActivityLevelBtn.setOnClickListener {
+            startLauncherForActivityResult(SettingsActivityContract(EditActivityLevelActivity::class))
+        }
     }
 
     private fun startLauncherForActivityResult(contract: ActivityResultContract<UserAccount, UserAccount>) {
@@ -88,6 +96,7 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     }
 
     private fun initSexSelectionRadioGroup(userAccount: UserAccount) {
+        if (userAccount.userSettings.sex == null) return
         if (userAccount.userSettings.sex == MALE) sexSelectionRadioGroup.check(R.id.maleRadioBtn)
         else sexSelectionRadioGroup.check(R.id.femaleRadioBtn)
     }
@@ -100,8 +109,8 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
             val chip = chipGroup.getChildAt(childViewCounter) as Chip
             chip.text = it
             chip.setOnCloseIconClickListener {
-                allergiesChipGroup.removeView(it)
-                // TODO implement storing in data object
+                allergiesChipGroup.removeView(chip)
+                presenter.removeAllergy(chip.text.toString())
             }
             childViewCounter += 1
         }
@@ -117,7 +126,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         avoidedIngredientsChipGroup.removeAllViews()
         userAccount.userSettings.userPreference.unlikeIngredients.forEach {
             val chipGroup = layoutInflater.inflate(R.layout.chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
-            (chipGroup.getChildAt(childViewCounter) as Chip).text = it
+            val chip = chipGroup.getChildAt(childViewCounter) as Chip
+            chip.text = it
+            chip.setOnCloseIconClickListener {
+                avoidedIngredientsChipGroup.removeView(chip)
+                presenter.removeAvoidedIngredient(chip.text.toString())
+            }
             childViewCounter += 1
         }
         val chipGroup = layoutInflater.inflate(R.layout.add_chip_element_layout, avoidedIngredientsChipGroup) as ChipGroup
@@ -149,16 +163,38 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         passwordTV.text = "--------"
         locationTV.text = data.userSettings.location
         dietTV.text = data.userSettings.userPreference.diet
-        if (data.userSettings.nutritionProfileSettings.height == null) {
+        if (data.userSettings.nutritionProfileSettings?.height == null) {
             heightTV.text = ABSENT_DATA
         } else {
-            heightTV.text = data.userSettings.nutritionProfileSettings.height.toString()
+            heightTV.text = data.userSettings.nutritionProfileSettings?.height.toString()
         }
-        if (data.userSettings.nutritionProfileSettings.weight == null) {
+        if (data.userSettings.nutritionProfileSettings?.weight == null) {
             weightTV.text = ABSENT_DATA
         } else {
-            weightTV.text = data.userSettings.nutritionProfileSettings.weight.toString()
+            weightTV.text = data.userSettings.nutritionProfileSettings?.weight.toString()
         }
+        if (data.userSettings.nutritionProfileSettings?.goal == null) {
+            goalTV.text = ABSENT_DATA
+        } else {
+            goalTV.text = data.userSettings.nutritionProfileSettings?.goal?.value.toString()
+            if (data.userSettings.nutritionProfileSettings?.goal?.losingWeight!!) {
+                goalSignTV.text = "-"
+            } else {
+                goalSignTV.text = "+"
+            }
+        }
+        if (data.userSettings.nutritionProfileSettings?.age == 0) {
+            ageTV.text = ABSENT_DATA
+        } else {
+            ageTV.text = data.userSettings.nutritionProfileSettings?.age.toString()
+        }
+        if (data.userSettings.nutritionProfileSettings?.activityLevel == null ||
+                data.userSettings.nutritionProfileSettings?.activityLevel!!.isEmpty()) {
+            activityLevelTV.text = ABSENT_DATA
+        } else {
+            activityLevelTV.text = data.userSettings.nutritionProfileSettings?.activityLevel
+        }
+
         usernameTV.text = data.username
         initAvoidedIngredientsChipGroup(data)
         initAllergiesChipGroup(data)

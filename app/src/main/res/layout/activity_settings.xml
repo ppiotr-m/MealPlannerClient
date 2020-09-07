@@ -108,6 +108,36 @@
             app:layout_constraintTop_toBottomOf="@+id/heightTV" />
 
         <Button
+            android:id="@+id/editGoalBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weightTV" />
+
+        <Button
+            android:id="@+id/editAgeBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goalTV" />
+
+        <Button
+            android:id="@+id/editActivityLevelBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_chevron_right_black_18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ageTV" />
+
+        <Button
             android:id="@+id/editPasswordBtn"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
@@ -261,7 +291,7 @@
             style="@style/listElementText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/settings_label"
             android:paddingHorizontal="16dp"
             android:text="@string/nutrition_profile"
@@ -285,7 +315,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="right"
-            app:constraint_referenced_ids="sexLabelTV,heightLabelTV"
+            app:constraint_referenced_ids="sexLabelTV,heightLabelTV,activityLevelLabelTV,
+                                            weightLabelTV,goalLabelTV,ageLabelTV"
             tools:layout_editor_absoluteX="470dp" />
 
         <TextView
@@ -308,6 +339,7 @@
             android:text="178"
             app:layout_constraintStart_toStartOf="@+id/barrier4"
             app:layout_constraintTop_toBottomOf="@+id/sexSelectionRadioGroup" />
+
         <TextView
             android:id="@+id/weightLabelTV"
             style="@style/smallText"
@@ -374,6 +406,85 @@
                 android:layout_marginStart="64dp"
                 android:text="@string/female_sex" />
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/goalLabelTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/goal"
+            app:layout_constraintBaseline_toBaselineOf="@+id/goalSignTV"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/goalTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="0.5"
+            app:layout_constraintStart_toStartOf="@id/goalSignTV"
+            app:layout_constraintTop_toBottomOf="@+id/weightTV" />
+
+        <TextView
+            android:id="@+id/goalUnitTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/kilogram_per_week"
+            app:layout_constraintBaseline_toBaselineOf="@+id/goalTV"
+            app:layout_constraintStart_toEndOf="@+id/goalTV" />
+
+        <TextView
+            android:id="@+id/goalSignTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="+"
+            app:layout_constraintStart_toStartOf="@id/barrier4"
+            app:layout_constraintTop_toBottomOf="@+id/weightTV" />
+
+        <TextView
+            android:id="@+id/ageLabelTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/age"
+            app:layout_constraintBaseline_toBaselineOf="@+id/ageTV"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/ageTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@id/barrier4"
+            app:layout_constraintTop_toBottomOf="@+id/goalTV" />
+
+        <TextView
+            android:id="@+id/activityLevelLabelTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/activity_level"
+            app:layout_constraintBaseline_toBaselineOf="@+id/activityLevelTV"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/activityLevelTV"
+            style="@style/listHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toEndOf="@id/barrier4"
+            app:layout_constraintTop_toBottomOf="@+id/ageTV" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

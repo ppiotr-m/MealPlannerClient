@@ -13,5 +13,6 @@ class ConstantValues {
         val BASIC_PORTION_CUSTOMIZATION_BUTTONS = mutableListOf("1", "2", "3", "4")
         val BASIC_COOKING_TIME_CUSTOMIZATION_BUTTONS = mutableListOf("15", "30", "45", "60")
         val BASIC_MEALS_PER_CUSTOMIZATION_BUTTONS = mutableListOf("1", "2", "3", "4", "5")
+        val ACTIVITY_LEVEL_VALUES = mutableListOf("Sedentary", "Lightly active", "Active", "Very active")
     }
 }
