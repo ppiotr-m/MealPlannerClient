@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.paging
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPE_ID
+import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity
 
 class RecipeViewHolder(val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
@@ -14,11 +18,7 @@ class RecipeViewHolder(val recipeCardView: View) : RecyclerView.ViewHolder(recip
 
     private var recipe: piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe? = null
 
-    init {
-        // TODO Implement click listener
-    }
-
-    fun bind(recipe: piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe?) {
+    fun bind(recipe: MealTimeRecipe?) {
         if (recipe == null) {
             val resources = itemView.resources
             recipeTitle.text = resources.getString(R.string.loading)
@@ -28,7 +28,16 @@ class RecipeViewHolder(val recipeCardView: View) : RecyclerView.ViewHolder(recip
         }
     }
 
-    private fun showRepoData(recipe: piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe) {
+    private fun addOnClickListener(recipeId: String){
+        recipeCardView.setOnClickListener {
+            val intent = Intent(recipeCardView.context, RecipeActivity::class.java)
+            intent.putExtra(RECIPE_ID, recipeId)
+            recipeCardView.context.startActivity(intent)
+        }
+    }
+
+    private fun showRepoData(recipe: MealTimeRecipe) {
+        addOnClickListener(recipe.id)
         this.recipe = recipe
         recipeTitle.text = recipe.name
         cookbookThumbnail.setImageBitmap(recipe.image)
