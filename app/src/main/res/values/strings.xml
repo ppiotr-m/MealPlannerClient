@@ -61,8 +61,8 @@
     <string name="good_for">Good for: </string>
     <string name="ingredients">Ingredients</string>
     <string name="cooking_steps">Cooking Steps</string>
-    <string name="comments_section">Comments:</string>
-    <string name="about_meal">About meal:</string>
+    <string name="comments_section"><u>Comments:</u></string>
+    <string name="about_meal"><u>About meal:</u></string>
     <string name="login_failed">Incorrect e-mail or password.</string>
     <string name="email">E-mail</string>
     <string name="email2">E-mail:</string>
