@@ -166,4 +166,5 @@
     <string name="voice_control_instruction">Press microphone to start listening.\nSay next for
     next step or previous for previous step.</string>
     <string name="voice_control_inactive">Voice control turned off.</string>
+    <string name="add_to_shopping_list">Add to shopping list</string>
 </resources>
