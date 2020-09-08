@@ -8,10 +8,6 @@
     tools:context="piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity"
     tools:showIn="@layout/activity_main_menu">
 
-    <!--View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/opaqueBlack"/ -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

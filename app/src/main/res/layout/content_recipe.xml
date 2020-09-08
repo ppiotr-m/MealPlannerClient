@@ -53,7 +53,7 @@
 
         <TextView
             android:id="@+id/cookingTimeLabelTV"
-            style="@style/normalText"
+            style="@style/normalTextBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -64,7 +64,7 @@
 
         <TextView
             android:id="@+id/likedByLabelTV"
-            style="@style/normalText"
+            style="@style/normalTextBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -74,7 +74,7 @@
 
         <TextView
             android:id="@+id/goodForLabelTV"
-            style="@style/normalText"
+            style="@style/normalTextBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -87,7 +87,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -98,8 +98,8 @@
                 android:id="@+id/goToIngredientsBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="4dp"
+                android:layout_weight="1"
                 android:text="@string/ingredients"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goodForLabelTV" />
@@ -122,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/about_meal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonsContainer" />
@@ -134,6 +134,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            style="@style/recipeAbout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/aboutLabelTV" />
@@ -163,7 +164,7 @@
 
         <TextView
             android:id="@+id/cookingTimeTV"
-            style="@style/normalText"
+            style="@style/normalTextBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -181,7 +182,7 @@
 
         <TextView
             android:id="@+id/likedByTV"
-            style="@style/normalText"
+            style="@style/normalTextBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -191,7 +192,7 @@
 
         <TextView
             android:id="@+id/goodForTV"
-            style="@style/normalText"
+            style="@style/normalTextBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
