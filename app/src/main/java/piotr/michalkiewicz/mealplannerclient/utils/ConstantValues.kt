@@ -20,6 +20,7 @@ class ConstantValues {
         const val RECIPE_ID = "recipe_id"
         const val INGREDIENTS_DATA = "ingredients"
         const val COOKING_STEPS_DATA = "cooking_steps"
+        const val RECORD_AUDIO_REQUEST_CODE = 433
 
         const val CHECKED_BUTTON_COLOR = Color.LTGRAY
         const val DEFAULT_BUTTON_COLOR = Color.RED
