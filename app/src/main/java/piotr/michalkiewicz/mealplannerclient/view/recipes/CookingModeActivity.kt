@@ -1,8 +1,14 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,13 +22,17 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECORD_AUDIO_REQUEST_CODE
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import java.util.*
 
-class CookingModeActivity : AppCompatActivity() {
+class CookingModeActivity : AppCompatActivity(), RecognitionListener {
 
     private lateinit var data: ArrayList<InstructionStep>
     private var currentStepIndex = 0
     private var micImageBlinkOn = true
+    private lateinit var speechRecognizer: SpeechRecognizer
+    private var isActivated: Boolean = false
+    private val activationKeyword: String = "next"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +47,7 @@ class CookingModeActivity : AppCompatActivity() {
         checkRecordAudioPermission()
         onClickListeners()
         initView(data[0])
+        initSpeechRecognizer()
     }
 
     private fun initView(data: InstructionStep) {
@@ -53,8 +64,95 @@ class CookingModeActivity : AppCompatActivity() {
         }
         micImgView.setOnClickListener {
             blinkMicImg()
+            startRecognition()
         }
     }
+
+    private fun initSpeechRecognizer() {
+        if (SpeechRecognizer.isRecognitionAvailable(this)) {
+            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+            speechRecognizer.setRecognitionListener(this)
+        } else {
+            Log.i(TAG, "Speech recognition not available")
+        }
+    }
+
+    private fun startRecognition() {
+        speechRecognizer.startListening(createRecognizerIntent())
+    }
+
+    private fun stopRecognition() {
+        speechRecognizer.stopListening()
+        speechRecognizer.destroy()
+    }
+
+    override fun onPartialResults(partialResults: Bundle) {
+        Log.i(TAG, "CORAZ MNIEJ BLISKO")
+        val matches = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+        if (matches != null) {
+            // Handle partial matches
+        }
+    }
+
+    override fun onResults(results: Bundle) {
+        Log.i(TAG, "BLISKO BLISKO")
+        val matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+        val scores = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
+        if (matches != null) {
+            if (isActivated) {
+                isActivated = false
+                stopRecognition()
+            } else {
+                matches.firstOrNull { it.contains(other = activationKeyword, ignoreCase = true) }
+                        ?.let {
+                            Log.i(TAG, "!!!!!!!!SIALALALALALA O KURWA OBSIADŁO!!!!!!!!")
+                            isActivated = true
+                        }
+                startRecognition()
+            }
+        }
+    }
+
+    override fun onReadyForSpeech(p0: Bundle?) {
+        Log.i(TAG, "onBufferReceived()")
+    }
+
+    override fun onBeginningOfSpeech() {
+        Log.i(TAG, "OJ DALEKO")
+    }
+
+    override fun onRmsChanged(p0: Float) {
+        Log.i(TAG, "onRmsChanged(): " + p0)
+    }
+
+    override fun onBufferReceived(p0: ByteArray?) {
+        Log.i(TAG, "onBufferReceived() :" + p0?.size)
+    }
+
+    override fun onEndOfSpeech() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onError(p0: Int) {
+        Log.i(TAG, "SpeechRecognizer error code: " + p0)
+    }
+
+    override fun onEvent(p0: Int, p1: Bundle?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun createRecognizerIntent(): Intent {
+        return Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+            }
+        }
+    }
+
 
     private fun blinkMicImg() {
         lifecycleScope.launch {
@@ -129,6 +227,7 @@ class CookingModeActivity : AppCompatActivity() {
             } else {
                 setMicIcon(false)
                 Toast.makeText(this, R.string.voice_control_inactive, Toast.LENGTH_LONG).show()
+                micImgView.setOnClickListener {}
             }
         }
     }
