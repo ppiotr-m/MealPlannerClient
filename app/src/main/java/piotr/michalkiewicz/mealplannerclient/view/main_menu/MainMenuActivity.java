@@ -27,23 +27,32 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         init();
     }
 
-    private void init(){
+    private void init() {
+        initTopToolbar();
         assignUIElements();
         setBottomNavigationMenu();
         setFragment(new HomeScreenFragment());
     }
 
-    private void assignUIElements(){
+    private void initTopToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        toolbar.setNavigationOnClickListener(v -> {
+
+        });
+    }
+
+    private void assignUIElements() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
     }
 
-    private void setBottomNavigationMenu(){
+    private void setBottomNavigationMenu() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -62,9 +71,6 @@ public class MainMenuActivity extends AppCompatActivity {
                     case R.id.navigation_nutrition:
                         selectedFragment = new NutritionScreenFragment();
                         break;
-                    case R.id.navigation_settings:
-                        startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
-                        return false;
                 }
                 if(selectedFragment!=null) {
                     setFragment(selectedFragment);
@@ -84,13 +90,16 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_toolbar, menu);
+        getMenuInflater().inflate(R.menu.top_toolbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
+        if (item.getItemId() == R.id.action_search) {
+            //          startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
+        }
+        if (item.getItemId() == R.id.action_user) {
             startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
         }
         return super.onOptionsItemSelected(item);

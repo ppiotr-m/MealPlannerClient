@@ -100,6 +100,7 @@
     <string name="amount">Amount</string>
     <string name="cooking_steps2"><b>Cooking steps</b></string>
     <string name="step">Step</string>
+    <string name="search">Search...</string>
     <string name="cooking_mode">Cooking mode</string>
     <string name="password_confirmation_failed">Password and confrimation don\'t match.</string>
     <string name="sign_up_successful">Account has been successfully created, welcome!</string>
