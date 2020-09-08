@@ -134,6 +134,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_change_location">Map</string>
     <string name="title_activity_edit_location">Map</string>
+    <string name="previous">Previous</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -162,4 +163,7 @@
     <string name="age_out_of_range">Age is out of range</string>
     <string name="activity_level_spinner_label">Select your activity level</string>
     <string name="country_spinner_label">Select your country</string>
+    <string name="voice_control_instruction">Press microphone to start listening.\nSay next for
+    next step or previous for previous step.</string>
+    <string name="voice_control_inactive">Voice control turned off.</string>
 </resources>

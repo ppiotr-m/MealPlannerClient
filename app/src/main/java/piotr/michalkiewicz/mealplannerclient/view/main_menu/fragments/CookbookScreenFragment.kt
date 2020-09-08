@@ -26,7 +26,6 @@ class CookbookScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
-    private val recipesListIds = ArrayList<Int>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -60,8 +59,6 @@ class CookbookScreenFragment : Fragment() {
         attachRecipesRecyclerView("diet", "STANDARD")
         attachRecipesRecyclerView("diet", "VEGETARIAN")
         attachRecipesRecyclerView("diet", "PALEO")
-//        attachRecipesRecyclerView("type", "VEGETARIAN")
-        //    attachRecipesRecyclerView("tag", "light")
     }
 
     private fun launchCoroutineByTypeForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
@@ -103,9 +100,6 @@ class CookbookScreenFragment : Fragment() {
 
         val view = root.getChildAt(root.childCount - 1)
 
-        //       val view = root.findViewById<LinearLayout>(R.id.recipesRecyclerViewContainer)
-        //    val view = createRecipesList(labelText)
-
         if (labelText.isEmpty()) {
             view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text = resources.getString(R.string.all)
         } else {
@@ -121,8 +115,6 @@ class CookbookScreenFragment : Fragment() {
 
     private fun attachRecipesRecyclerView(category: String, categoryValue: String) {
         val recipesHorizontalListWithLabel = createHorizontalRecipesList(categoryValue)
-        //       binding.recipesByCategoriesLayoutContainer.addView(recipesHorizontalListWithLabel)
-        //       binding.recipesByCategoriesLayoutContainer.requestLayout()
 
         if (category.isEmpty() || categoryValue.isEmpty()) {
             launchCoroutineAllRecipesForRecyclerView(recipesHorizontalListWithLabel
