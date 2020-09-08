@@ -3,11 +3,6 @@ package piotr.michalkiewicz.mealplannerclient.recipes.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
 public class RecipeIngredient implements Serializable {
 
     private String amount;
@@ -15,6 +10,14 @@ public class RecipeIngredient implements Serializable {
     private String originalName;
     private String kind;
     private String name;
+
+    public RecipeIngredient(String amount, String unit, String originalName, String kind, String name) {
+        this.amount = amount;
+        this.unit = unit;
+        this.originalName = originalName;
+        this.kind = kind;
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -27,5 +30,25 @@ public class RecipeIngredient implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(originalName);
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -7,7 +7,7 @@ import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.LoginActivity
 class MyPreference { // toDo  http://blog.udinic.com/2013/04/24/write-your-own-android-authenticator/
 
     //    private val preference = context.getSharedPreferences("mealTime", Context.MODE_PRIVATE)
-    private val preference = LoginActivity.myPreferences
+    private val preference = LoginActivity.MY_PREFERENCSES
 
     fun getToken(): String? {
         return preference.getString("TOKEN", "")

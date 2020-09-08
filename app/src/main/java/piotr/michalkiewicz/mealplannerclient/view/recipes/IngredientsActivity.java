@@ -1,7 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient;
+import piotr.michalkiewicz.mealplannerclient.view.shopping.activities.ShoppingListActivity;
 
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
-import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.TAG;
 
 public class IngredientsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -56,10 +56,10 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
     }
 
     private void setOnClickListeners() {
-        findViewById(R.id.addIngredientsToListBtn).setOnClickListener(v -> {
-            for (RecipeIngredient ingredient : selectedIngredients) {
-                Log.i(TAG, "Selected ingrdient: " + ingredient.getOriginalName());
-            }
+        findViewById(R.id.addProductsToShoppingListBtn).setOnClickListener(v -> {
+            Intent intent = new Intent(this, ShoppingListActivity.class);
+            intent.putExtra(INGREDIENTS_DATA, selectedIngredients);
+            startActivity(intent);
         });
     }
 

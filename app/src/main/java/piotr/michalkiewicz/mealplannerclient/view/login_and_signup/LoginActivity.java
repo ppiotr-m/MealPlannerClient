@@ -22,7 +22,7 @@ import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static SharedPreferences myPreferences;
+    public static SharedPreferences MY_PREFERENCSES;
     private Button loginBtn;
     private EditText loginET;
     private EditText passwordET;
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // I doesn't have idea yest where to put it it Must be Activity
-        myPreferences = getApplicationContext().getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE);
+        MY_PREFERENCSES = getApplicationContext().getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
