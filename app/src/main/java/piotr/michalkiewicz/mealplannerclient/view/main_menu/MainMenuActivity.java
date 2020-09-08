@@ -2,6 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.view.main_menu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -79,5 +80,19 @@ public class MainMenuActivity extends AppCompatActivity {
     private void setFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.mainMenuFragmentContainer,
                 fragment).commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

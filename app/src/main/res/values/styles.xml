@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -73,5 +74,13 @@
     <style name="search_icon_top_label">
         <item name="android:textSize">16sp</item>
     </style>
-
+    <style name="RatingBar">
+        <item name="android:scaleX">0.7</item>
+        <item name="android:scaleY">0.7</item>
+        <item name="android:progressBackgroundTint">@color/lightGrey</item>
+        <item name="android:progressTint">@color/goldenYellow</item>
+    </style>
+    <style name="topBar" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
