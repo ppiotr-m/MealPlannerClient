@@ -11,18 +11,33 @@ import retrofit2.Callback
 class UserServiceGenerator : ServiceGenerator() {
 
     private lateinit var userService: UserService
+//    private lateinit var singUpAPI: SignUpAPI
 
     init {
         if (!::userService.isInitialized) {
             val retrofit = retrofitBuilder()
             userService = retrofit.create(UserService::class.java)
         }
+//        if (!::singUpAPI.isInitialized) {
+//            val retrofit = retrofitBuilder()
+//            singUpAPI = retrofit.create(SignUpAPI::class.java)
+//        }
     }
 
     fun getUserAccount(callback: Callback<UserAccount>) {
         val callAsync = userService.getUserAccount()
         callAsync.enqueue(callback)
     }
+
+//    fun singUpPhoneMemory(fakeUsername: String){
+//        val signUpPhoneMemoryAPI = singUpAPI.signUpPhoneMemory(fakeUsername)
+//        signUpPhoneMemoryAPI.subscribeOn(Schedulers.io())
+//                .subscribe({result ->
+//                    Log.i("result: ", result.toString())
+//                }, {error ->
+//                    Log.i("singUpPhoneMemory error", error.toString())
+//                })
+//    }
 
     fun signUp(userAccount: UserAccount, callback: Callback<UserAccount>) {
         val callAsync = userService.signUp(userAccount)
@@ -40,7 +55,7 @@ class UserServiceGenerator : ServiceGenerator() {
                 .subscribe({ result ->
                     Log.i("updateUserSettings", result.toString())
                 }, { error ->
-                    Log.i("error", error.toString())
+                    Log.i("updateUserSetting error", error.toString())
                 })
     }
 

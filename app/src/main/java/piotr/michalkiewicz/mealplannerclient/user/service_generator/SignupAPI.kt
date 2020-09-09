@@ -1,0 +1,3 @@
+package piotr.michalkiewicz.mealplannerclient.user.service_generator
+
+class SignupAPI

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_registration.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,7 +43,7 @@ class SignUpActivity : AppCompatActivity() {
         if(!validateEmail()) return
         if(!validatePassword()) return
 
-        val userService = piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator()
+        val userService = UserServiceGenerator()
         userService.signUp(UserAccount.createMockUserAccountWithParams(emailET.text.toString(),
                 passwordET.text.toString(), usernameET.text.toString()), object : Callback<UserAccount>{
 

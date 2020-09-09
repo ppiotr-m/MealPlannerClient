@@ -15,6 +15,10 @@ interface UserService {
     @POST("/user/signUp")
     fun signUp(@Body userAccount: UserAccount): Call<UserAccount>
 
+//    @POST("/user/signUpPhoneMemory")
+//    @FormUrlEncoded
+//    fun signUpPhoneMemory(@Field("fakeUsername") fakeUsername: String): Observable<UserAccount>
+
     @POST("/user/account")
     fun editAccountSettings(@Body userAccount: UserAccount): Call<UserAccount>
 
