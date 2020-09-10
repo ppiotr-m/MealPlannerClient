@@ -17,6 +17,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep;
 
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.COOKING_STEPS_DATA;
 
+//  TODO Cover case of only 1 step
 public class CookingStepsActivity extends AppCompatActivity {
 
     List<InstructionStep> data;

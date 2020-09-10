@@ -111,6 +111,7 @@
     <string name="male_sex">Male</string>
     <string name="female_sex">Female</string>
     <string name="add_chip">+ Add</string>
+    <string name="no_ingredient_selected">You need to select at least 1 item.</string>
     <string name="specify_height">Specify height</string>
     <string name="weight_edition_label">Type in your weight in</string>
     <string name="height_edition_label">Type in your height in</string>

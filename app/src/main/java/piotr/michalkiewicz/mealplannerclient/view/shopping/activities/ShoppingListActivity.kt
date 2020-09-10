@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 class ShoppingListActivity : AppCompatActivity() {
 
     private val checkBoxes = ArrayList<View>()
-    lateinit var recipeIngredientsList: ArrayList<RecipeIngredient>
+    private var recipeIngredientsList = ArrayList<RecipeIngredient>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,25 +31,29 @@ class ShoppingListActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        initData()
         initView()
-        attachStoredShoppingListToView()
         setOnClickListeners()
     }
 
-    private fun initView() {
-        recipeIngredientsList = intent.getSerializableExtra(INGREDIENTS_DATA) as ArrayList<RecipeIngredient>
-
-        recipeIngredientsList.forEach {
-            shoppingListContainerLayout.addView(createViewFromData(it))
+    private fun initData(){
+        val storedShoppingList = getShoppingListFromSharedPrefs()
+        if(storedShoppingList != null) {
+            recipeIngredientsList.addAll(getShoppingListFromSharedPrefs()!!)
+        }
+        else{
+            showEmptyShoppingList()
         }
     }
 
-    private fun attachStoredShoppingListToView() {
-        val storedList = getShoppingListFromSharedPrefs() ?: return
+    //  TODO
+    private fun showEmptyShoppingList(){
 
-        storedList.forEach {
-            val view = createViewFromData(it)
-            shoppingListContainerLayout.addView(view)
+    }
+
+    private fun initView() {
+        recipeIngredientsList.forEach {
+            shoppingListContainerLayout.addView(createViewFromData(it))
         }
     }
 
@@ -58,8 +62,11 @@ class ShoppingListActivity : AppCompatActivity() {
 
         if (json!!.isEmpty()) return null
 
-        val gson = Gson()
-        return gson.fromJson(json, Array<RecipeIngredient>::class.java).toList() as ArrayList<RecipeIngredient>
+        return try {
+            Gson().fromJson(json, Array<RecipeIngredient>::class.java).toList() as ArrayList<RecipeIngredient>
+        } catch (e: ClassCastException){
+            return null
+        }
     }
 
     private fun createViewFromData(product: RecipeIngredient?): View {
@@ -82,9 +89,7 @@ class ShoppingListActivity : AppCompatActivity() {
         removeProductsFromView()
         removeProductsFromStorage()
 
-        recipeIngredientsList.forEach {
-            Log.i(TAG, "Ingredient: " + it.originalName)
-        }
+        Log.i(TAG, "Left ingredients size: " + recipeIngredientsList.size)
     }
 
     private fun removeProductsFromView() {
@@ -110,8 +115,7 @@ class ShoppingListActivity : AppCompatActivity() {
     }
 
     private fun saveShoppingListToSharedPrefs(recipeIngredientList: List<RecipeIngredient>) {
-        val gson = Gson()
-        val dataInJson = gson.toJson(recipeIngredientList)
+        val dataInJson = Gson().toJson(recipeIngredientList)
 
         with(LoginActivity.MY_PREFERENCSES.edit()) {
             putString(SHOPPING_LIST_SHARED_PREF, dataInJson)
