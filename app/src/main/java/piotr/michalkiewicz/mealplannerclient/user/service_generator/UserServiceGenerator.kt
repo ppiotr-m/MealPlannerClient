@@ -40,7 +40,7 @@ class UserServiceGenerator : ServiceGenerator() {
                 .subscribe({ result ->
                     Log.i("updateUserSettings", result.toString())
                 }, { error ->
-                    Log.i("error", error.toString())
+                    Log.i("updateUserSetting error", error.toString())
                 })
     }
 

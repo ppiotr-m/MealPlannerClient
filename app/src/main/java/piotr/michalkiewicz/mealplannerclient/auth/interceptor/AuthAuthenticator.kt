@@ -5,6 +5,7 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
+import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import java.io.IOException
@@ -12,14 +13,11 @@ import java.io.IOException
 class AuthAuthenticator: Authenticator {
 
     private val myPreference: MyPreference = MyPreference()
-    private val loginClient: piotr.michalkiewicz.mealplannerclient.auth.LoginClient = piotr.michalkiewicz.mealplannerclient.auth.LoginClient()
+    private val loginClient: LoginClient = LoginClient()
 
     /**
      * Method automatically refresh token if get response with 401, if get 500 must return null to avoid multi same queries to refresh token.
      */
-
-
-
     @Throws(IOException::class)
     override fun authenticate(route: Route?, response: Response): Request? {
         var requestAvailable: Request? = null
