@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.R
@@ -16,7 +15,6 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity
 class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
     private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.recipeCardThumbnail)
-    private val recipeRatingBar: RatingBar = recipeCardView.findViewById(R.id.recipeListItemRatingBar)
 
     private var recipe: MealTimeRecipe? = null
 
@@ -25,7 +23,6 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
             val resources = itemView.resources
             recipeTitle.text = resources.getString(R.string.loading)
             cookbookThumbnail.visibility = View.GONE
- //           recipeRatingBar.visibility = View.GONE
         } else {
             showRepoData(recipe)
         }
@@ -43,10 +40,8 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
         addOnClickListener(recipe.id)
         this.recipe = recipe
         recipeTitle.text = recipe.name
-        recipeRatingBar.rating = recipe.totalRating.toFloat()
         cookbookThumbnail.setImageBitmap(recipe.image)
         cookbookThumbnail.visibility = View.VISIBLE
-//        recipeRatingBar.visibility = View.VISIBLE
     }
 
     companion object {

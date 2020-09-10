@@ -17,7 +17,7 @@ import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.CookbookSc
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.HomeScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.MealPlansFragment;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.NutritionScreenFragment;
-import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
+import piotr.michalkiewicz.mealplannerclient.view.shopping.activities.ShoppingListActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -100,7 +100,7 @@ public class MainMenuActivity extends AppCompatActivity {
             //          startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
         }
         if (item.getItemId() == R.id.action_user) {
-            startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
+            startActivity(new Intent(MainMenuActivity.this, ShoppingListActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
