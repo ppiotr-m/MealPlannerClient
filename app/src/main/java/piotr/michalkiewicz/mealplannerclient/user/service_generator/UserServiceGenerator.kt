@@ -24,11 +24,6 @@ class UserServiceGenerator : ServiceGenerator() {
         callAsync.enqueue(callback)
     }
 
-    fun signUp(userAccount: UserAccount, callback: Callback<UserAccount>) {
-        val callAsync = userService.signUp(userAccount)
-        callAsync.enqueue(callback)
-    }
-
     fun saveUserAccountData(data: UserAccount, callback: Callback<UserAccount>) {  //toDo delete ?
         val callAsync = userService.editAccountSettings(data)
         callAsync.enqueue(callback)

@@ -12,8 +12,8 @@ interface UserService {
     @GET("/user/account")
     fun getUserAccount(): Call<UserAccount>
 
-    @POST("/user/signUp")
-    fun signUp(@Body userAccount: UserAccount): Call<UserAccount>
+//    @POST("/user/signUp")
+//    fun signUp(@Body userAccount: UserAccount): Call<UserAccount>
 
 //    @POST("/user/signUpPhoneMemory")
 //    @FormUrlEncoded

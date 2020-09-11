@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // I doesn't have idea yest where to put it it Must be Activity
-        myPreferences = applicationContext.getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE)
+        MY_PREFERENCSES = applicationContext.getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -103,6 +103,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        lateinit var myPreferences: SharedPreferences
+        lateinit var MY_PREFERENCSES: SharedPreferences
     }
 }

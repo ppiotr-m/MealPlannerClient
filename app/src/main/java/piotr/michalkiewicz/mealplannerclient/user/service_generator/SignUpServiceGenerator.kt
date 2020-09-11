@@ -6,7 +6,9 @@ import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.LoginInterceptor
+import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
+import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,6 +22,11 @@ class SignUpServiceGenerator {
             val retrofit = retrofitBuilder()
             singUpAPI = retrofit.create(SignUpAPI::class.java)
         }
+    }
+
+    fun signUp(userAccount: UserAccount, callback: Callback<UserAccount>) {
+        val callAsync = singUpAPI.signUp(userAccount)
+        callAsync.enqueue(callback)
     }
 
     fun singUpPhoneMemory(fakeUsername: String) {
