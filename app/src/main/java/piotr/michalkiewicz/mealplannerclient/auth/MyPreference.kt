@@ -2,7 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.auth
 
 import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REFRESH_TOKEN_SHARED_PREF
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.LoginActivity
+import piotr.michalkiewicz.mealplannerclient.view.login.LoginActivity
 
 class MyPreference { // toDo  http://blog.udinic.com/2013/04/24/write-your-own-android-authenticator/
 

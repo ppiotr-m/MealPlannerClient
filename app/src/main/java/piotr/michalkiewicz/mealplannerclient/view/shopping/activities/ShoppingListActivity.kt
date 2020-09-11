@@ -11,10 +11,9 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_shopping_list.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.INGREDIENTS_DATA
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SHOPPING_LIST_SHARED_PREF
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.LoginActivity
+import piotr.michalkiewicz.mealplannerclient.view.login.LoginActivity
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup
+package piotr.michalkiewicz.mealplannerclient.view.login
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,10 +13,10 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
-import piotr.michalkiewicz.mealplannerclient.user.service_generator.SignUpServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
-import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.service.FakeUserData
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity
+import piotr.michalkiewicz.mealplannerclient.view.login.service.FakeUserData
+import piotr.michalkiewicz.mealplannerclient.view.menu.MainMenuActivity
 import java.util.*
 
 class LoginActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.auth
+package piotr.michalkiewicz.mealplannerclient.auth.api
 
 import io.reactivex.Observable
 import piotr.michalkiewicz.mealplannerclient.auth.model.Token
@@ -7,7 +7,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-interface OAuth2 {
+interface OAuth2API {
 
     @FormUrlEncoded
     @POST("/auth/token")

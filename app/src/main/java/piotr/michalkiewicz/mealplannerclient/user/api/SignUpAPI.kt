@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.user.service_generator
+package piotr.michalkiewicz.mealplannerclient.user.api
 
 import io.reactivex.Observable
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount

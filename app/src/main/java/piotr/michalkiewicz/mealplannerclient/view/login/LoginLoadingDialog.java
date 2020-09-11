@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup;
+package piotr.michalkiewicz.mealplannerclient.view.login;
 
 import android.app.Activity;
 import android.app.AlertDialog;

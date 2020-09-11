@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments;
+package piotr.michalkiewicz.mealplannerclient.view.menu.fragments;
 
 import androidx.fragment.app.Fragment;
 

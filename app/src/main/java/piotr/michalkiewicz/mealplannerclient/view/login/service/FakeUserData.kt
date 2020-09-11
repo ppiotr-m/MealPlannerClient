@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.login_and_signup.service
+package piotr.michalkiewicz.mealplannerclient.view.login.service
 
 import android.annotation.SuppressLint
 import android.provider.Settings

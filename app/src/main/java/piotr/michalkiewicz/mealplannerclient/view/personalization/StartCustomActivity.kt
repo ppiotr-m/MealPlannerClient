@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.user.UserServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
-import piotr.michalkiewicz.mealplannerclient.user.service_generator.UserServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.MainMenuActivity
+import piotr.michalkiewicz.mealplannerclient.view.menu.MainMenuActivity
 import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.*
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 

@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.auth.interceptor
+package piotr.michalkiewicz.mealplannerclient.auth.authenticator
 
 import android.util.Log
 import okhttp3.Authenticator

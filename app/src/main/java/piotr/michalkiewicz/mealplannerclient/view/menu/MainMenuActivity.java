@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.main_menu;
+package piotr.michalkiewicz.mealplannerclient.view.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.CookbookScreenFragment;
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.HomeScreenFragment;
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.MealPlansFragment;
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.NutritionScreenFragment;
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.CookbookScreenFragment;
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragment;
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.MealPlansFragment;
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.NutritionScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
 
 public class MainMenuActivity extends AppCompatActivity {

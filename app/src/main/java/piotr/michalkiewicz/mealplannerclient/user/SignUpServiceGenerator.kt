@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.user.service_generator
+package piotr.michalkiewicz.mealplannerclient.user
 
 import android.util.Log
 import com.google.gson.Gson
@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.LoginInterceptor
+import piotr.michalkiewicz.mealplannerclient.user.api.SignUpAPI
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import retrofit2.Callback

@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RecipeService {
+interface RecipeAPI {
 
     @GET("/recipes/getById")
     fun getRecipeForId(@Query("id") recipeId: String): Call<MealTimeRecipe>

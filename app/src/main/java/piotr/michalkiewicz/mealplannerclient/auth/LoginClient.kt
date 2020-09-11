@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
+import piotr.michalkiewicz.mealplannerclient.auth.api.OAuth2API
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.LoginInterceptor
 import piotr.michalkiewicz.mealplannerclient.auth.model.Token
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.BASE_URL
@@ -31,7 +32,7 @@ class LoginClient {
     }
 
     /**
-     * login by username/email + pass toDo make call not observable + w8 until get response
+     * login by username/email + pass
      */
 
     fun login(username: String, password: String, loginListener: LoginListener) {
@@ -60,7 +61,6 @@ class LoginClient {
                 Log.i("refreshToken()", t.message.toString())
                 loginListener.loginFailed()
             }
-
             override fun onResponse(call: Call<Token>, response: Response<Token>) { //toDo check method with shorter token validity
                 val token = response.body()
                 if (response.code() == 400) {
@@ -84,7 +84,7 @@ class LoginClient {
         }
     }
 
-    private fun loginConnection(): OAuth2 {
+    private fun loginConnection(): OAuth2API {
         val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -92,7 +92,7 @@ class LoginClient {
                 .baseUrl(BASE_URL)
                 .build()
 
-        return retrofit.create(OAuth2::class.java)
+        return retrofit.create(OAuth2API::class.java)
     }
 
     private fun okHttpClientBuilder() =
