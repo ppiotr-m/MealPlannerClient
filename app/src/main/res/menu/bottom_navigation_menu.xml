@@ -3,17 +3,17 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_cookbook"
         android:icon="@drawable/ic_library_books_black_24dp"
         android:title="Cookbook" />
     <item
         android:id="@+id/navigation_mealplans"
-        android:icon="@drawable/ic_local_pizza_black_24dp"
-        android:title="Meal Plans" />
+        android:icon="@drawable/ic_white_shopping_cart_24"
+        android:title="@string/shopping_list" />
     <item
         android:id="@+id/navigation_nutrition"
         android:icon="@drawable/ic_insert_chart_black_24dp"
-        android:title="Nutrition" />
+        android:title="@string/nutrition" />
 </menu>

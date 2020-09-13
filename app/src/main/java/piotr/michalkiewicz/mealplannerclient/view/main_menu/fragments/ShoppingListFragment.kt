@@ -1,30 +1,35 @@
-package piotr.michalkiewicz.mealplannerclient.view.shopping.activities
+package piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.SHOPPING_LIST_SHARED_PREF
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.login_and_signup.LoginActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ShoppingListActivity : AppCompatActivity() {
-
+class ShoppingListFragment : Fragment() {
     private val checkBoxes = ArrayList<View>()
     private var recipeIngredientsList = ArrayList<RecipeIngredient>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_shopping_list)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_shopping_list, container, false)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         init()
     }
@@ -35,12 +40,11 @@ class ShoppingListActivity : AppCompatActivity() {
         setOnClickListeners()
     }
 
-    private fun initData(){
+    private fun initData() {
         val storedShoppingList = getShoppingListFromSharedPrefs()
-        if(storedShoppingList != null) {
+        if (storedShoppingList != null) {
             recipeIngredientsList.addAll(getShoppingListFromSharedPrefs()!!)
-        }
-        else{
+        } else {
             showEmptyShoppingList()
         }
     }
@@ -58,13 +62,13 @@ class ShoppingListActivity : AppCompatActivity() {
     }
 
     private fun getShoppingListFromSharedPrefs(): ArrayList<RecipeIngredient>? {
-        val json = LoginActivity.MY_PREFERENCSES.getString(SHOPPING_LIST_SHARED_PREF, "")
+        val json = LoginActivity.MY_PREFERENCSES.getString(ConstantValues.SHOPPING_LIST_SHARED_PREF, "")
 
         if (json!!.isEmpty()) return null
 
         return try {
             Gson().fromJson(json, Array<RecipeIngredient>::class.java).toList() as ArrayList<RecipeIngredient>
-        } catch (e: ClassCastException){
+        } catch (e: ClassCastException) {
             return null
         }
     }
@@ -89,7 +93,7 @@ class ShoppingListActivity : AppCompatActivity() {
         removeProductsFromView()
         removeProductsFromStorage()
 
-        Log.i(TAG, "Left ingredients size: " + recipeIngredientsList.size)
+        Log.i(ConstantValues.TAG, "Left ingredients size: " + recipeIngredientsList.size)
     }
 
     private fun removeProductsFromView() {
@@ -121,7 +125,7 @@ class ShoppingListActivity : AppCompatActivity() {
         val dataInJson = Gson().toJson(recipeIngredientList)
 
         with(LoginActivity.MY_PREFERENCSES.edit()) {
-            putString(SHOPPING_LIST_SHARED_PREF, dataInJson)
+            putString(ConstantValues.SHOPPING_LIST_SHARED_PREF, dataInJson)
             commit()
         }
     }

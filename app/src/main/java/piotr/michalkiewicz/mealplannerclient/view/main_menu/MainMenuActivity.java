@@ -15,9 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.CookbookScreenFragment;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.HomeScreenFragment;
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.MealPlansFragment;
 import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.NutritionScreenFragment;
-import piotr.michalkiewicz.mealplannerclient.view.shopping.activities.ShoppingListActivity;
+import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.ShoppingListFragment;
+import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -66,7 +66,7 @@ public class MainMenuActivity extends AppCompatActivity {
                         selectedFragment = new CookbookScreenFragment();
                         break;
                     case R.id.navigation_mealplans:
-                        selectedFragment = new MealPlansFragment();
+                        selectedFragment = new ShoppingListFragment();
                         break;
                     case R.id.navigation_nutrition:
                         selectedFragment = new NutritionScreenFragment();
@@ -100,7 +100,7 @@ public class MainMenuActivity extends AppCompatActivity {
             //          startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
         }
         if (item.getItemId() == R.id.action_user) {
-            startActivity(new Intent(MainMenuActivity.this, ShoppingListActivity.class));
+            startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

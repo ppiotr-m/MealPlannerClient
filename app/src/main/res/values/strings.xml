@@ -119,6 +119,11 @@
     <string name="age_edition_label">Type in your age</string>
     <string name="centimeters">centimeters</string>
     <string name="inches">inches</string>
+    <string name="no_items_on_list">No items on the list</string>
+    <string name="meal_plans">Meal Plans</string>
+    <string name="home">Home</string>
+    <string name="cookbook">Cookbook</string>
+    <string name="nutrition">Nutrition</string>
     <string name="kg">kg</string>
     <string name="next_step">Next step</string>
     <string name="finish_cooking">Finish cooking</string>

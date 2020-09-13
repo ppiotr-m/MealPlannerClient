@@ -25,6 +25,6 @@ class ConstantValues {
 
         const val CHECKED_BUTTON_COLOR = Color.LTGRAY
         const val DEFAULT_BUTTON_COLOR = Color.RED
-        const val PAGE_SIZE = 20
+      const val PAGE_SIZE = 5
     }
 }

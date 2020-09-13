@@ -17,15 +17,31 @@ import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookbookScreenBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
-import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeMiniatureData
+import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeParamsPair
+import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.OnPrependDataLoadedListener
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
+import java.util.*
 
 
 class CookbookScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
+
+    private var recipeListsInitParams = LinkedList<RecipeParamsPair>()
+
+
+    private val onPrependDataLoadedListener = object : OnPrependDataLoadedListener {
+        override fun onPrependDataLoaded() {
+            val nextRecipeListParameters = recipeListsInitParams.poll()
+            if (nextRecipeListParameters != null) {
+                initNextRecyclerView(nextRecipeListParameters)
+            }
+        }
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,7 +53,7 @@ class CookbookScreenFragment : Fragment() {
 
         binding = FragmentCookbookScreenBinding.inflate(layoutInflater)
 
-        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
+        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(onPrependDataLoadedListener))
                 .get(RecipesSearchViewModel::class.java)
 
         initRecipeRecyclerViews()
@@ -47,25 +63,29 @@ class CookbookScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByDietApiData(queryParam).collect {
                 it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeMiniatureData, RecyclerView.ViewHolder>)
                             .submitData(it)
                 }
             }
         }
     }
 
+    private fun initListsParamsWithMockValues() {
+        recipeListsInitParams.add(RecipeParamsPair("diet", "STANDARD"))
+        recipeListsInitParams.add(RecipeParamsPair("diet", "VEGETARIAN"))
+        recipeListsInitParams.add(RecipeParamsPair("diet", "PALEO"))
+    }
+
     private fun initRecipeRecyclerViews() {
+        initListsParamsWithMockValues()
         attachRecipesRecyclerView("", "")
-        attachRecipesRecyclerView("diet", "STANDARD")
-        attachRecipesRecyclerView("diet", "VEGETARIAN")
-        attachRecipesRecyclerView("diet", "PALEO")
     }
 
     private fun launchCoroutineByTypeForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByTypeApiData(queryParam).collect {
                 it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeMiniatureData, RecyclerView.ViewHolder>)
                             .submitData(it)
                 }
             }
@@ -76,7 +96,7 @@ class CookbookScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByTagApiData(queryParam).collect {
                 it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeMiniatureData, RecyclerView.ViewHolder>)
                             .submitData(it)
                 }
             }
@@ -87,7 +107,7 @@ class CookbookScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.allRecipesApiData().collect {
                 it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeMiniatureData, RecyclerView.ViewHolder>)
                             .submitData(it)
                 }
             }
@@ -130,4 +150,9 @@ class CookbookScreenFragment : Fragment() {
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
         }
     }
+
+    private fun initNextRecyclerView(recipeParamsPair: RecipeParamsPair) {
+        attachRecipesRecyclerView(recipeParamsPair.category, recipeParamsPair.value)
+    }
+
 }

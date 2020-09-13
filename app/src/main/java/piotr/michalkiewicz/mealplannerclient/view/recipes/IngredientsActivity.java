@@ -70,7 +70,6 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
             }
 
             saveIngredientsToStoredShoppingList();
-            Log.d(TAG, getShoppingListFromSharedPrefs().length + "");
             finish();
         });
     }
@@ -126,8 +125,6 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
 
         saveShoppingListToSharedPrefs(selectedIngredients);
     }
-
-
 
     private RecipeIngredient[] getShoppingListFromSharedPrefs(){
         String json = LoginActivity.MY_PREFERENCSES.getString(SHOPPING_LIST_SHARED_PREF, "");
