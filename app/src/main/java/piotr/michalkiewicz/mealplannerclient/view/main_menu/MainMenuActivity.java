@@ -85,7 +85,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     private void setFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.mainMenuFragmentContainer,
-                fragment).commit();
+                fragment).addToBackStack(null).commit();
     }
 
     @Override

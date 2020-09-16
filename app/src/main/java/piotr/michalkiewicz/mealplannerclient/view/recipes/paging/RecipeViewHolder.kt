@@ -16,7 +16,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
     private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.recipeCardThumbnail)
 
-    private var recipe: MealTimeRecipeMiniatureData? = null
+    private lateinit var recipe: MealTimeRecipeMiniatureData
 
     fun bind(recipe: MealTimeRecipeMiniatureData?) {
         if (recipe == null) {

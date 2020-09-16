@@ -49,7 +49,6 @@ class ShoppingListFragment : Fragment() {
         }
     }
 
-    //  TODO
     private fun showEmptyShoppingList() {
         noItemsOnShoppingListTV.visibility = View.VISIBLE
         deleteProductsBtn.visibility = View.GONE

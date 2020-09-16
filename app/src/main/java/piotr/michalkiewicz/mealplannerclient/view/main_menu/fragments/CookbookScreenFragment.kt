@@ -32,16 +32,14 @@ class CookbookScreenFragment : Fragment() {
 
     private var recipeListsInitParams = LinkedList<RecipeParamsPair>()
 
-
     private val onPrependDataLoadedListener = object : OnPrependDataLoadedListener {
         override fun onPrependDataLoaded() {
             val nextRecipeListParameters = recipeListsInitParams.poll()
             if (nextRecipeListParameters != null) {
-                initNextRecyclerView(nextRecipeListParameters)
+                attachRecipesRecyclerView(nextRecipeListParameters.category, nextRecipeListParameters.value)
             }
         }
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -150,9 +148,4 @@ class CookbookScreenFragment : Fragment() {
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
         }
     }
-
-    private fun initNextRecyclerView(recipeParamsPair: RecipeParamsPair) {
-        attachRecipesRecyclerView(recipeParamsPair.category, recipeParamsPair.value)
-    }
-
 }
