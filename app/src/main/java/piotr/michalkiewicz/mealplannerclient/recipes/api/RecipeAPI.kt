@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.api
 
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipesSearchResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -33,5 +34,5 @@ interface RecipeAPI {
                                      @Query("pageNr") pageNr: Int): RecipesSearchResponse
 
     @GET("/recipes/all")
-    suspend fun getAllRecipes(): List<MealTimeRecipe>
+    suspend fun getAllRecipes(): List<MealTimeRecipeBase>
 }

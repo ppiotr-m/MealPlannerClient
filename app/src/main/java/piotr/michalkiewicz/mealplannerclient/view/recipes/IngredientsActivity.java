@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +21,6 @@ import java.util.List;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient;
 import piotr.michalkiewicz.mealplannerclient.view.login.LoginActivity;
-import piotr.michalkiewicz.mealplannerclient.view.shopping.activities.ShoppingListActivity;
 
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.SHOPPING_LIST_SHARED_PREF;
@@ -66,15 +64,13 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
 
     private void setOnClickListeners() {
         findViewById(R.id.addProductsToShoppingListBtn).setOnClickListener(v -> {
-            if(checkIfAnyIngredientSelected() == false){
+            if (checkIfAnyIngredientSelected() == false) {
                 showNoItemSelectedToast();
                 return;
             }
 
             saveIngredientsToStoredShoppingList();
-            Intent intent = new Intent(this, ShoppingListActivity.class);
-            startActivity(intent);
-            this.finish();
+            finish();
         });
     }
 

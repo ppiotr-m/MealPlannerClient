@@ -20,8 +20,9 @@ import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.COOKING
 //  TODO Cover case of only 1 step
 public class CookingStepsActivity extends AppCompatActivity {
 
-    List<InstructionStep> data;
-    ViewGroup container;
+    public final int MIN_STEP_COUNT_FOR_COOKING_MODE = 3;
+    private List<InstructionStep> data;
+    private ViewGroup container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +57,16 @@ public class CookingStepsActivity extends AppCompatActivity {
     private void initView() {
         LayoutInflater inflater = LayoutInflater.from(this);
 
+        if (data.size() < MIN_STEP_COUNT_FOR_COOKING_MODE) {
+            findViewById(R.id.cookingModeBtn).setVisibility(View.GONE);
+        }
+
         int counter = 1;
 
-        for(InstructionStep step : data){
+        for (InstructionStep step : data) {
             View view = inflater.inflate(R.layout.cooking_step, null, false);
             ((TextView) view.findViewById(R.id.stepNrTV)).setText(String.valueOf(counter));
-            counter+=1;
+            counter += 1;
             ((TextView) view.findViewById(R.id.stepDescriptionTV)).setText(step.getStepInstruction());
             container.addView(view);
         }

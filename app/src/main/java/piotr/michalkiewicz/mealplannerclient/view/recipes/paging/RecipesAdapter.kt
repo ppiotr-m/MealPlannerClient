@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 
-class RecipesAdapter : PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
+class RecipesAdapter : PagingDataAdapter<MealTimeRecipeBase, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return RecipeViewHolder.create(parent)
@@ -20,11 +20,13 @@ class RecipesAdapter : PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder
     }
 
     companion object {
-        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<MealTimeRecipe>() {
-            override fun areItemsTheSame(oldItem: MealTimeRecipe, newItem: MealTimeRecipe): Boolean =
+        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<MealTimeRecipeBase>() {
+            override fun areItemsTheSame(oldItem: MealTimeRecipeBase,
+                                         newItem: MealTimeRecipeBase): Boolean =
                     oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: MealTimeRecipe, newItem: MealTimeRecipe): Boolean =
+            override fun areContentsTheSame(oldItem: MealTimeRecipeBase,
+                                            newItem: MealTimeRecipeBase): Boolean =
                     oldItem.id == newItem.id
         }
     }
