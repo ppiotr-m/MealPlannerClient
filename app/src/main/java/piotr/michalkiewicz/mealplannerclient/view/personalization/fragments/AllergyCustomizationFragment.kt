@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.databinding.FragmentAllergyCustomizationBinding
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
 import piotr.michalkiewicz.mealplannerclient.view.personalization.StartCustomActivity
@@ -19,10 +19,16 @@ class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickList
     private val allergiesList = ArrayList<String>()
     private var goBack = true
     private lateinit var confirmBtn: Button
+    private var _binding: FragmentAllergyCustomizationBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_allergy_customization, container, false)
+        _binding = FragmentAllergyCustomizationBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     companion object {
@@ -37,8 +43,9 @@ class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickList
         fragmentCallback = context as FragmentCallback
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        val allergiesLinearLayout = activity?.findViewById<LinearLayout>(R.id.allergiesLinearLayout)
+   override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        //val allergiesLinearLayout = activity?.findViewById<LinearLayout>(R.id.allergiesLinearLayout)
+        val allergiesLinearLayout = binding.allergiesLinearLayout
         addButtonsToLayout(allergiesLinearLayout, ALLERGIES_CUSTOMIZATION_BUTTONS, 1)
         initConfirmButton()
         initButtonsFromLayout(allergiesLinearLayout)
@@ -60,11 +67,10 @@ class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickList
         }
     }
 
-
     private fun initConfirmButton() {
-        confirmBtn = activity?.findViewById(R.id.confirmButton)!!
+        //confirmBtn = activity?.findViewById(R.id.confirmButton)!!
 
-        confirmBtn.setOnClickListener {
+        binding.confirmButton.setOnClickListener {
             fragmentCallback.onListSelect(allergiesList, this)
             if (goBack) {
                 closeFragment()
@@ -97,5 +103,10 @@ class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickList
             activity?.findViewById<Button>(v.id)?.setBackgroundColor(ConstantValues.DEFAULT_BUTTON_COLOR)
             allergiesList.remove(element)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
