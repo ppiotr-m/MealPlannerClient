@@ -98,9 +98,9 @@
         style="@style/hyperlink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="startCreateAccountActivity"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="startCreateAccountActivity"
         android:text="@string/create_one"
         app:layout_constraintEnd_toEndOf="@+id/loginBtn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -109,8 +109,8 @@
 
     <Button
         android:id="@+id/loginNoAccBtn"
-        android:layout_width="wrap_content"
         style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginEnd="158dp"
