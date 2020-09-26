@@ -8,11 +8,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
-import piotr.michalkiewicz.mealplannerclient.databinding.ActivityLoginBinding
 import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.login.service.FakeUserData
@@ -27,19 +27,19 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordET: EditText
     private lateinit var createAccountClickableTV: View
     private val loginClient = LoginClient()
+//    private lateinit var userServiceGenerator: UserServiceGenerator
     private lateinit var signUpServiceGenerator: SignUpServiceGenerator
-    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // I don't have idea yest where to put it it Must be Activity
+        // I doesn't have idea yest where to put it it Must be Activity
         MY_PREFERENCSES = applicationContext.getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, MODE_PRIVATE)
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-
+        setContentView(R.layout.activity_login)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
         assingUiElements()
         checkLoginState()
         setOnClickListeners()
-        setContentView(binding.root)
     }
 
     private fun checkLoginState() {
@@ -57,10 +57,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun assingUiElements() {
-        loginET = binding.emailET
-        passwordET = binding.passwordET
-        loginBtn = binding.loginBtn
-        loginNoAccountBtn = binding.loginNoAccBtn
+        loginET = findViewById(R.id.emailET)
+        passwordET = findViewById(R.id.passwordET)
+        createAccountClickableTV = findViewById(R.id.createAccountTV)
+        loginBtn = findViewById(R.id.loginBtn)
+        loginNoAccountBtn = findViewById(R.id.loginNoAccBtn)
     }
 
     private fun setOnClickListeners() {
@@ -79,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
         signUpServiceGenerator.singUpPhoneMemory(fakeUsername)
     }
 
-    fun startCreateAccountActivity() {
+    fun startCreateAccountActivity(v: View?) {
         val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
         startActivity(intent)
     }
