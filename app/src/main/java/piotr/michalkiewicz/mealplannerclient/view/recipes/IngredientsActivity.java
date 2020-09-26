@@ -20,8 +20,7 @@ import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient;
-import piotr.michalkiewicz.mealplannerclient.view.login.LoginActivity;
-
+import piotr.michalkiewicz.mealplannerclient.view.MainActivity;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.SHOPPING_LIST_SHARED_PREF;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.TAG;
@@ -129,7 +128,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
 
 
     private RecipeIngredient[] getShoppingListFromSharedPrefs(){
-        String json = LoginActivity.MY_PREFERENCSES.getString(SHOPPING_LIST_SHARED_PREF, "");
+        String json = MainActivity.MY_PREFERENCSES.getString(SHOPPING_LIST_SHARED_PREF, "");
 
         if(json.isEmpty()) return null;
 
@@ -145,7 +144,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
     private void saveShoppingListToSharedPrefs(List<RecipeIngredient> recipeIngredientList) {
         String dataInJson = new Gson().toJson(recipeIngredientList);
 
-        LoginActivity.MY_PREFERENCSES.edit().putString(SHOPPING_LIST_SHARED_PREF, dataInJson).commit();
+        MainActivity.MY_PREFERENCSES.edit().putString(SHOPPING_LIST_SHARED_PREF, dataInJson).commit();
     }
 
     private boolean checkIfAnyIngredientSelected(){
