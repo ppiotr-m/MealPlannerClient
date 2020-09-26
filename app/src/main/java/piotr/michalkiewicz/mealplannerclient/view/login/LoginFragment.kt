@@ -21,6 +21,7 @@ import piotr.michalkiewicz.mealplannerclient.view.login.service.FakeUserData
 import piotr.michalkiewicz.mealplannerclient.view.menu.MainMenuActivity
 import java.util.*
 
+<<<<<<<< HEAD:app/src/main/java/piotr/michalkiewicz/mealplannerclient/view/login/LoginFragment.kt
 class LoginFragment : Fragment() {
     private lateinit var loginBtn: Button
     private lateinit var loginNoAccountBtn: Button
@@ -116,4 +117,17 @@ class LoginFragment : Fragment() {
         })
     }
 
+========
+class LoginActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // I doesn't have idea yest where to put it it Must be Activity
+//        MY_PREFERENCSES = applicationContext.getSharedPreferences(ConstantValues.MY_PREFERENCE_NAME, AppCompatActivity.MODE_PRIVATE)
+        //setContentView(R.layout.activity_main2)
+    }
+    companion object {
+ //       lateinit var MY_PREFERENCSES: SharedPreferences
+    }
+>>>>>>>> origin/feature/nav_refactor:app/src/main/java/piotr/michalkiewicz/mealplannerclient/view/login/LoginActivity.kt
 }
