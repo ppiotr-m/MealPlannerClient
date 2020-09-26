@@ -44,6 +44,7 @@ class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickList
     }
 
    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        //val allergiesLinearLayout = activity?.findViewById<LinearLayout>(R.id.allergiesLinearLayout)
         val allergiesLinearLayout = binding.allergiesLinearLayout
         addButtonsToLayout(allergiesLinearLayout, ALLERGIES_CUSTOMIZATION_BUTTONS, 1)
         initConfirmButton()
@@ -67,6 +68,7 @@ class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickList
     }
 
     private fun initConfirmButton() {
+        //confirmBtn = activity?.findViewById(R.id.confirmButton)!!
 
         binding.confirmButton.setOnClickListener {
             fragmentCallback.onListSelect(allergiesList, this)
