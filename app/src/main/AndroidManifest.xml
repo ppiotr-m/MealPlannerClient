@@ -37,7 +37,6 @@
             android:label="@string/title_activity_edit_location" />
         <activity android:name=".view.settings.EditPasswordActivity" />
         <activity android:name=".view.settings.SettingsActivity" />
-        <activity android:name=".view.login.SignUpActivity" />
         <activity android:name=".view.recipes.CookingStepsActivity" />
         <activity android:name=".view.recipes.IngredientsActivity" />
         <activity android:name=".view.personalization.StartCustomActivity" />

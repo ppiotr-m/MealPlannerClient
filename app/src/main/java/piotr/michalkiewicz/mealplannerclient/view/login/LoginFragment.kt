@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener
@@ -30,6 +32,7 @@ class LoginFragment : Fragment() {
     private val loginClient = LoginClient()
     //    private lateinit var userServiceGenerator: UserServiceGenerator
     private lateinit var signUpServiceGenerator: SignUpServiceGenerator
+    private lateinit var navController: NavController
 
     // View initialization logic
     override fun onCreateView(inflater: LayoutInflater,
@@ -41,6 +44,9 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+
+        navController = findNavController()
+
         if(activity is AppCompatActivity){
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
         }
@@ -77,6 +83,10 @@ class LoginFragment : Fragment() {
     private fun setOnClickListeners() {
         loginBtn.setOnClickListener { login(loginET.text.toString(), passwordET.text.toString()) }
 
+        createAccountClickableTV.setOnClickListener {
+            navController.navigate(R.id.action_loginFragment_to_registrationFragment)
+        }
+
         loginNoAccountBtn.setOnClickListener {
             //userServiceGenerator = UserServiceGenerator()
             signUpServiceGenerator = SignUpServiceGenerator()
@@ -91,8 +101,8 @@ class LoginFragment : Fragment() {
     }
 
     fun startCreateAccountActivity(v: View?) {
-        val intent = Intent(activity, SignUpActivity::class.java)
-        startActivity(intent)
+        //val intent = Intent(activity, SignUpActivity::class.java)
+        //startActivity(intent)
     }
 
     private fun login(username: String, password: String) {

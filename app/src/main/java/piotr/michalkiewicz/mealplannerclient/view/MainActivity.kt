@@ -9,6 +9,7 @@ import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 
 class MainActivity : AppCompatActivity() {
 
+
     companion object {
         lateinit var MY_PREFERENCSES: SharedPreferences
     }
