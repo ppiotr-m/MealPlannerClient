@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.personalization;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +7,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.view.menu.MainMenuActivity;
 
 public class StartCustomizationActivity extends AppCompatActivity {
 
@@ -33,8 +31,9 @@ public class StartCustomizationActivity extends AppCompatActivity {
         skipCustomizationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(StartCustomizationActivity.this, MainMenuActivity.class);
-                startActivity(myIntent);
+                //Here it opens MainMenu
+                //Intent myIntent = new Intent(StartCustomizationActivity.this, MainMenuActivity.class);
+                //startActivity(myIntent);
             }
         });
     }

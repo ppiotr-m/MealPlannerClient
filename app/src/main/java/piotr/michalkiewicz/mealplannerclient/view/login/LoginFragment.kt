@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +19,6 @@ import piotr.michalkiewicz.mealplannerclient.auth.LoginListener
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.view.login.service.FakeUserData
-import piotr.michalkiewicz.mealplannerclient.view.menu.MainMenuActivity
 import java.util.*
 
 class LoginFragment : Fragment() {
@@ -66,8 +64,9 @@ class LoginFragment : Fragment() {
             override fun loginFailed() {}
             override fun loginSuccessful() {
                 //Here we need to add opening new fragment with main menu
-                val myIntent = Intent(activity, MainMenuActivity::class.java)
-                startActivity(myIntent)
+                //val myIntent = Intent(activity, MainMenuActivity::class.java)
+                //startActivity(myIntent)
+                navController.navigate(R.id.action_loginFragment_to_mainMenuFragment)
             }
         })
     }
@@ -111,8 +110,9 @@ class LoginFragment : Fragment() {
         loginClient.login(username, password, object : LoginListener {
             override fun loginSuccessful() {
                 dialog.dismissDialog()
-                val myIntent = Intent(activity, MainMenuActivity::class.java) // todo if customization done main else cusomization
-                startActivity(myIntent)
+                //val myIntent = Intent(activity, MainMenuActivity::class.java) // todo if customization done main else cusomization
+                //startActivity(myIntent)
+                navController.navigate(R.id.action_loginFragment_to_mainMenuFragment)
             }
 
             override fun loginFailed() {

@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.personalization
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,6 @@ import androidx.fragment.app.FragmentTransaction
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.UserServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
-import piotr.michalkiewicz.mealplannerclient.view.menu.MainMenuActivity
 import piotr.michalkiewicz.mealplannerclient.view.personalization.fragments.*
 import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
 
@@ -43,9 +41,10 @@ class StartCustomActivity : AppCompatActivity(), FragmentCallback {
         }
 
         skipCustomizationBtn.setOnClickListener {
-            val myIntent = Intent(this@StartCustomActivity, MainMenuActivity::class.java)
+            //Here it opens MainMenu
+            //val myIntent = Intent(this@StartCustomActivity, MainMenuActivity::class.java)
             updateUserSettings()
-            startActivity(myIntent)
+            //startActivity(myIntent)
         }
     }
 
