@@ -1,6 +1,5 @@
-package piotr.michalkiewicz.mealplannerclient.view.menu.fragments;
+package piotr.michalkiewicz.mealplannerclient.view.menu.fragments
 
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.Fragment
 
-public class NutritionScreenFragment extends Fragment {
-}
+class NutritionScreenFragment : Fragment()

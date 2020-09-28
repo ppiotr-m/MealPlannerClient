@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments
+package piotr.michalkiewicz.mealplannerclient.view.menu.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -22,15 +22,14 @@ class ShoppingListFragment : Fragment() {
     private val checkBoxes = ArrayList<View>()
     private var recipeIngredientsList = ArrayList<RecipeIngredient>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_shopping_list, container, false)
-
-        return view
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_shopping_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         init()
     }
 

@@ -25,5 +25,30 @@
         android:id="@+id/mainMenuFragment"
         android:name="piotr.michalkiewicz.mealplannerclient.view.menu.MainMenuFragment"
         android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_main_menu" />
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/action_mainMenuFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_cookbookScreenFragment"
+            app:destination="@id/cookbookScreenFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_shoppingListFragment"
+            app:destination="@id/shoppingListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragment"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" />
+    <fragment
+        android:id="@+id/cookbookScreenFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.CookbookScreenFragment"
+        android:label="fragment_cookbook_screen"
+        tools:layout="@layout/fragment_cookbook_screen" />
+    <fragment
+        android:id="@+id/shoppingListFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.ShoppingListFragment"
+        android:label="fragment_shopping_list"
+        tools:layout="@layout/fragment_shopping_list" />
 </navigation>

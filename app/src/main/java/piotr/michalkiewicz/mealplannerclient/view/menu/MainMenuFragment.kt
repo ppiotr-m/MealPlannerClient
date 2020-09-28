@@ -6,9 +6,11 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments.ShoppingListFragment
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.ShoppingListFragment
 import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.CookbookScreenFragment
 import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragment
 import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.NutritionScreenFragment
@@ -17,6 +19,7 @@ import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity
 class MainMenuFragment : Fragment(){
 
     private var bottomNavigationView: BottomNavigationView? = null
+    private lateinit var navController: NavController
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -29,6 +32,7 @@ class MainMenuFragment : Fragment(){
         init(view)
     }
     private fun init(view: View) {
+        navController = findNavController()
         initTopToolbar(view)
         assignUIElements(view)
         setBottomNavigationMenu()
@@ -51,6 +55,7 @@ class MainMenuFragment : Fragment(){
 
     private fun setBottomNavigationMenu() {
         bottomNavigationView!!.setOnNavigationItemSelectedListener { item ->
+            /*
             var selectedFragment: Fragment? = null
             when (item.itemId) {
                 R.id.navigation_home -> selectedFragment = HomeScreenFragment()
@@ -63,13 +68,26 @@ class MainMenuFragment : Fragment(){
                 true
             } else {
                 false
+            }*/
+            var selectedFragment: Fragment? = null
+            when (item.itemId) {
+                R.id.navigation_home -> navController.navigate(R.id.action_mainMenuFragment_to_homeScreenFragment)
+                R.id.navigation_cookbook -> navController.navigate(R.id.action_mainMenuFragment_to_cookbookScreenFragment)
+                //R.id.navigation_ -> navController.navigate(R.id.action_mainMenuFragment_to_shoppingListFragment)
+                //R.id.navigation_nutrition -> selectedFragment = NutritionScreenFragment()
+            }
+            if (selectedFragment != null) {
+                setFragment(selectedFragment)
+                true
+            } else {
+                false
             }
         }
     }
 
     private fun setFragment(fragment: Fragment) {
-    //    getSupportFragmentManager().beginTransaction().replace(R.id.mainMenuFragmentContainer,
-     //           fragment).commit()
+        //getFragmentManager()?.beginTransaction().replace(R.id.mainMenuFragmentContainer,
+        //        fragment).commit()
     }
 
     //fun onCreateOptionsMenu(menu: Menu?): Boolean {
