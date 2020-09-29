@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.menu
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -10,11 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.ShoppingListFragment
-import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.CookbookScreenFragment
 import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragment
-import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.NutritionScreenFragment
-import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity
 
 class MainMenuFragment : Fragment(){
 
@@ -100,7 +95,7 @@ class MainMenuFragment : Fragment(){
             //          startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
         }
         if (item.itemId == R.id.action_user) {
-            startActivity(Intent(activity, SettingsActivity::class.java))
+            //startActivity(Intent(activity, SettingsActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

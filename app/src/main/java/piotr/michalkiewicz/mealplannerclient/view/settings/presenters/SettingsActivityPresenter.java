@@ -5,7 +5,7 @@ import android.util.Log;
 import piotr.michalkiewicz.mealplannerclient.user.UserServiceGenerator;
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount;
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
-import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity;
+import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsFragment;
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,9 +16,9 @@ public class SettingsActivityPresenter {
     private InitializableView view;
     private UserAccount data;
 
-    public SettingsActivityPresenter(SettingsActivity activity){
-        this.view = activity;
-        if(activity==null) {
+    public SettingsActivityPresenter(SettingsFragment fragment){
+        this.view = fragment;
+        if(fragment==null) {
             return;
         }
     }

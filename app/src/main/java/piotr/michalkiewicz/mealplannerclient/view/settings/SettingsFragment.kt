@@ -1,20 +1,24 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.view.settings.presenters.SettingsActivityPresenter
 import piotr.michalkiewicz.mealplannerclient.view.utils.InitializableView
 
-class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, ActivityResultCaller {
+class SettingsFragment : Fragment(), InitializableView<UserAccount>, ActivityResultCaller {
 
     private val presenter = SettingsActivityPresenter(this)
     private val MALE = "Male"
@@ -22,12 +26,16 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     private val ABSENT_DATA = "N/A"
     private var firstOnResumeExecution = true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-        init()
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
     override fun onResume() {
         super.onResume()
         if(firstOnResumeExecution) {
@@ -56,12 +64,12 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         }
         sexSelectionRadioGroup.setOnCheckedChangeListener { _, i ->
             if(i == R.id.maleRadioBtn){
-                if(findViewById<RadioButton>(i).isChecked){
+                if(view?.findViewById<RadioButton>(i)?.isChecked == true){
                     presenter.data.userSettings.sex = MALE
                 }
             }
             else{
-                if(findViewById<RadioButton>(i).isChecked){
+                if(view?.findViewById<RadioButton>(i)?.isChecked == true){
                     presenter.data.userSettings.sex = FEMALE
                 }
             }
@@ -150,13 +158,13 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
     }
 
     private fun showDataNullToast(){
-        Toast.makeText(this, R.string.no_settings_data_received, Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, R.string.no_settings_data_received, Toast.LENGTH_LONG).show()
     }
 
     override fun initWithData(data: UserAccount?) {
         if (data == null) {
             showDataNullToast()
-            finish()
+            //finish()
             return
         }
         emailTV.text = data.email
@@ -201,7 +209,5 @@ class SettingsActivity : AppCompatActivity(), InitializableView<UserAccount>, Ac
         initSexSelectionRadioGroup(data)
     }
 
-    companion object {
-        @JvmStatic val RESULT_OK : Int = 1033
-    }
+
 }

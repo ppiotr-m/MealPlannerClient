@@ -1,5 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.view
 
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var MY_PREFERENCSES: SharedPreferences
+        @JvmStatic val RESULT_OK : Int = 1033
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
