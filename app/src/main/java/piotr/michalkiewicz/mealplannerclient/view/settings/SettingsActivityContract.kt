@@ -1,13 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.view.settings
 
 import android.app.Activity
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
-import piotr.michalkiewicz.mealplannerclient.view.MainActivity.Companion.RESULT_OK
 import kotlin.reflect.KClass
 
 class SettingsActivityContract: ActivityResultContract<UserAccount, UserAccount> {
@@ -24,7 +22,7 @@ class SettingsActivityContract: ActivityResultContract<UserAccount, UserAccount>
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): UserAccount? {
-        return if(RESULT_OK) intent?.getSerializableExtra(ConstantValues.SETTINGS_DATA) as UserAccount else
+        return if(resultCode == SettingsActivity.RESULT_OK) intent?.getSerializableExtra(ConstantValues.SETTINGS_DATA) as UserAccount else
             null
     }
 }

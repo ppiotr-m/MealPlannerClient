@@ -12,7 +12,8 @@ abstract class DataPassingActivity: AppCompatActivity() {
     }
 
     fun setDataForParentActivity(data: UserAccount?) {
+        val intent = Intent()
         intent.putExtra(ConstantValues.SETTINGS_DATA, data)
-        setResult(intent.RESULT_OK, intent)
+        setResult(SettingsActivity.RESULT_OK, intent)
     }
 }
