@@ -103,35 +103,29 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun showSignUpSuccessfulToast() {
-        if (activity is AppCompatActivity) {
-            (activity as AppCompatActivity).runOnUiThread {
-                Toast.makeText(
-                    activity, R.string.sign_up_successful,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        activity?.runOnUiThread {
+            Toast.makeText(
+                activity, R.string.sign_up_successful,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     private fun showSignUpFailureServerSideToast() {
-        if (activity is AppCompatActivity) {
-            (activity as AppCompatActivity).runOnUiThread {
-                Toast.makeText(
-                    activity, R.string.sign_up_failed,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        activity?.runOnUiThread {
+            Toast.makeText(
+                activity, R.string.sign_up_failed,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     private fun showIncompleteDataToast() {
-        if (activity is AppCompatActivity) {
-            (activity as AppCompatActivity).runOnUiThread {
-                Toast.makeText(
-                    activity, R.string.sign_up_incomplete_data,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        activity?.runOnUiThread {
+            Toast.makeText(
+                activity, R.string.sign_up_incomplete_data,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

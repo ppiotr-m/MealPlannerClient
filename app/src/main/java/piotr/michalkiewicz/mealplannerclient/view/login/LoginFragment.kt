@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_login.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener
@@ -22,11 +23,6 @@ import piotr.michalkiewicz.mealplannerclient.view.login.service.FakeUserData
 import java.util.*
 
 class LoginFragment : Fragment() {
-    private lateinit var loginBtn: Button
-    private lateinit var loginNoAccountBtn: Button
-    private lateinit var loginET: EditText
-    private lateinit var passwordET: EditText
-    private lateinit var createAccountClickableTV: View
     private val loginClient = LoginClient()
     private lateinit var signUpServiceGenerator: SignUpServiceGenerator
     private lateinit var navController: NavController
@@ -42,7 +38,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbarSetup(view)
-        assingUiElements(view)
         checkLoginState()
         setOnClickListeners()
         navController = findNavController()
@@ -73,22 +68,14 @@ class LoginFragment : Fragment() {
         })
     }
 
-    private fun assingUiElements(view: View) {
-        loginET = view.findViewById(R.id.emailET)
-        passwordET = view.findViewById(R.id.passwordET)
-        createAccountClickableTV = view.findViewById(R.id.createAccountTV)
-        loginBtn = view.findViewById(R.id.loginBtn)
-        loginNoAccountBtn = view.findViewById(R.id.loginNoAccBtn)
-    }
-
     private fun setOnClickListeners() {
-        loginBtn.setOnClickListener { login(loginET.text.toString(), passwordET.text.toString()) }
+        loginBtn.setOnClickListener { login(emailET.text.toString(), passwordET.text.toString()) }
 
-        createAccountClickableTV.setOnClickListener {
+        createAccountTV.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_registrationFragment)
         }
 
-        loginNoAccountBtn.setOnClickListener {
+        loginNoAccBtn.setOnClickListener {
             //userServiceGenerator = UserServiceGenerator()
             signUpServiceGenerator = SignUpServiceGenerator()
             singUpTempAccount()
@@ -112,14 +99,12 @@ class LoginFragment : Fragment() {
 
             override fun loginFailed() {
                 dialog.dismissDialog()
-                if (activity is AppCompatActivity) {
-                    (activity as AppCompatActivity).runOnUiThread {
-                        Toast.makeText(
-                            activity,
-                            R.string.login_failed,
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+                activity?.runOnUiThread {
+                    Toast.makeText(
+                        activity,
+                        R.string.login_failed,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 Log.i("LoginFragment", "loginFailed() happened")
             }
