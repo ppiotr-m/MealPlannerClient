@@ -16,14 +16,15 @@ import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragm
 import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.NutritionScreenFragment
 import piotr.michalkiewicz.mealplannerclient.view.settings.SettingsActivity
 
-class MainMenuFragment : Fragment(){
-
-    private var bottomNavigationView: BottomNavigationView? = null
+class MainMenuFragment : Fragment() {
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_main_menu, container, false)
     }
 
@@ -31,18 +32,18 @@ class MainMenuFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         init(view)
     }
+
     private fun init(view: View) {
         navController = findNavController()
         initTopToolbar(view)
         assignUIElements(view)
         setBottomNavigationMenu()
-        setFragment(HomeScreenFragment())
     }
 
     private fun initTopToolbar(view: View) {
         val toolbar: Toolbar = view.findViewById<Toolbar>(R.id.toolbar)
 
-        if(activity is AppCompatActivity){
+        if (activity is AppCompatActivity) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
             (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowTitleEnabled(false)
         }
@@ -55,45 +56,18 @@ class MainMenuFragment : Fragment(){
 
     private fun setBottomNavigationMenu() {
         bottomNavigationView!!.setOnNavigationItemSelectedListener { item ->
-            /*
-            var selectedFragment: Fragment? = null
-            when (item.itemId) {
-                R.id.navigation_home -> selectedFragment = HomeScreenFragment()
-                R.id.navigation_cookbook -> selectedFragment = CookbookScreenFragment()
-                R.id.navigation_mealplans -> selectedFragment = ShoppingListFragment()
-                R.id.navigation_nutrition -> selectedFragment = NutritionScreenFragment()
-            }
-            if (selectedFragment != null) {
-                setFragment(selectedFragment)
-                true
-            } else {
-                false
-            }*/
             var selectedFragment: Fragment? = null
             when (item.itemId) {
                 R.id.navigation_home -> navController.navigate(R.id.action_mainMenuFragment_to_homeScreenFragment)
                 R.id.navigation_cookbook -> navController.navigate(R.id.action_mainMenuFragment_to_cookbookScreenFragment)
-                //R.id.navigation_ -> navController.navigate(R.id.action_mainMenuFragment_to_shoppingListFragment)
-                //R.id.navigation_nutrition -> selectedFragment = NutritionScreenFragment()
             }
             if (selectedFragment != null) {
-                setFragment(selectedFragment)
                 true
             } else {
                 false
             }
         }
     }
-
-    private fun setFragment(fragment: Fragment) {
-        //getFragmentManager()?.beginTransaction().replace(R.id.mainMenuFragmentContainer,
-        //        fragment).commit()
-    }
-
-    //fun onCreateOptionsMenu(menu: Menu?): Boolean {
-      //b  getMenuInflater().inflate(R.menu.top_toolbar_menu, menu)
-        // return super.onCreateOptionsMenu(menu!!)
-    //}
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_search) {

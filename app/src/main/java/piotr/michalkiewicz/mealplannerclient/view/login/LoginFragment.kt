@@ -28,32 +28,34 @@ class LoginFragment : Fragment() {
     private lateinit var passwordET: EditText
     private lateinit var createAccountClickableTV: View
     private val loginClient = LoginClient()
-    //    private lateinit var userServiceGenerator: UserServiceGenerator
     private lateinit var signUpServiceGenerator: SignUpServiceGenerator
     private lateinit var navController: NavController
 
-    // View initialization logic
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-
-        navController = findNavController()
-
-        if(activity is AppCompatActivity){
-            (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        }
+        toolbarSetup(view)
         assingUiElements(view)
         checkLoginState()
         setOnClickListeners()
+        navController = findNavController()
+
     }
 
+    private fun toolbarSetup(view: View){
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
 
+        if (activity is AppCompatActivity) {
+            (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        }
+    }
 
     private fun checkLoginState() {
         val refreshToken = MyPreference().getRefreshToken()
@@ -99,27 +101,25 @@ class LoginFragment : Fragment() {
         signUpServiceGenerator.singUpPhoneMemory(fakeUsername)
     }
 
-    fun startCreateAccountActivity(v: View?) {
-        //val intent = Intent(activity, SignUpActivity::class.java)
-        //startActivity(intent)
-    }
-
     private fun login(username: String, password: String) {
         val dialog = LoginLoadingDialog(activity)
         dialog.startLoadingDialog()
         loginClient.login(username, password, object : LoginListener {
             override fun loginSuccessful() {
                 dialog.dismissDialog()
-                //val myIntent = Intent(activity, MainMenuActivity::class.java) // todo if customization done main else cusomization
-                //startActivity(myIntent)
                 navController.navigate(R.id.action_loginFragment_to_mainMenuFragment)
             }
 
             override fun loginFailed() {
                 dialog.dismissDialog()
-
-                if(activity is AppCompatActivity){
-                    (activity as AppCompatActivity).runOnUiThread {Toast.makeText(activity, R.string.login_failed, Toast.LENGTH_LONG).show()}
+                if (activity is AppCompatActivity) {
+                    (activity as AppCompatActivity).runOnUiThread {
+                        Toast.makeText(
+                            activity,
+                            R.string.login_failed,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
                 Log.i("LoginFragment", "loginFailed() happened")
             }
