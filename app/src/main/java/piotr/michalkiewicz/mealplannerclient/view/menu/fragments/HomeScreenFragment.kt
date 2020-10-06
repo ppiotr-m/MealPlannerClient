@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import piotr.michalkiewicz.mealplannerclient.R
 
 class HomeScreenFragment : Fragment() {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 

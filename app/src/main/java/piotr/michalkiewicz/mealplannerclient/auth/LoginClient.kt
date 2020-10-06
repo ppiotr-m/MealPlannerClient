@@ -34,17 +34,16 @@ class LoginClient {
     /**
      * login by username/email + pass
      */
-
     fun login(username: String, password: String, loginListener: LoginListener) {
         val loginEndpoint = loginConnection.login(username, password, PASSWORD_GRANT_TYPE)
         loginEndpoint.subscribeOn(Schedulers.io())
                 .subscribe({ result ->
-                    Log.i(TAG, result.expiresIn.toString())
+                    Log.i(TAG, "Login succesful, token expires in: " + result.expiresIn.toString())
                     MyPreference().setToken(result)
                     loginListener.loginSuccessful()
                 },
                         { error ->
-                            Log.i(TAG, error.toString())
+                            Log.i(TAG, "Login error occured: " + error.toString())
                             loginListener.loginFailed()
                         })
     }

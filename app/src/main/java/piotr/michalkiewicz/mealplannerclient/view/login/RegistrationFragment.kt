@@ -62,7 +62,6 @@ class RegistrationFragment : Fragment() {
                 if (response.code() == HTTP_OK_CODE || response.code() == HTTP_OK_CODE_CREATED) {
                     showSignUpSuccessfulToast()
                     findNavController().navigate(R.id.action_registrationFragment_pop)
-                    //finish()
                 } else {
                     showSignUpFailureServerSideToast()
                 }
@@ -98,23 +97,32 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun showSignUpSuccessfulToast() {
-        Toast.makeText(
-                activity,
-                R.string.sign_up_successful,
-                Toast.LENGTH_SHORT
-        ).show()
+        activity?.runOnUiThread {
+            Toast.makeText(
+                    activity,
+                    R.string.sign_up_successful,
+                    Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun showSignUpFailureServerSideToast() {
-        Toast.makeText(
-                activity,
-                R.string.sign_up_failed,
-                Toast.LENGTH_SHORT
-        ).show()
+        activity?.runOnUiThread {
+            Toast.makeText(
+                    activity,
+                    R.string.sign_up_failed,
+                    Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun showIncompleteDataToast() {
-        Toast.makeText(activity, R.string.sign_up_incomplete_data, Toast.LENGTH_SHORT).show()
+        activity?.runOnUiThread {
+            Toast.makeText(
+                    activity,
+                    R.string.sign_up_incomplete_data,
+                    Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun checkIfAllFieldsFilled(): Boolean {

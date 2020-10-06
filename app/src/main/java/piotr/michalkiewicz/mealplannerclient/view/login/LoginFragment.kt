@@ -47,7 +47,7 @@ class LoginFragment : Fragment() {
         loginClient.refreshToken(Objects.requireNonNull(refreshToken), object : LoginListener {
             override fun loginFailed() {}
             override fun loginSuccessful() {
-                navController.navigate(R.id.action_loginFragment_to_homeFragment)
+                navController.navigate(R.id.action_loginFragment_to_homeScreenFragment)
             }
         })
     }
@@ -76,12 +76,14 @@ class LoginFragment : Fragment() {
         loginClient.login(username, password, object : LoginListener {
             override fun loginSuccessful() {
                 dialog.dismissDialog()
-                navController.navigate(R.id.action_loginFragment_to_homeFragment)
+                navController.navigate(R.id.action_loginFragment_to_homeScreenFragment)
             }
 
             override fun loginFailed() {
                 dialog.dismissDialog()
-                Toast.makeText(activity, R.string.login_failed, Toast.LENGTH_LONG).show()
+                activity?.runOnUiThread {
+                    Toast.makeText(activity, R.string.login_failed, Toast.LENGTH_LONG).show()
+                }
             }
         })
     }

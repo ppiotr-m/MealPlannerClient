@@ -13,7 +13,7 @@
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
+            android:id="@+id/action_loginFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
     </fragment>
     <fragment
