@@ -5,11 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -28,28 +24,20 @@ class LoginFragment : Fragment() {
     private lateinit var navController: NavController
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
-        toolbarSetup(view)
+
         checkLoginState()
         setOnClickListeners()
         navController = findNavController()
-
-    }
-
-    private fun toolbarSetup(view: View){
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-
-        if (activity is AppCompatActivity) {
-            (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        }
     }
 
     private fun checkLoginState() {
@@ -76,7 +64,6 @@ class LoginFragment : Fragment() {
         }
 
         loginNoAccBtn.setOnClickListener {
-            //userServiceGenerator = UserServiceGenerator()
             signUpServiceGenerator = SignUpServiceGenerator()
             singUpTempAccount()
         }
@@ -84,7 +71,6 @@ class LoginFragment : Fragment() {
 
     private fun singUpTempAccount() {
         val fakeUsername = FakeUserData.createFakeUserName()
-//        userServiceGenerator.singUpPhoneMemory(fakeUsername)
         signUpServiceGenerator.singUpPhoneMemory(fakeUsername)
     }
 
@@ -101,14 +87,13 @@ class LoginFragment : Fragment() {
                 dialog.dismissDialog()
                 activity?.runOnUiThread {
                     Toast.makeText(
-                        activity,
-                        R.string.login_failed,
-                        Toast.LENGTH_LONG
+                            activity,
+                            R.string.login_failed,
+                            Toast.LENGTH_LONG
                     ).show()
                 }
                 Log.i("LoginFragment", "loginFailed() happened")
             }
         })
     }
-
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MealPlannerClient</string>
+    <string name="app_name">Meal Time!</string>
     <string name="app_title">Jedzonko</string>
     <string name="action_settings">Settings</string>
     <string name="login_btn">Log in</string>

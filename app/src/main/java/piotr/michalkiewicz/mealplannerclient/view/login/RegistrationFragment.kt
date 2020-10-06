@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_registration.*
 import piotr.michalkiewicz.mealplannerclient.R
@@ -24,12 +23,12 @@ class RegistrationFragment : Fragment() {
     private val MIN_PASSWORD_LENGTH = 6
     private val MAX_PASSWORD_LENGTH = 50
     private val EMAIL_REGEX =
-        Regex("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
+            Regex("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_registration, container, false)
     }
@@ -56,8 +55,8 @@ class RegistrationFragment : Fragment() {
 
         val userService = SignUpServiceGenerator()
         userService.signUp(UserAccount.createUserAccount(
-            emailET.text.toString(),
-            passwordET.text.toString(), usernameET.text.toString()
+                emailET.text.toString(),
+                passwordET.text.toString(), usernameET.text.toString()
         ), object : Callback<UserAccount> {
 
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
@@ -68,8 +67,8 @@ class RegistrationFragment : Fragment() {
                     showSignUpFailureServerSideToast()
                 }
                 Log.i(
-                    ConstantValues.TAG,
-                    "Response: " + response.message() + "\n" + response.toString()
+                        ConstantValues.TAG,
+                        "Response: " + response.message() + "\n" + response.toString()
                 )
             }
 
@@ -81,7 +80,7 @@ class RegistrationFragment : Fragment() {
 
     private fun validateEmail(): Boolean {
         if (emailET.text.toString().length >= MIN_EMAIL_LENGTH &&
-            emailET.text.toString().matches(EMAIL_REGEX)
+                emailET.text.toString().matches(EMAIL_REGEX)
         ) return true
 
         emailET.error = resources.getString(R.string.invalid_email)
@@ -90,7 +89,7 @@ class RegistrationFragment : Fragment() {
 
     private fun validatePassword(): Boolean {
         if (passwordET.text.toString().length < MIN_PASSWORD_LENGTH ||
-            passwordET.text.toString().length > MAX_PASSWORD_LENGTH
+                passwordET.text.toString().length > MAX_PASSWORD_LENGTH
         ) {
             passwordET.error = resources.getString(R.string.password_too_short)
             return false
@@ -105,8 +104,8 @@ class RegistrationFragment : Fragment() {
     private fun showSignUpSuccessfulToast() {
         activity?.runOnUiThread {
             Toast.makeText(
-                activity, R.string.sign_up_successful,
-                Toast.LENGTH_SHORT
+                    activity, R.string.sign_up_successful,
+                    Toast.LENGTH_SHORT
             ).show()
         }
     }
@@ -114,8 +113,8 @@ class RegistrationFragment : Fragment() {
     private fun showSignUpFailureServerSideToast() {
         activity?.runOnUiThread {
             Toast.makeText(
-                activity, R.string.sign_up_failed,
-                Toast.LENGTH_SHORT
+                    activity, R.string.sign_up_failed,
+                    Toast.LENGTH_SHORT
             ).show()
         }
     }
@@ -123,16 +122,16 @@ class RegistrationFragment : Fragment() {
     private fun showIncompleteDataToast() {
         activity?.runOnUiThread {
             Toast.makeText(
-                activity, R.string.sign_up_incomplete_data,
-                Toast.LENGTH_SHORT
+                    activity, R.string.sign_up_incomplete_data,
+                    Toast.LENGTH_SHORT
             ).show()
         }
     }
 
     private fun checkIfAllFieldsFilled(): Boolean {
         if (usernameET.text.toString()
-                .isEmpty() || emailET.text.isEmpty() || passwordET.text.isEmpty()
-            || confirmPasswordET.text.isEmpty()
+                        .isEmpty() || emailET.text.isEmpty() || passwordET.text.isEmpty()
+                || confirmPasswordET.text.isEmpty()
         ) {
             showIncompleteDataToast()
             return false

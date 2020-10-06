@@ -14,28 +14,14 @@
             app:destination="@id/registrationFragment" />
         <action
             android:id="@+id/action_loginFragment_to_mainMenuFragment"
-            app:destination="@id/mainMenuFragment" />
+            app:destination="@id/homeScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="piotr.michalkiewicz.mealplannerclient.view.login.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" />
-    <fragment
-        android:id="@+id/mainMenuFragment"
-        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.MainMenuFragment"
-        android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_main_menu" >
-        <action
-            android:id="@+id/action_mainMenuFragment_to_homeScreenFragment"
-            app:destination="@id/homeScreenFragment" />
-        <action
-            android:id="@+id/action_mainMenuFragment_to_cookbookScreenFragment"
-            app:destination="@id/cookbookScreenFragment" />
-        <action
-            android:id="@+id/action_mainMenuFragment_to_shoppingListFragment"
-            app:destination="@id/shoppingListFragment" />
-    </fragment>
+
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragment"
@@ -51,4 +37,8 @@
         android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.ShoppingListFragment"
         android:label="fragment_shopping_list"
         tools:layout="@layout/fragment_shopping_list" />
+    <fragment
+        android:id="@+id/nutritionScreenFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.NutritionScreenFragment"
+        android:label="NutritionScreenFragment" />
 </navigation>
