@@ -13,4 +13,5 @@
     <color name="duskYellow">#D4AF37</color>
     <color name="goldenYellow">#FFDF00</color>
     <color name="lightGrey">#D3D3D3</color>
+    <color name="opaque">#00000000</color>
 </resources>

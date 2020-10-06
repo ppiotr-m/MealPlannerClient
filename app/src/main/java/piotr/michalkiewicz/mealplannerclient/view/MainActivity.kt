@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun initTopToolbar() {
+
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
@@ -66,11 +68,13 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun showTopAndBottomToolbar() {
+
         topToolbarLayout.visibility = View.VISIBLE
         bottom_navigation.visibility = View.VISIBLE
     }
 
     override fun onHomeScreenStarted() {
+
         showTopAndBottomToolbar()
     }
 }

@@ -25,16 +25,35 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
             app:navigationIcon="@drawable/ic_white_menu_42">
 
-            <EditText
-                android:id="@+id/toolbarSearchET"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:hint="@string/search"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:padding="4dp" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/toolbarSearchET"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_horizontal"
+                    android:hint="@string/search"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toStartOf="@id/toolbarSearchBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/toolbarSearchBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/opaque"
+                    android:src="@drawable/ic_white_search_40"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.appcompat.widget.Toolbar>
 

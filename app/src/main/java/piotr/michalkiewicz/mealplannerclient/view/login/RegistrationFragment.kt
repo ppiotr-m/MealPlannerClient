@@ -1,17 +1,16 @@
 package piotr.michalkiewicz.mealplannerclient.view.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_registration.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,14 +61,11 @@ class RegistrationFragment : Fragment() {
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 if (response.code() == HTTP_OK_CODE || response.code() == HTTP_OK_CODE_CREATED) {
                     showSignUpSuccessfulToast()
+                    findNavController().navigate(R.id.action_registrationFragment_pop)
                     //finish()
                 } else {
                     showSignUpFailureServerSideToast()
                 }
-                Log.i(
-                        ConstantValues.TAG,
-                        "Response: " + response.message() + "\n" + response.toString()
-                )
             }
 
             override fun onFailure(call: Call<UserAccount>, t: Throwable) {
@@ -102,30 +98,23 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun showSignUpSuccessfulToast() {
-        activity?.runOnUiThread {
-            Toast.makeText(
-                    activity, R.string.sign_up_successful,
-                    Toast.LENGTH_SHORT
-            ).show()
-        }
+        Toast.makeText(
+                activity,
+                R.string.sign_up_successful,
+                Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun showSignUpFailureServerSideToast() {
-        activity?.runOnUiThread {
-            Toast.makeText(
-                    activity, R.string.sign_up_failed,
-                    Toast.LENGTH_SHORT
-            ).show()
-        }
+        Toast.makeText(
+                activity,
+                R.string.sign_up_failed,
+                Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun showIncompleteDataToast() {
-        activity?.runOnUiThread {
-            Toast.makeText(
-                    activity, R.string.sign_up_incomplete_data,
-                    Toast.LENGTH_SHORT
-            ).show()
-        }
+        Toast.makeText(activity, R.string.sign_up_incomplete_data, Toast.LENGTH_SHORT).show()
     }
 
     private fun checkIfAllFieldsFilled(): Boolean {
@@ -135,8 +124,7 @@ class RegistrationFragment : Fragment() {
         ) {
             showIncompleteDataToast()
             return false
-        } else {
-            return true
         }
+        return true
     }
 }

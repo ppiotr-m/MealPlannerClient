@@ -1,7 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,10 +47,7 @@ class LoginFragment : Fragment() {
         loginClient.refreshToken(Objects.requireNonNull(refreshToken), object : LoginListener {
             override fun loginFailed() {}
             override fun loginSuccessful() {
-                //Here we need to add opening new fragment with main menu
-                //val myIntent = Intent(activity, MainMenuActivity::class.java)
-                //startActivity(myIntent)
-                navController.navigate(R.id.action_loginFragment_to_mainMenuFragment)
+                navController.navigate(R.id.action_loginFragment_to_homeFragment)
             }
         })
     }
@@ -80,19 +76,12 @@ class LoginFragment : Fragment() {
         loginClient.login(username, password, object : LoginListener {
             override fun loginSuccessful() {
                 dialog.dismissDialog()
-                navController.navigate(R.id.action_loginFragment_to_mainMenuFragment)
+                navController.navigate(R.id.action_loginFragment_to_homeFragment)
             }
 
             override fun loginFailed() {
                 dialog.dismissDialog()
-                activity?.runOnUiThread {
-                    Toast.makeText(
-                            activity,
-                            R.string.login_failed,
-                            Toast.LENGTH_LONG
-                    ).show()
-                }
-                Log.i("LoginFragment", "loginFailed() happened")
+                Toast.makeText(activity, R.string.login_failed, Toast.LENGTH_LONG).show()
             }
         })
     }
