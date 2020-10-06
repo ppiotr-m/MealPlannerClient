@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeScreenFragment"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/home" />
     <item
-        android:id="@+id/navigation_cookbook"
+        android:id="@+id/cookbookScreenFragment"
         android:icon="@drawable/ic_library_books_black_24dp"
         android:title="Cookbook" />
     <item
-        android:id="@+id/navigation_mealplans"
+        android:id="@+id/shoppingListFragment"
         android:icon="@drawable/ic_white_shopping_cart_24"
         android:title="@string/shopping_list" />
     <item
-        android:id="@+id/navigation_nutrition"
+        android:id="@+id/nutritionScreenFragment"
         android:icon="@drawable/ic_insert_chart_black_24dp"
         android:title="@string/nutrition" />
 </menu>

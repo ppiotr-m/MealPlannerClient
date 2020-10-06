@@ -14,7 +14,7 @@ abstract class PersonalizationFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        fragmentCallback = context as FragmentCallback
+//        fragmentCallback = context as FragmentCallback
     }
 
     fun addButtonsToLayout(buttonsLayout: LinearLayout?, buttonsNames: MutableList<String>, idPrefix: Int) {
