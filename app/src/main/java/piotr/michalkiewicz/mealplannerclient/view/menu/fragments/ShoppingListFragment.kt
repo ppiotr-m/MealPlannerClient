@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.main_menu.fragments
+package piotr.michalkiewicz.mealplannerclient.view.menu.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
-import piotr.michalkiewicz.mealplannerclient.view.login.LoginActivity
+import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,15 +22,14 @@ class ShoppingListFragment : Fragment() {
     private val checkBoxes = ArrayList<View>()
     private var recipeIngredientsList = ArrayList<RecipeIngredient>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_shopping_list, container, false)
-
-        return view
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_shopping_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         init()
     }
 
@@ -61,7 +60,7 @@ class ShoppingListFragment : Fragment() {
     }
 
     private fun getShoppingListFromSharedPrefs(): ArrayList<RecipeIngredient>? {
-        val json = LoginActivity.MY_PREFERENCSES.getString(ConstantValues.SHOPPING_LIST_SHARED_PREF, "")
+        val json = MainActivity.MY_PREFERENCSES.getString(ConstantValues.SHOPPING_LIST_SHARED_PREF, "")
 
         if (json!!.isEmpty()) return null
 
@@ -123,7 +122,7 @@ class ShoppingListFragment : Fragment() {
     private fun saveShoppingListToSharedPrefs(recipeIngredientList: List<RecipeIngredient>) {
         val dataInJson = Gson().toJson(recipeIngredientList)
 
-        with(LoginActivity.MY_PREFERENCSES.edit()) {
+        with(MainActivity.MY_PREFERENCSES.edit()) {
             putString(ConstantValues.SHOPPING_LIST_SHARED_PREF, dataInJson)
             commit()
         }

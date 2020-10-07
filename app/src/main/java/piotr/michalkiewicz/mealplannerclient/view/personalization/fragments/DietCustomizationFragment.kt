@@ -31,7 +31,7 @@ class DietCustomizationFragment : PersonalizationFragment(), View.OnClickListene
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        fragmentCallback = context as FragmentCallback
+//        fragmentCallback = context as FragmentCallback
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
