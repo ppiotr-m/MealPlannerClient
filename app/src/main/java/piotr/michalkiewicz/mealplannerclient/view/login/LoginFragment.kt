@@ -1,10 +1,10 @@
 package piotr.michalkiewicz.mealplannerclient.view.login
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -17,10 +17,11 @@ import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.view.login.service.FakeUserData
 import java.util.*
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(), LoginListener {
     private val loginClient = LoginClient()
     private lateinit var signUpServiceGenerator: SignUpServiceGenerator
     private lateinit var navController: NavController
+    private lateinit var dialog: LoginLoadingDialog
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -37,6 +38,7 @@ class LoginFragment : Fragment() {
         checkLoginState()
         setOnClickListeners()
         navController = findNavController()
+        dialog = LoginLoadingDialog(activity)
     }
 
     private fun checkLoginState() {
@@ -71,20 +73,22 @@ class LoginFragment : Fragment() {
     }
 
     private fun login(username: String, password: String) {
-        val dialog = LoginLoadingDialog(activity)
         dialog.startLoadingDialog()
-        loginClient.login(username, password, object : LoginListener {
-            override fun loginSuccessful() {
-                dialog.dismissDialog()
-                navController.navigate(R.id.action_loginFragment_to_homeScreenFragment)
-            }
+        loginClient.login(username, password, this)
+    }
 
-            override fun loginFailed() {
-                dialog.dismissDialog()
-                activity?.runOnUiThread {
-                    Toast.makeText(activity, R.string.login_failed, Toast.LENGTH_LONG).show()
-                }
-            }
-        })
+    override fun loginSuccessful() {
+
+        dialog.dismissDialog()
+
+        val handler = Handler(requireActivity().mainLooper)
+        val runnable = Runnable {
+            navController.navigate(R.id.action_loginFragment_to_homeScreenFragment)
+        }
+        handler.post(runnable)
+    }
+
+    override fun loginFailed() {
+        TODO("Not yet implemented")
     }
 }
