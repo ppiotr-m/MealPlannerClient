@@ -5,6 +5,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -89,6 +90,11 @@ class LoginFragment : Fragment(), LoginListener {
     }
 
     override fun loginFailed() {
-        TODO("Not yet implemented")
+
+        dialog.dismissDialog()
+        activity?.runOnUiThread {
+            Toast.makeText(activity, R.string.login_failed, Toast.LENGTH_LONG).show()
+        }
+
     }
 }
