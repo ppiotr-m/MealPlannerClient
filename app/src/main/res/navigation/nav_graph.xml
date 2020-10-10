@@ -46,4 +46,9 @@
         android:id="@+id/nutritionScreenFragment"
         android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.NutritionScreenFragment"
         android:label="NutritionScreenFragment" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>
