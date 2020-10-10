@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
 import kotlinx.android.synthetic.main.activity_main.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.ActivityMainBinding
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityMainBinding
 
     companion object {
         lateinit var MY_PREFERENCSES: SharedPreferences
@@ -35,7 +37,7 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
 
         super.onCreate(savedInstanceState)
 
-        val binding =
+        binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
 
@@ -43,24 +45,27 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
 
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeScreenFragment, R.id.cookbookScreenFragment, R.id.shoppingListFragment),
+            drawerLayout
+        )
 
-        setSupportActionBar(toolbar)
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        NavigationUI.setupWithNavController(binding.navView, navController)
-        init()
+        init(binding)
     }
 
-    private fun init() {
+    private fun init(binding: ActivityMainBinding) {
 
         initMyPreferences()
-
-        initTopToolbar()
+        //TODO add function for defining navController
+        //TODO add function for defining appBarConfig
+        //TODO add function for defining binding
+        setSupportActionBar(toolbar)
+        initTopToolbar(binding)
         setBottomNavigationMenu()
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, drawerLayout)
+        return navController.navigateUp(appBarConfiguration)
     }
 
     private fun initMyPreferences() {
@@ -71,10 +76,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
         )
     }
 
-    private fun initTopToolbar() {
+    private fun initTopToolbar(binding: ActivityMainBinding) {
 
+        NavigationUI.setupWithNavController(binding.navView, navController)
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
-        //supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     private fun setBottomNavigationMenu() {
