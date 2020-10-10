@@ -177,4 +177,5 @@
     <string name="voice_control_inactive">Voice control turned off.</string>
     <string name="add_to_shopping_list">Add to shopping list</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="user_profile_fragment_id">User Profile</string>
 </resources>
