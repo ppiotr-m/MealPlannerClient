@@ -37,35 +37,30 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
 
         super.onCreate(savedInstanceState)
 
+        init()
+    }
+
+    private fun init() {
+
+        initMyPreferences()
+        createBinding()
+        setupNavController()
+        setSupportActionBar(toolbar)
+        initTopToolbar()
+        setBottomNavigationMenu()
+    }
+
+    private fun createBinding() {
+
         binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        drawerLayout = binding.drawerLayout
+    }
+
+    private fun setupNavController() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
-
-        appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeScreenFragment, R.id.cookbookScreenFragment, R.id.shoppingListFragment),
-            drawerLayout
-        )
-
-        init(binding)
-    }
-
-    private fun init(binding: ActivityMainBinding) {
-
-        initMyPreferences()
-        //TODO add function for defining navController
-        //TODO add function for defining appBarConfig
-        //TODO add function for defining binding
-        setSupportActionBar(toolbar)
-        initTopToolbar(binding)
-        setBottomNavigationMenu()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration)
     }
 
     private fun initMyPreferences() {
@@ -76,11 +71,26 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
         )
     }
 
-    private fun initTopToolbar(binding: ActivityMainBinding) {
+    private fun initTopToolbar() {
+
+        drawerLayout = binding.drawerLayout
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeScreenFragment,
+                R.id.cookbookScreenFragment,
+                R.id.shoppingListFragment,
+                R.id.nutritionScreenFragment
+            ),
+            drawerLayout
+        )
 
         NavigationUI.setupWithNavController(binding.navView, navController)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration)
     }
 
     private fun setBottomNavigationMenu() {
