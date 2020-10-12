@@ -7,6 +7,7 @@
     <color name="colorDivider">#B6B6B6</color>
     <color name="opaqueBlack">#77000000</color>
     <color name="brightGrey">#A0A0A0</color>
+    <color name="darkGrey">#989898</color>
     <color name="brighterGrey">#EBECF0</color>
     <color name="white">#E5E5E5</color>
     <color name="hyperlink_blue">#0080FF</color>
@@ -14,4 +15,5 @@
     <color name="goldenYellow">#FFDF00</color>
     <color name="lightGrey">#D3D3D3</color>
     <color name="opaque">#00000000</color>
+    <color name="nutrition_progress_bar_color">#8dde28</color>
 </resources>

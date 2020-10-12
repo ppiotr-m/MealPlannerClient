@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import kotlinx.android.synthetic.main.activity_main.*
 import piotr.michalkiewicz.mealplannerclient.R
@@ -28,13 +27,10 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
         init()
     }
 
-    override fun onStart() {
-        super.onStart()
-        navController = findNavController(this, R.id.nav_host_fragment_container)
-    }
-
     private fun init() {
         initMyPreferences()
+        navController = ((supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
+                ?: return) as NavHostFragment).navController
         setSupportActionBar(findViewById(R.id.toolbar))
         initTopToolbar()
         setBottomNavigationMenu()
@@ -54,11 +50,7 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
 
 
     private fun setBottomNavigationMenu() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
-
-        NavigationUI.setupWithNavController(
-                bottom_navigation,
-                (navHostFragment ?: return).findNavController())
+        NavigationUI.setupWithNavController(bottom_navigation, navController)
     }
 
     private fun showTopAndBottomToolbar() {

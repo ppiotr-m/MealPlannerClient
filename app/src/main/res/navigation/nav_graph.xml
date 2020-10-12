@@ -44,6 +44,6 @@
         tools:layout="@layout/fragment_shopping_list" />
     <fragment
         android:id="@+id/nutritionScreenFragment"
-        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.NutritionScreenFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.nutrition.NutritionScreenFragment"
         android:label="NutritionScreenFragment" />
 </navigation>
