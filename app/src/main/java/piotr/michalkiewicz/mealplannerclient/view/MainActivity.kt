@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -30,13 +29,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     override fun onStart() {
-
         super.onStart()
         navController = findNavController(this, R.id.nav_host_fragment_container)
     }
 
     private fun init() {
-
         initMyPreferences()
         setSupportActionBar(findViewById(R.id.toolbar))
         initTopToolbar()
@@ -44,7 +41,6 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun initMyPreferences() {
-
         MY_PREFERENCSES = applicationContext.getSharedPreferences(
                 ConstantValues.MY_PREFERENCE_NAME,
                 MODE_PRIVATE
@@ -52,14 +48,12 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun initTopToolbar() {
-
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
 
     private fun setBottomNavigationMenu() {
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
 
         NavigationUI.setupWithNavController(
@@ -68,13 +62,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun showTopAndBottomToolbar() {
-
         topToolbarLayout.visibility = View.VISIBLE
         bottom_navigation.visibility = View.VISIBLE
     }
 
     override fun onHomeScreenStarted() {
-
         showTopAndBottomToolbar()
     }
 }
