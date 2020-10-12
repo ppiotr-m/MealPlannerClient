@@ -43,7 +43,7 @@ class LoginClient {
                     loginListener.loginSuccessful()
                 },
                         { error ->
-                            Log.i(TAG, "Login error occured: " + error.toString())
+                            Log.i(TAG, "Login error occured: " + error.printStackTrace())
                             loginListener.loginFailed()
                         })
     }
