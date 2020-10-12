@@ -54,9 +54,8 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun setupNavController() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        navController = navHostFragment.navController
+        navController = ((supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
+            ?: return) as NavHostFragment).navController
     }
 
     private fun initMyPreferences() {
