@@ -78,7 +78,6 @@ class NutritionScreenFragment : Fragment() {
 
     private inner class NutritionMealsListViewAdapter(val data: List<RecipeIngredient>) : BaseAdapter() {
 
-
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             if (convertView == null) {
                 val listItem = layoutInflater.inflate(R.layout.nutrition_meals_list_item, parent, false)
@@ -91,7 +90,6 @@ class NutritionScreenFragment : Fragment() {
                 } else {
                     listItem.findViewById<TextView>(R.id.kcalValueTV).text = mockKcalValue
                 }
-
                 return listItem
             }
             return convertView

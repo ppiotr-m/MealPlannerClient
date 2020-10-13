@@ -69,7 +69,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="myHorizontalProgressBarStyle" parent="Widget.AppCompat.ProgressBar.Horizontal">
+    <style name="myHorizontalProgressBarStyleBase" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:minHeight">8dp</item>
+        <item name="android:maxHeight">10dp</item>
+    </style>
+
+    <style name="myHorizontalProgressBarStyle" parent="myHorizontalProgressBarStyleBase">
         <item name="android:progressDrawable">@drawable/horizontal_progress_bar</item>
     </style>
 

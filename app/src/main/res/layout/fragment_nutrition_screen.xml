@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="20dp"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,11 +22,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/nutritionDateTV"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_white_arrow_back_ios_36" />
+            app:srcCompat="@drawable/ic_white_arrow_back_ios_18" />
 
         <TextView
             android:id="@+id/nutritionDateTV"
-            style="@style/bigPlainText"
+            style="@style/normalTextBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8, October 2020"
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/nutritionDateTV"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_white_arrow_forward_ios_36" />
+            app:srcCompat="@drawable/ic_white_arrow_forward_ios_18" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -72,8 +72,8 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/nutritionTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
