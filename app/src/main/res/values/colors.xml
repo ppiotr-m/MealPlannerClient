@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimaryAlt">#E83136</color>
-    <color name="colorPrimary">#E83136</color>
+    <color name="colorPrimary">#050505</color>
     <color name="colorPrimaryDark">#C52631</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBlack">#000000</color>
@@ -16,7 +16,7 @@
     <color name="goldenYellow">#FFDF00</color>
     <color name="lightGrey">#D3D3D3</color>
     <color name="opaque">#00000000</color>
-    <color name="nutrition_progress_bar_colorAlt">#8dde28</color>
-    <color name="nutrition_progress_bar_color">#51A45D</color>
+    <color name="nutrition_progress_bar_colorAlt">#2CCC00</color>
+    <color name="nutrition_progress_bar_color">#35F500</color>
     <color name="selected_dot_color">#4C4D57</color>
 </resources>

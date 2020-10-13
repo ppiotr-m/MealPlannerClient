@@ -47,6 +47,18 @@
             app:srcCompat="@drawable/ic_white_arrow_forward_ios_36" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/nutritionTopTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:tabIndicatorColor="@color/darkGrey"
+        app:tabTextColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/nutritionScreenViewPager"
         android:layout_width="match_parent"
@@ -54,7 +66,8 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/nutritionTopTabLayout"
+        tools:layout_editor_absoluteY="50dp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/nutritionTabLayout"

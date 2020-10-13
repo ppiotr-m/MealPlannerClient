@@ -26,10 +26,22 @@ class NutritionScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
+    }
+
+    private fun init() {
         nutritionScreenViewPager.adapter = ScreenSlidePagerAdapter(this)
         nutritionMealsListView.adapter = NutritionMealsListViewAdapter(createMockMealList())
-
         TabLayoutMediator(nutritionTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
+        initTopTabLayout()
+    }
+
+    private fun initTopTabLayout() {
+        TabLayoutMediator(nutritionTopTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
+
+        nutritionTopTabLayout.getTabAt(0)?.text = getString(R.string.general)
+        nutritionTopTabLayout.getTabAt(1)?.text = getString(R.string.vitamin_targets)
+        nutritionTopTabLayout.getTabAt(2)?.text = getString(R.string.mineral_targets)
     }
 
     private fun createMockMealList(): List<RecipeIngredient> {

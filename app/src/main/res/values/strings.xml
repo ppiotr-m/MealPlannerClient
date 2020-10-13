@@ -205,5 +205,8 @@
     <string name="selenium">Selenium</string>
     <string name="zinc">Zinc</string>
     <string name="phosphorus">Phosphorus</string>
+    <string name="general">General</string>
+    <string name="vitamin_targets">Vitamin targets</string>
+    <string name="mineral_targets">Mineral targets</string>
 
 </resources>

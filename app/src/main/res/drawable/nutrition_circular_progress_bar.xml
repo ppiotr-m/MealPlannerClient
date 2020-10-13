@@ -12,7 +12,7 @@
             android:angle="0"
             android:endColor="@color/nutrition_progress_bar_color"
             android:startColor="@color/nutrition_progress_bar_color"
-            android:type="sweep"
-            android:useLevel="false" />
+            android:type="linear"
+            android:useLevel="true" />
     </shape>
 </rotate>
