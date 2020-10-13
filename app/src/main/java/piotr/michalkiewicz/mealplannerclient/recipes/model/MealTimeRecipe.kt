@@ -1,9 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.model
 
 import android.graphics.Bitmap
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
+@Entity(tableName = "recipes")
 class MealTimeRecipe(id: String, name: String, image: Bitmap) : MealTimeRecipeBase(id, name, image) {
 
     @SerializedName("recipeType")
