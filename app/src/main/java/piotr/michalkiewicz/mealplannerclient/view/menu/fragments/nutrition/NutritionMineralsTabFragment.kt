@@ -10,6 +10,6 @@ import piotr.michalkiewicz.mealplannerclient.R
 class NutritionMineralsTabFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.nutrition_minerals_targets_tab, container, false)
+        return inflater.inflate(R.layout.fragment_nutrition_minerals_targets_tab, container, false)
     }
 }

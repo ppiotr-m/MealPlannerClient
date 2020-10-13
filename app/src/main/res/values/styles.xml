@@ -69,11 +69,16 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="myHorizontalProgressBarStyle" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/horizontal_progress_bar</item>
+    </style>
+
     <style name="recipeListElement">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">10dp</item>
     </style>
+
 
     <style name="recipeImgTextOverlay">
         <item name="android:textSize">16sp</item>
