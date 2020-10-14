@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/caloricBalanceLabelTV"
-        style="@style/normalText"
+        style="@style/smallText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/caloric_balance"
@@ -37,7 +37,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="68dp"
         android:layout_height="68dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/nutrition_progress_bar_shape"
         android:indeterminate="false"
         android:max="100"
@@ -60,7 +60,7 @@
 
     <TextView
         android:id="@+id/textView19"
-        style="@style/normalText"
+        style="@style/smallText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
