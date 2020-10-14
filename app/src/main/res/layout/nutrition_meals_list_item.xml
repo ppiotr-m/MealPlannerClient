@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mealIconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_white_set_meal_36" />
+
+    <TextView
+        android:id="@+id/mealNameTV"
+        style="@style/medium_bold_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Rice and meat"
+        app:layout_constraintStart_toEndOf="@+id/mealIconImageView"
+        app:layout_constraintTop_toTopOf="@+id/mealIconImageView" />
+
+    <TextView
+        android:id="@+id/mealAmountTV"
+        style="@style/smallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="461"
+        app:layout_constraintBottom_toBottomOf="@+id/mealIconImageView"
+        app:layout_constraintStart_toEndOf="@+id/mealIconImageView" />
+
+    <TextView
+        android:id="@+id/kcalLabelTV"
+        style="@style/normalTextBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/kcal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/kcalValueTV"
+        style="@style/normalTextBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="534.1"
+        app:layout_constraintEnd_toStartOf="@+id/kcalLabelTV"
+        app:layout_constraintTop_toTopOf="@+id/kcalLabelTV" />
+
+    <TextView
+        android:id="@+id/mealUnitTV"
+        style="@style/smallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="g"
+        app:layout_constraintBottom_toBottomOf="@+id/mealAmountTV"
+        app:layout_constraintStart_toEndOf="@+id/mealAmountTV"
+        app:layout_constraintTop_toTopOf="@+id/mealAmountTV" />
+</androidx.constraintlayout.widget.ConstraintLayout>

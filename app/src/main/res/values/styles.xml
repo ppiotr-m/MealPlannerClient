@@ -4,8 +4,8 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="windowNoTitle">true</item>
     </style>
 
@@ -25,6 +25,7 @@
     <style name="bigPlainText">
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="RecipeTitle">
@@ -34,6 +35,7 @@
 
     <style name="listElementText">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="hyperlink">
@@ -43,11 +45,13 @@
 
     <style name="normalText">
         <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="normalTextBold">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="recipeAbout">
@@ -60,15 +64,39 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="medium_bold_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="smallText">
         <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="smallBoldText">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="myHorizontalProgressBarStyleBase" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:minHeight">8dp</item>
+        <item name="android:maxHeight">10dp</item>
+    </style>
+
+    <style name="myHorizontalProgressBarStyle" parent="myHorizontalProgressBarStyleBase">
+        <item name="android:progressDrawable">@drawable/horizontal_progress_bar</item>
     </style>
 
     <style name="recipeListElement">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
+
 
     <style name="recipeImgTextOverlay">
         <item name="android:textSize">16sp</item>
@@ -78,6 +106,7 @@
     <style name="recipe_thumbnail_text">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
+
     </style>
 
     <style name="search_icon_top_label">
