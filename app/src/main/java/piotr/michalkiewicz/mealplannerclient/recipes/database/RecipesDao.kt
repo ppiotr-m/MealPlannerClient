@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.Query
 import io.reactivex.rxjava3.core.Completable
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 
 @Dao
 interface RecipesDao {
 
     @Query("SELECT * FROM recipes WHERE suitableForDiet = :dietType ")
-    fun getRecipesForDiet(dietType: String): PagingSource<Int, MealTimeRecipe>
+    fun getRecipesForDiet(dietType: String): PagingSource<Int, MealTimeRecipeBase>
 
     @Query("SELECT * FROM recipes WHERE recipeTag = :recipeTag ")
     fun getRecipesForTag(recipeTag: String): PagingSource<Int, List<MealTimeRecipe>>
