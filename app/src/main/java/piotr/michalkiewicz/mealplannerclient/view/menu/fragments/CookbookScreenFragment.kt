@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ class CookbookScreenFragment : Fragment() {
 
     private var recipeListsInitParams = LinkedList<RecipeParamsPair>()
 
+    @ExperimentalPagingApi
     private val onPrependDataLoadedListener = object : OnPrependDataLoadedListener {
         override fun onPrependDataLoaded() {
             val nextRecipeListParameters = recipeListsInitParams.poll()
@@ -46,17 +48,22 @@ class CookbookScreenFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_cookbook_screen, container, false)
     }
 
+    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentCookbookScreenBinding.inflate(layoutInflater)
 
-        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(onPrependDataLoadedListener))
+        viewModel = ViewModelProvider(this,
+                Injection.provideViewModelFactory(
+                        onPrependDataLoadedListener,
+                        requireContext().applicationContext))
                 .get(RecipesSearchViewModel::class.java)
 
         initRecipeRecyclerViews()
     }
 
+    @ExperimentalPagingApi
     private fun launchCoroutineByDietForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByDietApiData(queryParam).collect {
@@ -74,6 +81,7 @@ class CookbookScreenFragment : Fragment() {
         recipeListsInitParams.add(RecipeParamsPair("diet", "PALEO"))
     }
 
+    @ExperimentalPagingApi
     private fun initRecipeRecyclerViews() {
         initListsParamsWithMockValues()
         attachRecipesRecyclerView("", "")
@@ -131,6 +139,7 @@ class CookbookScreenFragment : Fragment() {
         return view
     }
 
+    @ExperimentalPagingApi
     private fun attachRecipesRecyclerView(category: String, categoryValue: String) {
         val recipesHorizontalListWithLabel = createHorizontalRecipesList(categoryValue)
 

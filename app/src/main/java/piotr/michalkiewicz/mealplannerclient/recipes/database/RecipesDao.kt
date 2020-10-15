@@ -22,5 +22,4 @@ interface RecipesDao {
 
     @Insert
     fun saveRecipes(recipes: List<MealTimeRecipe>): Completable
-
 }
