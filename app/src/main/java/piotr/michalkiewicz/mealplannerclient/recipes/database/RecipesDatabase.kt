@@ -7,12 +7,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 
-@Database(entities = [MealTimeRecipeBase::class], version = 1, exportSchema = false)
+@Database(entities = [MealTimeRecipeBase::class, DietType::class, RecipesDietsCrossRef::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class RecipesDatabase : RoomDatabase() {
 
     abstract fun recipesDao(): RecipesDao
-    abstract fun recipesRemoteKeysDao(): RecipesRemoteKeysDao
 
     companion object {
         private const val dbName = "recipes_database"

@@ -5,14 +5,14 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
-import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
+import piotr.michalkiewicz.mealplannerclient.recipes.database.DietWithRecipes
 import java.io.IOException
 
 @ExperimentalPagingApi
 class RecipesByDietRemoteMediator(private val recipeAPI: RecipeAPI,
-                                  private val queryParam: String) : RemoteMediator<Int, MealTimeRecipeBase>() {
+                                  private val queryParam: String) : RemoteMediator<Int, DietWithRecipes>() {
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, MealTimeRecipeBase>): MediatorResult {
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, DietWithRecipes>): MediatorResult {
 
         try {
             val pageNr = state.pages.size // might be state.pages.size * pageSize if current doesnt work

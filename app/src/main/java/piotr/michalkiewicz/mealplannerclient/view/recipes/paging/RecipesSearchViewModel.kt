@@ -8,6 +8,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.AllRecipesDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTagDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTypeDataSource
+import piotr.michalkiewicz.mealplannerclient.recipes.database.DietWithRecipes
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.datasource.RecipesByDietRemoteMediator
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
@@ -18,8 +19,8 @@ class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
                              private val onPrependDataLoadedListener: OnPrependDataLoadedListener) : ViewModel() {
 
     @ExperimentalPagingApi
-    fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipeBase>> {
-        val pagingSource = recipesDatabase?.recipesDao()?.getRecipesForDiet(queryParam)
+    fun recipesByDietApiData(queryParam: String): Flow<PagingData<DietWithRecipes>> {
+        val pagingSource = recipesDatabase?.recipesDao()?.getDietWithRecipes(queryParam)
 
         return Pager(
                 config = PagingConfig(pageSize = PAGE_SIZE),

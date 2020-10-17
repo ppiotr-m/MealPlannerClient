@@ -42,7 +42,7 @@ repositories {
 
 dependencies {
     def nav_version = "2.3.0"
-    def room_version = "2.2.5"
+    def room_version = "2.3.0-alpha01"
 
     implementation 'androidx.paging:paging-runtime:3.0.0-alpha05'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines:0.19.2'
@@ -54,6 +54,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-rxjava3:2.3.0-alpha02"
     testImplementation "androidx.room:room-testing:$room_version"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'

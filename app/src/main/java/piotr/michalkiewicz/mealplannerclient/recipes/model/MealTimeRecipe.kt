@@ -2,9 +2,11 @@ package piotr.michalkiewicz.mealplannerclient.recipes.model
 
 import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
+import piotr.michalkiewicz.mealplannerclient.recipes.database.DietType
 import java.util.*
 
-class MealTimeRecipe(id: String, name: String, image: Bitmap) : MealTimeRecipeBase(id, name, image) {
+class MealTimeRecipe(id: Long, recipeId: String, name: String, image: Bitmap, suitableForDiet: List<DietType>) :
+        MealTimeRecipeBase(id, recipeId, name, suitableForDiet, image) {
 
     @SerializedName("recipeType")
     lateinit var recipeType: List<String>
@@ -17,9 +19,6 @@ class MealTimeRecipe(id: String, name: String, image: Bitmap) : MealTimeRecipeBa
 
     @SerializedName("level")
     lateinit var level: String
-
-    @SerializedName("suitableForDiet")
-    lateinit var suitableForDiet: List<String>
 
     @SerializedName("recipeCuisines")
     lateinit var recipeCuisines: List<String>

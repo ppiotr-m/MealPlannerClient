@@ -1,25 +1,45 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.database
 
 import androidx.paging.PagingSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import io.reactivex.rxjava3.core.Completable
-import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import androidx.room.*
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 
+
 @Dao
-interface RecipesDao {
+abstract class RecipesDao {
 
-    @Query("SELECT * FROM recipes WHERE suitableForDiet = :dietType ")
-    fun getRecipesForDiet(dietType: String): PagingSource<Int, MealTimeRecipeBase>
-
-    @Query("SELECT * FROM recipes WHERE recipeTag = :recipeTag ")
-    fun getRecipesForTag(recipeTag: String): PagingSource<Int, List<MealTimeRecipe>>
+    /*  TODO Remove if alternate method works
+    @Query("SELECT * FROM recipes")
+    abstract fun getRecipesForDiet(dietType: String): PagingSource<Int, MealTimeRecipeBase>
+     */
 
     @Query("SELECT * FROM recipes")
-    fun getAllRecipes(): PagingSource<Int, List<MealTimeRecipe>>
+    abstract fun getAllRecipes(): PagingSource<Int, MealTimeRecipeBase>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertRecipes(recipes: List<MealTimeRecipeBase>)
 
     @Insert
-    fun saveRecipes(recipes: List<MealTimeRecipe>): Completable
+    abstract fun insertAllDietTypes(dietTypes: List<DietType>)
+
+    @Insert
+    abstract fun saveDiets(dietTypes: List<DietType>)
+
+    @Transaction
+    @Query("SELECT * FROM diet_type WHERE dietTypeName = :dietTypeNameArg")
+    abstract fun getDietWithRecipes(dietTypeNameArg: String): PagingSource<Int, DietWithRecipes>
+
+    fun insertAll(recipes: List<MealTimeRecipeBase>) {
+        for (recipe in recipes) {
+            insertDietsForRecipe(recipe.id, recipe.suitableForDiet)
+        }
+        insertRecipes(recipes)
+    }
+
+    fun insertDietsForRecipe(recipeId: Long, dietTypes: List<DietType>) {
+        for (dietType in dietTypes) {
+            dietType.recipeId = recipeId
+        }
+        insertAllDietTypes(dietTypes)
+    }
 }
