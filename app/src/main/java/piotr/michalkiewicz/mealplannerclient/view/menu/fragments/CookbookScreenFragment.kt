@@ -38,7 +38,8 @@ class CookbookScreenFragment : Fragment() {
         override fun onPrependDataLoaded() {
             val nextRecipeListParameters = recipeListsInitParams.poll()
             if (nextRecipeListParameters != null) {
-                attachRecipesRecyclerView(nextRecipeListParameters.category, nextRecipeListParameters.value)
+                attachRecipesRecyclerView(nextRecipeListParameters.category,
+                        nextRecipeListParameters.value, null)
             }
         }
     }
@@ -64,9 +65,11 @@ class CookbookScreenFragment : Fragment() {
     }
 
     @ExperimentalPagingApi
-    private fun launchCoroutineByDietForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
+    private fun launchCoroutineByDietForRecyclerView(recyclerView: RecyclerView,
+                                                     queryParam: String,
+                                                     recipesIdList: List<Long>) {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.recipesByDietApiData(queryParam).collect {
+            viewModel.recipesByDietApiData(queryParam, recipesIdList).collect {
                 it.let {
                     (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeBase, RecyclerView.ViewHolder>)
                             .submitData(it)
@@ -84,7 +87,7 @@ class CookbookScreenFragment : Fragment() {
     @ExperimentalPagingApi
     private fun initRecipeRecyclerViews() {
         initListsParamsWithMockValues()
-        attachRecipesRecyclerView("", "")
+        attachRecipesRecyclerView("", "", null)
     }
 
     private fun launchCoroutineByTypeForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
@@ -140,7 +143,9 @@ class CookbookScreenFragment : Fragment() {
     }
 
     @ExperimentalPagingApi
-    private fun attachRecipesRecyclerView(category: String, categoryValue: String) {
+    private fun attachRecipesRecyclerView(category: String,
+                                          categoryValue: String,
+                                          recipesIdList: List<Long>?) {
         val recipesHorizontalListWithLabel = createHorizontalRecipesList(categoryValue)
 
         if (category.isEmpty() || categoryValue.isEmpty()) {
@@ -150,7 +155,7 @@ class CookbookScreenFragment : Fragment() {
 
         when (category) {
             "diet" -> launchCoroutineByDietForRecyclerView(recipesHorizontalListWithLabel
-                    .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
+                    .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue, recipesIdList!!)
             "type" -> launchCoroutineByTypeForRecyclerView(recipesHorizontalListWithLabel
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
             "tag" -> launchCoroutineByTagForRecyclerView(recipesHorizontalListWithLabel
