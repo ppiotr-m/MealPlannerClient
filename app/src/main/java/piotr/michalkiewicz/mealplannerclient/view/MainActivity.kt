@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     private lateinit var binding: ActivityMainBinding
 
     companion object {
-        lateinit var MY_PREFERENCSES: SharedPreferences
+        lateinit var MY_PREFERENCES: SharedPreferences
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun initMyPreferences() {
-        MY_PREFERENCSES = applicationContext.getSharedPreferences(
+        MY_PREFERENCES = applicationContext.getSharedPreferences(
                 ConstantValues.MY_PREFERENCE_NAME,
                 MODE_PRIVATE
         )
