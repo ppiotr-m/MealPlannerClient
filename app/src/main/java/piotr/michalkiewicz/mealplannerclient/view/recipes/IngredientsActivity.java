@@ -115,21 +115,16 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
     }
 
     private void saveIngredientsToStoredShoppingList(){
-
-        Log.i(TAG, "Selected items size: " + selectedIngredients.size());
-
-        selectedIngredients.addAll(Arrays.asList(getShoppingListFromSharedPrefs()));
-
-        Log.i(TAG, "All items size: " + selectedIngredients.size());
-
+        if(getShoppingListFromSharedPrefs()!=null){
+            selectedIngredients.addAll(Arrays.asList(getShoppingListFromSharedPrefs()));
+        }
         saveShoppingListToSharedPrefs(selectedIngredients);
     }
 
 
 
     private RecipeIngredient[] getShoppingListFromSharedPrefs(){
-        String json = MainActivity.MY_PREFERENCSES.getString(SHOPPING_LIST_SHARED_PREF, "");
-
+        String json = MainActivity.MY_PREFERENCES.getString(SHOPPING_LIST_SHARED_PREF, "");
         if(json.isEmpty()) return null;
 
         try{
@@ -144,7 +139,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
     private void saveShoppingListToSharedPrefs(List<RecipeIngredient> recipeIngredientList) {
         String dataInJson = new Gson().toJson(recipeIngredientList);
 
-        MainActivity.MY_PREFERENCSES.edit().putString(SHOPPING_LIST_SHARED_PREF, dataInJson).commit();
+        MainActivity.MY_PREFERENCES.edit().putString(SHOPPING_LIST_SHARED_PREF, dataInJson).commit();
     }
 
     private boolean checkIfAnyIngredientSelected(){
