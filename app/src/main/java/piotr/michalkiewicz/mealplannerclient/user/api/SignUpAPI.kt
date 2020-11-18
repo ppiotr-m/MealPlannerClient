@@ -1,6 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.user.api
 
-import io.reactivex.Observable
+import piotr.michalkiewicz.mealplannerclient.user.model.SingUpUserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import retrofit2.Call
 import retrofit2.http.Body
@@ -12,8 +12,8 @@ interface SignUpAPI {
 
     @FormUrlEncoded
     @POST("user/signUpPhoneMemory")
-    fun signUpPhoneMemory(@Field("fakeUsername") fakeUsername: String): Observable<UserAccount>
+    fun signUpPhoneMemory(@Field("tempUsername") tempUsername: String): Call<UserAccount>
 
     @POST("/user/signUp")
-    fun signUp(@Body userAccount: UserAccount): Call<UserAccount>
+    fun signUp(@Body userAccount: SingUpUserAccount): Call<UserAccount>
 }

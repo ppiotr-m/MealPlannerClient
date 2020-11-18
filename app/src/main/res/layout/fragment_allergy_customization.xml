@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".view.personalization.fragments.AllergyCustomizationFragment">
+    tools:context=".view.personalization.fragments.AllergyCustomizationFragmentPersonalization">
 
     <TextView
         android:id="@+id/WhatAllergiesText"
@@ -91,7 +91,7 @@
 
 
     <Button
-        android:id="@+id/confirmButton"
+        android:id="@+id/confirmBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

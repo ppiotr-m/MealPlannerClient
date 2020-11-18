@@ -8,9 +8,10 @@ class MyPreference { // toDo  http://blog.udinic.com/2013/04/24/write-your-own-a
 
     //    private val preference = context.getSharedPreferences("mealTime", Context.MODE_PRIVATE)
     private val preference = MainActivity.MY_PREFERENCES
+    private val TOKEM = "TOKEN"
 
     fun getToken(): String? {
-        return preference.getString("TOKEN", "")
+        return preference.getString(TOKEM, "")
     }
 
     fun getRefreshToken(): String? {

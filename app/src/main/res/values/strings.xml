@@ -64,6 +64,7 @@
     <string name="comments_section"><u>Comments:</u></string>
     <string name="about_meal"><u>About meal:</u></string>
     <string name="login_failed">Incorrect e-mail or password.</string>
+    <string name="login_no_acc_error">Something gone wrong please try again later.</string>
     <string name="email">E-mail</string>
     <string name="email2">E-mail:</string>
     <string name="password">Password</string>
@@ -209,5 +210,6 @@
     <string name="general">General</string>
     <string name="vitamin_targets">Vitamin targets</string>
     <string name="mineral_targets">Mineral targets</string>
+    <string name="do_it_later">Do it later</string>
 
 </resources>

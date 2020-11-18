@@ -6,32 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.fragment_cuisine_customization.*
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
-import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues
+import piotr.michalkiewicz.mealplannerclient.view.personalization.service.PersonalizationCustomFragment
 
-class CuisineCustomizationFragment : PersonalizationFragment(), View.OnClickListener {
+class CuisineCustomizationFragmentPersonalizationCustom : PersonalizationCustomFragment(), View.OnClickListener {
 
     private val cuisineList = ArrayList<String>()
-    private lateinit var confirmBtn: Button
-    private var goBack = true
+    private lateinit var cuisineNames: List<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        fetchButtonsNames()
         return inflater.inflate(R.layout.fragment_cuisine_customization, container, false)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = CuisineCustomizationFragment().apply {
-            goBack = shouldGoBack
-        }
+    private fun fetchButtonsNames() {
+        cuisineNames = recipeServiceValuesDownloader.getAllCuisinesNames()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutCuisineButtons)
         initConfirmButton()
-        addButtonsToLayout(buttonsLayout, ConstantValues.CUISINE_CUSTOMIZATION_BUTTONS, 3)
+        addButtonsToLayout(buttonsLayout, cuisineNames, 3)
         initCustomizationButtons(buttonsLayout)
 
         super.onViewStateRestored(savedInstanceState)
@@ -52,24 +49,14 @@ class CuisineCustomizationFragment : PersonalizationFragment(), View.OnClickList
     }
 
     private fun initConfirmButton() {
-        confirmBtn = activity?.findViewById(R.id.confirmButton)!!
-
         confirmBtn.setOnClickListener {
-            fragmentCallback.onListSelect(cuisineList, this)
-            if (goBack) {
-                closeFragment()
-            } else {
-                runMealsNumberCustomizationFragment()
-            }
+            upDateViewModel()
+            navController.navigate(R.id.action_cuisineCustomizationFragment_to_mealsNumberCustomizationPersonalizationFragment)
         }
     }
 
-    private fun runMealsNumberCustomizationFragment() {
-        activity?.supportFragmentManager
-                ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, MealsNumberCustomizationPersonalizationFragment.newInstance(shouldGoBack = false, shouldInitBaseValues = true))
-                ?.addToBackStack(null)
-                ?.commit()
+    private fun upDateViewModel() {
+        personalizationViewModel.setCuisine(cuisineList)
     }
 
     private fun addClick(id: Int) {

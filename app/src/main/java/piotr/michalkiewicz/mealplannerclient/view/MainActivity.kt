@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import kotlinx.android.synthetic.main.activity_main.*
 import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 import piotr.michalkiewicz.mealplannerclient.databinding.ActivityMainBinding
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragment
@@ -27,16 +29,21 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
 
     companion object {
         lateinit var MY_PREFERENCES: SharedPreferences
+        private lateinit var mainContext: Context
+
+        fun getMainContext(): Context {
+            return mainContext
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         init()
     }
 
     private fun init() {
         initMyPreferences()
+        initContext()
         createBinding()
         setupNavController()
         setSupportActionBar(toolbar)
@@ -44,33 +51,37 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
         setBottomNavigationMenu()
     }
 
+    private fun initContext() {
+        mainContext = this
+    }
+
     private fun createBinding() {
         binding =
-                DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
 
     private fun setupNavController() {
         navController = ((supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
-                ?: return) as NavHostFragment).navController
+            ?: return) as NavHostFragment).navController
     }
 
     private fun initMyPreferences() {
         MY_PREFERENCES = applicationContext.getSharedPreferences(
-                ConstantValues.MY_PREFERENCE_NAME,
-                MODE_PRIVATE
+            ConstantValues.MY_PREFERENCE_NAME,
+            MODE_PRIVATE
         )
     }
 
     private fun initTopToolbar() {
         drawerLayout = binding.drawerLayout
         appBarConfiguration = AppBarConfiguration(
-                setOf(
-                        R.id.homeScreenFragment,
-                        R.id.cookbookScreenFragment,
-                        R.id.shoppingListFragment,
-                        R.id.nutritionScreenFragment
-                ),
-                drawerLayout
+            setOf(
+                R.id.homeScreenFragment,
+                R.id.cookbookScreenFragment,
+                R.id.shoppingListFragment,
+                R.id.nutritionScreenFragment
+            ),
+            drawerLayout
         )
 
         NavigationUI.setupWithNavController(binding.navView, navController)
@@ -83,11 +94,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
 
     private fun setBottomNavigationMenu() {
         val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
 
         NavigationUI.setupWithNavController(
-                bottom_navigation,
-                (navHostFragment ?: return).findNavController()
+            bottom_navigation,
+            (navHostFragment ?: return).findNavController()
         )
     }
 

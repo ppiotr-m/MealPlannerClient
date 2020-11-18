@@ -1,46 +1,40 @@
 package piotr.michalkiewicz.mealplannerclient.view.personalization.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.fragment_disliked_ingredients_cust.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.CHECKED_BUTTON_COLOR
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.DEFAULT_BUTTON_COLOR
-import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
-import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.DIS_LIKE_INGREDIENTS_CUSTOMIZATION_BUTTONS
-import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
+import piotr.michalkiewicz.mealplannerclient.view.personalization.service.PersonalizationCustomFragment
 
-class DisIngredientsCustomizationFragment : PersonalizationFragment(), View.OnClickListener {
+class UnlikeIngredientsCustomizationFragmentPersonalizationCustom : PersonalizationCustomFragment(),
+    View.OnClickListener {
 
     private val productsList = ArrayList<String>()
-    private lateinit var confirmBtn: Button
-    private var goBack = true
+    private lateinit var products: List<String>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        fetchButtonsNames()
         return inflater.inflate(R.layout.fragment_disliked_ingredients_cust, container, false)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = DisIngredientsCustomizationFragment().apply {
-            goBack = shouldGoBack
-        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        fragmentCallback = context as FragmentCallback
+    private fun fetchButtonsNames() {
+        products = recipeServiceValuesDownloader.getAllProductsNames()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        val buttonsLayout = activity?.findViewById<LinearLayout>(R.id.linearLayoutIngredientsButtons)
+        val buttonsLayout =
+            activity?.findViewById<LinearLayout>(R.id.linearLayoutIngredientsButtons)
         initConfirmButton()
-        addButtonsToLayout(buttonsLayout, DIS_LIKE_INGREDIENTS_CUSTOMIZATION_BUTTONS, 1)
+        addButtonsToLayout(buttonsLayout, products, 1)
         initIngredientsButtons(buttonsLayout)
 
         super.onViewStateRestored(savedInstanceState)
@@ -62,21 +56,13 @@ class DisIngredientsCustomizationFragment : PersonalizationFragment(), View.OnCl
 
     private fun initConfirmButton() {
         confirmBtn.setOnClickListener {
-            fragmentCallback.onListSelect(productsList, this)
-            if (goBack) {
-                closeFragment()
-            } else {
-                runRecipeTypeCustomizationFragment()
-            }
+            updateViewModel()
+            navController.navigate(R.id.action_disIngredientsCustomizationFragment_to_recipeTypeCustomizationPersonalizationFragment)
         }
     }
 
-    private fun runRecipeTypeCustomizationFragment() {
-        activity?.supportFragmentManager
-                ?.beginTransaction()
-                ?.replace(R.id.dietCustomizationFragment, RecipeTypeCustomizationPersonalizationFragment.newInstance(shouldGoBack = false))
-                ?.addToBackStack(null)
-                ?.commit()
+    private fun updateViewModel() {
+        personalizationViewModel.setUnLikeIngredients(productsList)
     }
 
     private fun addClick(id: Int) {

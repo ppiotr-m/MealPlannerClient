@@ -51,7 +51,6 @@ class LoginClient {
     /**
      * refresh token and replace actual token in shared preference
      */
-
     fun refreshToken(refreshToken: String, loginListener: LoginListener) {
         val refreshTokenEndpoint = loginConnection.refreshToken(REFRESH_TOKEN, refreshToken)
 
@@ -60,6 +59,7 @@ class LoginClient {
                 Log.i("refreshToken()", t.message.toString())
                 loginListener.loginFailed()
             }
+
             override fun onResponse(call: Call<Token>, response: Response<Token>) { //toDo check method with shorter token validity
                 val token = response.body()
                 if (response.code() == 400) {

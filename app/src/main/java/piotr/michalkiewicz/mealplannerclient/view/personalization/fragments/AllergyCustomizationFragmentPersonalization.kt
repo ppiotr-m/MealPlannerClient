@@ -1,45 +1,36 @@
 package piotr.michalkiewicz.mealplannerclient.view.personalization.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.fragment_allergy_customization.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
-import piotr.michalkiewicz.mealplannerclient.view.personalization.PersonalizationFragment
-import piotr.michalkiewicz.mealplannerclient.view.personalization.StartCustomActivity
-import piotr.michalkiewicz.mealplannerclient.view.utils.ConstantValues.Companion.ALLERGIES_CUSTOMIZATION_BUTTONS
-import piotr.michalkiewicz.mealplannerclient.view.utils.FragmentCallback
+import piotr.michalkiewicz.mealplannerclient.view.personalization.service.PersonalizationCustomFragment
+import piotr.michalkiewicz.mealplannerclient.view.personalization.service.PersonalizationService
 
-class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickListener {
+class AllergyCustomizationFragmentPersonalization : PersonalizationCustomFragment(), View.OnClickListener {
 
     private val allergiesList = ArrayList<String>()
-    private var goBack = true
-    private lateinit var confirmBtn: Button
+    private val personalizationService: PersonalizationService = PersonalizationService()
+    private lateinit var allergiesNames: List<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        fetchButtonsNames()
         return inflater.inflate(R.layout.fragment_allergy_customization, container, false)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(shouldGoBack: Boolean) = AllergyCustomizationFragment().apply {
-            goBack = shouldGoBack
-        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        fragmentCallback = context as FragmentCallback
+    private fun fetchButtonsNames() {
+        allergiesNames = recipeServiceValuesDownloader.getAllAllergiesNames()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         val allergiesLinearLayout = activity?.findViewById<LinearLayout>(R.id.allergiesLinearLayout)
-        addButtonsToLayout(allergiesLinearLayout, ALLERGIES_CUSTOMIZATION_BUTTONS, 1)
+        addButtonsToLayout(allergiesLinearLayout, allergiesNames, 1)
         initConfirmButton()
         initButtonsFromLayout(allergiesLinearLayout)
 
@@ -60,20 +51,24 @@ class AllergyCustomizationFragment : PersonalizationFragment(), View.OnClickList
         }
     }
 
-
     private fun initConfirmButton() {
-        confirmBtn = activity?.findViewById(R.id.confirmButton)!!
-
         confirmBtn.setOnClickListener {
-            fragmentCallback.onListSelect(allergiesList, this)
-            if (goBack) {
-                closeFragment()
-            } else {
-                //End of customization
-                closeFragment()
-                (activity as StartCustomActivity).updateUserSettings()
-            }
+            upDateViewModel()
+            finishCustomization()
+            navController.navigate(R.id.action_allergyCustomizationFragment_to_homeScreenFragment)
         }
+    }
+
+    private fun finishCustomization() {
+        val userPreference = personalizationViewModel.getUserPreference()
+        userPreference?.let {
+            personalizationService.updateUserPreferences(it, context)
+            personalizationViewModel.clearUserPreference()
+        }
+    }
+
+    private fun upDateViewModel() {
+        personalizationViewModel.setAllergies(allergiesList)
     }
 
     private fun addClick(id: Int) {
