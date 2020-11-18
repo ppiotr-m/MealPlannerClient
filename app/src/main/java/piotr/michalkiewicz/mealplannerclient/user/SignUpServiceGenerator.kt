@@ -1,12 +1,11 @@
 package piotr.michalkiewicz.mealplannerclient.user
 
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.LoginInterceptor
 import piotr.michalkiewicz.mealplannerclient.user.api.SignUpAPI
+import piotr.michalkiewicz.mealplannerclient.user.model.SingUpUserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import retrofit2.Callback
@@ -25,19 +24,14 @@ class SignUpServiceGenerator {
         }
     }
 
-    fun signUp(userAccount: UserAccount, callback: Callback<UserAccount>) {
+    fun signUp(userAccount: SingUpUserAccount, callback: Callback<UserAccount>) {
         val callAsync = singUpAPI.signUp(userAccount)
         callAsync.enqueue(callback)
     }
 
-    fun singUpPhoneMemory(fakeUsername: String) {
-        val signUpPhoneMemoryAPI = singUpAPI.signUpPhoneMemory(fakeUsername)
-        signUpPhoneMemoryAPI.subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    Log.i("result: ", result.toString())
-                }, { error ->
-                    Log.i("singUpPhoneMemory error", error.toString())
-                })
+    fun singUpPhoneMemory(tempUsername: String, callback: Callback<UserAccount>) {
+        val callAsync = singUpAPI.signUpPhoneMemory(tempUsername)
+        callAsync.enqueue(callback)
     }
 
     private fun retrofitBuilder(): Retrofit {

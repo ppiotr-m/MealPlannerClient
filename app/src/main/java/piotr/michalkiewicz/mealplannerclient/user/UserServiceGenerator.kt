@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.user
 
 import android.util.Log
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import piotr.michalkiewicz.mealplannerclient.auth.AuthServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.api.UserAPI
@@ -25,28 +26,25 @@ class UserServiceGenerator : AuthServiceGenerator() {
         callAsync.enqueue(callback)
     }
 
-    fun saveUserAccountData(data: UserAccount, callback: Callback<UserAccount>) {  //toDo delete ?
-        val callAsync = userAPI.editAccountSettings(data)
-        callAsync.enqueue(callback)
-    }
-
     fun updateUserSettings(settings: UserSettings) {
         val updateUserSettingsAPI = userAPI.updateUserSettings(settings)
         updateUserSettingsAPI.subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    Log.i("updateUserSettings", result.toString())
-                }, { error ->
-                    Log.i("updateUserSetting error", error.toString())
-                })
+            .subscribe({ result ->
+                Log.i("updateUserSettings", result.toString())
+            }, { error ->
+                Log.i("updateUserSetting error", error.toString())
+            })
     }
 
-    fun updateUserPreference(userPreference: UserPreference){
-        val userCustomizationEndPoint = userAPI.updateUserPreference(userPreference)
-        userCustomizationEndPoint.subscribeOn(Schedulers.io())
-                .subscribe({result ->
-                    Log.i("userPreferenceCustomiz", result.toString())
-                }, { error ->
-                    Log.i("error", error.toString())
-                })
+    fun updateUserPreference(userPreference: UserPreference): Observable<UserPreference> {
+        return userAPI.updateUserPreference(userPreference)
+    }
+
+    fun getUserPreferences(): UserPreference? {
+        return userAPI.getUserPreference().execute().body()
+    }
+
+    fun getUserSettings(): UserSettings? {
+        return userAPI.getUserSettings().execute().body()
     }
 }

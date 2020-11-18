@@ -11,21 +11,18 @@ import retrofit2.http.POST
 
 interface UserAPI {
 
-    @GET("/user/account")
+    @GET("/user/userAccount")
     fun getUserAccount(): Call<UserAccount>
 
-    @POST("/user/account")
-    fun editAccountSettings(@Body userAccount: UserAccount): Call<UserAccount>
-
     @POST("/user/settings")
-    fun updateUserSettings(@Body userSettings: UserSettings): Observable<UserAccount>
+    fun updateUserSettings(@Body userSettings: UserSettings): Observable<UserSettings>
+
+    @GET("/user/settings")
+    fun getUserSettings(): Call<UserSettings>
 
     @POST("/user/preference")
-    fun updateUserPreference(@Body userPreference: UserPreference): Observable<UserAccount>
+    fun updateUserPreference(@Body userPreference: UserPreference): Observable<UserPreference>
 
-    @POST("/user/account")
-    fun updateAccount(@Body userAccount: UserAccount): Call<UserAccount>   //toDO delete?
-
-    @POST("/user/settings")
-    fun updateSettings(@Body userSettings: UserSettings?): Call<UserSettings> //toDO delete?
+    @GET("/user/preference")
+    fun getUserPreference(): Call<UserPreference>
 }

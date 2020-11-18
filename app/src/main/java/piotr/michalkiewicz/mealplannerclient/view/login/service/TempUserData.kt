@@ -5,12 +5,15 @@ import android.provider.Settings
 import com.facebook.FacebookSdk.getApplicationContext
 
 
-class FakeUserData {
+class TempUserData {
 
     companion object {
         @SuppressLint("HardwareIds")
-        fun createFakeUserName(): String {
-           return Settings.Secure.getString(getApplicationContext().contentResolver, Settings.Secure.ANDROID_ID).toString()
+        fun createTempUserName(): String {
+            return Settings.Secure.getString(
+                getApplicationContext().contentResolver,
+                Settings.Secure.ANDROID_ID
+            ).toString()
         }
     }
 }

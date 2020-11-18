@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_registration.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.user.model.SingUpUserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.view.login.service.LoginStarter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,12 +25,15 @@ class RegistrationFragment : Fragment() {
     private val MIN_PASSWORD_LENGTH = 6
     private val MAX_PASSWORD_LENGTH = 50
     private val EMAIL_REGEX =
-            Regex("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
+        Regex("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
+
+    private lateinit var loginStarter: LoginStarter
+    private lateinit var navController: NavController
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_registration, container, false)
     }
@@ -39,6 +45,9 @@ class RegistrationFragment : Fragment() {
 
     private fun init() {
         setOnClickListeners()
+        navController = findNavController()
+        loginStarter =
+            LoginStarter(navController, this::class.java.name)
     }
 
     private fun setOnClickListeners() {
@@ -53,15 +62,16 @@ class RegistrationFragment : Fragment() {
         if (!validatePassword()) return
 
         val userService = SignUpServiceGenerator()
-        userService.signUp(UserAccount.createUserAccount(
-                emailET.text.toString(),
-                passwordET.text.toString(), usernameET.text.toString()
+        userService.signUp(SingUpUserAccount(
+            emailET.text.toString(),
+            usernameET.text.toString(),
+            passwordET.text.toString()
         ), object : Callback<UserAccount> {
 
             override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
                 if (response.code() == HTTP_OK_CODE || response.code() == HTTP_OK_CODE_CREATED) {
                     showSignUpSuccessfulToast()
-                    findNavController().navigate(R.id.action_registrationFragment_pop)
+                    loginStarter.login(usernameET.text.toString(), passwordET.text.toString())
                 } else {
                     showSignUpFailureServerSideToast()
                 }
@@ -75,7 +85,7 @@ class RegistrationFragment : Fragment() {
 
     private fun validateEmail(): Boolean {
         if (emailET.text.toString().length >= MIN_EMAIL_LENGTH &&
-                emailET.text.toString().matches(EMAIL_REGEX)
+            emailET.text.toString().matches(EMAIL_REGEX)
         ) return true
 
         emailET.error = resources.getString(R.string.invalid_email)
@@ -84,7 +94,7 @@ class RegistrationFragment : Fragment() {
 
     private fun validatePassword(): Boolean {
         if (passwordET.text.toString().length < MIN_PASSWORD_LENGTH ||
-                passwordET.text.toString().length > MAX_PASSWORD_LENGTH
+            passwordET.text.toString().length > MAX_PASSWORD_LENGTH
         ) {
             passwordET.error = resources.getString(R.string.password_too_short)
             return false
@@ -99,9 +109,9 @@ class RegistrationFragment : Fragment() {
     private fun showSignUpSuccessfulToast() {
         activity?.runOnUiThread {
             Toast.makeText(
-                    activity,
-                    R.string.sign_up_successful,
-                    Toast.LENGTH_SHORT
+                activity,
+                R.string.sign_up_successful,
+                Toast.LENGTH_SHORT
             ).show()
         }
     }
@@ -109,9 +119,9 @@ class RegistrationFragment : Fragment() {
     private fun showSignUpFailureServerSideToast() {
         activity?.runOnUiThread {
             Toast.makeText(
-                    activity,
-                    R.string.sign_up_failed,
-                    Toast.LENGTH_SHORT
+                activity,
+                R.string.sign_up_failed,
+                Toast.LENGTH_SHORT
             ).show()
         }
     }
@@ -119,16 +129,17 @@ class RegistrationFragment : Fragment() {
     private fun showIncompleteDataToast() {
         activity?.runOnUiThread {
             Toast.makeText(
-                    activity,
-                    R.string.sign_up_incomplete_data,
-                    Toast.LENGTH_SHORT).show()
+                activity,
+                R.string.sign_up_incomplete_data,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     private fun checkIfAllFieldsFilled(): Boolean {
         if (usernameET.text.toString()
-                        .isEmpty() || emailET.text.isEmpty() || passwordET.text.isEmpty()
-                || confirmPasswordET.text.isEmpty()
+                .isEmpty() || emailET.text.isEmpty() || passwordET.text.isEmpty()
+            || confirmPasswordET.text.isEmpty()
         ) {
             showIncompleteDataToast()
             return false

@@ -1,50 +1,26 @@
 package piotr.michalkiewicz.mealplannerclient.user.model
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class UserAccount : Serializable {
+data class UserAccount(
+    @SerializedName("email") var email: String,
+    @SerializedName("username") var username: String,
+    @SerializedName("password") var password: String,
+    @SerializedName("roles") val roles: Set<Role>,
+    @SerializedName("accountType") val accountType: AccountType,
+    @SerializedName("userSettings") var userSettings: UserSettings
+) : Serializable
 
-    lateinit var email: String
-    lateinit var username: String
-    lateinit var password: String
-    lateinit var userSettings: UserSettings
-    lateinit var eatenRecipes: List<String>
+data class SingUpUserAccount(
+    @SerializedName("email") var email: String,
+    @SerializedName("username") var username: String,
+    @SerializedName("password") var password: String
+) : Serializable
 
-    companion object {
-
-        @JvmStatic
-        fun createMockUserAccount(): UserAccount {
-            val account = UserAccount()
-            account.email = "fajny_email@gmail.com"
-            account.password = "aaa"
-            account.userSettings = createMockSettings()
-            return account
-        }
-
-        @JvmStatic
-        fun createUserAccount(email: String, password: String, username: String): UserAccount {
-            val account = UserAccount()
-            account.username = username
-            account.email = email
-            account.password = password
-            //        account.userSettings = createMockSettings()
-            return account
-        }
-
-        @JvmStatic
-        fun createMockSettings(): UserSettings {
-            val settings = UserSettings()
-            val userPreference = UserPreference()
-            userPreference.allergies = listOf("Nuts", "Soy")
-            userPreference.cookingTimePreference = 60
-            userPreference.mealsPerMealPlanPreference = 5
-            userPreference.portionPreferences =4
-            val nutritionProfileSettings = NutritionProfileSettings()
-            nutritionProfileSettings.height = 178
-            nutritionProfileSettings.weight = 75
-            settings.nutritionProfileSettings = nutritionProfileSettings
-
-            return settings
-        }
-    }
+enum class AccountType(val value: String) {
+    TEMP("Temp"),
+    NORMAL("Normal");
 }
+
+data class Role(@SerializedName("role") val role: String)
