@@ -12,8 +12,10 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 @Dao
 abstract class RecipesDao {
 
+    /*
     @Query("SELECT * FROM recipes WHERE id in (:idList)")
     abstract fun getRecipesForDiet(idList: List<Long>): PagingSource<Int, MealTimeRecipeBase>
+     */
 
     @Query("SELECT * FROM recipes")
     abstract fun getAllRecipes(): PagingSource<Int, MealTimeRecipeBase>
@@ -27,20 +29,19 @@ abstract class RecipesDao {
     @Insert
     abstract fun saveDiets(dietTypes: List<DietType>)
 
-    @Query("SELECT recipeId FROM diet_type WHERE dietTypeName = :dietTypeNameArg")
-    abstract fun getDietWithRecipes(dietTypeNameArg: String): Observable<List<MealTimeRecipeBase>>
+    @Insert
+    abstract fun insertDietsRecipesCrossRef(dietsCrossRef: RecipesDietsCrossRef)
 
-    fun insertAll(recipes: List<MealTimeRecipeBase>) {
-        for (recipe in recipes) {
-            insertDietsForRecipe(recipe.id, recipe.suitableForDiet)
-        }
+    @Query("SELECT * FROM diet_type WHERE id = (:dietId)")
+    abstract fun getDietWithRecipes(dietId: Long): DietWithRecipes
+
+    fun saveRecipes(recipes: List<MealTimeRecipeBase>) {
         insertRecipes(recipes)
-    }
 
-    fun insertDietsForRecipe(recipeId: Long, dietTypes: List<DietType>) {
-        for (dietType in dietTypes) {
-            dietType.recipeId = recipeId
+        recipes.forEach { recipe ->
+            recipe.suitableForDiet.forEach { (id) ->
+                insertDietsRecipesCrossRef(RecipesDietsCrossRef(recipe.recipeId, id))
+            }
         }
-        insertAllDietTypes(dietTypes)
     }
 }

@@ -14,16 +14,16 @@ class RecipesByDietRemoteMediator(private val recipeAPI: RecipeAPI,
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, MealTimeRecipeBase>): MediatorResult {
 
-        try {
+        return try {
             val pageNr = state.pages.size // might be state.pages.size * pageSize if current doesnt work
             val response = recipeAPI.getRecipesPageForDiet(queryParam, pageNr)
             val endOfPagingReached = response.recipes.isEmpty()
 
-            return MediatorResult.Success(
+            MediatorResult.Success(
                     endOfPaginationReached = endOfPagingReached
             )
         } catch (exception: IOException) {
-            return MediatorResult.Error(exception)
+            MediatorResult.Error(exception)
         }
     }
 }

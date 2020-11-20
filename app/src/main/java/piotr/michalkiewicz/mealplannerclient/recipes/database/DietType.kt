@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "diet_type")
 data class DietType(
         @PrimaryKey
-        val dietTypeId: Long,
-        var recipeId: Long,
+        val id: Long,
         val dietTypeName: String
 )

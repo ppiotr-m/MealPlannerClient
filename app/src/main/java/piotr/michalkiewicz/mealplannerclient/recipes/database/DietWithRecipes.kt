@@ -9,7 +9,7 @@ data class DietWithRecipes(
         @Embedded val dietType: DietType,
         @Relation(
                 parentColumn = "dietTypeId",
-                entityColumn = "id",
+                entityColumn = "recipeId",
                 associateBy = Junction(RecipesDietsCrossRef::class)
         )
         val recipes: List<MealTimeRecipeBase>

@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 import piotr.michalkiewicz.mealplannerclient.recipes.database.DietType
 import java.util.*
 
-class MealTimeRecipe(id: Long, recipeId: String, name: String, image: Bitmap, suitableForDiet: List<DietType>) :
-        MealTimeRecipeBase(id, recipeId, name, suitableForDiet, image) {
+class MealTimeRecipe(recipeId: String, name: String, image: Bitmap, suitableForDiet: List<DietType>) :
+        MealTimeRecipeBase(recipeId, name, suitableForDiet, image) {
 
     @SerializedName("recipeType")
     lateinit var recipeType: List<String>

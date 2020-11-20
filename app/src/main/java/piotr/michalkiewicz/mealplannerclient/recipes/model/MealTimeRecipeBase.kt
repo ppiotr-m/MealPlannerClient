@@ -10,7 +10,6 @@ import piotr.michalkiewicz.mealplannerclient.recipes.database.DietType
 
 @Entity(tableName = "recipes")
 open class MealTimeRecipeBase(@PrimaryKey
-                              val id: Long,
                               val recipeId: String,
                               val name: String,
                               @TypeConverters(Converters::class)

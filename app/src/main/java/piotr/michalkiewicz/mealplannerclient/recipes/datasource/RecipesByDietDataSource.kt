@@ -2,6 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.recipes.data_source
 
 import androidx.paging.PagingSource
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
+import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDao
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.OnPrependDataLoadedListener
 import retrofit2.HttpException
@@ -9,7 +10,7 @@ import java.io.IOException
 
 const val RECIPES_STARTING_PAGE_INDEX = 1
 
-class RecipesByDietDataSource(private val recipeAPI: RecipeAPI,
+class RecipesByDietDataSource(private val recipesDao: RecipesDao,
                               private val queryParam: String,
                               private val onPrependDataLoadedListener: OnPrependDataLoadedListener) :
         PagingSource<Int, MealTimeRecipeBase>() {
@@ -19,7 +20,7 @@ class RecipesByDietDataSource(private val recipeAPI: RecipeAPI,
         val position = params.key ?: RECIPES_STARTING_PAGE_INDEX
 
         return try {
-            val resultData = recipeAPI.getRecipesPageForDiet(queryParam, position)
+            val resultData = recipesDao.getDietWithRecipes(queryParam)
 
             if (position == RECIPES_STARTING_PAGE_INDEX) {
                 onPrependDataLoadedListener.onPrependDataLoaded()
