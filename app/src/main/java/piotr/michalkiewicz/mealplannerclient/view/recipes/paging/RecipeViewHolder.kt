@@ -37,7 +37,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
     }
 
     private fun showRepoData(recipe: MealTimeRecipeBase) {
-        addOnClickListener(recipe.recipeId)
+        addOnClickListener(recipe.id)
         this.recipe = recipe
         recipeTitle.text = recipe.name
         cookbookThumbnail.setImageBitmap(recipe.image)

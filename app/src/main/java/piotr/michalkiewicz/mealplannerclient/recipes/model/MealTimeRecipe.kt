@@ -2,10 +2,9 @@ package piotr.michalkiewicz.mealplannerclient.recipes.model
 
 import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
-import piotr.michalkiewicz.mealplannerclient.recipes.database.DietType
 import java.util.*
 
-class MealTimeRecipe(recipeId: String, name: String, image: Bitmap, suitableForDiet: List<DietType>) :
+class MealTimeRecipe(recipeId: String, name: String, image: Bitmap, suitableForDiet: List<Diet>) :
         MealTimeRecipeBase(recipeId, name, suitableForDiet, image) {
 
     @SerializedName("recipeType")

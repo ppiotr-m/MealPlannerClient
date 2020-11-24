@@ -64,20 +64,6 @@ class CookbookScreenFragment : Fragment() {
         initRecipeRecyclerViews()
     }
 
-    @ExperimentalPagingApi
-    private fun launchCoroutineByDietForRecyclerView(recyclerView: RecyclerView,
-                                                     queryParam: String,
-                                                     recipesIdList: List<Long>) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.recipesByDietApiData(queryParam, recipesIdList).collect {
-                it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeBase, RecyclerView.ViewHolder>)
-                            .submitData(it)
-                }
-            }
-        }
-    }
-
     private fun initListsParamsWithMockValues() {
         recipeListsInitParams.add(RecipeParamsPair("diet", "STANDARD"))
         recipeListsInitParams.add(RecipeParamsPair("diet", "VEGETARIAN"))
@@ -88,6 +74,19 @@ class CookbookScreenFragment : Fragment() {
     private fun initRecipeRecyclerViews() {
         initListsParamsWithMockValues()
         attachRecipesRecyclerView("", "", null)
+    }
+
+    @ExperimentalPagingApi
+    private fun launchCoroutineByDietForRecyclerView(recyclerView: RecyclerView,
+                                                     queryParam: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.recipesByDietApiData(queryParam).collect {
+                it.let {
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeBase, RecyclerView.ViewHolder>)
+                            .submitData(it)
+                }
+            }
+        }
     }
 
     private fun launchCoroutineByTypeForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
@@ -146,7 +145,11 @@ class CookbookScreenFragment : Fragment() {
     private fun attachRecipesRecyclerView(category: String,
                                           categoryValue: String,
                                           recipesIdList: List<Long>?) {
-        val recipesHorizontalListWithLabel = createHorizontalRecipesList(categoryValue)
+        val recipesHorizontalListWithLabel = createHorizontalRecipesList("diet")
+
+        launchCoroutineByDietForRecyclerView(recipesHorizontalListWithLabel
+                .findViewById(R.id.recipesHorizontalRecyclerView), "STANDARD")
+        /*
 
         if (category.isEmpty() || categoryValue.isEmpty()) {
             launchCoroutineAllRecipesForRecyclerView(recipesHorizontalListWithLabel
@@ -161,5 +164,7 @@ class CookbookScreenFragment : Fragment() {
             "tag" -> launchCoroutineByTagForRecyclerView(recipesHorizontalListWithLabel
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
         }
+
+         */
     }
 }

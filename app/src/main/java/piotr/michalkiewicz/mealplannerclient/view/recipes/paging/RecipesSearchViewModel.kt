@@ -14,19 +14,18 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE_SIZE
 
 class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
-                             private val recipesDatabase: RecipesDatabase?,
+                             private val recipesDatabase: RecipesDatabase,
                              private val onPrependDataLoadedListener: OnPrependDataLoadedListener) : ViewModel() {
 
     @ExperimentalPagingApi
-    fun recipesByDietApiData(queryParam: String, recipesIdList: List<Long>): Flow<PagingData<MealTimeRecipeBase>> {
-        val pagingSource = recipesDatabase?.recipesDao()?.getRecipesForDiet(recipesIdList)
+    fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipeBase>> {
+        val pagingSource = { recipesDatabase.recipesDao().getRecipesForDiet(queryParam) }
 
         return Pager(
                 config = PagingConfig(pageSize = PAGE_SIZE),
-                remoteMediator = RecipesByDietRemoteMediator(recipeAPI, queryParam)
-        ) {
-            pagingSource!!
-        }.flow.cachedIn(viewModelScope)
+                remoteMediator = RecipesByDietRemoteMediator(recipeAPI, recipesDatabase, queryParam),
+                pagingSourceFactory = pagingSource
+        ).flow.cachedIn(viewModelScope)
     }
 
     fun recipesByTypeApiData(queryParam: String): Flow<PagingData<MealTimeRecipeBase>> {

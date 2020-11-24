@@ -10,6 +10,7 @@ import java.io.IOException
 
 const val RECIPES_STARTING_PAGE_INDEX = 1
 
+/*
 class RecipesByDietDataSource(private val recipesDao: RecipesDao,
                               private val queryParam: String,
                               private val onPrependDataLoadedListener: OnPrependDataLoadedListener) :
@@ -20,7 +21,7 @@ class RecipesByDietDataSource(private val recipesDao: RecipesDao,
         val position = params.key ?: RECIPES_STARTING_PAGE_INDEX
 
         return try {
-            val resultData = recipesDao.getDietWithRecipes(queryParam)
+            val resultData = ArrayList<List<MealTimeRecipeBase>>();
 
             if (position == RECIPES_STARTING_PAGE_INDEX) {
                 onPrependDataLoadedListener.onPrependDataLoaded()
@@ -37,3 +38,4 @@ class RecipesByDietDataSource(private val recipesDao: RecipesDao,
         }
     }
 }
+ */

@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.INITIAL_DB_PATH
 
-@Database(entities = [MealTimeRecipeBase::class, DietType::class, RecipesDietsCrossRef::class], version = 1, exportSchema = false)
+@Database(entities = [MealTimeRecipeBase::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class RecipesDatabase : RoomDatabase() {
 
@@ -18,16 +18,15 @@ abstract class RecipesDatabase : RoomDatabase() {
         private const val dbName = "recipes_database"
         private var instance: RecipesDatabase? = null
 
-        fun getInstance(context: Context): RecipesDatabase? {
+        fun getInstance(context: Context): RecipesDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(context.applicationContext,
                         RecipesDatabase::class.java,
                         dbName)
                         .fallbackToDestructiveMigration()
-                        .createFromAsset(INITIAL_DB_PATH)
                         .build()
             }
-            return instance
+            return instance as RecipesDatabase
         }
     }
 }

@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+import piotr.michalkiewicz.mealplannerclient.recipes.model.Diet
 import java.io.ByteArrayOutputStream
 
 class Converters {
@@ -11,7 +12,7 @@ class Converters {
     private val imageQuality = 100
 
     @TypeConverter
-    fun fromByteArray(value: ByteArray): Bitmap {
+    fun bitmapFromByteArray(value: ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(value, 0, value.size)
     }
 
@@ -25,12 +26,12 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromJsonToDietTypeArray(dietTypesList: String): List<DietType> {
-        return Gson().fromJson(dietTypesList, ArrayList<DietType>().javaClass)
+    fun fromJsonToDietTypeArray(listElementsString: String): List<Diet> {
+        return Gson().fromJson(listElementsString, ArrayList<Diet>().javaClass)
     }
 
     @TypeConverter
-    fun listToDietTypeJsonString(dietTypesList: List<DietType>): String {
-        return Gson().toJson(dietTypesList)
+    fun listToDietTypeJsonString(list: List<Diet>): String {
+        return Gson().toJson(list)
     }
 }
