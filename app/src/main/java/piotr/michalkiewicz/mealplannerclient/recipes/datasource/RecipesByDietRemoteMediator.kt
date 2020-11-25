@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.datasource
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -8,7 +7,6 @@ import androidx.paging.RemoteMediator
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import java.io.IOException
 
 @ExperimentalPagingApi
@@ -23,12 +21,10 @@ class RecipesByDietRemoteMediator(private val recipeAPI: RecipeAPI,
             val response = recipeAPI.getRecipesPageForDiet(queryParam, pageNr)
 
             val endOfPagingReached = response.recipes.isEmpty()
-/*
+
             if(!endOfPagingReached){
                 recipeDB.recipesDao().insertRecipes(response.recipes)
             }
-
- */
 
             MediatorResult.Success(
                     endOfPaginationReached = endOfPagingReached
