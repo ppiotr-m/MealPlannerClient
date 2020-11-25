@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.INITIAL_DB_PATH
 
 @Database(entities = [MealTimeRecipeBase::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)

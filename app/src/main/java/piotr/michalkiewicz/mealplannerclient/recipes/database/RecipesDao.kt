@@ -9,13 +9,16 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 
 
 @Dao
-abstract class RecipesDao {
+interface RecipesDao {
     @Query("SELECT * FROM recipes WHERE suitableForDiet LIKE '%' || :dietType || '%'")
-    abstract suspend fun getRecipesForDiet(dietType: String): PagingSource<Int, MealTimeRecipeBase>
+    fun getRecipesForDiet(dietType: String): PagingSource<Int, MealTimeRecipeBase>
+
+    @Query("SELECT * FROM recipes WHERE suitableForDiet LIKE '%' || :dietType || '%'")
+    suspend fun getRecipesForDiet2(dietType: String): List<MealTimeRecipeBase>
 
     @Query("SELECT * FROM recipes")
-    abstract fun getAllRecipes(): PagingSource<Int, MealTimeRecipeBase>
+    fun getAllRecipes(): PagingSource<Int, MealTimeRecipeBase>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertRecipes(recipes: List<MealTimeRecipeBase>)
+    suspend fun insertRecipes(recipes: List<MealTimeRecipeBase>)
 }

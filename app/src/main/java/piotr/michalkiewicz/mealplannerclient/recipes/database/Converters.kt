@@ -2,9 +2,11 @@ package piotr.michalkiewicz.mealplannerclient.recipes.database
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import piotr.michalkiewicz.mealplannerclient.recipes.model.Diet
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import java.io.ByteArrayOutputStream
 
 class Converters {
@@ -32,6 +34,8 @@ class Converters {
 
     @TypeConverter
     fun listToDietTypeJsonString(list: List<Diet>): String {
+        Log.d(TAG, "Converting, list size: " + list.size + " first element: " + list[0])
+
         return Gson().toJson(list)
     }
 }

@@ -22,9 +22,7 @@ class RecipesByDietRemoteMediator(private val recipeAPI: RecipeAPI,
 
             val endOfPagingReached = response.recipes.isEmpty()
 
-            if(!endOfPagingReached){
-                recipeDB.recipesDao().insertRecipes(response.recipes)
-            }
+            recipeDB.recipesDao().insertRecipes(response.recipes)
 
             MediatorResult.Success(
                     endOfPaginationReached = endOfPagingReached

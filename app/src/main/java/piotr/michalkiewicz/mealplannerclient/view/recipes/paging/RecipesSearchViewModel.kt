@@ -19,13 +19,14 @@ class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
 
     @ExperimentalPagingApi
     fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipeBase>> {
-        val pagingSource = { recipesDatabase.recipesDao().getRecipesForDiet(queryParam) }
+        val pagingSource = recipesDatabase.recipesDao().getRecipesForDiet(queryParam)
 
         return Pager(
                 config = PagingConfig(pageSize = PAGE_SIZE),
-                remoteMediator = RecipesByDietRemoteMediator(recipeAPI, recipesDatabase, queryParam),
-                pagingSourceFactory = pagingSource
-        ).flow.cachedIn(viewModelScope)
+                remoteMediator = RecipesByDietRemoteMediator(recipeAPI, recipesDatabase, queryParam)
+        ) {
+            pagingSource
+        }.flow.cachedIn(viewModelScope)
     }
 
     fun recipesByTypeApiData(queryParam: String): Flow<PagingData<MealTimeRecipeBase>> {

@@ -39,7 +39,7 @@ class CookbookScreenFragment : Fragment() {
             val nextRecipeListParameters = recipeListsInitParams.poll()
             if (nextRecipeListParameters != null) {
                 attachRecipesRecyclerView(nextRecipeListParameters.category,
-                        nextRecipeListParameters.value, null)
+                        nextRecipeListParameters.value)
             }
         }
     }
@@ -73,7 +73,10 @@ class CookbookScreenFragment : Fragment() {
     @ExperimentalPagingApi
     private fun initRecipeRecyclerViews() {
         initListsParamsWithMockValues()
-        attachRecipesRecyclerView("", "", null)
+        attachRecipesRecyclerView("diet", "VEGAN")
+        attachRecipesRecyclerView("diet", "STANDARD")
+        attachRecipesRecyclerView("diet", "VEGETARIAN")
+        attachRecipesRecyclerView("diet", "PALEO")
     }
 
     @ExperimentalPagingApi
@@ -143,28 +146,18 @@ class CookbookScreenFragment : Fragment() {
 
     @ExperimentalPagingApi
     private fun attachRecipesRecyclerView(category: String,
-                                          categoryValue: String,
-                                          recipesIdList: List<Long>?) {
-        val recipesHorizontalListWithLabel = createHorizontalRecipesList("diet")
-
-        launchCoroutineByDietForRecyclerView(recipesHorizontalListWithLabel
-                .findViewById(R.id.recipesHorizontalRecyclerView), "STANDARD")
-        /*
-
-        if (category.isEmpty() || categoryValue.isEmpty()) {
-            launchCoroutineAllRecipesForRecyclerView(recipesHorizontalListWithLabel
-                    .findViewById(R.id.recipesHorizontalRecyclerView))
-        }
+                                          categoryValue: String) {
+        val recipesHorizontalListWithLabel = createHorizontalRecipesList(categoryValue)
 
         when (category) {
             "diet" -> launchCoroutineByDietForRecyclerView(recipesHorizontalListWithLabel
-                    .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue, recipesIdList!!)
+                    .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
             "type" -> launchCoroutineByTypeForRecyclerView(recipesHorizontalListWithLabel
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
             "tag" -> launchCoroutineByTagForRecyclerView(recipesHorizontalListWithLabel
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue)
         }
 
-         */
+
     }
 }
