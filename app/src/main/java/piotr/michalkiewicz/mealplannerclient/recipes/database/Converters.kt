@@ -21,7 +21,6 @@ class Converters {
     @TypeConverter
     fun bitmapToByteArray(image: Bitmap): ByteArray {
         val byteArrayOutputStream = ByteArrayOutputStream()
-
         image.compress(Bitmap.CompressFormat.JPEG, imageQuality, byteArrayOutputStream)
 
         return byteArrayOutputStream.toByteArray()
@@ -34,8 +33,6 @@ class Converters {
 
     @TypeConverter
     fun listToDietTypeJsonString(list: List<Diet>): String {
-        Log.d(TAG, "Converting, list size: " + list.size + " first element: " + list[0])
-
         return Gson().toJson(list)
     }
 }
