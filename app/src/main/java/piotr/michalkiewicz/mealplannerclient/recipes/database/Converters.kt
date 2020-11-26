@@ -2,14 +2,12 @@ package piotr.michalkiewicz.mealplannerclient.recipes.database
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import piotr.michalkiewicz.mealplannerclient.recipes.model.Comment
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -74,8 +72,6 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToCommentTypeArray(listElementsString: String?): List<Comment> {
-        Log.d(TAG, "Comment list string null: " + listElementsString)
-
         if (listElementsString == null) {
             return ArrayList()
         }
@@ -84,8 +80,6 @@ class Converters {
 
     @TypeConverter
     fun commentListToJsonString(list: List<Comment>?): String {
-        Log.d(TAG, "Comment list null: " + (list == null))
-
         // TODO Should null be allowed? Not only an empty list? Check if data passes correctly
         if (list == null) {
             return "[]"

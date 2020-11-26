@@ -62,7 +62,7 @@ open class MealTimeRecipe(
 
         @TypeConverters(Converters::class)
         @SerializedName("comments")
-        val comments: List<Comment>,
+        val comments: List<Comment>?,
 
         @SerializedName("dateAdded")
         val dateAdded: Date?,
