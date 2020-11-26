@@ -12,29 +12,28 @@ import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.datasource.RecipesByDietRemoteMediator
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE_SIZE
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PREFETCH_DISTANCE
 
 class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
-                             private val recipesDatabase: RecipesDatabase,
-                             private val onPrependDataLoadedListener: OnPrependDataLoadedListener) : ViewModel() {
+                             private val recipesDatabase: RecipesDatabase) : ViewModel() {
 
     @ExperimentalPagingApi
     fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipeBase>> {
-        val pagingSource = recipesDatabase.recipesDao().getRecipesForDiet(queryParam)
+        val pagingSource = { recipesDatabase.recipesDao().getRecipesForDiet(queryParam) }
 
         return Pager(
-                config = PagingConfig(pageSize = PAGE_SIZE),
-                remoteMediator = RecipesByDietRemoteMediator(recipeAPI, recipesDatabase, queryParam)
-        ) {
-            pagingSource
-        }.flow.cachedIn(viewModelScope)
+                config = PagingConfig(pageSize = PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE),
+                remoteMediator = RecipesByDietRemoteMediator(recipeAPI, recipesDatabase, queryParam),
+                pagingSourceFactory = pagingSource
+
+        ).flow.cachedIn(viewModelScope)
     }
 
     fun recipesByTypeApiData(queryParam: String): Flow<PagingData<MealTimeRecipeBase>> {
         return Pager(
                 PagingConfig(PAGE_SIZE)
         ) {
-            RecipesByTypeDataSource(recipeAPI = recipeAPI, queryParam = queryParam,
-                    onPrependDataLoadedListener = onPrependDataLoadedListener)
+            RecipesByTypeDataSource(recipeAPI = recipeAPI, queryParam = queryParam)
         }.flow.cachedIn(viewModelScope)
     }
 
@@ -42,8 +41,7 @@ class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
         return Pager(
                 PagingConfig(PAGE_SIZE)
         ) {
-            RecipesByTagDataSource(recipeAPI = recipeAPI, queryParam = queryParam,
-                    onPrependDataLoadedListener = onPrependDataLoadedListener)
+            RecipesByTagDataSource(recipeAPI = recipeAPI, queryParam = queryParam)
         }.flow.cachedIn(viewModelScope)
     }
 
@@ -51,8 +49,7 @@ class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
         return Pager(
                 PagingConfig(PAGE_SIZE)
         ) {
-            AllRecipesDataSource(recipeAPI = recipeAPI,
-                    onPrependDataLoadedListener = onPrependDataLoadedListener)
+            AllRecipesDataSource(recipeAPI = recipeAPI)
         }.flow.cachedIn(viewModelScope)
     }
 }

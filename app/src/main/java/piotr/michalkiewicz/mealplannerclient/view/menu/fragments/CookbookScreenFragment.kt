@@ -19,30 +19,14 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookbookScreenBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
-import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeParamsPair
-import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.OnPrependDataLoadedListener
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
-import java.util.*
 
 
 class CookbookScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
-
-    private var recipeListsInitParams = LinkedList<RecipeParamsPair>()
-
-    @ExperimentalPagingApi
-    private val onPrependDataLoadedListener = object : OnPrependDataLoadedListener {
-        override fun onPrependDataLoaded() {
-            val nextRecipeListParameters = recipeListsInitParams.poll()
-            if (nextRecipeListParameters != null) {
-                attachRecipesRecyclerView(nextRecipeListParameters.category,
-                        nextRecipeListParameters.value)
-            }
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -57,22 +41,14 @@ class CookbookScreenFragment : Fragment() {
 
         viewModel = ViewModelProvider(this,
                 Injection.provideViewModelFactory(
-                        onPrependDataLoadedListener,
                         requireContext().applicationContext))
                 .get(RecipesSearchViewModel::class.java)
 
         initRecipeRecyclerViews()
     }
 
-    private fun initListsParamsWithMockValues() {
-        recipeListsInitParams.add(RecipeParamsPair("diet", "STANDARD"))
-        recipeListsInitParams.add(RecipeParamsPair("diet", "VEGETARIAN"))
-        recipeListsInitParams.add(RecipeParamsPair("diet", "PALEO"))
-    }
-
     @ExperimentalPagingApi
     private fun initRecipeRecyclerViews() {
-        initListsParamsWithMockValues()
         attachRecipesRecyclerView("diet", "VEGAN")
         attachRecipesRecyclerView("diet", "STANDARD")
         attachRecipesRecyclerView("diet", "VEGETARIAN")

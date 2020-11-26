@@ -1,13 +1,30 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.model
 
+import com.google.gson.annotations.SerializedName
+
 enum class Diet(val value: String) {
+    @SerializedName("Standard")
     STANDARD("Standard"),
+
+    @SerializedName("Vegetarian")
     VEGETARIAN("Vegetarian"),
+
+    @SerializedName("Paleo")
     PALEO("Paleo"),
+
+    @SerializedName("Flexitarian")
     FLEXITARIAN("Flexitarian"),
+
+    @SerializedName("Pescatarian")
     PESCATARIAN("Pescatarian"),
+
+    @SerializedName("Vegan")
     VEGAN("Vegan"),
+
+    @SerializedName("LowCarb")
     LOWCARB("LowCarb"),
+
+    @SerializedName("Ketogenic")
     KETOGENIC("Ketogenic");
 
     companion object{

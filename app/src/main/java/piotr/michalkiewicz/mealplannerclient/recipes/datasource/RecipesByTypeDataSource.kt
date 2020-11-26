@@ -3,13 +3,11 @@ package piotr.michalkiewicz.mealplannerclient.recipes.data_source
 import androidx.paging.PagingSource
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
-import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.OnPrependDataLoadedListener
 import retrofit2.HttpException
 import java.io.IOException
 
 class RecipesByTypeDataSource(private val recipeAPI: RecipeAPI,
-                              private val queryParam: String,
-                              private val onPrependDataLoadedListener: OnPrependDataLoadedListener) :
+                              private val queryParam: String) :
         PagingSource<Int, MealTimeRecipeBase>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MealTimeRecipeBase> {
@@ -18,10 +16,6 @@ class RecipesByTypeDataSource(private val recipeAPI: RecipeAPI,
 
         return try {
             val resultData = recipeAPI.getRecipesPageForType("VEGETARIAN", position)
-
-            if (position == RECIPES_STARTING_PAGE_INDEX) {
-                onPrependDataLoadedListener.onPrependDataLoaded()
-            }
 
             LoadResult.Page(
                     data = resultData.recipes,
