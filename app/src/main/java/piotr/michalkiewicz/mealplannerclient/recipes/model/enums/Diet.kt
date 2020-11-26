@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.model
+package piotr.michalkiewicz.mealplannerclient.recipes.model.enums
 
 import com.google.gson.annotations.SerializedName
 

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPE_ID
 import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity
 
@@ -16,9 +16,9 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
     private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.recipeCardThumbnail)
 
-    private lateinit var recipe: MealTimeRecipeBase
+    private lateinit var recipe: MealTimeRecipe
 
-    fun bind(recipe: MealTimeRecipeBase?) {
+    fun bind(recipe: MealTimeRecipe?) {
         if (recipe == null) {
             val resources = itemView.resources
             recipeTitle.text = resources.getString(R.string.loading)
@@ -36,7 +36,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
         }
     }
 
-    private fun showRepoData(recipe: MealTimeRecipeBase) {
+    private fun showRepoData(recipe: MealTimeRecipe) {
         addOnClickListener(recipe.id)
         this.recipe = recipe
         recipeTitle.text = recipe.name

@@ -7,7 +7,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
-import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeItemRemoteKeys
 import java.io.IOException
 import java.io.InvalidObjectException
@@ -18,9 +18,9 @@ class RecipesByDietRemoteMediator(
         private val recipeDB: RecipesDatabase,
         private val queryParam: String,
         private val initialPage: Int = 1
-) : RemoteMediator<Int, MealTimeRecipeBase>() {
+) : RemoteMediator<Int, MealTimeRecipe>() {
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, MealTimeRecipeBase>): MediatorResult {
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, MealTimeRecipe>): MediatorResult {
 
         return try {
             val page = when (loadType) {
@@ -69,13 +69,13 @@ class RecipesByDietRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, MealTimeRecipeBase>): RecipeItemRemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, MealTimeRecipe>): RecipeItemRemoteKeys? {
         return state.lastItemOrNull()?.let { recipe ->
             recipeDB.withTransaction { recipeDB.recipesRemoteKeysDao().remoteKeysByNewsId(recipe.id) }
         }
     }
 
-    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, MealTimeRecipeBase>): RecipeItemRemoteKeys? {
+    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, MealTimeRecipe>): RecipeItemRemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
                 recipeDB.withTransaction { recipeDB.recipesRemoteKeysDao().remoteKeysByNewsId(id) }

@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookbookScreenBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
-import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
 
@@ -61,7 +61,7 @@ class CookbookScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByDietApiData(queryParam).collect {
                 it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeBase, RecyclerView.ViewHolder>)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
                             .submitData(it)
                 }
             }
@@ -72,7 +72,7 @@ class CookbookScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByTypeApiData(queryParam).collect {
                 it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeBase, RecyclerView.ViewHolder>)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
                             .submitData(it)
                 }
             }
@@ -83,7 +83,7 @@ class CookbookScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByTagApiData(queryParam).collect {
                 it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeBase, RecyclerView.ViewHolder>)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
                             .submitData(it)
                 }
             }
@@ -94,7 +94,7 @@ class CookbookScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.allRecipesApiData().collect {
                 it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipeBase, RecyclerView.ViewHolder>)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
                             .submitData(it)
                 }
             }

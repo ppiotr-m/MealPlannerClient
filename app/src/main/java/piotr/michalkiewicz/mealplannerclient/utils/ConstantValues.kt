@@ -30,5 +30,6 @@ class ConstantValues {
         const val DEFAULT_BUTTON_COLOR = Color.RED
         const val PAGE_SIZE = 5
         const val PREFETCH_DISTANCE = 5
+        const val RECIPES_STARTING_PAGE_INDEX = 0
     }
 }
