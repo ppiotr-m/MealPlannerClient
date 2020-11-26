@@ -10,11 +10,8 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipeBase
 
 @Dao
 interface RecipesDao {
-    @Query("SELECT * FROM recipes WHERE suitableForDiet LIKE '%' || :dietType || '%'")
+    @Query("SELECT * FROM recipes WHERE suitableForDiet LIKE '%' || :dietType || '%' ORDER BY id")
     fun getRecipesForDiet(dietType: String): PagingSource<Int, MealTimeRecipeBase>
-
-    @Query("SELECT * FROM recipes WHERE suitableForDiet LIKE '%' || :dietType || '%'")
-    suspend fun getRecipesForDiet2(dietType: String): List<MealTimeRecipeBase>
 
     @Query("SELECT * FROM recipes")
     fun getAllRecipes(): PagingSource<Int, MealTimeRecipeBase>
