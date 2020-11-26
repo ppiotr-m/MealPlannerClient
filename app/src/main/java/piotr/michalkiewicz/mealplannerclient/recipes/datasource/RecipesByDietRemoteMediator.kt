@@ -17,7 +17,7 @@ class RecipesByDietRemoteMediator(
         private val recipeAPI: RecipeAPI,
         private val recipeDB: RecipesDatabase,
         private val queryParam: String,
-        private val initialPage: Int = 1
+        private val initialPage: Int = 0
 ) : RemoteMediator<Int, MealTimeRecipe>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, MealTimeRecipe>): MediatorResult {
