@@ -14,13 +14,16 @@ import java.io.InvalidObjectException
 
 @ExperimentalPagingApi
 class RecipesByDietRemoteMediator(
-        private val recipeAPI: RecipeAPI,
-        private val recipeDB: RecipesDatabase,
-        private val queryParam: String,
-        private val initialPage: Int = 0
+    private val recipeAPI: RecipeAPI,
+    private val recipeDB: RecipesDatabase,
+    private val queryParam: String,
+    private val initialPage: Int = 0
 ) : RemoteMediator<Int, MealTimeRecipe>() {
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, MealTimeRecipe>): MediatorResult {
+    override suspend fun load(
+        loadType: LoadType,
+        state: PagingState<Int, MealTimeRecipe>
+    ): MediatorResult {
 
         return try {
             val page = when (loadType) {
@@ -33,12 +36,13 @@ class RecipesByDietRemoteMediator(
                 }
                 LoadType.APPEND -> {
                     val remoteKeys = getRemoteKeyForLastItem(state)
-                            ?: throw InvalidObjectException("Result is empty")
+                        ?: throw InvalidObjectException("Result is empty")
                     remoteKeys.nextKey ?: return MediatorResult.Success(true)
                 }
             }
 
-            val pageNr = state.pages.size // might be state.pages.size * pageSize if current doesnt work
+            val pageNr =
+                state.pages.size // might be state.pages.size * pageSize if current doesnt work
             val response = recipeAPI.getRecipesPageForDiet(queryParam, pageNr)
 
             val endOfPagingReached = response.recipes.isEmpty()
@@ -62,7 +66,7 @@ class RecipesByDietRemoteMediator(
             }
 
             MediatorResult.Success(
-                    endOfPaginationReached = endOfPagingReached
+                endOfPaginationReached = endOfPagingReached
             )
         } catch (exception: IOException) {
             MediatorResult.Error(exception)
@@ -71,7 +75,9 @@ class RecipesByDietRemoteMediator(
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, MealTimeRecipe>): RecipeItemRemoteKeys? {
         return state.lastItemOrNull()?.let { recipe ->
-            recipeDB.withTransaction { recipeDB.recipesRemoteKeysDao().remoteKeysByNewsId(recipe.id) }
+            recipeDB.withTransaction {
+                recipeDB.recipesRemoteKeysDao().remoteKeysByNewsId(recipe.id)
+            }
         }
     }
 

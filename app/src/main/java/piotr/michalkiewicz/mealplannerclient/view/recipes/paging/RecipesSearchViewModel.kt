@@ -14,23 +14,25 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE_SIZE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PREFETCH_DISTANCE
 
-class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
-                             private val recipesDatabase: RecipesDatabase) : ViewModel() {
+class RecipesSearchViewModel(
+    private val recipeAPI: RecipeAPI,
+    private val recipesDatabase: RecipesDatabase
+) : ViewModel() {
 
     @ExperimentalPagingApi
     fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipe>> {
         val pagingSource = { recipesDatabase.recipesDao().getRecipesForDiet(queryParam) }
 
         return Pager(
-                config = PagingConfig(pageSize = PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE),
-                remoteMediator = RecipesByDietRemoteMediator(recipeAPI, recipesDatabase, queryParam),
-                pagingSourceFactory = pagingSource
+            config = PagingConfig(pageSize = PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE),
+            remoteMediator = RecipesByDietRemoteMediator(recipeAPI, recipesDatabase, queryParam),
+            pagingSourceFactory = pagingSource
         ).flow.cachedIn(viewModelScope)
     }
 
     fun recipesByTypeApiData(queryParam: String): Flow<PagingData<MealTimeRecipe>> {
         return Pager(
-                PagingConfig(PAGE_SIZE)
+            PagingConfig(PAGE_SIZE)
         ) {
             RecipesByTypeDataSource(recipeAPI = recipeAPI, queryParam = queryParam)
         }.flow.cachedIn(viewModelScope)
@@ -38,7 +40,7 @@ class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
 
     fun recipesByTagApiData(queryParam: String): Flow<PagingData<MealTimeRecipe>> {
         return Pager(
-                PagingConfig(PAGE_SIZE)
+            PagingConfig(PAGE_SIZE)
         ) {
             RecipesByTagDataSource(recipeAPI = recipeAPI, queryParam = queryParam)
         }.flow.cachedIn(viewModelScope)
@@ -46,7 +48,7 @@ class RecipesSearchViewModel(private val recipeAPI: RecipeAPI,
 
     fun allRecipesApiData(): Flow<PagingData<MealTimeRecipe>> {
         return Pager(
-                PagingConfig(PAGE_SIZE)
+            PagingConfig(PAGE_SIZE)
         ) {
             AllRecipesDataSource(recipeAPI = recipeAPI)
         }.flow.cachedIn(viewModelScope)

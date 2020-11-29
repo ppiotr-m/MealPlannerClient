@@ -8,7 +8,11 @@ import androidx.room.TypeConverters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeItemRemoteKeys
 
-@Database(entities = [MealTimeRecipe::class, RecipeItemRemoteKeys::class], version = 1, exportSchema = false)
+@Database(
+    entities = [MealTimeRecipe::class, RecipeItemRemoteKeys::class],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class RecipesDatabase : RoomDatabase() {
 
@@ -19,13 +23,16 @@ abstract class RecipesDatabase : RoomDatabase() {
         private const val dbName = "recipes_database"
         private var instance: RecipesDatabase? = null
 
+        @Synchronized
         fun getInstance(context: Context): RecipesDatabase {
             if (instance == null) {
-                instance = Room.databaseBuilder(context.applicationContext,
-                        RecipesDatabase::class.java,
-                        dbName)
-                        .fallbackToDestructiveMigration()
-                        .build()
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    RecipesDatabase::class.java,
+                    dbName
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
             }
             return instance as RecipesDatabase
         }
