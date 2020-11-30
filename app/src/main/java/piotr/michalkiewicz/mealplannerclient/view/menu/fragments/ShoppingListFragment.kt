@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 import java.util.*
@@ -20,7 +19,7 @@ import kotlin.collections.ArrayList
 
 class ShoppingListFragment : Fragment() {
     private val checkBoxes = ArrayList<View>()
-    private var recipeIngredientsList = ArrayList<RecipeIngredient>()
+    private var recipeIngredientsList = ArrayList<RecipeIngredient2>()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -59,19 +58,19 @@ class ShoppingListFragment : Fragment() {
         }
     }
 
-    private fun getShoppingListFromSharedPrefs(): ArrayList<RecipeIngredient>? {
+    private fun getShoppingListFromSharedPrefs(): ArrayList<RecipeIngredient2>? {
         val json = MainActivity.MY_PREFERENCES.getString(ConstantValues.SHOPPING_LIST_SHARED_PREF, "")
 
         if (json!!.isEmpty()) return null
 
         return try {
-            Gson().fromJson(json, Array<RecipeIngredient>::class.java).toList() as ArrayList<RecipeIngredient>
+            Gson().fromJson(json, Array<RecipeIngredient2>::class.java).toList() as ArrayList<RecipeIngredient2>
         } catch (e: ClassCastException) {
             return null
         }
     }
 
-    private fun createViewFromData(product: RecipeIngredient?): View {
+    private fun createViewFromData(product: RecipeIngredient2?): View {
         val view = layoutInflater.inflate(R.layout.ingredient_list_item, null, false)
 
         view.findViewById<TextView>(R.id.ingredientListItemCB).text = product?.originalName
@@ -110,16 +109,16 @@ class ShoppingListFragment : Fragment() {
     }
 
     private fun removeProductsFromStorage() {
-        val remainingProducts = LinkedList<RecipeIngredient>()
+        val remainingProducts = LinkedList<RecipeIngredient2>()
 
         shoppingListContainerLayout.children.iterator().forEach {
-            remainingProducts.add(it.tag as RecipeIngredient)
+            remainingProducts.add(it.tag as RecipeIngredient2)
         }
 
         saveShoppingListToSharedPrefs(remainingProducts)
     }
 
-    private fun saveShoppingListToSharedPrefs(recipeIngredientList: List<RecipeIngredient>) {
+    private fun saveShoppingListToSharedPrefs(recipeIngredientList: List<RecipeIngredient2>) {
         val dataInJson = Gson().toJson(recipeIngredientList)
 
         with(MainActivity.MY_PREFERENCES.edit()) {

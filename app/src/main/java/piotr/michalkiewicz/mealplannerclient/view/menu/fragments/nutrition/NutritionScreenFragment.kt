@@ -1,17 +1,27 @@
 package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.nutrition
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_nutrition_screen.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.R
-import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
+import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.recipes.model.EatableItem
+import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class NutritionScreenFragment : Fragment() {
@@ -29,12 +39,40 @@ class NutritionScreenFragment : Fragment() {
         init()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun init() {
         nutritionScreenViewPager.adapter = ScreenSlidePagerAdapter(this)
-        nutritionMealsListView.adapter = NutritionMealsListViewAdapter(createMockMealList())
+        nutritionMealsListView.adapter =
+            NutritionMealsListViewAdapter(LinkedList<RecipeIngredient2>())
         TabLayoutMediator(nutritionTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
         initTopTabLayout()
+
+        saveNutritionToUser(null)
     }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun saveNutritionToUser(eatenFoods: List<EatableItem>?) {
+        GlobalScope.launch {
+            val api = RecipeServiceGenerator().recipeAPI
+            val recipe = api.getRecipeForId2("5e9ca4fc0f218f4d5b5b4d81")
+            val recipe2 = api.getRecipeForId2("5fc166fc7907e07a453ddf36")
+
+            val eatenRecipes = LinkedList<MealTimeRecipe>()
+            eatenRecipes.add(recipe)
+            eatenRecipes.add(recipe2)
+
+            val service = NutritionServiceGenerator()
+            service.nutritionAPI.saveNutritionForDate(
+                NutritionDiaryData(
+                    LocalDate.now().toString(),
+                    LinkedList(),
+                    eatenRecipes
+                )
+            )
+        }
+    }
+
 
     private fun initTopTabLayout() {
         TabLayoutMediator(nutritionTopTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
@@ -44,21 +82,117 @@ class NutritionScreenFragment : Fragment() {
         nutritionTopTabLayout.getTabAt(2)?.text = getString(R.string.mineral_targets)
     }
 
-    private fun createMockMealList(): List<RecipeIngredient> {
-        val mealList = ArrayList<RecipeIngredient>()
+    private fun createMockMealList(): List<RecipeIngredient2> {
+        val mealList = ArrayList<RecipeIngredient2>()
 
-        mealList.add(RecipeIngredient("154.00", "g", "Fasola", "meat", "Fasola"))
-        mealList.add(RecipeIngredient("432.43", "g", "Ogórki", "meat", "Ogórki"))
-        mealList.add(RecipeIngredient("1", "serving", "Barszcz po ukraińsku", "meat", "Barszcz po ukraińsku"))
-        mealList.add(RecipeIngredient("1", "serving", "Ryż z kurczakiem i warzywami", "meat", "Ryż z kurczakiem i warzywami"))
-        mealList.add(RecipeIngredient("250.0", "ml", "Mleko", "meat", "Mleko"))
-        mealList.add(RecipeIngredient("2", "cup", "Pomidory z puszki", "meat", "Pomidory z puszki"))
-        mealList.add(RecipeIngredient("3", "medium banana", "Banan", "meat", "Banan"))
-        mealList.add(RecipeIngredient("560", "g", "Ziemniaki", "meat", "Ziemniaki"))
-        mealList.add(RecipeIngredient("67", "g", "Woda", "meat", "Woda"))
-        mealList.add(RecipeIngredient("135", "g", "Śledzie", "meat", "Śledzie"))
-        mealList.add(RecipeIngredient("3", "medium egg", "Jajka", "meat", "Jajka"))
-        mealList.add(RecipeIngredient("5", "slice", "Ser gouda", "meat", "Ser gouda"))
+        mealList.add(
+            RecipeIngredient2(
+                "154.00",
+                "g",
+                "Fasola",
+                "meat",
+                "Fasola"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "432.43",
+                "g",
+                "Ogórki",
+                "meat",
+                "Ogórki"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "1",
+                "serving",
+                "Barszcz po ukraińsku",
+                "meat",
+                "Barszcz po ukraińsku"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "1",
+                "serving",
+                "Ryż z kurczakiem i warzywami",
+                "meat",
+                "Ryż z kurczakiem i warzywami"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "250.0",
+                "ml",
+                "Mleko",
+                "meat",
+                "Mleko"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "2",
+                "cup",
+                "Pomidory z puszki",
+                "meat",
+                "Pomidory z puszki"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "3",
+                "medium banana",
+                "Banan",
+                "meat",
+                "Banan"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "560",
+                "g",
+                "Ziemniaki",
+                "meat",
+                "Ziemniaki"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "67",
+                "g",
+                "Woda",
+                "meat",
+                "Woda"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "135",
+                "g",
+                "Śledzie",
+                "meat",
+                "Śledzie"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "3",
+                "medium egg",
+                "Jajka",
+                "meat",
+                "Jajka"
+            )
+        )
+        mealList.add(
+            RecipeIngredient2(
+                "5",
+                "slice",
+                "Ser gouda",
+                "meat",
+                "Ser gouda"
+            )
+        )
 
         return mealList
     }
@@ -76,7 +210,7 @@ class NutritionScreenFragment : Fragment() {
         }
     }
 
-    private inner class NutritionMealsListViewAdapter(val data: List<RecipeIngredient>) : BaseAdapter() {
+    private inner class NutritionMealsListViewAdapter(val data: List<RecipeIngredient2>) : BaseAdapter() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             if (convertView == null) {
@@ -95,7 +229,7 @@ class NutritionScreenFragment : Fragment() {
             return convertView
         }
 
-        override fun getItem(position: Int): RecipeIngredient {
+        override fun getItem(position: Int): RecipeIngredient2 {
             return data[position]
         }
 

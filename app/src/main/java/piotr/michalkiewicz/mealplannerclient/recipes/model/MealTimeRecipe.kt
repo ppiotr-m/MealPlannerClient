@@ -6,16 +6,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.FoodNutrient
 import piotr.michalkiewicz.mealplannerclient.recipes.database.Converters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet
 import java.util.*
 
 @Entity(tableName = "recipes")
-open class MealTimeRecipe(
+data class MealTimeRecipe(
+
         @PrimaryKey
         val id: String,
-
-        val name: String,
 
         @TypeConverters(Converters::class)
         val suitableForDiet: List<Diet>,
@@ -81,5 +81,12 @@ open class MealTimeRecipe(
         val views: Long = 0,
 
         @SerializedName("totalLikes")
-        val totalLikes: Long = 0
-)
+        val totalLikes: Long = 0,
+
+        @SerializedName("name")
+        override val name: String,
+
+        @SerializedName("foodNutrientsSummary")
+        override val foodNutrientsSummary: List<FoodNutrient>
+) : EatableItem()
+

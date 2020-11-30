@@ -6,7 +6,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import piotr.michalkiewicz.mealplannerclient.recipes.model.Comment
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
-import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -51,12 +50,12 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromJsonToRecipeIngredientTypeArray(listElementsString: String): List<RecipeIngredient> {
-        return Gson().fromJson(listElementsString, ArrayList<RecipeIngredient>().javaClass)
+    fun fromJsonToRecipeIngredientTypeArray(listElementsString: String): List<RecipeIngredient2> {
+        return Gson().fromJson(listElementsString, ArrayList<RecipeIngredient2>().javaClass)
     }
 
     @TypeConverter
-    fun recipeIngredientListToJsonString(list: List<RecipeIngredient>): String {
+    fun recipeIngredientListToJsonString(list: List<RecipeIngredient2>): String {
         return Gson().toJson(list)
     }
 

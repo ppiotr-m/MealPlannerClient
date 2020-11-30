@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient;
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.SHOPPING_LIST_SHARED_PREF;
@@ -27,9 +26,9 @@ import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.TAG;
 
 public class IngredientsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
-    private ArrayList<RecipeIngredient> data;
+    private ArrayList<RecipeIngredient2> data;
     private ArrayList<String> productsOriginalNames = new ArrayList<>();
-    private ArrayList<RecipeIngredient> selectedIngredients = new ArrayList<>();
+    private ArrayList<RecipeIngredient2> selectedIngredients = new ArrayList<>();
     private ViewGroup produceContainer;
 
     @Override
@@ -45,7 +44,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
     }
 
     private void init() {
-        data = (ArrayList<RecipeIngredient>) getIntent().getSerializableExtra(INGREDIENTS_DATA);
+        data = (ArrayList<RecipeIngredient2>) getIntent().getSerializableExtra(INGREDIENTS_DATA);
         initProductsOriginalNamesList();
 
         if (data == null) throw new RuntimeException();
@@ -56,7 +55,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
     }
 
     private void initProductsOriginalNamesList() {
-        for (RecipeIngredient ingredient : data) {
+        for (RecipeIngredient2 ingredient : data) {
             productsOriginalNames.add(ingredient.getOriginalName());
         }
     }
@@ -76,7 +75,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
     private void initView() {
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        for (RecipeIngredient ingredient : data) {
+        for (RecipeIngredient2 ingredient : data) {
             View view = inflater.inflate(R.layout.ingredient_list_item, null, false);
             CheckBox checkBox = view.findViewById(R.id.ingredientListItemCB);
             TextView amountTV = view.findViewById(R.id.ingredientListAmountTV);
@@ -99,7 +98,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
 
     private void removeItemFromSelectedList(String originalName) {
         int index = 0;
-        for (RecipeIngredient ingredient : selectedIngredients) {
+        for (RecipeIngredient2 ingredient : selectedIngredients) {
             if (ingredient.getOriginalName().equals(originalName)) {
                 selectedIngredients.remove(index);
                 break;
@@ -123,12 +122,12 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
 
 
 
-    private RecipeIngredient[] getShoppingListFromSharedPrefs(){
+    private RecipeIngredient2[] getShoppingListFromSharedPrefs(){
         String json = MainActivity.MY_PREFERENCES.getString(SHOPPING_LIST_SHARED_PREF, "");
         if(json.isEmpty()) return null;
 
         try{
-             return new Gson().fromJson(json, RecipeIngredient[].class);
+             return new Gson().fromJson(json, RecipeIngredient2[].class);
         } catch (ClassCastException e){
             Log.e(TAG, e.getLocalizedMessage());
             e.printStackTrace();
@@ -136,7 +135,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
         return null;
     }
 
-    private void saveShoppingListToSharedPrefs(List<RecipeIngredient> recipeIngredientList) {
+    private void saveShoppingListToSharedPrefs(List<RecipeIngredient2> recipeIngredientList) {
         String dataInJson = new Gson().toJson(recipeIngredientList);
 
         MainActivity.MY_PREFERENCES.edit().putString(SHOPPING_LIST_SHARED_PREF, dataInJson).commit();
