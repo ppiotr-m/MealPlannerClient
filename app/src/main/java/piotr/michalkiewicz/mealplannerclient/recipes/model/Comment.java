@@ -1,12 +1,13 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Comment {
+public class Comment implements Serializable {
 
-    private String username;
-    private String comment;
+    private final String username;
+    private final String comment;
 
     public static List<Comment> createMockCommentList() {
         ArrayList<Comment> result = new ArrayList<>();

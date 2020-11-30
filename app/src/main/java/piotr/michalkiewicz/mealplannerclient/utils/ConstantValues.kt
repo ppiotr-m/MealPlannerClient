@@ -20,7 +20,7 @@ class ConstantValues {
         const val MY_PREFERENCE_NAME = "mealTime"
         const val REFRESH_TOKEN_GRANT_TYPE = "refresh_token"
         const val SETTINGS_DATA = "settings_data"
-        const val TAG = "meal"
+        const val TAG = "mealtime"
         const val RECIPE_ID = "recipe_id"
         const val INGREDIENTS_DATA = "ingredients"
         const val COOKING_STEPS_DATA = "cooking_steps"
@@ -29,5 +29,7 @@ class ConstantValues {
         const val CHECKED_BUTTON_COLOR = Color.LTGRAY
         const val DEFAULT_BUTTON_COLOR = Color.RED
         const val PAGE_SIZE = 5
+        const val PREFETCH_DISTANCE = 5
+        const val RECIPES_STARTING_PAGE_INDEX = 0
     }
 }

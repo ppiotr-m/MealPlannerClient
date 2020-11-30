@@ -1,65 +1,85 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.model
 
 import android.graphics.Bitmap
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
+import piotr.michalkiewicz.mealplannerclient.recipes.database.Converters
+import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet
 import java.util.*
 
-class MealTimeRecipe(id: String, name: String, image: Bitmap) : MealTimeRecipeBase(id, name, image) {
+@Entity(tableName = "recipes")
+open class MealTimeRecipe(
+        @PrimaryKey
+        val id: String,
 
-    @SerializedName("recipeType")
-    lateinit var recipeType: List<String>
+        val name: String,
 
-    @SerializedName("recipeIngredients")
-    lateinit var recipeIngredients: List<RecipeIngredient>
+        @TypeConverters(Converters::class)
+        val suitableForDiet: List<Diet>,
 
-    @SerializedName("instructionSteps")
-    lateinit var instructionSteps: List<InstructionStep>
+        @TypeConverters(Converters::class)
+        @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+        val image: Bitmap,
 
-    @SerializedName("level")
-    lateinit var level: String
+        @TypeConverters(Converters::class)
+        @SerializedName("recipeType")
+        val recipeType: List<String>,
 
-    @SerializedName("suitableForDiet")
-    lateinit var suitableForDiet: List<String>
+        @TypeConverters(Converters::class)
+        @SerializedName("recipeIngredients")
+        val recipeIngredients: List<RecipeIngredient>,
 
-    @SerializedName("recipeCuisines")
-    lateinit var recipeCuisines: List<String>
+        @TypeConverters(Converters::class)
+        @SerializedName("instructionSteps")
+        val instructionSteps: List<InstructionStep>,
 
-    @SerializedName("description")
-    lateinit var description: String
+        @SerializedName("level")
+        val level: String,
 
-    @SerializedName("recipeYield")
-    lateinit var recipeYield: String
+        @SerializedName("recipeCuisines")
+        val recipeCuisines: List<String>,
 
-    @SerializedName("from")
-    lateinit var from: String
+        @SerializedName("description")
+        val description: String,
 
-    @SerializedName("madeBY")
-    lateinit var madeBY: String
+        @SerializedName("recipeYield")
+        val recipeYield: String?,
 
-    @SerializedName("language")
-    lateinit var language: String
+        @SerializedName("from")
+        val from: String,
 
-    @SerializedName("recipeTag")
-    lateinit var recipeTag: List<String>
+        @SerializedName("madeBY")
+        val madeBY: String?,
 
-    @SerializedName("comments")
-    lateinit var comments: List<Comment>
+        @SerializedName("language")
+        val language: String?,
 
-    @SerializedName("dateAdded")
-    lateinit var dateAdded: Date
+        @SerializedName("recipeTag")
+        val recipeTag: List<String>,
 
-    @SerializedName("dateEdited")
-    lateinit var dateEdited: Date
+        @TypeConverters(Converters::class)
+        @SerializedName("comments")
+        val comments: List<Comment>?,
 
-    @SerializedName("cookTime")
-    var cookTime: Int = 0
+        @SerializedName("dateAdded")
+        val dateAdded: Date?,
 
-    @SerializedName("totalRating")
-    var totalRating: Double = 0.0
+        @TypeConverters(Converters::class)
+        @SerializedName("dateEdited")
+        val dateEdited: Date?,
 
-    @SerializedName("views")
-    var views: Long = 0
+        @SerializedName("cookTime")
+        val cookTime: Int = 0,
 
-    @SerializedName("totalLikes")
-    var totalLikes: Long = 0
-}
+        @SerializedName("totalRating")
+        val totalRating: Double = 0.0,
+
+        @SerializedName("views")
+        val views: Long = 0,
+
+        @SerializedName("totalLikes")
+        val totalLikes: Long = 0
+)
