@@ -5,7 +5,9 @@ import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import piotr.michalkiewicz.mealplannerclient.recipes.model.Comment
+import piotr.michalkiewicz.mealplannerclient.recipes.model.FoodNutrient
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
+import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -50,12 +52,22 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromJsonToRecipeIngredientTypeArray(listElementsString: String): List<RecipeIngredient2> {
-        return Gson().fromJson(listElementsString, ArrayList<RecipeIngredient2>().javaClass)
+    fun fromJsonToRecipeIngredientTypeArray(listElementsString: String): List<RecipeIngredient> {
+        return Gson().fromJson(listElementsString, ArrayList<RecipeIngredient>().javaClass)
     }
 
     @TypeConverter
-    fun recipeIngredientListToJsonString(list: List<RecipeIngredient2>): String {
+    fun recipeIngredientListToJsonString(list: List<RecipeIngredient>): String {
+        return Gson().toJson(list)
+    }
+
+    @TypeConverter
+    fun fromJsonToFoodNutrientTypeArray(listElementsString: String?): List<FoodNutrient>? {
+        return Gson().fromJson(listElementsString, ArrayList<FoodNutrient>().javaClass)
+    }
+
+    @TypeConverter
+    fun foodNutrientListToJsonString(list: List<FoodNutrient>?): String? {
         return Gson().toJson(list)
     }
 

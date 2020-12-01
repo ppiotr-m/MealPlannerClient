@@ -11,6 +11,9 @@ interface RecipeAPI {
     @GET("/recipes/getById")
     fun getRecipeForId(@Query("id") recipeId: String): Call<MealTimeRecipe>
 
+    @GET("/recipes/getById")
+    suspend fun getRecipeForIdCoroutine(@Query("id") recipeId: String): MealTimeRecipe
+
     @GET("/recipes/getByDiet")
     fun getRecipeForDiet(@Query("recipeDiet") dietType: String): Call<List<MealTimeRecipe>>
 

@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.FoodNutrient
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.recipes.database.Converters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet
 import java.util.*
@@ -84,9 +84,10 @@ data class MealTimeRecipe(
         val totalLikes: Long = 0,
 
         @SerializedName("name")
-        override val name: String,
+        val name: String,
 
+        @TypeConverters(Converters::class)
         @SerializedName("foodNutrientsSummary")
-        override val foodNutrientsSummary: List<FoodNutrient>
-) : EatableItem()
+        val foodNutrientsSummary: List<FoodNutrient>?
+)
 

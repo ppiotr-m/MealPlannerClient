@@ -22,14 +22,15 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
 
-
 class CookbookScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_cookbook_screen, container, false)
     }
 
@@ -73,23 +74,29 @@ class CookbookScreenFragment : Fragment() {
         }
     }
 
-    private fun launchCoroutineByTypeForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
+    private fun launchCoroutineByTypeForRecyclerView(
+        recyclerView: RecyclerView,
+        queryParam: String
+    ) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByTypeApiData(queryParam).collect {
                 it.let {
                     (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
-                            .submitData(it)
+                        .submitData(it)
                 }
             }
         }
     }
 
-    private fun launchCoroutineByTagForRecyclerView(recyclerView: RecyclerView, queryParam: String) {
+    private fun launchCoroutineByTagForRecyclerView(
+        recyclerView: RecyclerView,
+        queryParam: String
+    ) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByTagApiData(queryParam).collect {
                 it.let {
                     (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
-                            .submitData(it)
+                        .submitData(it)
                 }
             }
         }
@@ -100,20 +107,23 @@ class CookbookScreenFragment : Fragment() {
             viewModel.allRecipesApiData().collect {
                 it.let {
                     (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
-                            .submitData(it)
+                        .submitData(it)
                 }
             }
         }
     }
 
     private fun createHorizontalRecipesList(labelText: String): View {
-        val root = layoutInflater.inflate(R.layout.horizontal_recipes_list,
-                recipesByCategoriesLayoutContainer, true) as ViewGroup
+        val root = layoutInflater.inflate(
+            R.layout.horizontal_recipes_list,
+            recipesByCategoriesLayoutContainer, true
+        ) as ViewGroup
 
         val view = root.getChildAt(root.childCount - 1)
 
         if (labelText.isEmpty()) {
-            view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text = resources.getString(R.string.all)
+            view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text =
+                resources.getString(R.string.all)
         } else {
             view.findViewById<TextView>(R.id.recipesRecyclerViewLabel).text = labelText
         }
