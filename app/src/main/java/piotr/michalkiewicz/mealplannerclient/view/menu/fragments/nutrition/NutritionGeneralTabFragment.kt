@@ -1,37 +1,45 @@
 package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.nutrition
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionGeneralTabBinding
-import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionScreenBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
-import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionScreenViewModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutirtionGeneralTabViewModel
 
 class NutritionGeneralTabFragment : Fragment() {
 
-    private lateinit var nutritionScreenViewModel: NutritionScreenViewModel
+    private lateinit var nutritionGeneralViewModel: NutirtionGeneralTabViewModel
     private lateinit var binding: FragmentNutritionGeneralTabBinding
+    private val nutritionUiModel = MutableLiveData<NutritionUiModel>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentNutritionGeneralTabBinding.inflate(inflater)
 
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nutritionScreenViewModel = ViewModelProvider(
+        initViewModel()
+    }
+
+    private fun initViewModel() {
+        nutritionGeneralViewModel = ViewModelProvider(
             this,
-            Injection.provideViewModelFactory()
-        ).get(NutritionScreenViewModel::class.java)
+            Injection.provideGeneralViewModelFactory()
+        ).get(NutirtionGeneralTabViewModel::class.java)
+
+        binding.viewmodel = nutritionGeneralViewModel
     }
 }

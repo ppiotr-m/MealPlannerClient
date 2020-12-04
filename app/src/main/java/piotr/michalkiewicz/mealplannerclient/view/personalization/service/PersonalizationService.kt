@@ -40,15 +40,19 @@ class PersonalizationService {
     }
 
     fun updateUserPreferences(userPreference: UserPreference, context: Context?) {
-        val updateUserPreferenceObservable = userServiceGenerator.updateUserPreference(userPreference)
+        val updateUserPreferenceObservable =
+            userServiceGenerator.updateUserPreference(userPreference)
         updateUserPreferenceObservable.subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    Log.i("updateUserPreference", result.toString())
-                    showMessage(context, "Your preferences have been updated")
-                }, { error ->
-                    Log.i("error", error.toString())
-                    showMessage(context, "There was problem witch update preference please try again later")
-                })
+            .subscribe({ result ->
+                Log.i("updateUserPreference", result.toString())
+                showMessage(context, "Your preferences have been updated")
+            }, { error ->
+                Log.i("error", error.toString())
+                showMessage(
+                    context,
+                    "There was problem witch update preference please try again later"
+                )
+            })
     }
 
     private fun showMessage(context: Context?, message: String) {

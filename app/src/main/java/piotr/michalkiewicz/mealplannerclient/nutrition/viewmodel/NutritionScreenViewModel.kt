@@ -6,7 +6,12 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.api.NutritionAPI
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 
 class NutritionScreenViewModel(private val nutritionAPI: NutritionAPI) : ViewModel() {
+
     val uiModel: MutableLiveData<NutritionUiModel> by lazy {
         MutableLiveData<NutritionUiModel>()
+    }
+
+    companion object {
+        val NUTRITION_DATA = "nutrition_data"
     }
 }

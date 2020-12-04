@@ -1,32 +1,38 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.model
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import piotr.michalkiewicz.mealplannerclient.recipes.model.FoodNutrient
 
-class NutritionDailyData {
+@RequiresApi(Build.VERSION_CODES.N)
+class NutritionDailyData(
+    val date: String, // TODO Need to change it to LocalDate
+    val eatenFoods: List<EatableItem>
+) {
 
-    constructor(date: String, eatenFoods: List<EatableItem>) : this(date, eatenFoods) {
+    val dailyNutritionSummary = sumFoodNutrients(eatenFoods)
 
-    }
-
-    lateinit var dailyNutritionSummary: List<FoodNutrient>
-
-    init {
-        dailyNutritionSummary = sumFoodNutrients(eatenFoods)
-    }
-
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun sumFoodNutrients(eatenFoods: List<EatableItem>): List<FoodNutrient> {
         val nutrientsWithNamesMap = mutableMapOf<String, FoodNutrient>()
 
-        eatenFoods.forEach {
-            it.foodNutrientsSummary.forEach {
-                if (nutrientsWithNamesMap.containsKey(it.nutrient.name)) {
-                    val currentValue = nutrientsWithNamesMap.get(it.nutrient.name)
-                    nutrientsWithNamesMap.replace(it.nutrient.name, currentValue + it.amount)
+        eatenFoods.forEach { eatableItem ->
+            eatableItem.foodNutrientsSummary.forEach { foodNutrient ->
+                if (nutrientsWithNamesMap.containsKey(foodNutrient.nutrient.name)) {
+                    val currentValue: Float =
+                        nutrientsWithNamesMap[foodNutrient.nutrient.name]?.amount ?: 0F
+                    val updatedValue = currentValue.plus((foodNutrient.amount))
+                    val updatedNutrient = FoodNutrient(
+                        updatedValue,
+                        foodNutrient.unitName,
+                        foodNutrient.nutrient
+                    )
+                    nutrientsWithNamesMap.replace(foodNutrient.nutrient.name, updatedNutrient)
                 } else {
-                    nutrientsWithNamesMap.put(it.nutrient.name, it)
+                    nutrientsWithNamesMap[foodNutrient.nutrient.name] = foodNutrient
                 }
             }
         }
-        return nutrientsWithNamesMap.values
+        return nutrientsWithNamesMap.values.toMutableList()
     }
 }

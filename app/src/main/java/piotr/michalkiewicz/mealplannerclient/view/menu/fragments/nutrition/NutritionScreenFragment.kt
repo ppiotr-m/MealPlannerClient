@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,14 +20,13 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionScreenBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionDailyData
-import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionDailyData
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionScreenViewModel
+import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
-import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
 import java.time.LocalDate
 import java.util.*
 
@@ -125,7 +121,7 @@ class NutritionScreenFragment : Fragment() {
         override fun createFragment(position: Int): Fragment {
             when (position) {
                 0 -> return NutritionGeneralTabFragment()
-                1 -> return NutritionVitaminTargetsTabFragment()
+                1 -> return NutritionVitaminTabFragment()
                 2 -> return NutritionMineralsTabFragment()
             }
             return Fragment()

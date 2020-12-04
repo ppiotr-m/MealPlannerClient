@@ -2,7 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.user.model
 
 import java.io.Serializable
 
-data class NutritionProfileSettings(
+data class NutritionProfileSettings( // TODO Bez nulli, jesli ktos nie ustawi tych ustawien to caly obiekt ma byc nullem
     var height: Int?,
     var weight: Int?,
     var age: Int?,
