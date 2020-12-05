@@ -1,21 +1,19 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.repository.NutritionRepository
 
-class NutirtionGeneralTabViewModel : ViewModel() {
-    val uiModel: MutableLiveData<NutritionUiModel> by lazy {
-        MutableLiveData<NutritionUiModel>()
-    }
+class NutirtionGeneralTabViewModel(val repository: NutritionRepository) : ViewModel() {
+
+    val uiModel = repository.getNutritionUiModelData()
 
     fun getGeneralProgressBarValue(): Int {
-        if (uiModel.value?.nutritionDailyData?.dailyNutritionSummary?.get(0)?.nutrient?.name == "Protein"
-            && uiModel.value?.nutritionDailyData?.dailyNutritionSummary?.get(0)?.amount!! >= 0F
+        if (uiModel.value?.data?.nutritionDailyData?.dailyNutritionSummary?.get(0)?.nutrient?.name == "Protein"
+            && uiModel.value?.data?.nutritionDailyData?.dailyNutritionSummary?.get(0)?.amount!! >= 0F
         ) {
             return 90
-        } else if (uiModel.value?.nutritionDailyData?.dailyNutritionSummary?.get(0)?.nutrient?.name == "Protein"
-            && uiModel.value?.nutritionDailyData?.dailyNutritionSummary?.get(0)?.amount!! == 0F
+        } else if (uiModel.value?.data?.nutritionDailyData?.dailyNutritionSummary?.get(0)?.nutrient?.name == "Protein"
+            && uiModel.value?.data?.nutritionDailyData?.dailyNutritionSummary?.get(0)?.amount!! == 0F
         ) {
             return 20
         }

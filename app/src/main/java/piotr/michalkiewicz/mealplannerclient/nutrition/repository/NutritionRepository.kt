@@ -1,12 +1,9 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.repository
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.api.NutritionAPI
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
-import piotr.michalkiewicz.mealplannerclient.nutrition.storage.NutritionSharedPrefsDao
-import java.time.LocalDate
+import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsDao
+import piotr.michalkiewicz.mealplannerclient.utils.performGetOperation
 
 class NutritionRepository {
     val nutritionSharedPrefsAccessor = NutritionSharedPrefsDao()
@@ -14,23 +11,31 @@ class NutritionRepository {
         NutritionServiceGenerator().nutritionAPI
     }
 
+    fun getNutritionUiModelData() = performGetOperation(
+        getFromLocalStorage = { NutritionLiveData(nutritionSharedPrefsAccessor) },
+        networkCall = { nutritionAPI.getNutritionForDate() },
+        saveCallResult = { nutritionSharedPrefsAccessor.saveDataToSharedPrefs(it) }
+    )
+
+    /*
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun getNutritionUiModelData(): NutritionUiModel {
-        val nutrtionUiModelData = nutritionSharedPrefsAccessor.getDataFromSharedPrefs()
-        if (nutrtionUiModelData != null) {
-            if (nutrtionUiModelData.nutritionDailyData.date == LocalDate.now().toString()) {
-                return nutrtionUiModelData
+    suspend fun getNutritionUiModelData(date: String?): NutritionUiModel {
+        // todo implement date arg processing
+        val nutritionUiModelData = nutritionSharedPrefsAccessor.getDataFromSharedPrefs()
+        return if (nutritionUiModelData != null) {
+            if (nutritionUiModelData.nutritionDailyData.date == LocalDate.now().toString()) {
+                nutritionUiModelData
             } else {
                 val dataFromRemote = getDataFromRemoteOrMakeInstance()
 
                 nutritionSharedPrefsAccessor.saveDataToSharedPrefs(dataFromRemote)
-                return nutritionSharedPrefsAccessor.getDataFromSharedPrefs()!!
+                nutritionSharedPrefsAccessor.getDataFromSharedPrefs()!!
             }
         } else {
             val dataFromRemote = getDataFromRemoteOrMakeInstance()
 
             nutritionSharedPrefsAccessor.saveDataToSharedPrefs(dataFromRemote)
-            return nutritionSharedPrefsAccessor.getDataFromSharedPrefs()!!
+            nutritionSharedPrefsAccessor.getDataFromSharedPrefs()!!
         }
     }
 
@@ -39,4 +44,6 @@ class NutritionRepository {
         return nutritionAPI.getNutritionForDate(LocalDate.now().toString())
             ?: NutritionUiModel.getEmptyInstance()
     }
+
+     */
 }

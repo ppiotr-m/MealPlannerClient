@@ -9,7 +9,8 @@ data class NutritionUiModel(
     val nutritionDailyData: NutritionDailyData,
     val nutritionProfileSettings: NutritionProfileSettings
 ) {
-    companion object {
+    val dailyTargets =
+        companion object {
         @RequiresApi(Build.VERSION_CODES.O)
         fun getEmptyInstance(): NutritionUiModel {
             return NutritionUiModel(

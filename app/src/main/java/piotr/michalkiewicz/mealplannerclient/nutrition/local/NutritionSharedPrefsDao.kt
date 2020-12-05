@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.nutrition.storage
+package piotr.michalkiewicz.mealplannerclient.nutrition.local
 
 import com.google.gson.Gson
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
