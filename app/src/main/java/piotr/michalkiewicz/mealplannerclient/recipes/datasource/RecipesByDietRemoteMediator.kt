@@ -6,16 +6,16 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
-import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeItemRemoteKeys
+import piotr.michalkiewicz.mealplannerclient.utils.DatabaseAccess
 import java.io.IOException
 import java.io.InvalidObjectException
 
 @ExperimentalPagingApi
 class RecipesByDietRemoteMediator(
     private val recipeAPI: RecipeAPI,
-    private val recipeDB: RecipesDatabase,
+    private val recipeDB: DatabaseAccess,
     private val queryParam: String,
     private val initialPage: Int = 0
 ) : RemoteMediator<Int, MealTimeRecipe>() {

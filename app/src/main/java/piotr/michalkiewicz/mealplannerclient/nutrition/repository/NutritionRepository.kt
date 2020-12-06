@@ -2,11 +2,11 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.repository
 
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.api.NutritionAPI
-import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsDao
+import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsAccess
 import piotr.michalkiewicz.mealplannerclient.utils.performGetOperation
 
 class NutritionRepository {
-    val nutritionSharedPrefsAccessor = NutritionSharedPrefsDao()
+    val nutritionSharedPrefsAccessor = NutritionSharedPrefsAccess()
     val nutritionAPI: NutritionAPI by lazy {
         NutritionServiceGenerator().nutritionAPI
     }

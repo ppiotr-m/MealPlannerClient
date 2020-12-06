@@ -5,7 +5,7 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionScreenViewModel
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
-class NutritionSharedPrefsDao {
+class NutritionSharedPrefsAccess {
     fun saveDataToSharedPrefs(uiModel: NutritionUiModel) {
         val objectInJsonString = Gson().toJson(uiModel)
         MainActivity.MY_PREFERENCES.edit()

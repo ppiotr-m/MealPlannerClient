@@ -8,24 +8,24 @@ import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.AllRecipesDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTagDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTypeDataSource
-import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.datasource.RecipesByDietRemoteMediator
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE_SIZE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PREFETCH_DISTANCE
+import piotr.michalkiewicz.mealplannerclient.utils.DatabaseAccess
 
 class RecipesSearchViewModel(
     private val recipeAPI: RecipeAPI,
-    private val recipesDatabase: RecipesDatabase
+    private val databaseAccess: DatabaseAccess
 ) : ViewModel() {
 
     @ExperimentalPagingApi
     fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipe>> {
-        val pagingSource = { recipesDatabase.recipesDao().getRecipesForDiet(queryParam) }
+        val pagingSource = { databaseAccess.recipesDao().getRecipesForDiet(queryParam) }
 
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE),
-            remoteMediator = RecipesByDietRemoteMediator(recipeAPI, recipesDatabase, queryParam),
+            remoteMediator = RecipesByDietRemoteMediator(recipeAPI, databaseAccess, queryParam),
             pagingSourceFactory = pagingSource
         ).flow.cachedIn(viewModelScope)
     }

@@ -3,8 +3,6 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import piotr.michalkiewicz.mealplannerclient.nutrition.api.NutritionAPI
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
-import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
 
 class NutritionViewModelFactory (
