@@ -2,6 +2,8 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.model
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.room.TypeConverters
+import piotr.michalkiewicz.mealplannerclient.recipes.database.Converters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.FoodNutrient
 import piotr.michalkiewicz.mealplannerclient.user.model.NutritionProfileSettings
 import java.time.LocalDate
@@ -9,7 +11,8 @@ import java.time.LocalDate
 class NutritionUiModel(
     val nutritionDailyData: NutritionDailyData,
     val nutritionProfileSettings: NutritionProfileSettings,
-    val recommendedNutrients: List<AgeNutrientRecommendations>
+    @TypeConverters(Converters::class)
+    val recommendedNutrients: List<FoodNutrientRecommendedIntake>
 ) {
 
     val nutrientsPercentages: Map<String, Int>
@@ -17,22 +20,27 @@ class NutritionUiModel(
     init {
         nutrientsPercentages = calculateNutrientsPercentages(
             nutritionDailyData.dailyNutritionSummary,
-            recommendedNutrients,
-            nutritionProfileSettings.age
+            recommendedNutrients
         )
     }
 
     private fun calculateNutrientsPercentages(
         nutritionSummary: List<FoodNutrient>,
-        recommendedNutrients: List<FoodNutrientRecommendedIntake>,
-        age: Int
+        recommendedNutrients: List<FoodNutrientRecommendedIntake>
     ): Map<String, Int> {
 
         val nutrientPercentageMap = HashMap<String, Int>()
 
         nutritionSummary.forEach { nutrient ->
-            recommendedNutrients.forEach { recommendedIntake ->
-
+            recommendedNutrients.forEach { (name, amount) ->
+                if (nutrient.nutrient.name == name) {
+                    var recommendedIntakePercentage = 0F
+                    if (nutrient.amount != 0F) {
+                        recommendedIntakePercentage = (amount / nutrient.amount) * 100
+                    }
+                    nutrientPercentageMap[nutrient.nutrient.name] =
+                        recommendedIntakePercentage.toInt()
+                }
             }
         }
 
@@ -45,7 +53,7 @@ class NutritionUiModel(
             return NutritionUiModel(
                 NutritionDailyData(
                     LocalDate.now().toString(), ArrayList()
-                ), NutritionProfileSettings()
+                ), NutritionProfileSettings(), ArrayList()
             )
         }
     }

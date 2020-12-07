@@ -4,6 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.AgeNutrientRecommendations
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.FoodNutrientRecommendedIntake
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.enums.Sex
 import piotr.michalkiewicz.mealplannerclient.recipes.model.Comment
 import piotr.michalkiewicz.mealplannerclient.recipes.model.FoodNutrient
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
@@ -32,12 +35,42 @@ class Converters {
     }
 
     @TypeConverter
+    fun sexEnumFromString(value: String): Sex {
+        return Sex.valueOf(value)
+    }
+
+    @TypeConverter
+    fun sexEnumToString(sex: Sex): String {
+        return sex.value
+    }
+
+    @TypeConverter
     fun fromJsonToDietTypeArray(listElementsString: String): List<Diet> {
         return Gson().fromJson(listElementsString, ArrayList<Diet>().javaClass)
     }
 
     @TypeConverter
     fun listToDietTypeJsonString(list: List<Diet>): String {
+        return Gson().toJson(list)
+    }
+
+    @TypeConverter
+    fun fromJsonToAgeNutrientRecommendations(jsonString: String): List<AgeNutrientRecommendations> {
+        return Gson().fromJson(jsonString, ArrayList<AgeNutrientRecommendations>().javaClass)
+    }
+
+    @TypeConverter
+    fun listToNutrientsRecommendationsJsonString(list: List<AgeNutrientRecommendations>): String {
+        return Gson().toJson(list)
+    }
+
+    @TypeConverter
+    fun fromJsonToNutrientsRecommendedIntake(jsonString: String): List<FoodNutrientRecommendedIntake> {
+        return Gson().fromJson(jsonString, ArrayList<FoodNutrientRecommendedIntake>().javaClass)
+    }
+
+    @TypeConverter
+    fun listToNutrientsRecommendedIntakeJsonString(list: List<FoodNutrientRecommendedIntake>): String {
         return Gson().toJson(list)
     }
 

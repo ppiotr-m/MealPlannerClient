@@ -53,7 +53,7 @@ class NutritionScreenFragment : Fragment() {
 
         nutritionScreenViewModel = ViewModelProvider(
             this,
-            Injection.provideViewModelFactory()
+            Injection.provideScreenViewModelFactory()
         ).get(NutritionScreenViewModel::class.java)
 
         init()
