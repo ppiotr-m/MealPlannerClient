@@ -1,8 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.repository
 
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.nutrition.api.NutritionAPI
 import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsAccess
+import piotr.michalkiewicz.mealplannerclient.nutrition.remote.api.NutritionAPI
 import piotr.michalkiewicz.mealplannerclient.utils.performGetOperation
 
 class NutritionRepository {
@@ -14,7 +14,7 @@ class NutritionRepository {
     fun getNutritionUiModelData() = performGetOperation(
         getFromLocalStorage = { NutritionLiveData(nutritionSharedPrefsAccessor) },
         networkCall = { nutritionAPI.getNutritionForDate() },
-        saveCallResult = { nutritionSharedPrefsAccessor.saveDataToSharedPrefs(it) }
+        saveCallResult = { nutritionSharedPrefsAccessor.saveUiModelToSharedPrefs(it) }
     )
 
     /*

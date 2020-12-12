@@ -2,8 +2,8 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import piotr.michalkiewicz.mealplannerclient.nutrition.api.NutritionAPI
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.remote.api.NutritionAPI
 
 class NutritionScreenViewModel(private val nutritionAPI: NutritionAPI) : ViewModel() {
 
@@ -13,5 +13,6 @@ class NutritionScreenViewModel(private val nutritionAPI: NutritionAPI) : ViewMod
 
     companion object {
         val NUTRITION_DATA = "nutrition_data"
+        val NUTRITION_RECOMMENDATIONS = "nutrition_recommendations"
     }
 }

@@ -36,7 +36,7 @@ class EditGoalActivity : DataPassingActivity() {
             val userData = getDataFromIntent()
             Log.d(TAG, "User data: " + (userData == null))
             createNutritionProfileSettingsIfNull(userData)
-            userData.userSettings.nutritionProfileSettings?.goal = weightGoal
+  //          userData.userSettings.nutritionProfileSettings?.goal = weightGoal
             setDataForParentActivity(userData)
             finish()
         }

@@ -35,17 +35,20 @@ class EditActivityLevelActivity : DataPassingActivity(), AdapterView.OnItemSelec
         confirmActivityLevelBtn.setOnClickListener {
             val data = getDataFromIntent()
 
-            data.userSettings.nutritionProfileSettings!!.activityLevel = selectedActivityLevel
+ //           data.userSettings.nutritionProfileSettings!!.activityLevel = selectedActivityLevel
             setDataForParentActivity(data)
             finish()
         }
     }
 
     private fun initSpinner() {
-        countrySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, ACTIVITY_LEVEL_VALUES)
-        val index = ACTIVITY_LEVEL_VALUES.indexOf((intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as UserAccount)
+        countrySpinner.adapter =
+            ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, ACTIVITY_LEVEL_VALUES)
+        val index = ACTIVITY_LEVEL_VALUES.indexOf(
+            (intent.getSerializableExtra(ConstantValues.SETTINGS_DATA) as UserAccount)
                 .userSettings
-                .nutritionProfileSettings?.activityLevel)
+                .nutritionProfileSettings.activityLevel
+        )
         if (index >= 0) {
             countrySpinner.setSelection(index)
         }

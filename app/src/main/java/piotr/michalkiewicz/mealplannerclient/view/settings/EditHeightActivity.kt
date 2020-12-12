@@ -28,7 +28,7 @@ class EditHeightActivity : DataPassingActivity() {
         if(checkInput()) {
             val userData = getDataFromIntent()
             createNutritionProfileSettingsIfNull(userData)
-            userData.userSettings.nutritionProfileSettings?.height = heightET.text.toString().toInt()
+   //         userData.userSettings.nutritionProfileSettings?.height = heightET.text.toString().toInt()
             setDataForParentActivity(userData)
             finish()
         } else {

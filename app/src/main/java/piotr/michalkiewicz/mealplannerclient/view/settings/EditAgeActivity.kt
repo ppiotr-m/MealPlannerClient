@@ -32,7 +32,7 @@ class EditAgeActivity : DataPassingActivity() {
         if (checkInput()) {
             val userData = getDataFromIntent()
             createNutritionProfileSettingsIfNull(userData)
-            userData.userSettings.nutritionProfileSettings?.age = ageET.text.toString().toInt()
+   //         userData.userSettings.nutritionProfileSettings?.age = ageET.text.toString().toInt()
             setDataForParentActivity(userData)
             finish()
         } else {

@@ -16,5 +16,6 @@ data class AgeNutrientRecommendations(
     val maxAge: Int,
     @TypeConverters(Converters::class)
     val sex: Sex,
+    @TypeConverters(Converters::class)
     val nutrientIntakeRecommendations: List<FoodNutrientRecommendedIntake>
 )

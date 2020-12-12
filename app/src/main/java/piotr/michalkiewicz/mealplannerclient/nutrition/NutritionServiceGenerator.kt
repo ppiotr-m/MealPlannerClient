@@ -1,8 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition
 
 import piotr.michalkiewicz.mealplannerclient.auth.AuthServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.nutrition.api.NutritionAPI
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
+import piotr.michalkiewicz.mealplannerclient.nutrition.remote.api.NutritionAPI
 
 class NutritionServiceGenerator : AuthServiceGenerator() {
 

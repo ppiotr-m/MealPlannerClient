@@ -12,12 +12,16 @@ class NutritionUiModel(
     val nutritionDailyData: NutritionDailyData,
     val nutritionProfileSettings: NutritionProfileSettings,
     @TypeConverters(Converters::class)
-    val recommendedNutrients: List<FoodNutrientRecommendedIntake>
+    val ageNutrientRecommendations: List<AgeNutrientRecommendations>
 ) {
 
     val nutrientsPercentages: Map<String, Int>
 
     init {
+        // TODO START HERE MOTHAFUCKA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        // TODO Wyciągnij z ::ageNutrientRecommendations listy nutrition i sklej w jedną
+
         nutrientsPercentages = calculateNutrientsPercentages(
             nutritionDailyData.dailyNutritionSummary,
             recommendedNutrients
@@ -55,6 +59,15 @@ class NutritionUiModel(
                     LocalDate.now().toString(), ArrayList()
                 ), NutritionProfileSettings(), ArrayList()
             )
+        }
+    }
+
+    class Creator(
+        private val nutritionDailyData: NutritionDailyData,
+        private val nutritionProfileSettings: NutritionProfileSettings
+    ) {
+        fun createNutritionUiModel(): NutritionUiModel {
+
         }
     }
 }

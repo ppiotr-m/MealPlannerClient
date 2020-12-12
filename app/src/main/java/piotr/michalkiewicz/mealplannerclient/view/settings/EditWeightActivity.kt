@@ -30,7 +30,7 @@ class EditWeightActivity : DataPassingActivity() {
         if(checkInput()) {
             val userData = getDataFromIntent()
             createNutritionProfileSettingsIfNull(userData)
-            userData.userSettings.nutritionProfileSettings?.weight = weightET.text.toString().toInt()
+   //         userData.userSettings.nutritionProfileSettings?.weight = weightET.text.toString().toInt()
             setDataForParentActivity(userData)
             finish()
         } else {

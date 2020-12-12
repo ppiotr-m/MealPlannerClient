@@ -13,13 +13,13 @@ class NutritionLiveData(private val nutrititionSharedPrefsAccess: NutritionShare
     private val nutritionDataChangedListener =
         SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences?, key: String? ->
             if (key == NutritionScreenViewModel.NUTRITION_DATA) {
-                value = nutrititionSharedPrefsAccess.getDataFromSharedPrefs()
+                value = nutrititionSharedPrefsAccess.getUiModelFromSharedPrefs()
             }
         }
 
     override fun onActive() {
         super.onActive()
-        value = nutrititionSharedPrefsAccess.getDataFromSharedPrefs()
+        value = nutrititionSharedPrefsAccess.getUiModelFromSharedPrefs()
         MainActivity.MY_PREFERENCES.registerOnSharedPreferenceChangeListener(
             nutritionDataChangedListener
         )

@@ -46,7 +46,7 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToDietTypeArray(listElementsString: String): List<Diet> {
-        return Gson().fromJson(listElementsString, ArrayList<Diet>().javaClass)
+        return Gson().fromJson(listElementsString, LinkedList<Diet>().javaClass)
     }
 
     @TypeConverter
@@ -56,7 +56,7 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToAgeNutrientRecommendations(jsonString: String): List<AgeNutrientRecommendations> {
-        return Gson().fromJson(jsonString, ArrayList<AgeNutrientRecommendations>().javaClass)
+        return Gson().fromJson(jsonString, LinkedList<AgeNutrientRecommendations>().javaClass)
     }
 
     @TypeConverter
@@ -66,7 +66,7 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToNutrientsRecommendedIntake(jsonString: String): List<FoodNutrientRecommendedIntake> {
-        return Gson().fromJson(jsonString, ArrayList<FoodNutrientRecommendedIntake>().javaClass)
+        return Gson().fromJson(jsonString, LinkedList<FoodNutrientRecommendedIntake>().javaClass)
     }
 
     @TypeConverter
@@ -76,7 +76,7 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToStringTypeArray(listElementsString: String): List<String> {
-        return Gson().fromJson(listElementsString, ArrayList<String>().javaClass)
+        return Gson().fromJson(listElementsString, LinkedList<String>().javaClass)
     }
 
     @TypeConverter
@@ -86,7 +86,7 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToRecipeIngredientTypeArray(listElementsString: String): List<RecipeIngredient> {
-        return Gson().fromJson(listElementsString, ArrayList<RecipeIngredient>().javaClass)
+        return Gson().fromJson(listElementsString, LinkedList<RecipeIngredient>().javaClass)
     }
 
     @TypeConverter
@@ -96,7 +96,7 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToFoodNutrientTypeArray(listElementsString: String?): List<FoodNutrient>? {
-        return Gson().fromJson(listElementsString, ArrayList<FoodNutrient>().javaClass)
+        return Gson().fromJson(listElementsString, LinkedList<FoodNutrient>().javaClass)
     }
 
     @TypeConverter
@@ -106,7 +106,7 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToInstructionStepTypeArray(listElementsString: String): List<InstructionStep> {
-        return Gson().fromJson(listElementsString, ArrayList<InstructionStep>().javaClass)
+        return Gson().fromJson(listElementsString, LinkedList<InstructionStep>().javaClass)
     }
 
     @TypeConverter
@@ -148,5 +148,21 @@ class Converters {
             return ""
         }
         return Gson().toJson(date)
+    }
+
+    @TypeConverter
+    fun fromJsonToFoodNutrientRecommendedIntakeList(jsonString: String):
+            List<FoodNutrientRecommendedIntake> {
+        return Gson().fromJson(jsonString, LinkedList<FoodNutrientRecommendedIntake>().javaClass)
+    }
+
+    @TypeConverter
+    fun foodNutrientRecommendedIntakeListToJsonString(
+        foodNutrientRecommendedIntakeList: List<FoodNutrientRecommendedIntake>?
+    ): String {
+        if (foodNutrientRecommendedIntakeList == null) {
+            return ""
+        }
+        return Gson().toJson(foodNutrientRecommendedIntakeList)
     }
 }
