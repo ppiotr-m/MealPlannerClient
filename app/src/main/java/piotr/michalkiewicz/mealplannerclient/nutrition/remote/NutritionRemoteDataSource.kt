@@ -13,13 +13,11 @@ import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import retrofit2.Response
 
 class NutritionRemoteDataSource(
-    private val date: String,
-    private val age: Int,
     private val nutritionService: NutritionAPI,
     private val recommendedIntakeDao: NutritionDao,
     private val userService: UserAPI
 ) {
-    suspend fun getNutritionUiModel() = getResult(
+    suspend fun getNutritionUiModel(date: String, age: Int): Resource<NutritionUiModel> = getResult(
         { nutritionService.getNutritionForDate(date) },
         { recommendedIntakeDao.selectRecommendationsForAge(age) },
         { userService.getUserNutritionProfileSettings() }
@@ -31,10 +29,10 @@ class NutritionRemoteDataSource(
         userApiCall: suspend () -> Response<NutritionProfileSettings>
     ): Resource<NutritionUiModel> {
         try {
-            val nutritionRepsonse = nutritionApiCall()
+            val nutritionResponse = nutritionApiCall()
             val userResponse = userApiCall()
-            if (nutritionRepsonse.isSuccessful && userResponse.isSuccessful) {
-                val nutritionBody = nutritionRepsonse.body()
+            if (nutritionResponse.isSuccessful && userResponse.isSuccessful) {
+                val nutritionBody = nutritionResponse.body()
                 val userBody = userResponse.body()
                 val ageNutrientRecommendations = recommendedQuery()
                 if (nutritionBody != null && userBody != null) {
@@ -47,8 +45,8 @@ class NutritionRemoteDataSource(
                     )
                 }
             }
-            if (!nutritionRepsonse.isSuccessful) {
-                return error(" ${nutritionRepsonse.code()} ${nutritionRepsonse.message()}")
+            if (!nutritionResponse.isSuccessful) {
+                return error(" ${nutritionResponse.code()} ${nutritionResponse.message()}")
             } else {
                 return error(" ${userResponse.code()} ${userResponse.message()}")
             }

@@ -12,20 +12,20 @@ import piotr.michalkiewicz.mealplannerclient.recipes.datasource.RecipesByDietRem
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE_SIZE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PREFETCH_DISTANCE
-import piotr.michalkiewicz.mealplannerclient.utils.DatabaseAccess
+import piotr.michalkiewicz.mealplannerclient.utils.MealTimeDatabase
 
 class RecipesSearchViewModel(
     private val recipeAPI: RecipeAPI,
-    private val databaseAccess: DatabaseAccess
+    private val mealTImeDatabase: MealTimeDatabase
 ) : ViewModel() {
 
     @ExperimentalPagingApi
     fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipe>> {
-        val pagingSource = { databaseAccess.recipesDao().getRecipesForDiet(queryParam) }
+        val pagingSource = { mealTImeDatabase.recipesDao().getRecipesForDiet(queryParam) }
 
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE),
-            remoteMediator = RecipesByDietRemoteMediator(recipeAPI, databaseAccess, queryParam),
+            remoteMediator = RecipesByDietRemoteMediator(recipeAPI, mealTImeDatabase, queryParam),
             pagingSourceFactory = pagingSource
         ).flow.cachedIn(viewModelScope)
     }

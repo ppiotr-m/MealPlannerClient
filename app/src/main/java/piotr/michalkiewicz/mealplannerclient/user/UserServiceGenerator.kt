@@ -12,7 +12,8 @@ import retrofit2.Callback
 
 class UserServiceGenerator : AuthServiceGenerator() {
 
-    private lateinit var userAPI: UserAPI
+    //  TODO Change access
+    lateinit var userAPI: UserAPI
 
     init {
         if (!::userAPI.isInitialized) {

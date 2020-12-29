@@ -7,6 +7,9 @@ import piotr.michalkiewicz.mealplannerclient.recipes.database.Converters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.FoodNutrient
 import piotr.michalkiewicz.mealplannerclient.user.model.NutritionProfileSettings
 import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class NutritionUiModel(
     val nutritionDailyData: NutritionDailyData,
@@ -18,13 +21,17 @@ class NutritionUiModel(
     val nutrientsPercentages: Map<String, Int>
 
     init {
-        // TODO START HERE MOTHAFUCKA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         // TODO Wyciągnij z ::ageNutrientRecommendations listy nutrition i sklej w jedną
+
+        val combinedListOfNutrientRecommendations = LinkedList<FoodNutrientRecommendedIntake>()
+
+        ageNutrientRecommendations.forEach {
+            combinedListOfNutrientRecommendations.addAll(it.nutrientIntakeRecommendations)
+        }
 
         nutrientsPercentages = calculateNutrientsPercentages(
             nutritionDailyData.dailyNutritionSummary,
-            recommendedNutrients
+            combinedListOfNutrientRecommendations
         )
     }
 
@@ -68,6 +75,6 @@ class NutritionUiModel(
     ) {
         fun createNutritionUiModel(): NutritionUiModel {
 
-        }
+            =
     }
 }

@@ -2,6 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.model.enums
 
 import com.google.gson.annotations.SerializedName
 
+//  TODO Switch to user.enums.Sex
 enum class Sex(val value: String) {
     @SerializedName("Male")
     MALE("Male"),

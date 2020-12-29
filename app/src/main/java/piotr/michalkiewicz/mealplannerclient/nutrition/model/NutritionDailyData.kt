@@ -6,12 +6,12 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.FoodNutrient
 
 @RequiresApi(Build.VERSION_CODES.N)
 class NutritionDailyData(
-    val date: String, // TODO Need to change it to LocalDate
-    val eatenFoods: List<EatableItem>
-) {
+    date: String, // TODO Need to change it to LocalDate
+    eatenFoods: List<EatableItem>,
+    val dailyNutritionSummary: List<FoodNutrient>
+) : DailyEatenFoods(date, eatenFoods) {
 
-    val dailyNutritionSummary = sumFoodNutrients(eatenFoods)
-
+/*
     @RequiresApi(Build.VERSION_CODES.N)
     private fun sumFoodNutrients(eatenFoods: List<EatableItem>): List<FoodNutrient> {
         val nutrientsWithNamesMap = mutableMapOf<String, FoodNutrient>()
@@ -35,4 +35,6 @@ class NutritionDailyData(
         }
         return nutrientsWithNamesMap.values.toMutableList()
     }
+
+ */
 }

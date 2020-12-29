@@ -5,6 +5,7 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.remote.api.NutritionAPI
 
 class NutritionServiceGenerator : AuthServiceGenerator() {
 
+    //  TODO Change access
     lateinit var nutritionAPI: NutritionAPI
 
     init {

@@ -12,5 +12,6 @@ interface NutritionAPI {
     suspend fun getNutritionForDate(date: String): Response<NutritionDailyData> // TODO Should get only NutirtionDailyData, NutritionProfileSettings should come from user repo
 
     @POST("/user/saveNutritionDailyData")
-    suspend fun saveNutritionForDate(@Body nutritionResponse: NutritionDailyData)
+    suspend fun saveNutritionForDate(@Body dailyEatenFoods: DailyEatenFoods):
+            Response<NutritionDailyData>
 }

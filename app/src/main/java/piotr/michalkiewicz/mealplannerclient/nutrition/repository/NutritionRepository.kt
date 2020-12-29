@@ -2,18 +2,26 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.repository
 
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsAccess
-import piotr.michalkiewicz.mealplannerclient.nutrition.remote.api.NutritionAPI
+import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionRemoteDataSource
+import piotr.michalkiewicz.mealplannerclient.user.UserServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.utils.MealTimeDatabase
 import piotr.michalkiewicz.mealplannerclient.utils.performGetOperation
+import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
+//  TODO Move properties to constructor and add HILT
 class NutritionRepository {
     val nutritionSharedPrefsAccessor = NutritionSharedPrefsAccess()
-    val nutritionAPI: NutritionAPI by lazy {
-        NutritionServiceGenerator().nutritionAPI
-    }
 
-    fun getNutritionUiModelData() = performGetOperation(
-        getFromLocalStorage = { NutritionLiveData(nutritionSharedPrefsAccessor) },
-        networkCall = { nutritionAPI.getNutritionForDate() },
+    // TODO add HILT or implement it but think again about whole idea with combining local and remote sources here
+    val nutritionRemoteDataSource = NutritionRemoteDataSource(
+        NutritionServiceGenerator().nutritionAPI,
+        MealTimeDatabase.getInstance(MainActivity.getMainContext()).nutritionDao(),
+        UserServiceGenerator().userAPI
+    )
+
+    fun getNutritionUiModelData(date: String, age: Int) = performGetOperation(
+        getFromLocalStorage = { NutritionLiveData.getInstance(nutritionSharedPrefsAccessor) },
+        networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date, age) },
         saveCallResult = { nutritionSharedPrefsAccessor.saveUiModelToSharedPrefs(it) }
     )
 

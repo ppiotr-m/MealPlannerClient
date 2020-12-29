@@ -19,7 +19,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeItemRemoteKeys
     exportSchema = false
 )
 @TypeConverters(Converters::class)
-abstract class DatabaseAccess : RoomDatabase() {
+abstract class MealTimeDatabase : RoomDatabase() {
 
     abstract fun recipesDao(): RecipesDao
     abstract fun recipesRemoteKeysDao(): RecipesRemoteKeysDao
@@ -27,20 +27,20 @@ abstract class DatabaseAccess : RoomDatabase() {
 
     companion object {
         private const val dbName = "meal_time_local"
-        private var instance: piotr.michalkiewicz.mealplannerclient.utils.DatabaseAccess? = null
+        private var instance: MealTimeDatabase? = null
 
         @Synchronized
-        fun getInstance(context: Context): piotr.michalkiewicz.mealplannerclient.utils.DatabaseAccess {
+        fun getInstance(context: Context): MealTimeDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
-                    DatabaseAccess::class.java,
+                    MealTimeDatabase::class.java,
                     dbName
                 )
                     .fallbackToDestructiveMigration()
                     .build()
             }
-            return instance as piotr.michalkiewicz.mealplannerclient.utils.DatabaseAccess
+            return instance as MealTimeDatabase
         }
     }
 }

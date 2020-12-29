@@ -7,6 +7,7 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionScreenViewModel
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
+// TODO move to different package
 class NutritionLiveData(private val nutrititionSharedPrefsAccess: NutritionSharedPrefsAccess) :
     LiveData<NutritionUiModel>() {
 
@@ -30,6 +31,12 @@ class NutritionLiveData(private val nutrititionSharedPrefsAccess: NutritionShare
         MainActivity.MY_PREFERENCES.unregisterOnSharedPreferenceChangeListener(
             nutritionDataChangedListener
         )
+    }
+
+    companion object {
+        fun getInstance(nutrititionSharedPrefsAccess: NutritionSharedPrefsAccess): NutritionLiveData {
+            return NutritionLiveData(nutrititionSharedPrefsAccess)
+        }
     }
 
     class NutritionSharedPrefencesLiveData

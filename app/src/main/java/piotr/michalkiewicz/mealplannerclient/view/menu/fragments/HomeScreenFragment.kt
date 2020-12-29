@@ -10,7 +10,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.AgeNutrientRecommendations
-import piotr.michalkiewicz.mealplannerclient.utils.DatabaseAccess
+import piotr.michalkiewicz.mealplannerclient.utils.MealTimeDatabase
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 import java.io.BufferedReader
 
@@ -54,7 +54,7 @@ class HomeScreenFragment : Fragment() {
     }
 
     private fun saveRecommendedToRoom(listOfRecommended: List<AgeNutrientRecommendations>) {
-        val dao = DatabaseAccess.getInstance(requireContext()).nutritionDao()
+        val dao = MealTimeDatabase.getInstance(requireContext()).nutritionDao()
         GlobalScope.launch {
             dao.insertRecommendations(listOfRecommended)
         }
