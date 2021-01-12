@@ -149,7 +149,7 @@ class Converters {
         }
         return Gson().toJson(date)
     }
-
+/*
     @TypeConverter
     fun fromJsonToFoodNutrientRecommendedIntakeList(jsonString: String):
             List<FoodNutrientRecommendedIntake> {
@@ -165,4 +165,6 @@ class Converters {
         }
         return Gson().toJson(foodNutrientRecommendedIntakeList)
     }
+
+ */
 }

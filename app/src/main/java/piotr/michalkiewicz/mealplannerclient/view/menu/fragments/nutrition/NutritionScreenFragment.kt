@@ -20,8 +20,8 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionScreenBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionDailyData
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionScreenViewModel
 import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
@@ -67,7 +67,28 @@ class NutritionScreenFragment : Fragment() {
         TabLayoutMediator(nutritionTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
         initTopTabLayout()
 
-        saveNutritionToUser(null)
+        //    saveNutritionToUser(null)
+        getNutrition()
+    }
+
+    private fun getNutrition() {
+        GlobalScope.launch {
+            val api = NutritionServiceGenerator().nutritionAPI
+
+            val nutritionUiModel = api.getNutritionForDate("2021-01-11")
+
+            if (nutritionUiModel.isSuccessful) {
+                for ((key, value) in nutritionUiModel.body()!!.nutrientsPercentages) {
+                    Log.i(TAG, "$key = $value")
+                }
+            } else {
+                Log.i(
+                    TAG, "Pizda blada\nCode: " + nutritionUiModel.code() +
+                            "error msg: " + nutritionUiModel.errorBody() + "\nMessage: " +
+                            nutritionUiModel.message()
+                )
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -101,8 +122,8 @@ class NutritionScreenFragment : Fragment() {
             }
 
             val service = NutritionServiceGenerator()
-            service.nutritionAPI.saveNutritionForDate(
-                NutritionDailyData(LocalDate.now().toString(), eatenRecipes)
+            service.nutritionAPI.saveFoodsForDate(
+                DailyEatenFoods(LocalDate.now().toString(), eatenRecipes)
             )
         }
     }

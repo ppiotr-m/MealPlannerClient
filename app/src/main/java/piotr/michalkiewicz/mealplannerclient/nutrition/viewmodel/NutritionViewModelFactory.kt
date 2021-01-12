@@ -2,17 +2,19 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import piotr.michalkiewicz.mealplannerclient.nutrition.remote.api.NutritionAPI
-import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.repository.NutritionRepository
 
-class NutritionViewModelFactory (
-    private val nutritionAPI: NutritionAPI
+class NutritionViewModelFactory(
+    private val nutritionRepository: NutritionRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RecipesSearchViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(NutritionScreenViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return NutritionScreenViewModel(nutritionAPI) as T
+            return NutritionScreenViewModel(nutritionRepository) as T
+        } else if (modelClass.isAssignableFrom(NutritionGeneralTabViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return NutritionGeneralTabViewModel(nutritionRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

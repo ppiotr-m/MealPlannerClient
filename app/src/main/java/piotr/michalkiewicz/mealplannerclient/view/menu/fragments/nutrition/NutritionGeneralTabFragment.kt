@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionGeneralTabBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
-import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutirtionGeneralTabViewModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionGeneralTabViewModel
 
 class NutritionGeneralTabFragment : Fragment() {
 
-    private lateinit var nutritionGeneralViewModel: NutirtionGeneralTabViewModel
+    private lateinit var nutritionGeneralViewModel: NutritionGeneralTabViewModel
     private lateinit var binding: FragmentNutritionGeneralTabBinding
 
     override fun onCreateView(
@@ -37,7 +37,7 @@ class NutritionGeneralTabFragment : Fragment() {
         nutritionGeneralViewModel = ViewModelProvider(
             this,
             Injection.provideGeneralViewModelFactory()
-        ).get(NutirtionGeneralTabViewModel::class.java)
+        ).get(NutritionGeneralTabViewModel::class.java)
 
         binding.viewmodel = nutritionGeneralViewModel
     }

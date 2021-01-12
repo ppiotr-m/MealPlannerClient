@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutirtionGeneralTabViewModel" />
+            type="piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionGeneralTabViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

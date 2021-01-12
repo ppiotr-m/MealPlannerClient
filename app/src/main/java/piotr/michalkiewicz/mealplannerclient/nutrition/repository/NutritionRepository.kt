@@ -3,10 +3,7 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.repository
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsAccess
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionRemoteDataSource
-import piotr.michalkiewicz.mealplannerclient.user.UserServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.utils.MealTimeDatabase
 import piotr.michalkiewicz.mealplannerclient.utils.performGetOperation
-import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
 //  TODO Move properties to constructor and add HILT
 class NutritionRepository {
@@ -14,9 +11,7 @@ class NutritionRepository {
 
     // TODO add HILT or implement it but think again about whole idea with combining local and remote sources here
     val nutritionRemoteDataSource = NutritionRemoteDataSource(
-        NutritionServiceGenerator().nutritionAPI,
-        MealTimeDatabase.getInstance(MainActivity.getMainContext()).nutritionDao(),
-        UserServiceGenerator().userAPI
+        NutritionServiceGenerator().nutritionAPI
     )
 
     fun getNutritionUiModelData(date: String, age: Int) = performGetOperation(

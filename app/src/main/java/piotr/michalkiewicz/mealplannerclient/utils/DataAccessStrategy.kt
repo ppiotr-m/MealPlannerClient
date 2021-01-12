@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.repository.NutritionLiveData
 
-fun <T, A> performGetOperation(
+fun <A> performGetOperation(
     getFromLocalStorage: () -> NutritionLiveData,
     networkCall: suspend () -> Resource<A>,
     saveCallResult: suspend (A) -> Unit
