@@ -14,9 +14,9 @@ class NutritionRepository {
         NutritionServiceGenerator().nutritionAPI
     )
 
-    fun getNutritionUiModelData(date: String, age: Int) = performGetOperation(
-        getFromLocalStorage = { NutritionLiveData.getInstance(nutritionSharedPrefsAccessor) },
-        networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date, age) },
+    fun getNutritionUiModelData(date: String) = performGetOperation(
+        getFromLocalStorage = {nutritionSharedPrefsAccessor.getUiModelFromSharedPrefs() },
+        networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date) },
         saveCallResult = { nutritionSharedPrefsAccessor.saveUiModelToSharedPrefs(it) }
     )
 

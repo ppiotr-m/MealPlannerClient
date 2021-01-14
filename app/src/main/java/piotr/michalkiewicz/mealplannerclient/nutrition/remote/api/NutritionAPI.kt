@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.remote.api
 
+import androidx.lifecycle.LiveData
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionDailyData
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
@@ -12,7 +13,7 @@ import retrofit2.http.Query
 @JvmSuppressWildcards
 interface NutritionAPI {
     @GET("/nutrition/getUserNutritionForDate")
-    suspend fun getNutritionForDate(@Query("date") date: String): Response<NutritionUiModel>
+    suspend fun getNutritionForDate(@Query("date") date: String): Response<LiveData<NutritionUiModel>>
 
     @POST("/nutrition/saveFoodsForDate")
     suspend fun saveFoodsForDate(@Body dailyEatenFoods: DailyEatenFoods):

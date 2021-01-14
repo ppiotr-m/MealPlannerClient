@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.remote
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.api.NutritionAPI
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
@@ -10,18 +11,20 @@ import retrofit2.Response
 class NutritionRemoteDataSource(
     private val nutritionService: NutritionAPI
 ) {
-    suspend fun getNutritionUiModel(date: String, age: Int): Resource<NutritionUiModel> = getResult(
+    suspend fun getNutritionUiModel(date: String): Resource<LiveData<NutritionUiModel>> = getResult(
         { nutritionService.getNutritionForDate(date) }
     )
 
     private suspend fun getResult(
-        nutritionApiCall: suspend () -> Response<NutritionUiModel>
-    ): Resource<NutritionUiModel> {
+        nutritionApiCall: suspend () -> Response<LiveData<NutritionUiModel>>
+    ): Resource<LiveData<NutritionUiModel>> {
         try {
             val nutritionResponse = nutritionApiCall()
             if (nutritionResponse.isSuccessful) {
                 val nutritionBody = nutritionResponse.body()
                 if (nutritionBody != null) {
+                    Log.i("NutritionRemote", "nutritionBody: " +
+                            nutritionBody.value!!.nutrientsPercentages[0].toString())
                     return Resource.success(
                         nutritionBody
                     )

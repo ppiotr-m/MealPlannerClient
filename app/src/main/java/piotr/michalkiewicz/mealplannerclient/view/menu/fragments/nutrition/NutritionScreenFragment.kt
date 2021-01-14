@@ -78,6 +78,10 @@ class NutritionScreenFragment : Fragment() {
             val nutritionUiModel = api.getNutritionForDate("2021-01-11")
 
             if (nutritionUiModel.isSuccessful) {
+                Log.i(TAG, "UIModel data fetch successful")
+                Log.i(TAG, "Recommendations size: " + nutritionUiModel.body()!!.foodNutrientRecommendations.size)
+                Log.i(TAG, "Nutrients eaten size: " + nutritionUiModel.body()!!.nutrientsPercentages.size)
+                Log.i(TAG, "UIModel date" + nutritionUiModel.body()!!.nutritionDailyData.date)
                 for ((key, value) in nutritionUiModel.body()!!.nutrientsPercentages) {
                     Log.i(TAG, "$key = $value")
                 }
