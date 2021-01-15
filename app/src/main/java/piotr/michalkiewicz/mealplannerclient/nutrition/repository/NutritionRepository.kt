@@ -1,8 +1,14 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.repository
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsAccess
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionRemoteDataSource
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
+import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import piotr.michalkiewicz.mealplannerclient.utils.performGetOperation
 
 //  TODO Move properties to constructor and add HILT
@@ -14,11 +20,21 @@ class NutritionRepository {
         NutritionServiceGenerator().nutritionAPI
     )
 
-    fun getNutritionUiModelData(date: String) = performGetOperation(
-        getFromLocalStorage = {nutritionSharedPrefsAccessor.getUiModelFromSharedPrefs() },
-        networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date) },
-        saveCallResult = { nutritionSharedPrefsAccessor.saveUiModelToSharedPrefs(it) }
-    )
+    suspend fun getNutritionUiModelData(date: String) = {
+//            MutableLiveData<NutritionUiModel> {
+//        val response = nutritionRemoteDataSource.getNutritionUiModel("2021-01-11")
+//        if(response.status.equals(Resource.Status.SUCCESS)) {
+//            Log.d(TAG, "NutritionRepositrory::getNutritionUiModelData, response SUCCESS")
+//        } else if (response.status.equals(Resource.Status.ERROR)) {
+//            Log.d(TAG, "NutritionRepositrory::getNutritionUiModelData, response ERROR")
+//        }
+//        //  TODO Why program thinks there might be null here? Work it out
+//        return response.data!!
+//    }
+
+        performGetOperation(networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date) })
+    }
+
 
     /*
     @RequiresApi(Build.VERSION_CODES.O)

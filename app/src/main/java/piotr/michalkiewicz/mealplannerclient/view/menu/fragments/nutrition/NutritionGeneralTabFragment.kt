@@ -35,6 +35,7 @@ class NutritionGeneralTabFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         initViewModel()
+        setupObservers()
     }
 
     private fun initViewModel() {
@@ -42,17 +43,21 @@ class NutritionGeneralTabFragment : Fragment() {
             this,
             Injection.provideGeneralViewModelFactory()
         ).get(NutritionGeneralTabViewModel::class.java)
+    }
 
+    private fun setupObservers() {
         nutritionGeneralViewModel.uiModel.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG, "Observer triggered, it == null?: " + (it == null))
+
             if(it.status.equals(Resource.Status.SUCCESS)) {
                 Log.i(
                     TAG,
-                    "NutritionGeneralTabFragment::nutritionPercentages[0]" + it.data!!.nutrientsPercentages[0]
+                    "NutritionGeneralTabFragment::Observer::nutritionPercentages[0]" + it.data!!.nutrientsPercentages[0]
                 )
             } else{
                 Log.i(
                     TAG,
-                    "NutritionGeneralTabFragment:: no success pandejo\n"
+                    "NutritionGeneralTabFragment::Observer no success pandejo\n"
                 )
             }
         })
