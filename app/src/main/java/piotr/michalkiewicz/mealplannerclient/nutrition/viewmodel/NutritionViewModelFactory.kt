@@ -15,6 +15,12 @@ class NutritionViewModelFactory(
         } else if (modelClass.isAssignableFrom(NutritionGeneralTabViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return NutritionGeneralTabViewModel(nutritionRepository) as T
+        } else if (modelClass.isAssignableFrom(NutritionVitaminsTabViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return NutritionVitaminsTabViewModel(nutritionRepository) as T
+        } else if (modelClass.isAssignableFrom(NutritionMineralsTabViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return NutritionMineralsTabViewModel(nutritionRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

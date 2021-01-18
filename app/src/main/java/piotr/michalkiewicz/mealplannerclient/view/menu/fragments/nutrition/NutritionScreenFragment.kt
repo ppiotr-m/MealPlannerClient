@@ -33,7 +33,6 @@ import java.util.*
 class NutritionScreenFragment : Fragment() {
 
     private val pagesCount = 3
-    private var nutritionUiModel: NutritionUiModel? = null
     private lateinit var nutritionScreenViewModel: NutritionScreenViewModel
     private lateinit var binding: FragmentNutritionScreenBinding
 
@@ -67,32 +66,7 @@ class NutritionScreenFragment : Fragment() {
         TabLayoutMediator(nutritionTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
         initTopTabLayout()
 
-        //    saveNutritionToUser(null)
-        getNutrition()
-    }
-
-    private fun getNutrition() {
-        GlobalScope.launch {
-            val api = NutritionServiceGenerator().nutritionAPI
-
-            val nutritionUiModel = api.getNutritionForDate("2021-01-11")
-
-            if (nutritionUiModel.isSuccessful) {
-                Log.i(TAG, "UIModel data fetch successful")
-                Log.i(TAG, "Recommendations size: " + nutritionUiModel.body()!!.foodNutrientRecommendations.size)
-                Log.i(TAG, "Nutrients eaten size: " + nutritionUiModel.body()!!.nutrientsPercentages.size)
-                Log.i(TAG, "UIModel date" + nutritionUiModel.body()!!.nutritionDailyData.date)
-                for ((key, value) in nutritionUiModel.body()!!.nutrientsPercentages) {
-                    Log.i(TAG, "$key = $value")
-                }
-            } else {
-                Log.i(
-                    TAG, "Pizda blada\nCode: " + nutritionUiModel.code() +
-                            "error msg: " + nutritionUiModel.errorBody() + "\nMessage: " +
-                            nutritionUiModel.message()
-                )
-            }
-        }
+//      saveNutritionToUser(null)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

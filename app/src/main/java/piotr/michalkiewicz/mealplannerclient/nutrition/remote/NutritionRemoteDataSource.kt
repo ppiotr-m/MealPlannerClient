@@ -8,16 +8,20 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.remote.api.NutritionAPI
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.utils.Resource
+import piotr.michalkiewicz.mealplannerclient.utils.performGetOperation
 import retrofit2.Response
 
 class NutritionRemoteDataSource(
     private val nutritionService: NutritionAPI
 ) {
-    suspend fun getNutritionUiModel(date: String): Resource<MutableLiveData<NutritionUiModel>> = getResult(
-        { nutritionService.getNutritionForDate(date) }
-    )
+//    suspend fun getNutritionUiModel(date: String): Resource<MutableLiveData<NutritionUiModel>> = getResult(
+//        { nutritionService.getNutritionForDate(date) }
+//    )
 
-    private suspend fun getResult(
+    suspend fun getNutritionUiModel(date: String): LiveData<NutritionUiModel> =
+        performGetOperation { nutritionService.getNutritionForDate(date) }
+
+    suspend private fun getResult(
         nutritionApiCall: suspend () -> Response<MutableLiveData<NutritionUiModel>>
     ): Resource<MutableLiveData<NutritionUiModel>> {
         try {

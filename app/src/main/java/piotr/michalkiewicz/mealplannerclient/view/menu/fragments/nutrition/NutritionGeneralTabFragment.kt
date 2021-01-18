@@ -49,15 +49,16 @@ class NutritionGeneralTabFragment : Fragment() {
         nutritionGeneralViewModel.uiModel.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "Observer triggered, it == null?: " + (it == null))
 
-            if(it.status.equals(Resource.Status.SUCCESS)) {
+            if(it != null) {
                 Log.i(
                     TAG,
-                    "NutritionGeneralTabFragment::Observer::nutritionPercentages[0]" + it.data!!.nutrientsPercentages[0]
+                    "NutritionGeneralTabFragment::Observer::it.nutrientPercentages==null:" +
+                            (it.nutrientsPercentages == null)
                 )
             } else{
                 Log.i(
                     TAG,
-                    "NutritionGeneralTabFragment::Observer no success pandejo\n"
+                    "NutritionGeneralTabFragment::Observer it = null"
                 )
             }
         })

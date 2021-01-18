@@ -14,7 +14,7 @@ import retrofit2.http.Query
 @JvmSuppressWildcards
 interface NutritionAPI {
     @GET("/nutrition/getUserNutritionForDate")
-    suspend fun getNutritionForDate(@Query("date") date: String): Response<MutableLiveData<NutritionUiModel>>
+    suspend fun getNutritionForDate(@Query("date") date: String): Response<NutritionUiModel>
 
     @POST("/nutrition/saveFoodsForDate")
     suspend fun saveFoodsForDate(@Body dailyEatenFoods: DailyEatenFoods):

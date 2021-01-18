@@ -12,5 +12,5 @@ class NutritionGeneralTabViewModel(
     val repository: NutritionRepository
 ) : ViewModel() {
 
-    val uiModel = repository.getNutritionUiModelData("2021-01-11")
+    val uiModel = repository.getNutritionUiModelData("2021-01-17")
 }

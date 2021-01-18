@@ -20,7 +20,10 @@ class NutritionRepository {
         NutritionServiceGenerator().nutritionAPI
     )
 
-    suspend fun getNutritionUiModelData(date: String) = {
+    fun getNutritionUiModelData(date: String) =
+        performGetOperation(networkCall = {
+            NutritionServiceGenerator().nutritionAPI.getNutritionForDate(date)
+        })
 //            MutableLiveData<NutritionUiModel> {
 //        val response = nutritionRemoteDataSource.getNutritionUiModel("2021-01-11")
 //        if(response.status.equals(Resource.Status.SUCCESS)) {
@@ -31,9 +34,9 @@ class NutritionRepository {
 //        //  TODO Why program thinks there might be null here? Work it out
 //        return response.data!!
 //    }
+        //  TODO Change it to proper implementation
 
-        performGetOperation(networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date) })
-    }
+
 
 
     /*
