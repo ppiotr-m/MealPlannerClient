@@ -62,6 +62,6 @@ class NutritionVitaminTabFragment : Fragment() {
             }
         })
 
-        binding.viewmodel = nutritionGeneralViewModel
+        binding.viewmodel = nutritionVitaminsViewModel
     }
 }

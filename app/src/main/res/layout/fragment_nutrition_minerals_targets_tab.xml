@@ -1,232 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+    <data>
 
-    <TextView
-        android:id="@+id/calciumBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="2dp"
-        android:text="@string/calcium"
-        app:layout_constraintBottom_toTopOf="@+id/vitAProgressBar"
-        app:layout_constraintStart_toStartOf="@+id/vitAProgressBar"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="viewmodel"
+            type="piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionMineralsTabViewModel" />
+    </data>
 
-    <ProgressBar
-        android:id="@+id/vitAProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="79"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calciumBarLabelTV" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/copperBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/copper"
-        app:layout_constraintStart_toStartOf="@+id/vitCProgressBar"
-        app:layout_constraintTop_toBottomOf="@id/vitAProgressBar" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <ProgressBar
-        android:id="@+id/vitCProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="45"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/copperBarLabelTV" />
+        <TextView
+            android:id="@+id/calciumBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/calcium"
+            app:layout_constraintBottom_toTopOf="@+id/vitAProgressBar"
+            app:layout_constraintStart_toStartOf="@+id/vitAProgressBar"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/ironBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/iron"
-        app:layout_constraintStart_toStartOf="@+id/vitDProgressBar"
-        app:layout_constraintTop_toBottomOf="@id/vitCProgressBar" />
+        <ProgressBar
+            android:id="@+id/vitAProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Calcium, Ca`)}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calciumBarLabelTV" />
 
-    <ProgressBar
-        android:id="@+id/vitDProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="60"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ironBarLabelTV" />
+        <TextView
+            android:id="@+id/copperBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/copper"
+            app:layout_constraintStart_toStartOf="@+id/vitCProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/vitAProgressBar" />
 
-    <TextView
-        android:id="@+id/magnesiumBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/magnesium"
-        app:layout_constraintStart_toStartOf="@+id/vitEProgressBar"
-        app:layout_constraintTop_toBottomOf="@id/vitDProgressBar" />
+        <ProgressBar
+            android:id="@+id/vitCProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Copper, Cu`)}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/copperBarLabelTV" />
 
-    <ProgressBar
-        android:id="@+id/vitEProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="60"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/magnesiumBarLabelTV" />
+        <TextView
+            android:id="@+id/ironBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/iron"
+            app:layout_constraintStart_toStartOf="@+id/vitDProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/vitCProgressBar" />
 
-    <TextView
-        android:id="@+id/manganeseBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/manganese"
-        app:layout_constraintStart_toStartOf="@+id/vitKProgressBar"
-        app:layout_constraintTop_toBottomOf="@id/vitEProgressBar" />
+        <ProgressBar
+            android:id="@+id/vitDProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Iron, Fe`)}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ironBarLabelTV" />
 
-    <ProgressBar
-        android:id="@+id/vitKProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="83"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manganeseBarLabelTV" />
+        <TextView
+            android:id="@+id/magnesiumBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/magnesium"
+            app:layout_constraintStart_toStartOf="@+id/vitEProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/vitDProgressBar" />
 
-    <TextView
-        android:id="@+id/potassiumBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/potassium"
-        app:layout_constraintStart_toStartOf="@+id/vitB1ProgressBar"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ProgressBar
+            android:id="@+id/vitEProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Magnesium, Mg`)}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/magnesiumBarLabelTV" />
 
-    <ProgressBar
-        android:id="@+id/vitB1ProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="79"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/potassiumBarLabelTV" />
+        <TextView
+            android:id="@+id/manganeseBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/manganese"
+            app:layout_constraintStart_toStartOf="@+id/vitKProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/vitEProgressBar" />
 
-    <TextView
-        android:id="@+id/seleniumBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/selenium"
-        app:layout_constraintStart_toStartOf="@+id/vitB2ProgressBar"
-        app:layout_constraintTop_toBottomOf="@id/vitB1ProgressBar" />
+        <ProgressBar
+            android:id="@+id/vitKProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/manganeseBarLabelTV" />
 
-    <ProgressBar
-        android:id="@+id/vitB2ProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="23"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seleniumBarLabelTV" />
+        <TextView
+            android:id="@+id/potassiumBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/potassium"
+            app:layout_constraintStart_toStartOf="@+id/vitB1ProgressBar"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/zincBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="zinc"
-        app:layout_constraintStart_toStartOf="@+id/vitB3ProgressBar"
-        app:layout_constraintTop_toBottomOf="@id/vitB2ProgressBar" />
+        <ProgressBar
+            android:id="@+id/vitB1ProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Potassium, K`)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/potassiumBarLabelTV" />
 
-    <ProgressBar
-        android:id="@+id/vitB3ProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="37"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zincBarLabelTV" />
+        <TextView
+            android:id="@+id/seleniumBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/selenium"
+            app:layout_constraintStart_toStartOf="@+id/vitB2ProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/vitB1ProgressBar" />
 
-    <TextView
-        android:id="@+id/phosphorusBarLabelTV"
-        style="@style/smallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/phosphorus"
-        app:layout_constraintStart_toStartOf="@+id/vitB5ProgressBar"
-        app:layout_constraintTop_toBottomOf="@id/vitB3ProgressBar" />
+        <ProgressBar
+            android:id="@+id/vitB2ProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Selenium, Se`)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/seleniumBarLabelTV" />
 
-    <ProgressBar
-        android:id="@+id/vitB5ProgressBar"
-        style="@style/myHorizontalProgressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="96"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phosphorusBarLabelTV" />
+        <TextView
+            android:id="@+id/zincBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="zinc"
+            app:layout_constraintStart_toStartOf="@+id/vitB3ProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/vitB2ProgressBar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/vitB3ProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Zinc, Zn`)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/zincBarLabelTV" />
+
+        <TextView
+            android:id="@+id/phosphorusBarLabelTV"
+            style="@style/smallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/phosphorus"
+            app:layout_constraintStart_toStartOf="@+id/vitB5ProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/vitB3ProgressBar" />
+
+        <ProgressBar
+            android:id="@+id/vitB5ProgressBar"
+            style="@style/myHorizontalProgressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Phosphorus, P`)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/phosphorusBarLabelTV" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
