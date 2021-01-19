@@ -41,7 +41,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Calcium, Ca`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Calcium, Ca`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calciumBarLabelTV" />
@@ -65,7 +65,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Copper, Cu`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Copper, Cu`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/copperBarLabelTV" />
@@ -89,7 +89,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Iron, Fe`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Iron, Fe`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ironBarLabelTV" />
@@ -113,7 +113,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Magnesium, Mg`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Magnesium, Mg`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/magnesiumBarLabelTV" />
@@ -160,7 +160,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Potassium, K`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Potassium, K`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/potassiumBarLabelTV" />
@@ -184,7 +184,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Selenium, Se`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Selenium, Se`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/seleniumBarLabelTV" />
@@ -208,7 +208,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Zinc, Zn`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Zinc, Zn`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/zincBarLabelTV" />
@@ -232,7 +232,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Phosphorus, P`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Phosphorus, P`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/phosphorusBarLabelTV" />

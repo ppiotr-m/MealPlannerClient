@@ -41,7 +41,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Vitamin A, RAE`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Vitamin A, RAE`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calciumBarLabelTV" />
@@ -65,7 +65,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Vitamin C, total ascorbic acid`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Vitamin C, total ascorbic acid`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/copperBarLabelTV" />
@@ -89,7 +89,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Vitamin D (D2 + D3)`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Vitamin D (D2 + D3)`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ironBarLabelTV" />
@@ -113,7 +113,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Vitamin E (alpha-tocopherol)`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Vitamin E (alpha-tocopherol)`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/magnesiumBarLabelTV" />
@@ -137,7 +137,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Vitamin K (phylloquinone)`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Vitamin K (phylloquinone)`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/manganeseBarLabelTV" />
@@ -161,7 +161,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Folate, total`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Folate, total`)}"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/foliateBarLabelTV" />
@@ -185,7 +185,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Thiamin`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Thiamin`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/potassiumBarLabelTV" />
@@ -209,7 +209,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Riboflavin`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Riboflavin`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/seleniumBarLabelTV" />
@@ -233,7 +233,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Niacin`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Niacin`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/zincBarLabelTV" />
@@ -280,7 +280,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Vitamin B-6`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Vitamin B-6`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/vitB6BarLabelTV" />
@@ -304,7 +304,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            android:progress="@{viewmodel.uiModel.nutrientsPercentages.get(`Vitamin B-12`)}"
+            android:progress="@{viewmodel.uiModel.data.nutrientsPercentages.get(`Vitamin B-12`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/vitB12BarLabelTV" />

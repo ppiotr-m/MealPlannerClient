@@ -1,8 +1,7 @@
-package piotr.michalkiewicz.mealplannerclient.nutrition.repository
+package piotr.michalkiewicz.mealplannerclient.nutrition.local
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
-import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsAccess
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionScreenViewModel
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity

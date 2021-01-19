@@ -1,14 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.local.NutritionSharedPrefsAccess
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionRemoteDataSource
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
-import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import piotr.michalkiewicz.mealplannerclient.utils.performGetOperation
 
 //  TODO Move properties to constructor and add HILT
@@ -20,10 +14,13 @@ class NutritionRepository {
         NutritionServiceGenerator().nutritionAPI
     )
 
-    fun getNutritionUiModelData(date: String) =
-        performGetOperation(networkCall = {
-            NutritionServiceGenerator().nutritionAPI.getNutritionForDate(date)
-        })
+    fun getNutritionUiModelDataResource(date: String) =
+        performGetOperation(
+            localStorageQuery = { nutritionSharedPrefsAccessor.getUiModelFromSharedPrefs() },
+            networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date) },
+            saveResults = { nutritionSharedPrefsAccessor.saveUiModelToSharedPrefs(it) }
+        )
+
 //            MutableLiveData<NutritionUiModel> {
 //        val response = nutritionRemoteDataSource.getNutritionUiModel("2021-01-11")
 //        if(response.status.equals(Resource.Status.SUCCESS)) {
@@ -35,9 +32,6 @@ class NutritionRepository {
 //        return response.data!!
 //    }
         //  TODO Change it to proper implementation
-
-
-
 
     /*
     @RequiresApi(Build.VERSION_CODES.O)

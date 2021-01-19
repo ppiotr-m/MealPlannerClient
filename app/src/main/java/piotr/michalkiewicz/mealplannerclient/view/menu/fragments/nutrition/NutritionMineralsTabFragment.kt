@@ -1,7 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.nutrition
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionMineralsTargetsTabBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionMineralsTabViewModel
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 
 class NutritionMineralsTabFragment : Fragment() {
 
@@ -45,22 +43,7 @@ class NutritionMineralsTabFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        nutritionMineralsViewModel.uiModel.observe(viewLifecycleOwner, Observer {
-            Log.d(ConstantValues.TAG, "Observer triggered, it == null?: " + (it == null))
-
-            if(it != null) {
-                Log.i(
-                    ConstantValues.TAG,
-                    "NutritionGeneralTabFragment::Observer::it.nutrientPercentages==null:" +
-                            (it.nutrientsPercentages == null)
-                )
-            } else{
-                Log.i(
-                    ConstantValues.TAG,
-                    "NutritionGeneralTabFragment::Observer it = null"
-                )
-            }
-        })
+        nutritionMineralsViewModel.uiModel.observe(viewLifecycleOwner, Observer { })
 
         binding.viewmodel = nutritionMineralsViewModel
     }
