@@ -8,9 +8,6 @@ import piotr.michalkiewicz.mealplannerclient.utils.Resource
 class NutritionRemoteDataSource(
     private val nutritionService: NutritionAPI
 ) : BaseRemoteDataSource() {
-//    suspend fun getNutritionUiModel(date: String): Resource<MutableLiveData<NutritionUiModel>> = getResult(
-//        { nutritionService.getNutritionForDate(date) }
-//    )
 
     suspend fun getNutritionUiModel(date: String) =
         getResult { nutritionService.getNutritionForDate(date) }

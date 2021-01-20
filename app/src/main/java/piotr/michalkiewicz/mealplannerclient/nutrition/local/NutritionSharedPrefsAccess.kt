@@ -1,10 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.local
 
-import android.util.Log
 import com.google.gson.Gson
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionScreenViewModel
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
 class NutritionSharedPrefsAccess {
@@ -20,13 +18,9 @@ class NutritionSharedPrefsAccess {
         val storedNutritionUiData =
             MainActivity.MY_PREFERENCES.getString(NutritionScreenViewModel.NUTRITION_DATA, null)
 
-        // TODO After removing log, return insted of crrating instance
-        val uiModel = Gson().fromJson(
+        return Gson().fromJson(
             storedNutritionUiData,
             NutritionUiModel::class.java
         )
-        Log.d(TAG, "NutirtionSharedPrefsAccess::uiModel null: " + (uiModel == null))
-
-        return uiModel
     }
 }
