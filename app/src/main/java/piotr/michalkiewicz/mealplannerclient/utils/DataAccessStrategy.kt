@@ -7,7 +7,7 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
-//  Local storage query zwraca
+//  TODO Make it generic
 fun performGetOperation(
     localStorageQuery: () -> NutritionUiModel?,
     networkCall: suspend () -> Resource<NutritionUiModel>?, //  TODO Remove nullables, this and the rest

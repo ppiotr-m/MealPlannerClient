@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionGeneralTabBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
-import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionGeneralTabViewModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionSharedViewModel
 
 class NutritionGeneralTabFragment : Fragment() {
 
-    private lateinit var nutritionGeneralViewModel: NutritionGeneralTabViewModel
+    private lateinit var nutritionSharedViewModel: NutritionSharedViewModel
     private lateinit var binding: FragmentNutritionGeneralTabBinding
 
     override fun onCreateView(
@@ -35,15 +35,15 @@ class NutritionGeneralTabFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        nutritionGeneralViewModel = ViewModelProvider(
-            this,
+        nutritionSharedViewModel = ViewModelProvider(
+            requireActivity(),
             Injection.provideGeneralViewModelFactory()
-        ).get(NutritionGeneralTabViewModel::class.java)
+        ).get(NutritionSharedViewModel::class.java)
     }
 
     private fun setupObservers() {
-        nutritionGeneralViewModel.uiModel.observe(viewLifecycleOwner, { })
+        nutritionSharedViewModel.uiModelLiveData.observe(viewLifecycleOwner, { })
 
-        binding.viewmodel = nutritionGeneralViewModel
+        binding.viewModel = nutritionSharedViewModel
     }
 }

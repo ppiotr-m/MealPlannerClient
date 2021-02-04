@@ -22,8 +22,7 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
-import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionScreenViewModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionSharedViewModel
 import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
@@ -33,7 +32,7 @@ import java.util.*
 class NutritionScreenFragment : Fragment() {
 
     private val pagesCount = 3
-    private lateinit var nutritionScreenViewModel: NutritionScreenViewModel
+    private lateinit var nutritionSharedViewModel: NutritionSharedViewModel
     private lateinit var binding: FragmentNutritionScreenBinding
 
     override fun onCreateView(
@@ -50,10 +49,10 @@ class NutritionScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nutritionScreenViewModel = ViewModelProvider(
-            this,
+        nutritionSharedViewModel = ViewModelProvider(
+            requireActivity(),
             Injection.provideScreenViewModelFactory()
-        ).get(NutritionScreenViewModel::class.java)
+        ).get(NutritionSharedViewModel::class.java)
 
         init()
     }

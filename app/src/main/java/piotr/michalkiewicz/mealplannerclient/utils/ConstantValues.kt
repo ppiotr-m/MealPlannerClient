@@ -31,5 +31,6 @@ class ConstantValues {
         const val PAGE_SIZE = 5
         const val PREFETCH_DISTANCE = 5
         const val RECIPES_STARTING_PAGE_INDEX = 0
+        const val DATE_FORMAT = "yyyy/MM/d"
     }
 }
