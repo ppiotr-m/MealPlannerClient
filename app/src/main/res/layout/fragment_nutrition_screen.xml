@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionSharedViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="40dp"
             android:background="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,9 +25,11 @@
 
             <ImageButton
                 android:id="@+id/previousDayBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
                 android:background="@color/opaque"
+                android:onClick="@{() -> viewModel.goToPreviousDay()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/nutritionDateTV"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +40,7 @@
                 style="@style/normalTextBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DATE"
+                android:text="@{viewModel.date.toString()}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,10 +49,11 @@
 
             <ImageButton
                 android:id="@+id/nextDayBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:background="@color/opaque"
-                android:onClick="@{() -> viewModel.increaseDateByOneDay()}"
+                android:onClick="@{() -> viewModel.goToNextDay()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nutritionDateTV"
                 app:layout_constraintTop_toTopOf="parent"

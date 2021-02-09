@@ -39,7 +39,7 @@ class NutritionScreenFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentNutritionScreenBinding.inflate(inflater)
 
         return binding.root
@@ -49,16 +49,16 @@ class NutritionScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nutritionSharedViewModel = ViewModelProvider(
-            requireActivity(),
-            Injection.provideScreenViewModelFactory()
-        ).get(NutritionSharedViewModel::class.java)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         init()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun init() {
+        initViewModel()
+        setupObservers()
+
         nutritionScreenViewPager.adapter = ScreenSlidePagerAdapter(this)
         nutritionMealsListView.adapter =
             NutritionMealsListViewAdapter(LinkedList<RecipeIngredient>())
@@ -66,6 +66,20 @@ class NutritionScreenFragment : Fragment() {
         initTopTabLayout()
 
 //      saveNutritionToUser(null)
+    }
+
+    private fun initViewModel() {
+        nutritionSharedViewModel = ViewModelProvider(
+            requireActivity(),
+            Injection.provideGeneralViewModelFactory()
+        ).get(NutritionSharedViewModel::class.java)
+    }
+
+    private fun setupObservers() {
+        nutritionSharedViewModel.uiModelLiveData.observe(viewLifecycleOwner, { })
+        nutritionSharedViewModel._date.observe(viewLifecycleOwner, {})
+
+        binding.viewModel = nutritionSharedViewModel
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

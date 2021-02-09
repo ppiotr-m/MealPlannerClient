@@ -1,6 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.utils
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import piotr.michalkiewicz.mealplannerclient.R
@@ -12,7 +12,7 @@ fun performGetOperation(
     localStorageQuery: () -> NutritionUiModel?,
     networkCall: suspend () -> Resource<NutritionUiModel>?, //  TODO Remove nullables, this and the rest
     saveResults: (NutritionUiModel) -> Unit,
-): LiveData<Resource<NutritionUiModel>> =
+): MutableLiveData<Resource<NutritionUiModel>> =
     liveData(Dispatchers.IO) {
         emit(Resource.loading())
         val source = localStorageQuery.invoke()
@@ -26,4 +26,4 @@ fun performGetOperation(
         } else if (responseStatus.status == Resource.Status.ERROR) {
             emit(Resource.error(MainActivity.getMainContext().resources.getString(R.string.nutrition_fetch_error)))
         }
-    }
+    } as MutableLiveData<Resource<NutritionUiModel>>

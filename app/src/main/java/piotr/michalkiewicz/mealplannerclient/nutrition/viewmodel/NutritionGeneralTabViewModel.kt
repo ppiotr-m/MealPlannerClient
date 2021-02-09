@@ -13,5 +13,4 @@ class NutritionGeneralTabViewModel(
     //  TODO Handle nulabilty
     @RequiresApi(Build.VERSION_CODES.O)
     val uiModelLiveData = repository.getNutritionUiModelDataResource(LocalDate.now().toString())
-
 }
