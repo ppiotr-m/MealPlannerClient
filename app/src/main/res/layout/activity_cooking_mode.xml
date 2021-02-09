@@ -41,7 +41,7 @@
 
     <TextView
         android:id="@+id/stepLabelTV"
-        style="@style/bigPlainText"
+        style="@style/bigPlainTextBright"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/cookingStepNrTV"
-        style="@style/bigPlainText"
+        style="@style/bigPlainTextBright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"

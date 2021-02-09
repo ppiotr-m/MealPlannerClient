@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionVitaminTargetsTabBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
@@ -43,10 +42,9 @@ class NutritionVitaminTabFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        nutritionSharedViewModel.uiModelLiveData.observe(
-            viewLifecycleOwner,
-            Observer { }) // TODO Resource.LOADING etc. - handle this
+        nutritionSharedViewModel.uiModelLiveData.observe(viewLifecycleOwner, {})
 
         binding.viewmodel = nutritionSharedViewModel
     }
+
 }

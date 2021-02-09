@@ -42,8 +42,9 @@ class NutritionGeneralTabFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        nutritionSharedViewModel.uiModelLiveData.observe(viewLifecycleOwner, { })
+        nutritionSharedViewModel.uiModelLiveData.observe(viewLifecycleOwner, {})
 
         binding.viewModel = nutritionSharedViewModel
     }
+
 }

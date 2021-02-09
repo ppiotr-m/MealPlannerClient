@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/usernameTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -227,7 +227,7 @@
 
         <TextView
             android:id="@+id/dietTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -331,7 +331,7 @@
 
         <TextView
             android:id="@+id/heightTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -352,7 +352,7 @@
 
         <TextView
             android:id="@+id/weightTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -363,7 +363,7 @@
 
         <TextView
             android:id="@+id/weightUnitTextView"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -375,7 +375,7 @@
 
         <TextView
             android:id="@+id/heightUnitTextView"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -418,7 +418,7 @@
 
         <TextView
             android:id="@+id/goalTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -429,7 +429,7 @@
 
         <TextView
             android:id="@+id/goalUnitTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -439,7 +439,7 @@
 
         <TextView
             android:id="@+id/goalSignTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -459,7 +459,7 @@
 
         <TextView
             android:id="@+id/ageTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -478,7 +478,7 @@
 
         <TextView
             android:id="@+id/activityLevelTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/textView10"
-        style="@style/bigPlainText"
+        style="@style/bigPlainTextBright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

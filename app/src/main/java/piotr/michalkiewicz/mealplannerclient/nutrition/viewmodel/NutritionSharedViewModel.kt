@@ -43,7 +43,6 @@ class NutritionSharedViewModel(val repository: NutritionRepository) : ViewModel(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun goToPreviousDay() {
-        _date.value = null
         decreaseDateByOneDay()
     }
 }

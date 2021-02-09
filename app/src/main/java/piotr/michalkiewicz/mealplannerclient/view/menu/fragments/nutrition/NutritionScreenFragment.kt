@@ -22,10 +22,12 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionSharedViewModel
 import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
+import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import java.time.LocalDate
 import java.util.*
 
@@ -76,10 +78,32 @@ class NutritionScreenFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        nutritionSharedViewModel.uiModelLiveData.observe(viewLifecycleOwner, { })
+        nutritionSharedViewModel.uiModelLiveData.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    loadingTempTV.visibility = View.INVISIBLE
+                    nutritionDataContainerLinearLayout.visibility = View.VISIBLE
+                }
+
+                Resource.Status.ERROR -> {  //  TODO Here an error is signal that there is no data on server for this date, consider handling it differently
+                    loadingTempTV.visibility = View.INVISIBLE
+                    nutritionDataContainerLinearLayout.visibility = View.VISIBLE
+                }
+
+                Resource.Status.LOADING -> {
+                    loadingTempTV.visibility = View.VISIBLE
+                    nutritionDataContainerLinearLayout.visibility = View.INVISIBLE
+                }
+            }
+        })
+
         nutritionSharedViewModel._date.observe(viewLifecycleOwner, {})
 
         binding.viewModel = nutritionSharedViewModel
+    }
+
+    private fun bindNutritionUiModel(nutritionUiModel: NutritionUiModel) {
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

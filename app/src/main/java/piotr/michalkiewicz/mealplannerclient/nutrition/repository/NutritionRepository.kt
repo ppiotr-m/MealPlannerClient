@@ -15,8 +15,6 @@ class NutritionRepository {
 
     fun getNutritionUiModelDataResource(date: String) =
         performGetOperation(
-            localStorageQuery = { nutritionSharedPrefsAccessor.getUiModelFromSharedPrefs() },
-            networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date) },
-            saveResults = { nutritionSharedPrefsAccessor.saveUiModelToSharedPrefs(it) }
+            networkCall = { nutritionRemoteDataSource.getNutritionUiModel(date) }
         )
 }

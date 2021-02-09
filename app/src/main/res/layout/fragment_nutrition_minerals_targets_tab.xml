@@ -148,11 +148,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/potassium"
-            app:layout_constraintStart_toStartOf="@+id/vitB1ProgressBar"
+            app:layout_constraintStart_toStartOf="@+id/thiaminProgressBar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
-            android:id="@+id/vitB1ProgressBar"
+            android:id="@+id/thiaminProgressBar"
             style="@style/myHorizontalProgressBarStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -166,17 +166,17 @@
             app:layout_constraintTop_toBottomOf="@id/potassiumBarLabelTV" />
 
         <TextView
-            android:id="@+id/seleniumBarLabelTV"
+            android:id="@+id/riboflavinBarLabelTV"
             style="@style/smallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="@string/selenium"
-            app:layout_constraintStart_toStartOf="@+id/vitB2ProgressBar"
-            app:layout_constraintTop_toBottomOf="@id/vitB1ProgressBar" />
+            app:layout_constraintStart_toStartOf="@+id/riboflavinProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/thiaminProgressBar" />
 
         <ProgressBar
-            android:id="@+id/vitB2ProgressBar"
+            android:id="@+id/riboflavinProgressBar"
             style="@style/myHorizontalProgressBarStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
             android:progress="@{viewmodel.uiModelLiveData.data.nutrientsPercentages.get(`Selenium, Se`)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/seleniumBarLabelTV" />
+            app:layout_constraintTop_toBottomOf="@+id/riboflavinBarLabelTV" />
 
         <TextView
             android:id="@+id/zincBarLabelTV"
@@ -196,11 +196,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="zinc"
-            app:layout_constraintStart_toStartOf="@+id/vitB3ProgressBar"
-            app:layout_constraintTop_toBottomOf="@id/vitB2ProgressBar" />
+            app:layout_constraintStart_toStartOf="@+id/niacinProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/riboflavinProgressBar" />
 
         <ProgressBar
-            android:id="@+id/vitB3ProgressBar"
+            android:id="@+id/niacinProgressBar"
             style="@style/myHorizontalProgressBarStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/phosphorus"
             app:layout_constraintStart_toStartOf="@+id/vitB5ProgressBar"
-            app:layout_constraintTop_toBottomOf="@id/vitB3ProgressBar" />
+            app:layout_constraintTop_toBottomOf="@id/niacinProgressBar" />
 
         <ProgressBar
             android:id="@+id/vitB5ProgressBar"

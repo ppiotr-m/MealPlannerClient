@@ -23,10 +23,10 @@
 
         <TextView
             android:id="@+id/caloricBalanceTV"
-            style="@style/bigPlainText"
+            style="@style/bigPlainTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="- 327 kcal"
+            android:text="0 kcal"
             app:layout_constraintBottom_toBottomOf="@+id/allTargetsProgressBar"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
             style="@style/normalTextBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="62%"
+            android:text="0%"
             app:layout_constraintBottom_toBottomOf="@+id/allTargetsProgressBar"
             app:layout_constraintEnd_toEndOf="@+id/allTargetsProgressBar"
             app:layout_constraintStart_toStartOf="@+id/allTargetsProgressBar"
