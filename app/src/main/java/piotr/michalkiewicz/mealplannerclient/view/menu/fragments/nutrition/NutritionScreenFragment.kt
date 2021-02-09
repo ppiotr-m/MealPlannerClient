@@ -2,7 +2,6 @@ package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.nutrition
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,11 +21,9 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
 import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
+import piotr.michalkiewicz.mealplannerclient.nutrition.utils.ConstantValues.Companion.ENERGY
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionSharedViewModel
 import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import java.time.LocalDate
 import java.util.*
@@ -36,6 +33,7 @@ class NutritionScreenFragment : Fragment() {
     private val pagesCount = 3
     private lateinit var nutritionSharedViewModel: NutritionSharedViewModel
     private lateinit var binding: FragmentNutritionScreenBinding
+    private val mealsListViewAdapter = NutritionMealsListViewAdapter(LinkedList())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,12 +60,8 @@ class NutritionScreenFragment : Fragment() {
         setupObservers()
 
         nutritionScreenViewPager.adapter = ScreenSlidePagerAdapter(this)
-        nutritionMealsListView.adapter =
-            NutritionMealsListViewAdapter(LinkedList<RecipeIngredient>())
         TabLayoutMediator(nutritionTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
         initTopTabLayout()
-
-//      saveNutritionToUser(null)
     }
 
     private fun initViewModel() {
@@ -83,6 +77,8 @@ class NutritionScreenFragment : Fragment() {
                 Resource.Status.SUCCESS -> {
                     loadingTempTV.visibility = View.INVISIBLE
                     nutritionDataContainerLinearLayout.visibility = View.VISIBLE
+                    nutritionMealsListView.adapter =
+                        NutritionMealsListViewAdapter(it.data!!.nutritionDailyData.eatenFoods)
                 }
 
                 Resource.Status.ERROR -> {  //  TODO Here an error is signal that there is no data on server for this date, consider handling it differently
@@ -93,17 +89,12 @@ class NutritionScreenFragment : Fragment() {
                 Resource.Status.LOADING -> {
                     loadingTempTV.visibility = View.VISIBLE
                     nutritionDataContainerLinearLayout.visibility = View.INVISIBLE
+                    nutritionMealsListView.adapter = null
                 }
             }
         })
 
-        nutritionSharedViewModel._date.observe(viewLifecycleOwner, {})
-
         binding.viewModel = nutritionSharedViewModel
-    }
-
-    private fun bindNutritionUiModel(nutritionUiModel: NutritionUiModel) {
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -114,8 +105,6 @@ class NutritionScreenFragment : Fragment() {
             val recipe2 = api.getRecipeForIdCoroutine("5fc166fc7907e07a453ddf36")
 
             val eatenRecipes = LinkedList<EatableItem>()
-
-            Log.d(TAG, "Recipe1 name: " + recipe.name)
 
             if (recipe.foodNutrientsSummary != null && recipe2.foodNutrientsSummary != null) {
                 eatenRecipes.add(
@@ -164,7 +153,7 @@ class NutritionScreenFragment : Fragment() {
         }
     }
 
-    private inner class NutritionMealsListViewAdapter(val data: List<RecipeIngredient>) :
+    private inner class NutritionMealsListViewAdapter(val data: List<EatableItem>) :    //  TODO Should be var
         BaseAdapter() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -174,19 +163,14 @@ class NutritionScreenFragment : Fragment() {
                 listItem.findViewById<TextView>(R.id.mealNameTV).text = getItem(position).name
                 listItem.findViewById<TextView>(R.id.mealAmountTV).text = getItem(position).amount
                 listItem.findViewById<TextView>(R.id.mealUnitTV).text = getItem(position).unit
-                val mockKcalValue = (getItem(position).amount.toFloat() * 4).toString()
-                if (mockKcalValue.length > 7) {
-                    listItem.findViewById<TextView>(R.id.kcalValueTV).text =
-                        mockKcalValue.subSequence(0, 7)
-                } else {
-                    listItem.findViewById<TextView>(R.id.kcalValueTV).text = mockKcalValue
-                }
+                getItem(position).foodNutrientsSummary.associateBy { it.nutrient.name }[ENERGY]!!.amount.toString()
+
                 return listItem
             }
             return convertView
         }
 
-        override fun getItem(position: Int): RecipeIngredient {
+        override fun getItem(position: Int): EatableItem {
             return data[position]
         }
 

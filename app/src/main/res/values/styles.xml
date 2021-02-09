@@ -54,10 +54,16 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="normalTextBold">
+    <style name="normalTextBoldBright">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="normalTextBoldDark">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
     <style name="recipeAbout">
@@ -70,15 +76,26 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="medium_bold_text">
+    <style name="medium_bold_text_bright">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="smallText">
+    <style name="medium_bold_text_dark">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="smallTextBright">
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="smallTextDark">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
     <style name="smallBoldText">

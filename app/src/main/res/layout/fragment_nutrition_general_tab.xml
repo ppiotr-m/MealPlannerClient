@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="viewModel"
             type="piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionSharedViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/caloricBalanceUnitTV"
+            style="@style/bigPlainTextDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@string/kcal"
+            app:layout_constraintBottom_toBottomOf="@+id/caloricBalanceTV"
+            app:layout_constraintStart_toEndOf="@+id/caloricBalanceTV"
+            app:layout_constraintTop_toTopOf="@+id/caloricBalanceTV" />
+
+        <TextView
             android:id="@+id/caloricBalanceLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/caloric_balance"
@@ -23,10 +36,10 @@
 
         <TextView
             android:id="@+id/caloricBalanceTV"
-            style="@style/bigPlainTextBright"
+            style="@style/bigPlainTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 kcal"
+            android:text="@{String.valueOf(viewModel.uiModelLiveData.data.nutritionDailyData.dailyNutritionSummary.get(`Energy`).amount)}"
             app:layout_constraintBottom_toBottomOf="@+id/allTargetsProgressBar"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +69,7 @@
 
         <TextView
             android:id="@+id/textView18"
-            style="@style/normalTextBold"
+            style="@style/normalTextBoldDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0%"
@@ -67,7 +80,7 @@
 
         <TextView
             android:id="@+id/textView19"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -113,7 +126,7 @@
 
         <TextView
             android:id="@+id/energyProgressBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -140,7 +153,7 @@
 
         <TextView
             android:id="@+id/proteinProgressBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -167,7 +180,7 @@
 
         <TextView
             android:id="@+id/carbohydratesProgressBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -193,7 +206,7 @@
 
         <TextView
             android:id="@+id/fatProgressBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

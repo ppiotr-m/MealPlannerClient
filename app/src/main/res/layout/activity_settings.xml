@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/emailLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -159,7 +159,7 @@
 
         <TextView
             android:id="@+id/passwordLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -189,7 +189,7 @@
 
         <TextView
             android:id="@+id/locationLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -216,7 +216,7 @@
 
         <TextView
             android:id="@+id/dietLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -237,7 +237,7 @@
 
         <TextView
             android:id="@+id/avoidedIngredientsLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -248,7 +248,7 @@
 
         <TextView
             android:id="@+id/allergiesLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -301,7 +301,7 @@
 
         <TextView
             android:id="@+id/sexLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -321,7 +321,7 @@
 
         <TextView
             android:id="@+id/heightLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -342,7 +342,7 @@
 
         <TextView
             android:id="@+id/weightLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextBright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

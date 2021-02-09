@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/calciumBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -48,7 +48,7 @@
 
         <TextView
             android:id="@+id/copperBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/ironBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -96,7 +96,7 @@
 
         <TextView
             android:id="@+id/magnesiumBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -120,7 +120,7 @@
 
         <TextView
             android:id="@+id/manganeseBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -144,7 +144,7 @@
 
         <TextView
             android:id="@+id/foliateBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -168,7 +168,7 @@
 
         <TextView
             android:id="@+id/potassiumBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -192,7 +192,7 @@
 
         <TextView
             android:id="@+id/riboflavinBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -216,7 +216,7 @@
 
         <TextView
             android:id="@+id/zincBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -240,7 +240,7 @@
 
         <TextView
             android:id="@+id/phosphorusBarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -263,7 +263,7 @@
 
         <TextView
             android:id="@+id/vitB6BarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -287,7 +287,7 @@
 
         <TextView
             android:id="@+id/vitB12BarLabelTV"
-            style="@style/smallText"
+            style="@style/smallTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
