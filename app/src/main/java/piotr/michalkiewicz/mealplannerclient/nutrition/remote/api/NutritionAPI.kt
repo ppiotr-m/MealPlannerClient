@@ -1,9 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.remote.api
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionDailyData
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import retrofit2.Response
 import retrofit2.http.Body
@@ -16,7 +13,7 @@ interface NutritionAPI {
     @GET("/nutrition/getUserNutritionForDate")
     suspend fun getNutritionForDate(@Query("date") date: String): Response<NutritionUiModel>
 
-    @POST("/nutrition/saveFoodsForDate")
-    suspend fun saveFoodsForDate(@Body dailyEatenFoods: DailyEatenFoods):
-            Response<NutritionDailyData>
+    @POST("/nutrition/addMealForDay")
+    suspend fun addMealForToday(@Body eatableItem: EatableItem):
+            Response<Void>
 }

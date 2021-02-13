@@ -7,5 +7,6 @@ data class NutritionUiModel(
     val nutritionDailyData: NutritionDailyData,
     @TypeConverters(Converters::class)
     val foodNutrientRecommendations: List<FoodNutrientRecommendedIntake>,
-    val nutrientsPercentages: Map<String, Int>
+    val nutrientsPercentages: Map<String, Int>,
+    val allTargetsProgressValue: Int
 )

@@ -8,5 +8,5 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.FoodNutrient
 class NutritionDailyData(
     date: String, // TODO Need to change it to LocalDate
     eatenFoods: List<EatableItem>,
-    val dailyNutritionSummary: Map<String, FoodNutrient>
+    val foodNutrientsSummary: Map<String, FoodNutrient>
 ) : DailyEatenFoods(date, eatenFoods)

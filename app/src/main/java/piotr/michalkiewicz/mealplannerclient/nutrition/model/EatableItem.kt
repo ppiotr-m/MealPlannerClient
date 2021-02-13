@@ -8,7 +8,7 @@ data class EatableItem(
     @SerializedName("name")
     val name: String,
     @SerializedName("foodNutrientsSummary")
-    val foodNutrientsSummary: List<FoodNutrient>,
+    val foodNutrientsSummary: Map<String, FoodNutrient>,
     @SerializedName("amount")
     val amount: String,
     @SerializedName("unit")

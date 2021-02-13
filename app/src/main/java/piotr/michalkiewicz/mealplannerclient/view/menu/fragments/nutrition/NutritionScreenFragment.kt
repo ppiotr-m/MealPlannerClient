@@ -13,19 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_nutrition_screen.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionScreenBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
-import piotr.michalkiewicz.mealplannerclient.nutrition.NutritionServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.nutrition.utils.ConstantValues.Companion.ENERGY
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionSharedViewModel
-import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.utils.Resource
-import java.time.LocalDate
 import java.util.*
 
 class NutritionScreenFragment : Fragment() {
@@ -62,6 +56,8 @@ class NutritionScreenFragment : Fragment() {
         nutritionScreenViewPager.adapter = ScreenSlidePagerAdapter(this)
         TabLayoutMediator(nutritionTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
         initTopTabLayout()
+
+//        saveNutritionToUser(null)
     }
 
     private fun initViewModel() {
@@ -97,40 +93,40 @@ class NutritionScreenFragment : Fragment() {
         binding.viewModel = nutritionSharedViewModel
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun saveNutritionToUser(eatenFoods: List<EatableItem>?) {
-        GlobalScope.launch {
-            val api = RecipeServiceGenerator().recipeAPI
-            val recipe = api.getRecipeForIdCoroutine("5fc1693a7907e07a453ddf4e")
-            val recipe2 = api.getRecipeForIdCoroutine("5fc166fc7907e07a453ddf36")
-
-            val eatenRecipes = LinkedList<EatableItem>()
-
-            if (recipe.foodNutrientsSummary != null && recipe2.foodNutrientsSummary != null) {
-                eatenRecipes.add(
-                    EatableItem(
-                        recipe.name,
-                        recipe.foodNutrientsSummary,
-                        "1",
-                        "portion"
-                    )
-                )
-                eatenRecipes.add(
-                    EatableItem(
-                        recipe2.name,
-                        recipe2.foodNutrientsSummary,
-                        "1",
-                        "portion"
-                    )
-                )
-            }
-
-            val service = NutritionServiceGenerator()
-            service.nutritionAPI.saveFoodsForDate(
-                DailyEatenFoods(LocalDate.now().toString(), eatenRecipes)
-            )
-        }
-    }
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    private fun saveNutritionToUser(eatenFoods: List<EatableItem>?) {
+//        GlobalScope.launch {
+//            val api = RecipeServiceGenerator().recipeAPI
+//            val recipe = api.getRecipeForIdCoroutine("5fc1693a7907e07a453ddf4e")
+//            val recipe2 = api.getRecipeForIdCoroutine("5fc166fc7907e07a453ddf36")
+//
+//            val eatenRecipes = LinkedList<EatableItem>()
+//
+//            if (recipe.foodNutrientsSummary != null && recipe2.foodNutrientsSummary != null) {
+//                eatenRecipes.add(
+//                    EatableItem(
+//                        recipe.name,
+//                        recipe.foodNutrientsSummary.associateBy({ it.nutrient.name }, { it }),
+//                        "1",
+//                        "portion"
+//                    )
+//                )
+//                eatenRecipes.add(
+//                    EatableItem(
+//                        recipe2.name,
+//                        recipe2.foodNutrientsSummary.associateBy({ it.nutrient.name }, { it }),
+//                        "1",
+//                        "portion"
+//                    )
+//                )
+//            }
+//
+//            val service = NutritionServiceGenerator()
+//            service.nutritionAPI.addMealForToday(
+//                DailyEatenFoods(LocalDate.now().toString(), eatenRecipes)
+//            )
+//        }
+//    }
 
     private fun initTopTabLayout() {
         TabLayoutMediator(nutritionTopTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
@@ -163,7 +159,8 @@ class NutritionScreenFragment : Fragment() {
                 listItem.findViewById<TextView>(R.id.mealNameTV).text = getItem(position).name
                 listItem.findViewById<TextView>(R.id.mealAmountTV).text = getItem(position).amount
                 listItem.findViewById<TextView>(R.id.mealUnitTV).text = getItem(position).unit
-                getItem(position).foodNutrientsSummary.associateBy { it.nutrient.name }[ENERGY]!!.amount.toString()
+                listItem.findViewById<TextView>(R.id.kcalValueTV).text =
+                    getItem(position).foodNutrientsSummary[ENERGY]!!.amount.toString()
 
                 return listItem
             }

@@ -10,15 +10,16 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nutritionGeneralTabContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/caloricBalanceUnitTV"
-            style="@style/bigPlainTextDark"
+            style="@style/normalTextBoldDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="8dp"
             android:text="@string/kcal"
             app:layout_constraintBottom_toBottomOf="@+id/caloricBalanceTV"
             app:layout_constraintStart_toEndOf="@+id/caloricBalanceTV"
@@ -39,7 +40,7 @@
             style="@style/bigPlainTextDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.uiModelLiveData.data.nutritionDailyData.dailyNutritionSummary.get(`Energy`).amount)}"
+            android:text="@{String.valueOf(viewModel.uiModelLiveData.data.nutritionDailyData.foodNutrientsSummary.get(`Energy`).amount)}"
             app:layout_constraintBottom_toBottomOf="@+id/allTargetsProgressBar"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,18 +62,18 @@
             android:background="@drawable/nutrition_progress_bar_shape"
             android:indeterminate="false"
             android:max="100"
-            android:progress="0"
+            android:progress="@{viewModel.uiModelLiveData.data.allTargetsProgressValue}"
             android:progressDrawable="@drawable/nutrition_circular_progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/allTargetsProgressTV"
             style="@style/normalTextBoldDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0%"
+            android:text="@{String.valueOf(viewModel.uiModelLiveData.data.allTargetsProgressValue)}"
             app:layout_constraintBottom_toBottomOf="@+id/allTargetsProgressBar"
             app:layout_constraintEnd_toEndOf="@+id/allTargetsProgressBar"
             app:layout_constraintStart_toStartOf="@+id/allTargetsProgressBar"
