@@ -24,7 +24,7 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity
 class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
     private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.recipeCardThumbnail)
-    private val addMealBtn: ImageButton = recipeCardView.findViewById(R.id.addMealBtn)
+    private val addMealBtn: ImageButton = recipeCardView.findViewById(R.id.addMealDialogBtn)
     private val context = recipeCardView.context
 
     private lateinit var recipe: MealTimeRecipe
@@ -81,6 +81,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
 
     companion object {
         fun create(parent: ViewGroup): RecipeViewHolder {
+            Log.d(TAG, "Creating recipe view holder")
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.recipe_list_item, parent, false)
             return RecipeViewHolder(view)

@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/productsListLabelTV"
-        style="@style/bigPlainTextBright"
+        style="@style/bigPlainTextDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/noItemsOnShoppingListTV"
-        style="@style/bigPlainTextBright"
+        style="@style/bigPlainTextDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_items_on_list"
