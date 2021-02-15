@@ -38,6 +38,16 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeCardThumbnail" />
+
+            <ImageButton
+                android:id="@+id/addMealBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_black_add_box_40" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 </layout>

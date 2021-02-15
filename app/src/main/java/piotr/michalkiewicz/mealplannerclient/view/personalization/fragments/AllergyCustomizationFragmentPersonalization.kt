@@ -85,6 +85,7 @@ class AllergyCustomizationFragmentPersonalization : PersonalizationCustomFragmen
     }
 
     private fun markButton(element: String, v: View) {
+
         if (!allergiesList.contains(element)) {
             activity?.findViewById<Button>(v.id)?.setBackgroundColor(ConstantValues.CHECKED_BUTTON_COLOR)
             allergiesList.add(element)

@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.recipes.database.Converters
 import piotr.michalkiewicz.mealplannerclient.recipes.model.enums.Diet
 import java.util.*
@@ -13,80 +14,90 @@ import java.util.*
 @Entity(tableName = "recipes")
 data class MealTimeRecipe(
 
-        @PrimaryKey
-        val id: String,
+    @PrimaryKey
+    val id: String,
 
-        @TypeConverters(Converters::class)
-        val suitableForDiet: List<Diet>,
+    @TypeConverters(Converters::class)
+    val suitableForDiet: List<Diet>,
 
-        @TypeConverters(Converters::class)
-        @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-        val image: Bitmap,
+    @TypeConverters(Converters::class)
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    val image: Bitmap,
 
-        @TypeConverters(Converters::class)
-        @SerializedName("recipeType")
-        val recipeType: List<String>,
+    @TypeConverters(Converters::class)
+    @SerializedName("recipeType")
+    val recipeType: List<String>,
 
-        @TypeConverters(Converters::class)
-        @SerializedName("recipeIngredients")
-        val recipeIngredients: List<RecipeIngredient>,
+    @TypeConverters(Converters::class)
+    @SerializedName("recipeIngredients")
+    val recipeIngredients: List<RecipeIngredient>,
 
-        @TypeConverters(Converters::class)
-        @SerializedName("instructionSteps")
-        val instructionSteps: List<InstructionStep>,
+    @TypeConverters(Converters::class)
+    @SerializedName("instructionSteps")
+    val instructionSteps: List<InstructionStep>,
 
-        @SerializedName("level")
-        val level: String,
+    @SerializedName("level")
+    val level: String,
 
-        @SerializedName("recipeCuisines")
-        val recipeCuisines: List<String>,
+    @SerializedName("recipeCuisines")
+    val recipeCuisines: List<String>,
 
-        @SerializedName("description")
-        val description: String,
+    @SerializedName("description")
+    val description: String,
 
-        @SerializedName("recipeYield")
-        val recipeYield: String?,
+    @SerializedName("recipeYield")
+    val recipeYield: String?,
 
-        @SerializedName("from")
-        val from: String,
+    @SerializedName("from")
+    val from: String,
 
-        @SerializedName("madeBY")
-        val madeBY: String?,
+    @SerializedName("madeBY")
+    val madeBY: String?,
 
-        @SerializedName("language")
-        val language: String?,
+    @SerializedName("language")
+    val language: String?,
 
-        @SerializedName("recipeTag")
-        val recipeTag: List<String>,
+    @SerializedName("recipeTag")
+    val recipeTag: List<String>,
 
-        @TypeConverters(Converters::class)
-        @SerializedName("comments")
-        val comments: List<Comment>?,
+    @TypeConverters(Converters::class)
+    @SerializedName("comments")
+    val comments: List<Comment>?,
 
-        @SerializedName("dateAdded")
-        val dateAdded: Date?,
+    @SerializedName("dateAdded")
+    val dateAdded: Date?,
 
-        @TypeConverters(Converters::class)
-        @SerializedName("dateEdited")
-        val dateEdited: Date?,
+    @TypeConverters(Converters::class)
+    @SerializedName("dateEdited")
+    val dateEdited: Date?,
 
-        @SerializedName("cookTime")
-        val cookTime: Int = 0,
+    @SerializedName("cookTime")
+    val cookTime: Int = 0,
 
-        @SerializedName("totalRating")
-        val totalRating: Double = 0.0,
+    @SerializedName("totalRating")
+    val totalRating: Double = 0.0,
 
-        @SerializedName("views")
-        val views: Long = 0,
+    @SerializedName("views")
+    val views: Long = 0,
 
-        @SerializedName("totalLikes")
-        val totalLikes: Long = 0,
+    @SerializedName("totalLikes")
+    val totalLikes: Long = 0,
 
-        @SerializedName("name")
-        val name: String,
+    @SerializedName("name")
+    val name: String,
 
-        @TypeConverters(Converters::class)
-        @SerializedName("foodNutrientsSummary")
-        val foodNutrientsSummary: List<FoodNutrient>?
-)
+    @TypeConverters(Converters::class)
+    @SerializedName("foodNutrientsSummary")
+    val foodNutrientsSummary: List<FoodNutrient>
+) {
+    fun toEatableItem(): EatableItem {
+        return EatableItem(
+            name,
+            foodNutrientsSummary.associateBy({ it.nutrient.name }, { it }),
+            "1",
+            "portion"
+        )
+
+    }
+}
 
