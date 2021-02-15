@@ -3,6 +3,7 @@ package piotr.michalkiewicz.mealplannerclient.view.recipes.paging
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionDataUpdater
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPE_ID
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity
 
 class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
@@ -34,7 +36,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
             recipeTitle.text = resources.getString(R.string.loading)
             cookbookThumbnail.visibility = View.GONE
         } else {
-            showRepoData(recipe)
+            showData(recipe)
         }
     }
 
@@ -68,7 +70,8 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun showRepoData(recipe: MealTimeRecipe) {
+    private fun showData(recipe: MealTimeRecipe) {
+        Log.d(TAG, "Showing repo data for recipe name: " + recipe.name)
         addOnClickListener(recipe.id)
         this.recipe = recipe
         recipeTitle.text = recipe.name

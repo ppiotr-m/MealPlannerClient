@@ -1,6 +1,8 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.paging
 
+import android.os.Build
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ class RecipesAdapter : PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder
         return RecipeViewHolder.create(parent)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val repoItem = getItem(position)
         if (repoItem != null) {

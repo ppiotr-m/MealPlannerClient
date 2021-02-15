@@ -16,16 +16,16 @@ import piotr.michalkiewicz.mealplannerclient.utils.MealTimeDatabase
 
 class RecipesSearchViewModel(
     private val recipeAPI: RecipeAPI,
-    private val mealTImeDatabase: MealTimeDatabase
+    private val mealTimeDatabase: MealTimeDatabase
 ) : ViewModel() {
 
     @ExperimentalPagingApi
     fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipe>> {
-        val pagingSource = { mealTImeDatabase.recipesDao().getRecipesForDiet(queryParam) }
+        val pagingSource = { mealTimeDatabase.recipesDao().getRecipesForDiet(queryParam) }
 
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, prefetchDistance = PREFETCH_DISTANCE),
-            remoteMediator = RecipesByDietRemoteMediator(recipeAPI, mealTImeDatabase, queryParam),
+            remoteMediator = RecipesByDietRemoteMediator(recipeAPI, mealTimeDatabase, queryParam),
             pagingSourceFactory = pagingSource
         ).flow.cachedIn(viewModelScope)
     }

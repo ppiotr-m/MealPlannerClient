@@ -3,7 +3,6 @@ package piotr.michalkiewicz.mealplannerclient.view.recipes.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import piotr.michalkiewicz.mealplannerclient.R;
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues;
 
 
 /**
@@ -42,7 +40,6 @@ public class RecipeImgFragment extends Fragment {
         singleImageView = v.findViewById(R.id.singleRecipeImgView);
         Drawable d = ResourcesCompat.getDrawable(getActivity().getResources(),
                 mDrawableId, null);
-        Log.d(ConstantValues.TAG, d.toString());
         singleImageView.setImageDrawable(d);
         return  v;
 

@@ -1,12 +1,12 @@
 package piotr.michalkiewicz.mealplannerclient.view.menu.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
@@ -20,7 +20,7 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookbookScreenBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
-import piotr.michalkiewicz.mealplannerclient.view.recipes.dialogs.AddMealDialogViewModel
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
 
@@ -28,7 +28,6 @@ class CookbookScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
-    private val dialogViewModel: AddMealDialogViewModel by viewModels({ requireActivity() })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +69,7 @@ class CookbookScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.recipesByDietApiData(queryParam).collect {
                 it.let {
+                    Log.d(TAG, "Submitting data to recycler view adapter")
                     (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
                         .submitData(it)
                 }
