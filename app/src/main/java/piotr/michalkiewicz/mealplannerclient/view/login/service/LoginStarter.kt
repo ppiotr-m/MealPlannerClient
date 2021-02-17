@@ -3,6 +3,9 @@ package piotr.michalkiewicz.mealplannerclient.view.login.service
 import android.os.Handler
 import android.os.Looper
 import androidx.navigation.NavController
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient
 import piotr.michalkiewicz.mealplannerclient.auth.LoginListener
@@ -29,7 +32,10 @@ class LoginStarter(
     }
 
     override fun loginSuccessful() {
-        val personalizationDone = userServiceGenerator.getUserSettings()?.customizationDone ?: false
+        var personalizationDone: Boolean = false
+        runBlocking {
+            personalizationDone = userServiceGenerator.getUserSettings()?.customizationDone ?: false
+        }
         dialog.dismissDialog()
         Handler(Looper.getMainLooper()).post {
             if (personalizationDone) {

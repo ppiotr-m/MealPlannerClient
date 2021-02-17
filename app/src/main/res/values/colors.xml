@@ -3,6 +3,8 @@
     <color name="colorPrimaryAlt">#E83136</color>
     <color name="colorPrimary">#050505</color>
     <color name="colorPrimaryDark">#C52631</color>
+    <color name="colorOnPrimary">#03DAC6</color>
+    <color name="colorOnSurface">#6200EE</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBlack">#000000</color>
     <color name="colorDivider">#B6B6B6</color>

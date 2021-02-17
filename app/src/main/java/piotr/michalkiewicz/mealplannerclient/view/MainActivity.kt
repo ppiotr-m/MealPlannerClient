@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
@@ -20,6 +21,7 @@ import piotr.michalkiewicz.mealplannerclient.databinding.ActivityMainBinding
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragment
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartListener {
 
     private lateinit var navController: NavController
@@ -89,7 +91,8 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+
     }
 
     private fun setBottomNavigationMenu() {

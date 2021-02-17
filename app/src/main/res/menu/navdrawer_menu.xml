@@ -4,4 +4,8 @@
     <item
         android:id="@+id/userProfileFragment"
         android:title="@string/user_profile_fragment_id" />
+
+    <item
+        android:id="@+id/UserPreferencesGraph"
+        android:title="@string/user_preferences_graph_name" />
 </menu>

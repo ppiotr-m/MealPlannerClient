@@ -1,87 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".view.personalization.fragments.DietCustomizationFragmentPersonalizationCustom">
+    tools:context=".view.userPreferences.ui.DietCustomizationFragment">
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constrainDietCust"
+    </data>
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constrainDietCust"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-        <LinearLayout
-            android:id="@+id/linearButtonsDiet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <Button
-                android:id="@+id/standartDietBtn"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/linearButtonsDiet"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/diet_standard" />
+                android:orientation="vertical"
+                app:singleSelection="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/paleoDietBtn"
-                android:layout_width="match_parent"
+
+                <Button
+                    android:id="@+id/standartDietBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diet_standard"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/paleoDietBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diet_paleo"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/vegetarianDietBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diet_vegetarian"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/pescatarianDietBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diet_pescatarian"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/flexitarianDietBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diet_flexitarian"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/veganDietBtn"
+                    android:layout_width="169dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diet_vegan"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/lowCarbDietBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diet_low_carb"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/ketoDietBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diet_keto"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:id="@+id/dietPreferText"
+                style="@style/listElementText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/diet_paleo" />
-
-            <Button
-                android:id="@+id/vegetarianDietBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/diet_vegetarian" />
-
-            <Button
-                android:id="@+id/pescatarianDietBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/diet_pescatarian" />
-
-            <Button
-                android:id="@+id/flexitarianDietBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/diet_flexitarian" />
-
-            <Button
-                android:id="@+id/veganDietBtn"
-                android:layout_width="169dp"
-                android:layout_height="wrap_content"
-                android:text="@string/diet_vegan" />
-
-            <Button
-                android:id="@+id/lowCarbDietBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/diet_low_carb" />
-
-            <Button
-                android:id="@+id/ketoDietBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/diet_keto" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/dietPreferText"
-            style="@style/listElementText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:text="@string/diet_prefer"
-            app:layout_constraintBottom_toTopOf="@+id/linearButtonsDiet"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+                android:layout_marginBottom="70dp"
+                android:text="@string/diet_prefer"
+                app:layout_constraintBottom_toTopOf="@+id/linearButtonsDiet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

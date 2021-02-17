@@ -1,69 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout5"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".view.personalization.fragments.CuisineCustomizationFragmentPersonalizationCustom">
-    <TextView
-        android:id="@+id/textView15"
-        style="@style/listElementText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="66dp"
-        android:text="@string/what_type_of_recipe_you_don_t_like_cooking"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutCuisineButtons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    tools:context=".view.userPreferences.ui.CuisineCustomizationFragment">
+    <data>
+        <variable
+            name="viewmodel"
+            type="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.UserPreferencesViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutCuisineButtons"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/textView15"
+            style="@style/listElementText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="66dp"
+            android:text="@string/what_type_of_recipe_you_don_t_like_cooking"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCuisineButtons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/linearLayoutCuisineButtons"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/fishBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fish"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/pastaBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pasta"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/grillBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/grill"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <Button
-            android:id="@+id/soupBtn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
+            android:id="@+id/confirmBtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="b1" />
-
-        <Button
-            android:id="@+id/fishBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/fish" />
-
-        <Button
-            android:id="@+id/pastaBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pasta" />
-
-        <Button
-            android:id="@+id/grillBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/grill" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/confirmBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginBottom="45dp"
+            android:text="@string/next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
