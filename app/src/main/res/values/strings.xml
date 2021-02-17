@@ -45,14 +45,14 @@
     <string name="plan_meals_for">How many meals do you usually plan?</string>
     <string name="servings_per_meal">How many servings per meal?</string>
     <string name="cooking_time_per_meal">Cooking time per meal</string>
-    <string name="zero_thirty">0-30 min</string>
-    <string name="thirty_sixty">30-60 min</string>
+    <string name="zero_thirty">0–30 min</string>
+    <string name="thirty_sixty">30–60 min</string>
     <string name="sixty_plus">60+ min</string>
     <string name="quick_n_easy">Quick and easy</string>
     <string name="typical">Typical</string>
-    <string name="up_for_challange">I\'m up for challange!</string>\
+    <string name="up_for_challange">I\'m up for challenge!</string>\
     <string name="next">Next</string>
-    <string name="thank_you_customization">Good work!\nYou\'ve just set up the app!\nClick "Next"
+    <string name="thank_you_customization">Good work!\nYou\'ve just set up the app!\nClick “Next”
         to jump into app!</string>
     <string name="totalLikes"><b>Total likes:</b></string>
     <string name="views_nr"><b>Views nr:</b></string>
@@ -95,7 +95,7 @@
     <string name="confirm_new_password">Confirm new password</string>
     <string name="confirm">Confirm</string>
     <string name="location_entry_hint">Country, city</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="delete">Delete</string>
     <string name="your_plan"><b>Your plan:</b></string>
     <string name="list_of_ingredients"><b>List of ingredients</b></string>
@@ -103,9 +103,9 @@
     <string name="cooking_steps2"><b>Cooking steps</b></string>
     <string name="step">Step</string>
     <string name="shopping_list">Shopping list</string>
-    <string name="search">Search...</string>
+    <string name="search">Search…</string>
     <string name="cooking_mode">Cooking mode</string>
-    <string name="password_confirmation_failed">Password and confrimation don\'t match.</string>
+    <string name="password_confirmation_failed">Password and confirmation don\'t match.</string>
     <string name="sign_up_successful">Account has been successfully created, welcome!</string>
     <string name="sign_up_failed">Account could not be created. Contact us for support!</string>
     <string name="password_not_match_current">Current password you provided is incorrect.</string>
@@ -211,5 +211,21 @@
     <string name="vitamin_targets">Vitamin targets</string>
     <string name="mineral_targets">Mineral targets</string>
     <string name="do_it_later">Do it later</string>
+    <string name="portionPreferenceLabel">Portion preference</string>
+    <string name="cookingTimePreferenceLabel">Max cooking time</string>
+    <string name="cookingPreferenceLabel">Cooking preferences</string>
+    <string name="mealsPerMealplan">Meals per mealplan</string>
+    <string name="portionPreferenceMetricLabel">portions</string>
+    <string name="cookingTimePreferenceMetricLabel">min</string>
+    <string name="mealsPerMealplanMetricLabel">meals</string>
+    <string name="addChip">+Add</string>
+    <string name="recipeTypeCustomizationLabel">Recipe type customization</string>
+    <string name="cuisine_type_customization_label">Cuisine type</string>
+    <string name="plusSign">+</string>
+    <string name="minusSign">-</string>
+    <string name="edit_cooking_preferences_btn">Edit Cooking Preferences</string>
+    <string name="user_preferences_graph_name">User Preferences</string>
+    <string name="confirm_btn_alt_text">Approve and Exit</string>
+    <string name="meal_per_plan_label">Meals per plan</string>
 
 </resources>

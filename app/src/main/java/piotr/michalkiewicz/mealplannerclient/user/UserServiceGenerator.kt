@@ -1,16 +1,19 @@
 package piotr.michalkiewicz.mealplannerclient.user
 
-import android.util.Log
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import piotr.michalkiewicz.mealplannerclient.auth.AuthServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.api.UserAPI
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
+import piotr.michalkiewicz.mealplannerclient.user.model.UserPreferences
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import retrofit2.Callback
+import javax.inject.Inject
 
-class UserServiceGenerator : AuthServiceGenerator() {
+@Module
+@InstallIn(ActivityComponent::class)
+class UserServiceGenerator @Inject constructor() : AuthServiceGenerator() {
 
     private lateinit var userAPI: UserAPI
 
@@ -26,25 +29,15 @@ class UserServiceGenerator : AuthServiceGenerator() {
         callAsync.enqueue(callback)
     }
 
-    fun updateUserSettings(settings: UserSettings) {
-        val updateUserSettingsAPI = userAPI.updateUserSettings(settings)
-        updateUserSettingsAPI.subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                Log.i("updateUserSettings", result.toString())
-            }, { error ->
-                Log.i("updateUserSetting error", error.toString())
-            })
+    suspend fun updateUserSettings(settings: UserSettings) {
+        userAPI.updateUserSettings(settings)
     }
 
-    fun updateUserPreference(userPreference: UserPreference): Observable<UserPreference> {
-        return userAPI.updateUserPreference(userPreference)
+    suspend fun updateUserPreference(userPreferences: UserPreferences): UserPreferences? {
+        return userAPI.updateUserPreference(userPreferences).body()
     }
 
-    fun getUserPreferences(): UserPreference? {
-        return userAPI.getUserPreference().execute().body()
-    }
-
-    fun getUserSettings(): UserSettings? {
-        return userAPI.getUserSettings().execute().body()
+    suspend fun getUserSettings(): UserSettings? {
+        return userAPI.getUserSettings().body()
     }
 }

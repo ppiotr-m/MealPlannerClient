@@ -1,10 +1,10 @@
 package piotr.michalkiewicz.mealplannerclient.user.api
 
-import io.reactivex.Observable
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.user.model.UserPreference
+import piotr.michalkiewicz.mealplannerclient.user.model.UserPreferences
 import piotr.michalkiewicz.mealplannerclient.user.model.UserSettings
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -15,14 +15,14 @@ interface UserAPI {
     fun getUserAccount(): Call<UserAccount>
 
     @POST("/user/settings")
-    fun updateUserSettings(@Body userSettings: UserSettings): Observable<UserSettings>
+    suspend fun updateUserSettings(@Body userSettings: UserSettings): Response<UserSettings>
 
     @GET("/user/settings")
-    fun getUserSettings(): Call<UserSettings>
+    suspend fun getUserSettings(): Response<UserSettings>
 
     @POST("/user/preference")
-    fun updateUserPreference(@Body userPreference: UserPreference): Observable<UserPreference>
+    suspend fun updateUserPreference(@Body userPreferences: UserPreferences): Response<UserPreferences>
 
     @GET("/user/preference")
-    fun getUserPreference(): Call<UserPreference>
+    suspend fun getUserPreference(): Response<UserPreferences>
 }
