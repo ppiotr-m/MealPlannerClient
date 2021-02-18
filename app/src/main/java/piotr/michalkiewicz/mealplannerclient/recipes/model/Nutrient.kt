@@ -7,4 +7,8 @@ data class Nutrient(
     val name: String,
     val rank: Int,
     val unitName: String
-)
+) {
+    override fun toString(): String {
+        return "Nutrient(mongoId='$mongoId', id=$id, number='$number', name='$name', rank=$rank, unitName='$unitName')"
+    }
+}

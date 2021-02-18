@@ -1,14 +1,12 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.paging
 
 import android.os.Build
-import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 
 class RecipesAdapter : PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
@@ -18,7 +16,6 @@ class RecipesAdapter : PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.d(ConstantValues.TAG, "onBindViewHolder(): " + getItem(position)?.name)
         val repoItem = getItem(position)
         if (repoItem != null) {
             (holder as RecipeViewHolder).bind(repoItem)

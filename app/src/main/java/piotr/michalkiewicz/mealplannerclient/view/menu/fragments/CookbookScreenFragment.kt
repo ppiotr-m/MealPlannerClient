@@ -105,17 +105,6 @@ class CookbookScreenFragment : Fragment() {
         }
     }
 
-    private fun launchCoroutineAllRecipesForRecyclerView(recyclerView: RecyclerView) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.allRecipesApiData().collect {
-                it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
-                        .submitData(it)
-                }
-            }
-        }
-    }
-
     private fun createHorizontalRecipesList(labelText: String): View {
         val root = layoutInflater.inflate(
             R.layout.horizontal_recipes_list,

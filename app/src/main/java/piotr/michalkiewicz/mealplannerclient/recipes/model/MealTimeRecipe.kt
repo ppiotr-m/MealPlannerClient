@@ -88,16 +88,21 @@ data class MealTimeRecipe(
 
     @TypeConverters(Converters::class)
     @SerializedName("foodNutrientsSummary")
-    val foodNutrientsSummary: List<FoodNutrient>
+    val foodNutrientsSummary: List<FoodNutrient>?
 ) {
     fun toEatableItem(): EatableItem {
+        val mappedSummary = foodNutrientsSummary!!.associateBy { it.nutrient.name }
         return EatableItem(
             name,
-            foodNutrientsSummary.associateBy({ it.nutrient.name }, { it }),
+            mappedSummary,
             "1",
             "portion"
         )
-
     }
+
+    override fun toString(): String {
+        return "MealTimeRecipe(id='$id', suitableForDiet=$suitableForDiet, image=$image, recipeType=$recipeType, recipeIngredients=$recipeIngredients, instructionSteps=$instructionSteps, level='$level', recipeCuisines=$recipeCuisines, description='$description', recipeYield=$recipeYield, from='$from', madeBY=$madeBY, language=$language, recipeTag=$recipeTag, comments=$comments, dateAdded=$dateAdded, dateEdited=$dateEdited, cookTime=$cookTime, totalRating=$totalRating, views=$views, totalLikes=$totalLikes, name='$name', foodNutrientsSummary=$foodNutrientsSummary)"
+    }
+
 }
 
