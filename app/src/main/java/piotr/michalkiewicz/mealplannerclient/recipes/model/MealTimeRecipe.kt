@@ -91,10 +91,9 @@ data class MealTimeRecipe(
     val foodNutrientsSummary: List<FoodNutrient>?
 ) {
     fun toEatableItem(): EatableItem {
-        val mappedSummary = foodNutrientsSummary!!.associateBy { it.nutrient.name }
         return EatableItem(
             name,
-            mappedSummary,
+            foodNutrientsSummary!!.associateBy { it.nutrient.name },
             "1",
             "portion"
         )

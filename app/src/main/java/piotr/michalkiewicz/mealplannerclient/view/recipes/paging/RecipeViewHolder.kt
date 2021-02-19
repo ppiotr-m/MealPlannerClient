@@ -63,7 +63,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
 
         //  TODO Should not use GlobalScope
         GlobalScope.launch {
-            updater.saveMealToTodayNutrition(recipe)
+            updater.saveMealToTodayNutrition(recipe.toEatableItem())
         }
     }
 

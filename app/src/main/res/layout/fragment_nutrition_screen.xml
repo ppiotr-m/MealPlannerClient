@@ -38,14 +38,12 @@
                 app:tabBackground="@drawable/tab_selector"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp" />
-
+            <!-- TODO Make listview scrollable, probably recyclerview becouse can't put listview inside scrollview -->
             <ListView
                 android:id="@+id/nutritionMealsListView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp">
-
-            </ListView>
+                android:layout_height="match_parent"
+                android:layout_marginTop="32dp"></ListView>
 
         </LinearLayout>
 
@@ -124,12 +122,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
             android:clickable="true"
+            android:onClick="@{() -> viewModel.addMeal()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_circle_48"
-            android:onClick="@{() -> viewModel.addMeal()}" />
+            app:srcCompat="@drawable/ic_white_add_64" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

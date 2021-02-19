@@ -214,4 +214,8 @@
     <string name="nutrition_fetch_error">Error occurred while fetching data. Try again later.</string>
     <string name="add_meal_dialog_msg">Add to:</string>
     <string name="add_to_eaten_today">Meals eaten today</string>
+    <string name="cancel">Cancel</string>
+    <string name="portion_edit_hint">e.g. 2</string>
+    <string name="portions">Portions</string>
+    <string name="delete_nutrition_item">Delete item</string>
 </resources>

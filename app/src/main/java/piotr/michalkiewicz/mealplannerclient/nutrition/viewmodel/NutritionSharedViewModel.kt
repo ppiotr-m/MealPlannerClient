@@ -2,12 +2,10 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionDataUpdater
@@ -15,6 +13,7 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.repository.NutritionRepos
 import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import java.time.LocalDate
+import java.util.*
 
 class NutritionSharedViewModel(val repository: NutritionRepository) : ViewModel() {
 
@@ -68,6 +67,37 @@ class NutritionSharedViewModel(val repository: NutritionRepository) : ViewModel(
 
                 updater.saveMealToTodayNutrition(eatableItem)
             }
+        }
+    }
+
+    fun refreshData() {
+        _date.postValue(_date.value)
+    }
+
+    fun getEatableItemList(): List<EatableItem>? {
+        return uiModelLiveData.value?.data?.nutritionDailyData?.eatenFoods   //  TODO Handle nulls
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun deleteItemWithGivenPosition(position: Int) {
+        val currentList =
+            _uiModelLiveData.value?.data?.nutritionDailyData?.eatenFoods  // TODO Handle nulls
+        val newList = LinkedList<EatableItem>()
+        val listLength = currentList!!.size
+        for (i in 0..(listLength - 1)) {
+            if (i == position) {
+                continue
+            }
+            newList.add(currentList[i])
+        }
+
+        viewModelScope.launch {
+            NutritionDataUpdater().setNewDailyEatenFoods(
+                DailyEatenFoods(
+                    date.value.toString(),
+                    newList
+                )
+            )
         }
     }
 }

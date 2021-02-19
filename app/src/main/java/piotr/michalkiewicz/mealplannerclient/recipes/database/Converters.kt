@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.AgeNutrientRecommendations
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.FoodNutrientRecommendedIntake
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.enums.Sex
@@ -96,7 +97,8 @@ class Converters {
 
     @TypeConverter
     fun fromJsonToFoodNutrientTypeArray(listElementsString: String?): List<FoodNutrient>? {
-        return Gson().fromJson(listElementsString, LinkedList<FoodNutrient>().javaClass)
+        val foodNutrientListType = object : TypeToken<List<FoodNutrient>>() {}.type
+        return Gson().fromJson(listElementsString, foodNutrientListType)
     }
 
     @TypeConverter

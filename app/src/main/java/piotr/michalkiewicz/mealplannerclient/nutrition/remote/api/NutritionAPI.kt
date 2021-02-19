@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.remote.api
 
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import retrofit2.Response
@@ -15,5 +16,9 @@ interface NutritionAPI {
 
     @POST("/nutrition/addMealForDay")
     suspend fun addMealForToday(@Body eatableItem: EatableItem):
+            Response<Void>
+
+    @POST("/nutrition/setNewDailyEatenFoods")
+    suspend fun setNewDailyEatenFoods(@Body dailyEatenFoods: DailyEatenFoods):
             Response<Void>
 }
