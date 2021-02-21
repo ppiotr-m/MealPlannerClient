@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_nutrition_screen.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionScreenBinding
 import piotr.michalkiewicz.mealplannerclient.nutrition.Injection
+import piotr.michalkiewicz.mealplannerclient.nutrition.dialogs.NutritionAddEatenProductDialogFragment
 import piotr.michalkiewicz.mealplannerclient.nutrition.dialogs.NutritionListItemDialog
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.nutrition.utils.ConstantValues.Companion.ENERGY
@@ -58,12 +59,11 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
     private fun init() {
         initViewModel()
         setupObservers()
+        setCircleMenuClickListeners()
 
         nutritionScreenViewPager.adapter = ScreenSlidePagerAdapter(this)
         TabLayoutMediator(nutritionTabLayout, nutritionScreenViewPager) { _, _ -> }.attach()
         initTopTabLayout()
-
-//        saveNutritionToUser(null)
     }
 
     private fun initViewModel() {
@@ -166,6 +166,21 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
             return data.size
         }
 
+    }
+
+    private fun setCircleMenuClickListeners() {
+        nutritionCircleMenu.setOnItemClickListener { buttonIndex ->
+            when (buttonIndex) {
+                1 -> showAddProductDialog()
+            }
+        }
+    }
+
+    private fun showAddProductDialog() {
+        NutritionAddEatenProductDialogFragment().show(
+            requireActivity().supportFragmentManager,
+            NutritionAddEatenProductDialogFragment.TAG
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -9,7 +9,7 @@ import piotr.michalkiewicz.mealplannerclient.R
 class NutritionListItemDialog(
     private val itemPosition: Int,
     val title: String,
-    val listener: NutritionDialogListener
+    private val listener: NutritionDialogListener
 ) :
     DialogFragment() {
 

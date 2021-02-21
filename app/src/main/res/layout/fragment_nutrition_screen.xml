@@ -10,7 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/wholeViewContainer"
+        android:id="@+id/nutritionWholeViewContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -117,7 +117,7 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <!--com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -128,7 +128,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_white_add_64" />
+            app:srcCompat="@drawable/ic_white_add_64" /-->
+
+        <com.imangazaliev.circlemenu.CircleMenu
+            android:id="@+id/nutritionCircleMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:startAngle="-150"
+            app:menuIcon="plus"
+            app:maxAngle="180"
+            app:buttonColors="@array/colors"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:buttonIcons="@array/icons" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <AutoCompleteTextView
+        android:id="@+id/nutritionProductsAutoCompleteTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:hint="@string/start_typing_product"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/nutriton_add_product"
+        app:layout_constraintEnd_toEndOf="@+id/nutritionProductsAutoCompleteTV"
+        app:layout_constraintTop_toBottomOf="@+id/productAmountUnitSpinner" />
+
+    <EditText
+        android:id="@+id/productQunatityET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/product_quantity_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/nutritionProductsAutoCompleteTV"
+        app:layout_constraintTop_toBottomOf="@+id/nutritionProductsAutoCompleteTV" />
+
+    <TextView
+        android:id="@+id/productAmountLabelTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/product_amount_label"
+        app:layout_constraintBottom_toBottomOf="@+id/productQunatityET"
+        app:layout_constraintEnd_toStartOf="@+id/productQunatityET"
+        app:layout_constraintTop_toTopOf="@+id/productQunatityET" />
+
+    <TextView
+        android:id="@+id/productUnitLabelTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/product_amount_unit"
+        app:layout_constraintBottom_toBottomOf="@+id/productAmountUnitSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/productAmountUnitSpinner"
+        app:layout_constraintTop_toTopOf="@+id/productAmountUnitSpinner" />
+
+    <Spinner
+        android:id="@+id/productAmountUnitSpinner"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/productQunatityET"
+        app:layout_constraintTop_toBottomOf="@+id/productQunatityET" />
+</androidx.constraintlayout.widget.ConstraintLayout>

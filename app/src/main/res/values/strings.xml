@@ -218,4 +218,11 @@
     <string name="portion_edit_hint">e.g. 2</string>
     <string name="portions">Portions</string>
     <string name="delete_nutrition_item">Delete item</string>
+    <string name="nutriton_add_product">Add product</string>
+    <string name="start_typing_product">Start typing product name</string>
+    <string name="add_eaten_product_dialog_title">Add eaten product</string>
+    <string name="product_quantity_hint">e.g. 140, 5.7, 2...</string>
+    <string name="product_amount_label">Amount:</string>
+    <string name="product_amount_unit">Unit:</string>
+
 </resources>
