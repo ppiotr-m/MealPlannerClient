@@ -98,6 +98,7 @@ class NutritionSharedViewModel(val repository: NutritionRepository) : ViewModel(
                     newList
                 )
             )
+            refreshData()
         }
     }
 }

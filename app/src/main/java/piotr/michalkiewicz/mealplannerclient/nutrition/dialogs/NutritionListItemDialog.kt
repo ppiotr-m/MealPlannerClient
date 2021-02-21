@@ -7,7 +7,7 @@ import androidx.fragment.app.DialogFragment
 import piotr.michalkiewicz.mealplannerclient.R
 
 class NutritionListItemDialog(
-    val itemPosition: Int,
+    private val itemPosition: Int,
     val title: String,
     val listener: NutritionDialogListener
 ) :
