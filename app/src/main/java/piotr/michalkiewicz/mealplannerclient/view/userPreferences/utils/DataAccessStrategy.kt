@@ -29,7 +29,7 @@ fun <T> performGetOperation(
         if(dbResponse != null) {
             emit(Resource.success(dbResponse))
         } else {
-            emit(Resource.loading())
+            //emit(Resource.loading())
         }
 
         val networkResponse = networkCall.invoke()
