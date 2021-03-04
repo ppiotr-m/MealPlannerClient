@@ -47,10 +47,17 @@ class NutritionAddEatenProductDialogFragment(
     }
 
     fun updateAutoCompleteTextViewAdapterData(data: List<BasicFoodItemData>) {
-        val adapter =
-            ArrayAdapter(ownerContext, android.R.layout.simple_spinner_dropdown_item, data)
-        nutritionProductsAutoCompleteTV.setAdapter(adapter)
-        nutritionProductsAutoCompleteTV.showDropDown()
+        //  TODO Not sure if this is correct but might just be. The thing is,
+        //  when the view is destroyed, viewModel remains, and when we re-enter the fragment
+        //  the dialog is created and observing is set, then it sees change - there's no data anymore
+        //  however the dialog has not been shown so the views references are nulls, yet they are notified of the change to no data
+        //  thus throwing null pointer exception. Unless this sneaky statement is checked
+        if (nutritionProductsAutoCompleteTV != null) {
+            val adapter =
+                ArrayAdapter(ownerContext, android.R.layout.simple_spinner_dropdown_item, data)
+            nutritionProductsAutoCompleteTV.setAdapter(adapter)
+            nutritionProductsAutoCompleteTV.showDropDown()
+        }
     }
 
     private fun initAutoCompleteTextView() {

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.dialog_nutrition_add_product.*
 import kotlinx.android.synthetic.main.fragment_nutrition_screen.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentNutritionScreenBinding
@@ -55,6 +56,11 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
     override fun onResume() {
         super.onResume()
         nutritionSharedViewModel.refreshData()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        nutritionSharedViewModel.productsList.removeObservers(viewLifecycleOwner)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -110,10 +116,6 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
                     nutritionMealsListView.adapter = null
                 }
             }
-        })
-
-        nutritionSharedViewModel.productsList.observe(viewLifecycleOwner, {
-            addEatenProductDialogFragment.updateAutoCompleteTextViewAdapterData(it)
         })
 
         binding.viewModel = nutritionSharedViewModel
@@ -196,6 +198,10 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
             requireActivity().supportFragmentManager,
             NutritionAddEatenProductDialogFragment.TAG
         )
+
+        nutritionSharedViewModel.productsList.observe(viewLifecycleOwner, {
+            addEatenProductDialogFragment.updateAutoCompleteTextViewAdapterData(it)
+        })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
