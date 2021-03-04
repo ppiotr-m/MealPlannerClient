@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +18,6 @@ class NutritionAddEatenProductDialogFragment(
     private val ownerContext: Context,
     private val listener: AddEatenProductDialogListener
 ) : DialogFragment() {
-
-//    private val autoCompleteTextViewAdapter = ProductsAutoCompleteTextViewAdapter(
-//        ownerContext,
-//        R.layout.list_item_simple_dropdown,
-//        LinkedList<BasicFoodItemData>()
-//    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,33 +46,16 @@ class NutritionAddEatenProductDialogFragment(
         }
     }
 
-//    fun updateAutoCompleteTextViewAdapterData(data: List<BasicFoodItemData>) {
-//        autoCompleteTextViewAdapter.clear()
-//        autoCompleteTextViewAdapter.addAll(data)
-//        autoCompleteTextViewAdapter.notifyDataSetChanged()
-//        Log.i(
-//            piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.TAG,
-//            "Updating adapter in DialogFragment, first element desc: " + data[0].description
-//        )
-//    }
-
     fun updateAutoCompleteTextViewAdapterData(data: List<BasicFoodItemData>) {
         val adapter =
-            ArrayAdapter<BasicFoodItemData>(
-                ownerContext,
-                android.R.layout.simple_spinner_dropdown_item,
-                data
-            )
+            ArrayAdapter(ownerContext, android.R.layout.simple_spinner_dropdown_item, data)
         nutritionProductsAutoCompleteTV.setAdapter(adapter)
-        Log.i(
-            piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.TAG,
-            "Updating adapter in DialogFragment, first element desc: " + data[0].description
-        )
+        nutritionProductsAutoCompleteTV.showDropDown()
     }
 
     private fun initAutoCompleteTextView() {
         nutritionProductsAutoCompleteTV.setAdapter(
-            ArrayAdapter<BasicFoodItemData>(
+            ArrayAdapter(
                 ownerContext,
                 android.R.layout.simple_spinner_dropdown_item,
                 LinkedList<BasicFoodItemData>()
@@ -96,7 +72,7 @@ class NutritionAddEatenProductDialogFragment(
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (s?.length!! > 6) {
+                if (s?.length!! > 2) {
                     listener.findProductsForName(s.toString())
                 }
             }
