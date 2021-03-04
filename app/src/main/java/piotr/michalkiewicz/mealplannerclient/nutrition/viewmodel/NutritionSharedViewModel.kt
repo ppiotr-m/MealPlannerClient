@@ -10,12 +10,17 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionDataUpdater
 import piotr.michalkiewicz.mealplannerclient.nutrition.repository.NutritionRepository
+import piotr.michalkiewicz.mealplannerclient.products.model.BasicFoodItemData
+import piotr.michalkiewicz.mealplannerclient.products.repository.ProductsRepository
 import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import java.time.LocalDate
 import java.util.*
 
-class NutritionSharedViewModel(val repository: NutritionRepository) : ViewModel() {
+class NutritionSharedViewModel(
+    val repository: NutritionRepository,
+    val productsRepository: ProductsRepository
+) : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     val _date = MutableLiveData(LocalDate.now())
@@ -99,6 +104,30 @@ class NutritionSharedViewModel(val repository: NutritionRepository) : ViewModel(
                 )
             )
             refreshData()
+        }
+    }
+
+    val user = MutableLiveData("")
+    val _productsList: MutableLiveData<List<BasicFoodItemData>> = MutableLiveData()
+    val productsList: LiveData<List<BasicFoodItemData>> = _productsList
+
+    val valid = MediatorLiveData<Boolean>().apply {
+        addSource(user) {
+            searchProduct(it)
+            value = true
+        }
+    }
+
+    fun searchProduct(name: String) {
+        viewModelScope.launch {
+            try {
+                val response = productsRepository.searchProduct(name)
+                if (response!!.isSuccessful) {
+                    _productsList.value = response.body()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

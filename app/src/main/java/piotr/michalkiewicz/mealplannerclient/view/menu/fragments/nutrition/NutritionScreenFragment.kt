@@ -1,7 +1,9 @@
 package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.nutrition
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,15 +23,18 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.dialogs.NutritionListItem
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
 import piotr.michalkiewicz.mealplannerclient.nutrition.utils.ConstantValues.Companion.ENERGY
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.NutritionSharedViewModel
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import java.util.*
 
-class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDialogListener {
+class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDialogListener,
+    NutritionAddEatenProductDialogFragment.AddEatenProductDialogListener {
 
     private val pagesCount = 3
     private lateinit var nutritionSharedViewModel: NutritionSharedViewModel
     private lateinit var binding: FragmentNutritionScreenBinding
     private val mealsListViewAdapter = NutritionMealsListViewAdapter(LinkedList())
+    private lateinit var addEatenProductDialogFragment: NutritionAddEatenProductDialogFragment
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +44,12 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
         binding = FragmentNutritionScreenBinding.inflate(inflater)
 
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        addEatenProductDialogFragment = NutritionAddEatenProductDialogFragment(context, this)
     }
 
     override fun onResume() {
@@ -99,6 +110,10 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
                     nutritionMealsListView.adapter = null
                 }
             }
+        })
+
+        nutritionSharedViewModel.productsList.observe(viewLifecycleOwner, {
+            addEatenProductDialogFragment.updateAutoCompleteTextViewAdapterData(it)
         })
 
         binding.viewModel = nutritionSharedViewModel
@@ -177,7 +192,7 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
     }
 
     private fun showAddProductDialog() {
-        NutritionAddEatenProductDialogFragment().show(
+        addEatenProductDialogFragment.show(
             requireActivity().supportFragmentManager,
             NutritionAddEatenProductDialogFragment.TAG
         )
@@ -190,5 +205,13 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
 
     override fun onOkClicked() {
 
+    }
+
+    override fun findProductsForName(name: String) {
+        Log.i(TAG, "Product name: " + name)
+        nutritionSharedViewModel.searchProduct(name)
+    }
+
+    override fun addProductToEatenList(mongoId: String) {
     }
 }

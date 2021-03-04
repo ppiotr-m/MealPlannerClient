@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import piotr.michalkiewicz.mealplannerclient.nutrition.repository.NutritionRepository
 import piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel.utils.DateRelatedService
+import piotr.michalkiewicz.mealplannerclient.products.repository.ProductsRepository
 
 class NutritionViewModelFactory(
-    private val nutritionRepository: NutritionRepository
+    private val nutritionRepository: NutritionRepository,
+    private val productsRepository: ProductsRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -21,7 +23,7 @@ class NutritionViewModelFactory(
             return NutritionMineralsTabViewModel(nutritionRepository) as T
         } else if (modelClass.isAssignableFrom(NutritionSharedViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return NutritionSharedViewModel(nutritionRepository) as T
+            return NutritionSharedViewModel(nutritionRepository, productsRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

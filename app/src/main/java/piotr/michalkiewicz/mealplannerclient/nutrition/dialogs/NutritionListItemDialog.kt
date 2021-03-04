@@ -18,7 +18,7 @@ class NutritionListItemDialog(
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
 
-            builder.setView(inflater.inflate(R.layout.nutrition_list_item_dialog, null))
+            builder.setView(inflater.inflate(R.layout.dialog_nutrition_list_item, null))
                 .setPositiveButton(
                     R.string.ok
                 ) { _, _ ->
