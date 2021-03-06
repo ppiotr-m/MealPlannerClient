@@ -29,12 +29,12 @@ import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import java.util.*
 
 class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDialogListener,
-    NutritionAddEatenProductDialogFragment.AddEatenProductDialogListener {
+    NutritionAddEatenProductDialogFragment.AddEatenProductDialogListener,
+    NutritionAddEatenProductDialogFragment.PortionSelectListener {
 
     private val pagesCount = 3
     private lateinit var nutritionSharedViewModel: NutritionSharedViewModel
     private lateinit var binding: FragmentNutritionScreenBinding
-    private val mealsListViewAdapter = NutritionMealsListViewAdapter(LinkedList())
     private lateinit var addEatenProductDialogFragment: NutritionAddEatenProductDialogFragment
 
     override fun onCreateView(
@@ -50,7 +50,7 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        addEatenProductDialogFragment = NutritionAddEatenProductDialogFragment(context, this)
+        addEatenProductDialogFragment = NutritionAddEatenProductDialogFragment(context, this, this)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -126,6 +126,12 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
 
         nutritionSharedViewModel.selectedProduct.observe(viewLifecycleOwner, {
             addEatenProductDialogFragment.showSelectedItemPortions(it)
+        })
+
+        nutritionSharedViewModel.dataHasBeenSaved.observe(viewLifecycleOwner, {
+            if (it) {
+                addEatenProductDialogFragment.dismiss()
+            }
         })
     }
 
@@ -208,7 +214,7 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
     private fun showAddProductDialog() {
         addEatenProductDialogFragment.show(
             requireActivity().supportFragmentManager,
-            NutritionAddEatenProductDialogFragment.TAG
+            NutritionAddEatenProductDialogFragment.NUTRITION_DIALOG_TAG
         )
     }
 
@@ -223,10 +229,22 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
 
     override fun findProductsForName(name: String) {
         Log.i(TAG, "Product name: " + name)
-        nutritionSharedViewModel.searchProduct(name)
+        nutritionSharedViewModel.searchProducts(name)
     }
 
     override fun onProductSelectedWithPosition(position: Int) {
         nutritionSharedViewModel.getProductDetailData(position)
+    }
+
+    override fun onAmountChanged(amount: Float) {
+        nutritionSharedViewModel.setAmount(amount)
+    }
+
+    override fun addProduct() {
+        nutritionSharedViewModel.saveEatenProductData()
+    }
+
+    override fun onPortionSelected(position: Int) {
+        nutritionSharedViewModel.selectPortion(position)
     }
 }

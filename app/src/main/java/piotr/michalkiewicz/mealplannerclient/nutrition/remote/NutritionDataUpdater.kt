@@ -12,7 +12,7 @@ class NutritionDataUpdater {
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun saveMealToTodayNutrition(eatableItem: EatableItem) {
-        nutritionServiceGenerator.nutritionAPI.addMealForToday(eatableItem)
+        nutritionServiceGenerator.nutritionAPI.saveMealForToday(eatableItem)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

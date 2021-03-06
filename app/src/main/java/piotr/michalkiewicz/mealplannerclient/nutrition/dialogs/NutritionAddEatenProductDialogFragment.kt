@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +19,9 @@ import java.util.*
 
 class NutritionAddEatenProductDialogFragment(
     private val ownerContext: Context,
-    private val listener: AddEatenProductDialogListener
-) : DialogFragment(), AdapterView.OnItemClickListener {
+    private val addProductListener: AddEatenProductDialogListener,
+    private val portionSelectListener: PortionSelectListener
+) : DialogFragment(), AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,10 +37,11 @@ class NutritionAddEatenProductDialogFragment(
         initSpinner()
         initAutoCompleteTextView()
         setClickListeners()
+        setTextWatcherForAmountEditText()
     }
 
     private fun initSpinner() {
-        productAmountUnitSpinner.adapter = ArrayAdapter(
+        productPortionSpinner.adapter = ArrayAdapter(
             this.requireContext(),
             android.R.layout.simple_spinner_item,
             LinkedList<FoodPortion>()
@@ -82,18 +83,36 @@ class NutritionAddEatenProductDialogFragment(
 
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length!! > 2) {
-                    listener.findProductsForName(s.toString())
+                    addProductListener.findProductsForName(s.toString())
                 }
             }
         })
     }
 
+    private fun setTextWatcherForAmountEditText() {
+        productAmountET.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val lastCharacter = s?.get(count - 1)
+                if (lastCharacter != null) {
+                    if (!lastCharacter.equals(".")) {
+                        addProductListener.onAmountChanged(s.toString().toFloat())
+                    }
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+    }
+
     fun showSelectedItemPortions(selectedItem: UsdaFoodItem) {
-        Log.d(
-            "mealtime",
-            "DialogFragment, selected portions size: " + selectedItem.foodPortions[0].toString()
-        )
-        productAmountUnitSpinner.adapter = ArrayAdapter(
+        productPortionSpinner.adapter = ArrayAdapter(
             this.requireContext(),
             android.R.layout.simple_spinner_item,
             selectedItem.foodPortions
@@ -102,18 +121,36 @@ class NutritionAddEatenProductDialogFragment(
 
     private fun setClickListeners() {
         nutritionProductsAutoCompleteTV.onItemClickListener = this
+        productPortionSpinner.onItemSelectedListener = this
+
+        addProductBtn.setOnClickListener {
+            addProductListener.addProduct()
+        }
     }
 
     companion object {
-        const val TAG = "NutritionAddProductDialog"
+        const val NUTRITION_DIALOG_TAG = "NutritionAddProductDialog"
     }
 
     interface AddEatenProductDialogListener {
         fun findProductsForName(name: String)
         fun onProductSelectedWithPosition(position: Int)
+        fun onAmountChanged(amount: Float)
+        fun addProduct()
+    }
+
+    interface PortionSelectListener {
+        fun onPortionSelected(position: Int)
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        listener.onProductSelectedWithPosition(position)
+        addProductListener.onProductSelectedWithPosition(position)
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        portionSelectListener.onPortionSelected(position)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 }

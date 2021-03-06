@@ -20,22 +20,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/addProductBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/nutriton_add_product"
         app:layout_constraintEnd_toEndOf="@+id/nutritionProductsAutoCompleteTV"
-        app:layout_constraintTop_toBottomOf="@+id/productAmountUnitSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/productPortionSpinner" />
 
     <EditText
-        android:id="@+id/productQunatityET"
+        android:id="@+id/productAmountET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/product_quantity_hint"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/nutritionProductsAutoCompleteTV"
         app:layout_constraintTop_toBottomOf="@+id/nutritionProductsAutoCompleteTV" />
 
@@ -45,9 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/product_amount_label"
-        app:layout_constraintBottom_toBottomOf="@+id/productQunatityET"
-        app:layout_constraintEnd_toStartOf="@+id/productQunatityET"
-        app:layout_constraintTop_toTopOf="@+id/productQunatityET" />
+        app:layout_constraintBottom_toBottomOf="@+id/productAmountET"
+        app:layout_constraintEnd_toStartOf="@+id/productAmountET"
+        app:layout_constraintTop_toTopOf="@+id/productAmountET" />
 
     <TextView
         android:id="@+id/productUnitLabelTV"
@@ -55,15 +55,15 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/product_amount_unit"
-        app:layout_constraintBottom_toBottomOf="@+id/productAmountUnitSpinner"
-        app:layout_constraintEnd_toStartOf="@+id/productAmountUnitSpinner"
-        app:layout_constraintTop_toTopOf="@+id/productAmountUnitSpinner" />
+        app:layout_constraintBottom_toBottomOf="@+id/productPortionSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/productPortionSpinner"
+        app:layout_constraintTop_toTopOf="@+id/productPortionSpinner" />
 
     <Spinner
-        android:id="@+id/productAmountUnitSpinner"
+        android:id="@+id/productPortionSpinner"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/productQunatityET"
-        app:layout_constraintTop_toBottomOf="@+id/productQunatityET" />
+        app:layout_constraintStart_toStartOf="@+id/productAmountET"
+        app:layout_constraintTop_toBottomOf="@+id/productAmountET" />
 </androidx.constraintlayout.widget.ConstraintLayout>

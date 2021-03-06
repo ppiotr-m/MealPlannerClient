@@ -1,11 +1,13 @@
 package piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
+import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatenProductWithDate
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.NutritionUiModel
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionDataUpdater
 import piotr.michalkiewicz.mealplannerclient.nutrition.repository.NutritionRepository
@@ -13,13 +15,15 @@ import piotr.michalkiewicz.mealplannerclient.products.model.BasicFoodItemData
 import piotr.michalkiewicz.mealplannerclient.products.repository.ProductsRepository
 import piotr.michalkiewicz.mealplannerclient.products.usda.UsdaServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.products.usda.api.UsdaAPI
+import piotr.michalkiewicz.mealplannerclient.products.usda.model.FoodPortion
 import piotr.michalkiewicz.mealplannerclient.products.usda.model.UsdaFoodItem
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import java.time.LocalDate
 import java.util.*
 
 class NutritionSharedViewModel(
-    private val repository: NutritionRepository,
+    private val nutritionRepository: NutritionRepository,
     private val productsRepository: ProductsRepository,
     private val usdaService: UsdaAPI
 ) : ViewModel() {
@@ -32,7 +36,7 @@ class NutritionSharedViewModel(
 
     @RequiresApi(Build.VERSION_CODES.O)
     val _uiModelLiveData = _date.switchMap { date ->
-        repository.getNutritionUiModelDataResource(date.toString())
+        nutritionRepository.getNutritionUiModelDataResource(date.toString())
     }
 
     val uiModelLiveData: LiveData<Resource<NutritionUiModel>> = _uiModelLiveData
@@ -72,7 +76,7 @@ class NutritionSharedViewModel(
             _uiModelLiveData.value?.data?.nutritionDailyData?.eatenFoods  // TODO Handle nulls
         val newList = LinkedList<EatableItem>()
         val listLength = currentList!!.size
-        for (i in 0..(listLength - 1)) {
+        for (i in 0 until listLength) {
             if (i == position) {
                 continue
             }
@@ -96,7 +100,14 @@ class NutritionSharedViewModel(
     private val _selectedProduct: MutableLiveData<UsdaFoodItem> = MutableLiveData()
     val selectedProduct: LiveData<UsdaFoodItem> = _selectedProduct
 
-    fun searchProduct(name: String) {
+    private lateinit var selectedPortion: FoodPortion
+    private var amount: Float = 0F
+    private var selectedProductMongoId = ""
+
+    private val _dataHasBeenSaved: MutableLiveData<Boolean> = MutableLiveData(false)
+    val dataHasBeenSaved = _dataHasBeenSaved
+
+    fun searchProducts(name: String) {
         viewModelScope.launch {
             try {
                 val response = productsRepository.searchProduct(name)
@@ -116,6 +127,7 @@ class NutritionSharedViewModel(
     fun getProductDetailData(productPosition: Int) {
         viewModelScope.launch {
             try {
+                selectedProductMongoId = getSelectedProduct(productPosition).mongoId
                 val response =
                     usdaService.getProductDetailData(
                         UsdaServiceGenerator.getFullUrlForProductId(
@@ -125,10 +137,49 @@ class NutritionSharedViewModel(
                     )
                 if (response.isSuccessful) {
                     _selectedProduct.value = response.body()
+                    setFirstPortionOnListAsSelection()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun setFirstPortionOnListAsSelection() {
+        selectedPortion = selectedProduct.value!!.foodPortions[0]
+    }
+
+    fun selectPortion(position: Int) {
+        selectedPortion = selectedProduct.value!!.foodPortions[position]
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun saveEatenProductData() {
+        viewModelScope.launch {
+            try {
+                val itemToBeSent = createEatenProductFromStoredData()
+                Log.d(TAG, "Sending item with mongoId: " + itemToBeSent.mongoId)
+                val response = nutritionRepository.saveProduct(itemToBeSent)
+                if (response.isSuccessful) {
+                    _dataHasBeenSaved.value = true
+                    refreshData()
+                }
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun createEatenProductFromStoredData(): EatenProductWithDate {
+        return EatenProductWithDate(
+            selectedProductMongoId,
+            amount,
+            selectedPortion,
+            date.value.toString()
+        )
+    }
+
+    fun setAmount(amount: Float) {
+        this.amount = amount
     }
 }
