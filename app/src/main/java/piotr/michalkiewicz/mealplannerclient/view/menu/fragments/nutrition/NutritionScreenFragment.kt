@@ -53,6 +53,7 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
         addEatenProductDialogFragment = NutritionAddEatenProductDialogFragment(context, this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
         nutritionSharedViewModel.refreshData()
@@ -76,6 +77,7 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
     private fun init() {
         initViewModel()
         setupObservers()
+        setViewModel()
         setCircleMenuClickListeners()
 
         nutritionScreenViewPager.adapter = ScreenSlidePagerAdapter(this)
@@ -118,6 +120,16 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
             }
         })
 
+        nutritionSharedViewModel.productsList.observe(viewLifecycleOwner, {
+            addEatenProductDialogFragment.updateAutoCompleteTextViewAdapterData(it)
+        })
+
+        nutritionSharedViewModel.selectedProduct.observe(viewLifecycleOwner, {
+            addEatenProductDialogFragment.showSelectedItemPortions(it)
+        })
+    }
+
+    private fun setViewModel() {
         binding.viewModel = nutritionSharedViewModel
     }
 
@@ -198,10 +210,6 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
             requireActivity().supportFragmentManager,
             NutritionAddEatenProductDialogFragment.TAG
         )
-
-        nutritionSharedViewModel.productsList.observe(viewLifecycleOwner, {
-            addEatenProductDialogFragment.updateAutoCompleteTextViewAdapterData(it)
-        })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -218,6 +226,7 @@ class NutritionScreenFragment : Fragment(), NutritionListItemDialog.NutritionDia
         nutritionSharedViewModel.searchProduct(name)
     }
 
-    override fun addProductToEatenList(mongoId: String) {
+    override fun onProductSelectedWithPosition(position: Int) {
+        nutritionSharedViewModel.getProductDetailData(position)
     }
 }

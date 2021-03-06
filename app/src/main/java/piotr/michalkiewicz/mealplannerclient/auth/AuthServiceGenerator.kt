@@ -29,6 +29,16 @@ abstract class AuthServiceGenerator {
             .build()
     }
 
+    protected fun retrofitBuilder(url: String): Retrofit {
+        return Retrofit.Builder()
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .baseUrl(url)
+            .client(okHttpClient())
+            .build()
+    }
+
     private val gson: Gson = GsonBuilder()
         .registerTypeAdapter(Bitmap::class.java, BinaryToBitmapConverter())
         .setLenient()

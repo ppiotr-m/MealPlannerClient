@@ -3,7 +3,6 @@ package piotr.michalkiewicz.mealplannerclient.nutrition.viewmodel
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.DailyEatenFoods
 import piotr.michalkiewicz.mealplannerclient.nutrition.model.EatableItem
@@ -12,18 +11,21 @@ import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionDataUpdat
 import piotr.michalkiewicz.mealplannerclient.nutrition.repository.NutritionRepository
 import piotr.michalkiewicz.mealplannerclient.products.model.BasicFoodItemData
 import piotr.michalkiewicz.mealplannerclient.products.repository.ProductsRepository
-import piotr.michalkiewicz.mealplannerclient.recipes.RecipeServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.products.usda.UsdaServiceGenerator
+import piotr.michalkiewicz.mealplannerclient.products.usda.api.UsdaAPI
+import piotr.michalkiewicz.mealplannerclient.products.usda.model.UsdaFoodItem
 import piotr.michalkiewicz.mealplannerclient.utils.Resource
 import java.time.LocalDate
 import java.util.*
 
 class NutritionSharedViewModel(
-    val repository: NutritionRepository,
-    val productsRepository: ProductsRepository
+    private val repository: NutritionRepository,
+    private val productsRepository: ProductsRepository,
+    private val usdaService: UsdaAPI
 ) : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
-    val _date = MutableLiveData(LocalDate.now())
+    private val _date = MutableLiveData(LocalDate.now())
 
     @RequiresApi(Build.VERSION_CODES.O)
     val date: LiveData<LocalDate> = _date
@@ -56,25 +58,6 @@ class NutritionSharedViewModel(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addMeal() {
-        GlobalScope.launch {
-            val api = RecipeServiceGenerator().recipeAPI
-            val recipe = api.getRecipeForIdCoroutine("5fc1693a7907e07a453ddf4e")
-
-            if (recipe.foodNutrientsSummary != null) {
-                val eatableItem = EatableItem(
-                    recipe.name,
-                    recipe.foodNutrientsSummary.associateBy({ it.nutrient.name }, { it }),
-                    "1",
-                    "portion"
-                )
-                val updater = NutritionDataUpdater()
-
-                updater.saveMealToTodayNutrition(eatableItem)
-            }
-        }
-    }
-
     fun refreshData() {
         _date.postValue(_date.value)
     }
@@ -107,16 +90,11 @@ class NutritionSharedViewModel(
         }
     }
 
-    val user = MutableLiveData("")
-    val _productsList: MutableLiveData<List<BasicFoodItemData>> = MutableLiveData()
+    private val _productsList: MutableLiveData<List<BasicFoodItemData>> = MutableLiveData()
     val productsList: LiveData<List<BasicFoodItemData>> = _productsList
 
-    val valid = MediatorLiveData<Boolean>().apply {
-        addSource(user) {
-            searchProduct(it)
-            value = true
-        }
-    }
+    private val _selectedProduct: MutableLiveData<UsdaFoodItem> = MutableLiveData()
+    val selectedProduct: LiveData<UsdaFoodItem> = _selectedProduct
 
     fun searchProduct(name: String) {
         viewModelScope.launch {
@@ -124,6 +102,29 @@ class NutritionSharedViewModel(
                 val response = productsRepository.searchProduct(name)
                 if (response!!.isSuccessful) {
                     _productsList.value = response.body()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun getSelectedProduct(position: Int): BasicFoodItemData {
+        return productsList.value!![position]
+    }
+
+    fun getProductDetailData(productPosition: Int) {
+        viewModelScope.launch {
+            try {
+                val response =
+                    usdaService.getProductDetailData(
+                        UsdaServiceGenerator.getFullUrlForProductId(
+                            getSelectedProduct(productPosition).fdcId
+                        ),
+                        UsdaServiceGenerator.USDA_API_KEY
+                    )
+                if (response.isSuccessful) {
+                    _selectedProduct.value = response.body()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
