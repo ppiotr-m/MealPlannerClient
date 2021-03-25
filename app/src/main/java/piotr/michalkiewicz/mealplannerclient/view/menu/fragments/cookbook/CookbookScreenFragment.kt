@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.menu.fragments
+package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.cookbook
 
 import android.os.Bundle
 import android.util.Log
@@ -21,13 +21,14 @@ import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookbookScreenB
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.cookbook.interfaces.RecipesNavigationListener
+import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.CookbookViewModel
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
-import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
 
-class CookbookScreenFragment : Fragment() {
+class CookbookScreenFragment : Fragment(), RecipesNavigationListener {
 
     private lateinit var binding: FragmentCookbookScreenBinding
-    private lateinit var viewModel: RecipesSearchViewModel
+    private lateinit var viewModel: CookbookViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +49,7 @@ class CookbookScreenFragment : Fragment() {
                 requireContext().applicationContext
             )
         )
-            .get(RecipesSearchViewModel::class.java)
+            .get(CookbookViewModel::class.java)
 
         initRecipeRecyclerViews()
     }
@@ -123,7 +124,7 @@ class CookbookScreenFragment : Fragment() {
             view.findViewById<RecyclerView>(R.id.recipesHorizontalRecyclerView)
         horizontalRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        horizontalRecyclerView.adapter = RecipesAdapter()
+        horizontalRecyclerView.adapter = RecipesAdapter(this)
 
         return view
     }
@@ -149,6 +150,10 @@ class CookbookScreenFragment : Fragment() {
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue
             )
         }
+
+    }
+
+    override fun navigateToFragmentWithRecipeId(recipeId: String) {
 
     }
 }

@@ -41,7 +41,7 @@
         <activity android:name=".view.recipes.IngredientsActivity" />
         <activity android:name=".view.personalization.StartCustomActivity" />
         <activity
-            android:name=".view.recipes.RecipeActivity"
+            android:name=".view.recipes.RecipeFragment"
             android:label="@string/title_activity_recipe"
             android:theme="@style/AppTheme.NoActionBar" />
 

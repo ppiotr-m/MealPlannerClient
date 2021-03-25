@@ -1,7 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.paging
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +15,12 @@ import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.nutrition.remote.NutritionDataUpdater
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPE_ID
-import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.cookbook.interfaces.RecipesNavigationListener
 
-class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
+class RecipeViewHolder(
+    private val recipeCardView: View,
+    private val recipesNavigationListener: RecipesNavigationListener
+) : RecyclerView.ViewHolder(recipeCardView) {
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
     private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.recipeCardThumbnail)
     private val addMealBtn: ImageButton = recipeCardView.findViewById(R.id.addMealDialogBtn)
@@ -41,9 +42,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addOnClickListener(recipeId: String) {
         recipeCardView.setOnClickListener {
-            val intent = Intent(recipeCardView.context, RecipeActivity::class.java)
-            intent.putExtra(RECIPE_ID, recipeId)
-            context.startActivity(intent)
+            recipesNavigationListener.navigateToFragmentWithRecipeId(recipeId)
         }
 
         addMealBtn.setOnClickListener {
@@ -77,10 +76,13 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
     }
 
     companion object {
-        fun create(parent: ViewGroup): RecipeViewHolder {
+        fun create(
+            parent: ViewGroup,
+            recipesNavigationListener: RecipesNavigationListener
+        ): RecipeViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.recipe_list_item, parent, false)
-            return RecipeViewHolder(view)
+            return RecipeViewHolder(view, recipesNavigationListener)
         }
     }
 }

@@ -11,9 +11,9 @@ class RecipesViewModelFactory(
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RecipesSearchViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(CookbookViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return RecipesSearchViewModel(recipesPagedService, mealTImeDatabase) as T
+            return CookbookViewModel(recipesPagedService, mealTImeDatabase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

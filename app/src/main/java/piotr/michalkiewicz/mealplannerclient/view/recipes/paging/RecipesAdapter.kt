@@ -7,11 +7,13 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.cookbook.interfaces.RecipesNavigationListener
 
-class RecipesAdapter : PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
+class RecipesAdapter(private val recipesNavigationListener: RecipesNavigationListener) :
+    PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return RecipeViewHolder.create(parent)
+        return RecipeViewHolder.create(parent, recipesNavigationListener)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

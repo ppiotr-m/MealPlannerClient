@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_home_screen" />
     <fragment
         android:id="@+id/cookbookScreenFragment"
-        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.CookbookScreenFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.cookbook.CookbookScreenFragment"
         android:label="fragment_cookbook_screen"
         tools:layout="@layout/fragment_cookbook_screen" />
     <fragment

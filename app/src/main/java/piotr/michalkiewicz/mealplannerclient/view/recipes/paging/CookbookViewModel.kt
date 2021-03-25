@@ -13,7 +13,7 @@ import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PREFETCH_DISTANCE
 import piotr.michalkiewicz.mealplannerclient.utils.MealTimeDatabase
 
-class RecipesSearchViewModel(
+class CookbookViewModel(
     private val recipeAPI: RecipeAPI,
     private val mealTimeDatabase: MealTimeDatabase
 ) : ViewModel() {
