@@ -3,29 +3,29 @@ package piotr.michalkiewicz.mealplannerclient.recipes.model.enums
 import com.google.gson.annotations.SerializedName
 
 enum class Diet(val value: String) {
-    @SerializedName("Standard")
-    STANDARD("Standard"),
+    @SerializedName("standard")
+    STANDARD("standard"),
 
-    @SerializedName("Vegetarian")
-    VEGETARIAN("Vegetarian"),
+    @SerializedName("vegetarian")
+    VEGETARIAN("vegetarian"),
 
-    @SerializedName("Paleo")
-    PALEO("Paleo"),
+    @SerializedName("paleo")
+    PALEO("paleo"),
 
-    @SerializedName("Flexitarian")
-    FLEXITARIAN("Flexitarian"),
+    @SerializedName("flexitarian")
+    FLEXITARIAN("flexitarian"),
 
-    @SerializedName("Pescatarian")
-    PESCATARIAN("Pescatarian"),
+    @SerializedName("pescatarian")
+    PESCATARIAN("pescatarian"),
 
-    @SerializedName("Vegan")
-    VEGAN("Vegan"),
+    @SerializedName("vegan")
+    VEGAN("vegan"),
 
-    @SerializedName("LowCarb")
-    LOWCARB("LowCarb"),
+    @SerializedName("lowcarb")
+    LOWCARB("lowcarb"),
 
-    @SerializedName("Ketogenic")
-    KETOGENIC("Ketogenic");
+    @SerializedName("ketogenic")
+    KETOGENIC("ketogenic");
 
     companion object {
         fun getValueByName(name: String): String? {
