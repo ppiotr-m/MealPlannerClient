@@ -21,6 +21,7 @@ import java.util.List;
 import piotr.michalkiewicz.mealplannerclient.R;
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient;
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity;
+
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.INGREDIENTS_DATA;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.SHOPPING_LIST_SHARED_PREF;
 import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.TAG;
@@ -28,8 +29,8 @@ import static piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.TAG;
 public class IngredientsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private ArrayList<RecipeIngredient> data;
-    private ArrayList<String> productsOriginalNames = new ArrayList<>();
-    private ArrayList<RecipeIngredient> selectedIngredients = new ArrayList<>();
+    private final ArrayList<String> productsOriginalNames = new ArrayList<>();
+    private final ArrayList<RecipeIngredient> selectedIngredients = new ArrayList<>();
     private ViewGroup produceContainer;
 
     @Override
@@ -84,6 +85,7 @@ public class IngredientsActivity extends AppCompatActivity implements CompoundBu
             checkBox.setOnCheckedChangeListener(this);
             amountTV.setText(ingredient.getAmount());
             checkBox.setTag(ingredient.getOriginalName());
+            checkBox.setChecked(true);
             produceContainer.addView(view);
         }
     }
