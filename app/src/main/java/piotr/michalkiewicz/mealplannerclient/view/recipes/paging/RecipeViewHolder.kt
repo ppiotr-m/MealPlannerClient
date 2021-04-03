@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPE_ID
-import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity
+import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeFragment
 
 class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
@@ -30,7 +30,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
 
     private fun addOnClickListener(recipeId: String){
         recipeCardView.setOnClickListener {
-            val intent = Intent(recipeCardView.context, RecipeActivity::class.java)
+            val intent = Intent(recipeCardView.context, RecipeFragment::class.java)
             intent.putExtra(RECIPE_ID, recipeId)
             recipeCardView.context.startActivity(intent)
         }
