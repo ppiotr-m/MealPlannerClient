@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.recipes.RecipeFragment">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel" />
+    </data>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,17 +21,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <!--ImageView
                 android:id="@+id/recipeImageView"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:imageBitmap="@{viewModel.recipeData.image}"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" /-->
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager"
@@ -130,12 +138,13 @@
 
             <TextView
                 android:id="@+id/aboutMealTV"
+                style="@style/recipeAbout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                style="@style/recipeAbout"
+                android:text="@{viewModel.recipeData.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/aboutLabelTV" />
@@ -169,6 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.recipeData.cookTime)}"
                 app:layout_constraintBottom_toBottomOf="@+id/cookingTimeLabelTV"
                 app:layout_constraintStart_toEndOf="@id/barrier5"
                 app:layout_constraintTop_toTopOf="@+id/cookingTimeLabelTV" />
@@ -187,10 +197,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.recipeData.totalLikes)}"
                 app:layout_constraintBottom_toBottomOf="@+id/likedByLabelTV"
                 app:layout_constraintStart_toEndOf="@id/barrier5"
                 app:layout_constraintTop_toTopOf="@+id/likedByLabelTV" />
-
+            <!--  TODO Insert proper value for goodFor.text or remove-->
             <TextView
                 android:id="@+id/goodForTV"
                 style="@style/normalTextBold"

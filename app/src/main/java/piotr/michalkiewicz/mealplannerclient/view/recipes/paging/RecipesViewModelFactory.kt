@@ -4,16 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
+import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel
 
 class RecipesViewModelFactory(
-    private val recipesPagedService: RecipeAPI,
+    private val recipesService: RecipeAPI,
     private val recipesDatabase: RecipesDatabase
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RecipesSearchViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return RecipesSearchViewModel(recipesPagedService, recipesDatabase) as T
+            return RecipesSearchViewModel(recipesService, recipesDatabase) as T
+        } else if (modelClass.isAssignableFrom(RecipeViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return RecipeViewModel(recipesService, recipesDatabase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
