@@ -25,6 +25,12 @@ class RecipeViewModel(
     private val _recipeFetchErrorOccurred = MutableLiveData(false)
     val recipeFeatchErrorOccurred: LiveData<Boolean> = _recipeFetchErrorOccurred
 
+    private val _navigateToIngredientsFragment = MutableLiveData(false)
+    val navigateToIngredientsFragment: LiveData<Boolean> = _navigateToIngredientsFragment
+
+    private val _navigateToCookingStepsFragment = MutableLiveData(false)
+    val navigateToCookingStepsFragment: LiveData<Boolean> = _navigateToCookingStepsFragment
+
     fun initialize(recipeId: String) {
         viewModelScope.launch {
             val response = recipeAPI.getRecipeForId(recipeId)

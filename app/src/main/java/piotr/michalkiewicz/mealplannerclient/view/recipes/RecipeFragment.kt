@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_recipe.*
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentRecipeBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
-import piotr.michalkiewicz.mealplannerclient.recipes.model.Comment
 import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -80,7 +77,7 @@ class RecipeFragment : Fragment() {
 
     private fun setupObservers() {
         recipeViewModel.recipeData.observe(viewLifecycleOwner, {
-
+            //  TODO
         })
 
         recipeViewModel.recipeFeatchErrorOccurred.observe(viewLifecycleOwner, {
@@ -88,18 +85,11 @@ class RecipeFragment : Fragment() {
                 handleRecipeFetchingError()
             }
         })
-    }
 
-    private fun initCommentSection(commentList: List<Comment>?) {
-        if (commentList == null || commentList.isEmpty()) return
-        val layoutInflater = LayoutInflater.from(requireContext())
-        for (comment in commentList) {
-            val commentView = layoutInflater.inflate(R.layout.comment_item_layout, null, false)
-            val usernameTV = commentView.findViewById<TextView>(R.id.commentUsernameTV)
-            val commentTV = commentView.findViewById<TextView>(R.id.commentTV)
-            usernameTV.text = comment.username
-            commentTV.text = comment.comment
-            commentsSectionLinearLayout!!.addView(commentView)
-        }
+        recipeViewModel.navigateToIngredientsFragment.observe(viewLifecycleOwner, {
+            if (it) {
+                findNavController().navigate(R.id.action_recipeFragment_to_ingredientsFragment)
+            }
+        })
     }
 }

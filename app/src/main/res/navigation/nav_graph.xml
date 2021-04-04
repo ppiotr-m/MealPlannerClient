@@ -283,5 +283,13 @@
         <argument
             android:name="recipeId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_recipeFragment_to_ingredientsFragment"
+            app:destination="@id/ingredientsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ingredientsFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.IngredientsFragment"
+        android:label="fragment_ingredients"
+        tools:layout="@layout/fragment_ingredients" />
 </navigation>
