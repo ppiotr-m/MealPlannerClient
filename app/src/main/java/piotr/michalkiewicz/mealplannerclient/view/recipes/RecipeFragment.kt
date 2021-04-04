@@ -49,7 +49,10 @@ class RecipeFragment : Fragment() {
             Injection.provideViewModelFactory(requireContext())
         ).get(RecipeViewModel::class.java)
 
-        val recipeId = retriveRecipeId()
+        val recipeId = retriveRecipeIdPassedWithNavigation()
+
+        binding.viewModel = recipeViewModel
+
         if (recipeId != null) {
             recipeViewModel.initialize(recipeId)
         } else {
@@ -57,7 +60,7 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    private fun retriveRecipeId(): String? {
+    private fun retriveRecipeIdPassedWithNavigation(): String? {
         val bundle = arguments ?: return null
         return RecipeFragmentArgs.fromBundle(bundle).recipeId
     }
@@ -81,7 +84,9 @@ class RecipeFragment : Fragment() {
         })
 
         recipeViewModel.recipeFeatchErrorOccurred.observe(viewLifecycleOwner, {
-            handleRecipeFetchingError()
+            if (it) {
+                handleRecipeFetchingError()
+            }
         })
     }
 

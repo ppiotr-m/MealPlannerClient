@@ -5,7 +5,6 @@
     tools:context=".view.recipes.RecipeFragment">
 
     <data>
-
         <variable
             name="viewModel"
             type="piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel" />
@@ -21,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--ImageView
+            <ImageView
                 android:id="@+id/recipeImageView"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
@@ -32,16 +31,16 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" /-->
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                app:layout_constraintBottom_toBottomOf="@id/recipeImageView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            <!--            <androidx.viewpager.widget.ViewPager-->
+            <!--                android:id="@+id/viewPager"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_alignParentTop="true"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@id/recipeImageView"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent" />-->
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
@@ -208,6 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.recipeData.suitableForDiet[0])}"
                 app:layout_constraintBottom_toBottomOf="@+id/goodForLabelTV"
                 app:layout_constraintStart_toEndOf="@id/barrier5"
                 app:layout_constraintTop_toTopOf="@+id/goodForLabelTV" />
