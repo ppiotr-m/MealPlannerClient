@@ -74,8 +74,8 @@ class ShoppingListFragment : Fragment() {
     private fun createViewFromData(product: RecipeIngredient?): View {
         val view = layoutInflater.inflate(R.layout.ingredient_list_item, null, false)
 
-        view.findViewById<TextView>(R.id.ingredientListItemCB).text = product?.originalName
-        view.findViewById<TextView>(R.id.ingredientListAmountTV).text = product?.amount
+        view.findViewById<TextView>(R.id.recipeIngredientListItemCB).text = product?.originalName
+        view.findViewById<TextView>(R.id.recipeIngredientListAmountTV).text = product?.amount
         view.tag = product
 
         return view
@@ -96,7 +96,8 @@ class ShoppingListFragment : Fragment() {
 
     private fun removeProductsFromView() {
         for (x in 0 until shoppingListContainerLayout.childCount) {
-            val checkBox = shoppingListContainerLayout.getChildAt(x).findViewById<CheckBox>(R.id.ingredientListItemCB)
+            val checkBox = shoppingListContainerLayout.getChildAt(x)
+                .findViewById<CheckBox>(R.id.recipeIngredientListItemCB)
             if (checkBox.isChecked) {
                 checkBoxes.add(shoppingListContainerLayout.getChildAt(x))
             }

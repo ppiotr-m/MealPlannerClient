@@ -109,6 +109,7 @@
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
                     android:text="@string/ingredients"
+                    android:onClick="@{(v) -> viewModel.navigateToIngredients()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/goodForLabelTV" />
 

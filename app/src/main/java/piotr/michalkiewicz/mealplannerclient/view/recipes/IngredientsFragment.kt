@@ -5,10 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentIngredientsBinding
@@ -17,10 +17,11 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeIngredientsListAdapter
+import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel
 import java.util.*
 
-class IngredientsFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
+class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListener {
 
     private var data: ArrayList<RecipeIngredient>? = null
     private val productsOriginalNames = ArrayList<String>()
@@ -65,7 +66,8 @@ class IngredientsFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
     }
 
     private fun initRecyclerView(data: List<RecipeIngredient>) {
-        binding.recipeIngredientsListRV.adapter = RecipeIngredientsListAdapter(data)
+        binding.recipeIngredientsListRV.layoutManager = LinearLayoutManager(requireContext())
+        binding.recipeIngredientsListRV.adapter = RecipeIngredientsListAdapter(data, this)
     }
 
     private fun initProductsOriginalNamesList() {
@@ -76,29 +78,10 @@ class IngredientsFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
     private fun setOnClickListeners() {
         binding.addProductsToShoppingListBtn.setOnClickListener { v: View? ->
-            if (checkIfAnyIngredientSelected() == false) {
+            if (checkIfAnyIngredientSelected()) {
                 showNoItemSelectedToast()
                 return@setOnClickListener
             }
-        }
-    }
-
-    override fun onCheckedChanged(compoundButton: CompoundButton, b: Boolean) {
-        if (b) {
-            selectedIngredients.add(data!![productsOriginalNames.indexOf(compoundButton.tag.toString())])
-        } else {
-            removeItemFromSelectedList(compoundButton.tag.toString())
-        }
-    }
-
-    private fun removeItemFromSelectedList(originalName: String) {
-        var index = 0
-        for (ingredient in selectedIngredients) {
-            if (ingredient.originalName == originalName) {
-                selectedIngredients.removeAt(index)
-                break
-            }
-            index += 1
         }
     }
 
@@ -129,5 +112,9 @@ class IngredientsFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
     private fun checkIfAnyIngredientSelected(): Boolean {
         return !selectedIngredients.isEmpty()
+    }
+
+    override fun onCheckboxSelected(item: RecipeIngredient, isChecked: Boolean) {
+        recipeViewModel.recipeIngredientListCheckboxClicked(item, isChecked)
     }
 }

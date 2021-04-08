@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import kotlinx.coroutines.flow.Flow
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
-import piotr.michalkiewicz.mealplannerclient.recipes.data_source.AllRecipesDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTagDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTypeDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
@@ -43,14 +42,6 @@ class RecipesSearchViewModel(
             PagingConfig(PAGE_SIZE)
         ) {
             RecipesByTagDataSource(recipeAPI = recipeAPI, queryParam = queryParam)
-        }.flow.cachedIn(viewModelScope)
-    }
-
-    fun allRecipesApiData(): Flow<PagingData<MealTimeRecipe>> {
-        return Pager(
-            PagingConfig(PAGE_SIZE)
-        ) {
-            AllRecipesDataSource(recipeAPI = recipeAPI)
         }.flow.cachedIn(viewModelScope)
     }
 }

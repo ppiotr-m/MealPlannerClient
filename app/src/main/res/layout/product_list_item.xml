@@ -18,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         style="@style/normalTextBold"
-        app:layout_constraintBottom_toBottomOf="@+id/ingredientListItemCB"
+        app:layout_constraintBottom_toBottomOf="@+id/recipeIngredientListItemCB"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ingredientListItemCB" />
+        app:layout_constraintTop_toTopOf="@+id/recipeIngredientListItemCB" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 
 class RecipeViewModel(
@@ -31,17 +32,32 @@ class RecipeViewModel(
     private val _navigateToCookingStepsFragment = MutableLiveData(false)
     val navigateToCookingStepsFragment: LiveData<Boolean> = _navigateToCookingStepsFragment
 
+    private val selectedIngredients = mutableListOf<RecipeIngredient>()
+
     fun initialize(recipeId: String) {
         viewModelScope.launch {
             val response = recipeAPI.getRecipeForId(recipeId)
 
             if (response.isSuccessful) {
                 _recipeData.value = response.body()
+                selectedIngredients.addAll(recipeData.value!!.recipeIngredients)
                 Log.d(TAG, "Recipe description: " + recipeData.value!!.totalLikes)
             } else {
                 _recipeFetchErrorOccurred.value = true
             }
         }
+    }
+
+    fun recipeIngredientListCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
+        if (isChecked) {
+            selectedIngredients.add(item)
+        } else {
+            selectedIngredients.remove(item)
+        }
+    }
+
+    fun navigateToIngredients() {
+        _navigateToIngredientsFragment.value = true
     }
 
     companion object {

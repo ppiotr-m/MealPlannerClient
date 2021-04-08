@@ -1,29 +1,52 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import piotr.michalkiewicz.mealplannerclient.R
+import piotr.michalkiewicz.mealplannerclient.databinding.IngredientListItemBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
+import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 
-class RecipeIngredientsListAdapter(private val data: List<RecipeIngredient>) :
+class RecipeIngredientsListAdapter(
+    private val data: List<RecipeIngredient>,
+    private val onCheckedChangeListener: RecipeIngredientListOnCheckedChangeListener
+) :
     RecyclerView.Adapter<RecipeIngredientsListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.ingredient_list_item, parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = IngredientListItemBinding.inflate(inflater)
 
-        return ViewHolder(view)
+        return ViewHolder(binding, onCheckedChangeListener)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    //  TODO Handle listener in XML
+    class ViewHolder(
+        private val binding: IngredientListItemBinding,
+        private val onCheckedChangeListener: RecipeIngredientListOnCheckedChangeListener
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: RecipeIngredient) {
+//            binding.recipeIngredient = item
+//            binding.recipeIngredientListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
+//                onCheckedChangeListener.onCheckboxSelected(
+//                    (checkbox.tag as RecipeIngredient),
+//                    isChecked
+//                )
+//            }
+
+            with(binding) {
+                recipeIngredientListItemCB.text = item.name
+                recipeIngredientListAmountTV.text = item.amount
+                recipeIngredientListItemUnitTV.text = item.unit
+            }
+        }
+    }
 }

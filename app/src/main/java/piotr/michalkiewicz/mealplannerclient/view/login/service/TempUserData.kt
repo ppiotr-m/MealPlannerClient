@@ -2,8 +2,7 @@ package piotr.michalkiewicz.mealplannerclient.view.login.service
 
 import android.annotation.SuppressLint
 import android.provider.Settings
-import com.facebook.FacebookSdk.getApplicationContext
-
+import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
 class TempUserData {
 
@@ -11,7 +10,7 @@ class TempUserData {
         @SuppressLint("HardwareIds")
         fun createTempUserName(): String {
             return Settings.Secure.getString(
-                getApplicationContext().contentResolver,
+                MainActivity.getMainContext().contentResolver,
                 Settings.Secure.ANDROID_ID
             ).toString()
         }

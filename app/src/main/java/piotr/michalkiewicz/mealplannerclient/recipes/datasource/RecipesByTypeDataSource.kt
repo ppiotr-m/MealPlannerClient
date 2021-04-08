@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.data_source
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPES_STARTING_PAGE_INDEX
@@ -30,5 +31,9 @@ class RecipesByTypeDataSource(
         } catch (exception: HttpException) {
             return LoadResult.Error(exception)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, MealTimeRecipe>): Int? {
+        return state.anchorPosition
     }
 }
