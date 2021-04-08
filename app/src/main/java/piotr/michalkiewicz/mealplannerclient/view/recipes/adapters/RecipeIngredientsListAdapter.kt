@@ -34,13 +34,13 @@ class RecipeIngredientsListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RecipeIngredient) {
-//            binding.recipeIngredient = item
-//            binding.recipeIngredientListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
-//                onCheckedChangeListener.onCheckboxSelected(
-//                    (checkbox.tag as RecipeIngredient),
-//                    isChecked
-//                )
-//            }
+            binding.recipeIngredient = item
+            binding.recipeIngredientListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
+                onCheckedChangeListener.onCheckboxSelected(
+                    (checkbox.tag as RecipeIngredient),
+                    isChecked
+                )
+            }
 
             with(binding) {
                 recipeIngredientListItemCB.text = item.name

@@ -41,13 +41,16 @@ class CookbookScreenFragment : Fragment(), CookbookItemOnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentCookbookScreenBinding.inflate(layoutInflater)
+        initViewModel()
+        initRecipeRecyclerViews()
+    }
 
+    private fun initViewModel() {
         viewModel = ViewModelProvider(
             this,
-            Injection.provideViewModelFactory(requireContext().applicationContext)
+            Injection.provideRecipesViewModelFactory(requireContext().applicationContext)
         ).get(RecipesSearchViewModel::class.java)
 
-        initRecipeRecyclerViews()
     }
 
     @ExperimentalPagingApi

@@ -43,7 +43,7 @@ class RecipeFragment : Fragment() {
     private fun initViewModel() {
         recipeViewModel = ViewModelProvider(
             requireActivity(),
-            Injection.provideViewModelFactory(requireContext())
+            Injection.provideRecipesViewModelFactory(requireContext())
         ).get(RecipeViewModel::class.java)
 
         val recipeId = retriveRecipeIdPassedWithNavigation()
