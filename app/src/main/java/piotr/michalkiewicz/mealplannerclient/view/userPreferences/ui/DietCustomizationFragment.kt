@@ -10,6 +10,8 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentDietCustomizationBinding
@@ -21,15 +23,21 @@ class DietCustomizationFragment : PersonalizationCustomFragment(), View.OnClickL
 
     private val args: DietCustomizationFragmentArgs by navArgs()
     private lateinit var binding: FragmentDietCustomizationBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         setupBinding(inflater, container)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         initButtonsDataObserver()
-        return binding.root
+        navController = findNavController()
     }
 
     private fun setupBinding(inflater: LayoutInflater, container: ViewGroup?) {
@@ -48,9 +56,11 @@ class DietCustomizationFragment : PersonalizationCustomFragment(), View.OnClickL
     }
 
     private fun initButtonsDataObserver() {
+        piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource.increment()
         viewModel.dietsButtonsDataReady.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 takeActionBasedOnStatus(viewModel.getAllDietsDataResource())
+                piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource.decrement()
             }
         })
     }

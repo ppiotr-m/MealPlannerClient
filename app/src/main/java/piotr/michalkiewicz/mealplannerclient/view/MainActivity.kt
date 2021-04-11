@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,6 +21,7 @@ import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 import piotr.michalkiewicz.mealplannerclient.databinding.ActivityMainBinding
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.HomeScreenFragment
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartListener {
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun init() {
+
         initMyPreferences()
         initContext()
         createBinding()
@@ -63,8 +66,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.HomeScreenStartList
     }
 
     private fun setupNavController() {
+/*
         navController = ((supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
             ?: return) as NavHostFragment).navController
+*/
+        navController = findNavController(R.id.nav_host_fragment_container)
     }
 
     private fun initMyPreferences() {

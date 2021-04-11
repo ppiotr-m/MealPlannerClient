@@ -59,17 +59,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:singleSelection="true"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13">
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:singleSelection="true"
+            tools:visibility="visible">
 
             <Button
                 android:id="@+id/portionOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/one" />
+                android:text="@string/one"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/portionTwo"
@@ -77,22 +81,28 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/two"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/portionThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/three" />
+                android:text="@string/three"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/portionFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/four" />
+                android:text="@string/four"
+                android:visibility="invisible"
+                tools:visibility="visible" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <com.google.android.material.button.MaterialButtonToggleGroup
@@ -101,39 +111,49 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:singleSelection="true"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15">
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            app:singleSelection="true"
+            tools:visibility="visible">
 
             <Button
                 android:id="@+id/fifteenMin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fifteenmin" />
+                android:text="@string/fifteenmin"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/thirteenMin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/thirteenmin" />
+                android:text="@string/thirteenmin"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/fortyFiveMin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fortyfivemin" />
+                android:text="@string/fortyfivemin"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/sixteenMin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/sixteenmin" />
+                android:text="@string/sixteenmin"
+                android:visibility="invisible"
+                tools:visibility="visible" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <com.google.android.material.button.MaterialButtonToggleGroup
@@ -142,45 +162,57 @@
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:singleSelection="true"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mealPerPlanLabelTV">
+            app:layout_constraintTop_toBottomOf="@+id/mealPerPlanLabelTV"
+            app:singleSelection="true"
+            tools:visibility="visible">
 
             <Button
                 android:id="@+id/oneMealBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/one" />
+                android:text="@string/one"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/twoMealsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/two" />
+                android:text="@string/two"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/threeMealsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/three" />
+                android:text="@string/three"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/fourMealsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/four" />
+                android:text="@string/four"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/fiveMealsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/five" />
+                android:text="@string/five"
+                android:visibility="invisible"
+                tools:visibility="visible" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <Button

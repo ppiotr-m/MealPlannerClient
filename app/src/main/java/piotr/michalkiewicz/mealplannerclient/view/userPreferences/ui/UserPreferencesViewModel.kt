@@ -5,8 +5,8 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import kotlinx.coroutines.runBlocking
-import piotr.michalkiewicz.mealplannerclient.user.UserServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.UserPreferences
+import piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.data.repository.UserPreferencesRepository
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Event
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Resource
@@ -15,7 +15,6 @@ class UserPreferencesViewModel
 @ViewModelInject
 constructor(
     private val userPreferencesRepository: UserPreferencesRepository,
-    private val userServiceGenerator: UserServiceGenerator,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -47,12 +46,14 @@ constructor(
     val cuisineButtonsDataReady: MediatorLiveData<Event> = MediatorLiveData()
     val dislikedButtonsDataReady: MediatorLiveData<Event> = MediatorLiveData()
     val recipeTypeCustomizationButtonsDataReady: MediatorLiveData<Event> = MediatorLiveData()
+    val mealsNumbersCustomizationButtonsDataReady: MediatorLiveData<Event> = MediatorLiveData<Event>()
 
     private var dietsButtonsInitEventOccurred: Event? = Event()
     private var allergyButtonsInitEventOccurred: Event? = Event()
     private var cuisineButtonsInitEventOccurred: Event? = Event()
     private var dislikedIngredientsButtonsInitEventOccurred: Event? = Event()
     private var recipeTypeButtonsEventOccurred: Event? = Event()
+    private var mealsNumbersButtonsEventOccurred: Event? = Event()
 
     private val _navigateToDiets = MutableLiveData<Event>()
     val navigateToDiets: LiveData<Event>
@@ -82,13 +83,13 @@ constructor(
         loadTrigger.value = Unit
     }
 
-    private fun setUserPreferences(userPreferences: UserPreferences) {
+    fun setUserPreferences(userPreferences: UserPreferences) {
         _userPreferences =
             userPreferencesRepository.setUserPreferences(userPreferences)
         refresh()
     }
 
-    private fun getUserPreferences(): UserPreferences? {
+    fun getUserPreferences(): UserPreferences? {
         return userPreferencesResource.value?.data
     }
 
@@ -147,11 +148,11 @@ constructor(
     fun markCustomizationDone() {
         if (getUserPreferences() != null) {
             runBlocking {
-                val helperUserSettings = userServiceGenerator.getUserSettings()
+                val helperUserSettings = userPreferencesRepository.getUserSettings()
                 helperUserSettings?.customizationDone = true
                 helperUserSettings?.userPreferences = getUserPreferences()
                 if (helperUserSettings != null) {
-                    userServiceGenerator.updateUserSettings(helperUserSettings)
+                    userPreferencesRepository.updateUserSettings(helperUserSettings)
                 }
             }
         } else {
@@ -279,6 +280,25 @@ constructor(
         }
     }
 
+    fun initMealsNumbersCustomizationButtonsData() {
+        if (mealsNumbersButtonsEventOccurred == null) {
+            mealsNumbersButtonsEventOccurred = Event()
+        } else {
+            mealsNumbersCustomizationButtonsDataReady.addSource(userPreferencesResource) {
+                triggerMealsNumbersButtonsCreation()
+            }
+        }
+    }
+
+    private fun triggerMealsNumbersButtonsCreation() {
+        if (userPreferencesResource.value?.status == Resource.Status.SUCCESS) {
+            if (mealsNumbersButtonsEventOccurred != null) {
+                mealsNumbersCustomizationButtonsDataReady.value = mealsNumbersButtonsEventOccurred
+                mealsNumbersButtonsEventOccurred = null
+            }
+        }
+    }
+
     fun setCuisines(
         userCuisinesList: List<String>
     ) {
@@ -291,8 +311,9 @@ constructor(
     fun removeCuisine(
         cuisine: String
     ) {
-        val helperUserCuisineList = getUserCuisines() as MutableList<String>
-        if (helperUserCuisineList.remove(cuisine)) {
+        EspressoIdlingResource.increment()
+        val helperUserCuisineList = getUserCuisines()?.toMutableList()
+        if (helperUserCuisineList?.remove(cuisine) == true) {
             val helperUserPreferences = getUserPreferences()?.copy(cuisine = helperUserCuisineList)
             if (helperUserPreferences != null) {
                 setUserPreferences(helperUserPreferences)
@@ -313,8 +334,9 @@ constructor(
     fun removeDislikedIngredient(
         dislikedIngredientName: String
     ) {
-        val helperUserDislikedIngredients = getUserDislikedIngredients() as MutableList<String>
-        if (helperUserDislikedIngredients.remove(dislikedIngredientName)) {
+        EspressoIdlingResource.increment()
+        val helperUserDislikedIngredients = getUserDislikedIngredients()?.toMutableList()
+        if (helperUserDislikedIngredients?.remove(dislikedIngredientName) == true) {
             val helperUserPreferences =
                 getUserPreferences()?.copy(unlikeIngredients = helperUserDislikedIngredients)
             if (helperUserPreferences != null) {
@@ -335,8 +357,9 @@ constructor(
     fun removeAllergy(
         allergyName: String?
     ) {
-        val helperUserAllergies = getUserAllergies() as MutableList<String>
-        if (helperUserAllergies.remove(allergyName)) {
+        EspressoIdlingResource.increment()
+        val helperUserAllergies = getUserAllergies()?.toMutableList()
+        if (helperUserAllergies?.remove(allergyName) == true) {
             val helperUserPreferences = getUserPreferences()?.copy(allergies = helperUserAllergies)
             if (helperUserPreferences != null) {
                 setUserPreferences(helperUserPreferences)
@@ -388,8 +411,9 @@ constructor(
     fun removeRecipeType(
         recipeTypeName: String
     ) {
-        val helperUserRecipeTypes = getUserRecipeTypePreference() as MutableList<String>
-        if (helperUserRecipeTypes.remove(recipeTypeName)) {
+        EspressoIdlingResource.increment()
+        val helperUserRecipeTypes = getUserRecipeTypePreference()?.toMutableList()
+        if (helperUserRecipeTypes?.remove(recipeTypeName) == true) {
             val helperUserPreferences =
                 getUserPreferences()?.copy(recipeTypes = helperUserRecipeTypes)
             if (helperUserPreferences != null) {

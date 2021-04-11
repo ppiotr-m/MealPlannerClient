@@ -71,74 +71,74 @@
     </fragment>
     <navigation
         android:id="@+id/PersonalizationGraph"
-        app:startDestination="@id/dietCustomizationFragment">
+        app:startDestination="@id/dietCustomizationFragmentInPersonalizationProcess">
         <fragment
-            android:id="@+id/disIngredientsCustomizationFragment"
+            android:id="@+id/disIngredientsCustomizationFragmentInPersonalizationProcess"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.DislikedIngredientsCustomizationFragment"
             android:label="fragment_disliked_ingredients_cust"
             tools:layout="@layout/fragment_disliked_ingredients_cust">
             <action
                 android:id="@+id/action_disIngredientsCustomizationFragment_to_recipeTypeCustomizationPersonalizationFragment"
-                app:destination="@id/recipeTypeCustomizationPersonalizationFragment" />
+                app:destination="@id/recipeTypeCustomizationFragmentInPersonalizationProcess" />
             <argument
                 android:name="originOfNavigation"
                 android:defaultValue="PersonalizationProcess"
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/recipeTypeCustomizationPersonalizationFragment"
+            android:id="@+id/recipeTypeCustomizationFragmentInPersonalizationProcess"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.RecipeTypeCustomizationFragment"
             android:label="fragment_recipe_type_customization"
             tools:layout="@layout/fragment_recipe_type_customization">
             <action
                 android:id="@+id/action_recipeTypeCustomizationPersonalizationFragment_to_cuisineCustomizationFragment"
-                app:destination="@id/cuisineCustomizationFragment" />
+                app:destination="@id/cuisineCustomizationFragmentInPersonalizationProcess" />
             <argument
                 android:name="originOfNavigation"
                 android:defaultValue="PersonalizationProcess"
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/dietCustomizationFragment"
+            android:id="@+id/dietCustomizationFragmentInPersonalizationProcess"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.DietCustomizationFragment"
             android:label="fragment_diet_customization"
             tools:layout="@layout/fragment_diet_customization">
             <action
                 android:id="@+id/action_dietCustomizationFragment_to_disIngredientsCustomizationFragment"
-                app:destination="@id/disIngredientsCustomizationFragment" />
+                app:destination="@id/disIngredientsCustomizationFragmentInPersonalizationProcess" />
             <argument
                 android:name="originOfNavigation"
                 android:defaultValue="PersonalizationProcess"
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/cuisineCustomizationFragment"
+            android:id="@+id/cuisineCustomizationFragmentInPersonalizationProcess"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.CuisineCustomizationFragment"
             android:label="fragment_cuisine_customization"
             tools:layout="@layout/fragment_cuisine_customization">
             <action
                 android:id="@+id/action_cuisineCustomizationFragment_to_mealsNumberCustomizationPersonalizationFragment"
-                app:destination="@id/mealsNumberCustomizationPersonalizationFragment" />
+                app:destination="@id/mealsNumberCustomizationFragmentInPersonalizationProcess" />
             <argument
                 android:name="originOfNavigation"
                 android:defaultValue="PersonalizationProcess"
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/mealsNumberCustomizationPersonalizationFragment"
+            android:id="@+id/mealsNumberCustomizationFragmentInPersonalizationProcess"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.MealsNumberCustomizationFragment"
             android:label="fragment_meals_number_customization"
             tools:layout="@layout/fragment_meals_number_customization">
             <action
                 android:id="@+id/action_mealsNumberCustomizationPersonalizationFragment_to_allergyCustomizationFragment"
-                app:destination="@id/allergyCustomizationFragment" />
+                app:destination="@id/allergyCustomizationFragmentInPersonalizationProcess" />
             <argument
                 android:name="originOfNavigation"
                 android:defaultValue="PersonalizationProcess"
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/allergyCustomizationFragment"
+            android:id="@+id/allergyCustomizationFragmentInPersonalizationProcess"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.AllergyCustomizationFragment"
             android:label="fragment_allergy_customization"
             tools:layout="@layout/fragment_allergy_customization">
@@ -163,29 +163,33 @@
             tools:layout="@layout/fragment_user_preferences">
             <action
                 android:id="@+id/action_userPreferencesFragment_to_allergyCustomizationFragment2"
-                app:destination="@id/allergyCustomizationFragment2" />
+                app:destination="@id/allergyCustomizationFragmentInUserPreferencesGraph" />
             <action
                 android:id="@+id/action_userPreferencesFragment_to_dislikedIngredientsCustomizationFragment"
-                app:destination="@id/dislikedIngredientsCustomizationFragment" />
+                app:destination="@id/dislikedIngredientsCustomizationFragmentInUserPreferencesGraph" >
+                <argument
+                    android:name="originOfNavigation"
+                    android:defaultValue="UserPreferencesFragment" />
+            </action>
             <action
                 android:id="@+id/action_userPreferencesFragment_to_recipeTypeCustomizationFragment"
-                app:destination="@id/recipeTypeCustomizationFragment" />
+                app:destination="@id/recipeTypeCustomizationFragmentInUserPreferencesGraph" />
             <action
                 android:id="@+id/action_userPreferencesFragment_to_cuisineCustomizationFragment2"
-                app:destination="@id/cuisineCustomizationFragment2" />
+                app:destination="@id/cuisineCustomizationFragmentInUserPreferencesGraph" />
             <action
                 android:id="@+id/action_userPreferencesFragment_to_dietCustomizationFragment2"
-                app:destination="@id/dietCustomizationFragment2" />
+                app:destination="@id/dietCustomizationFragmentInUserPreferencesGraphInUserPreferencesGraph" />
             <action
                 android:id="@+id/action_userPreferencesFragment_to_mealsNumberCustomizationFragment"
-                app:destination="@id/mealsNumberCustomizationFragment" />
+                app:destination="@id/mealsNumberCustomizationFragmentInUserPreferencesGraph" />
             <argument
                 android:name="originOfNavigation"
-                android:defaultValue='"UserPreferencesFragment"'
+                android:defaultValue="UserPreferencesFragment"
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/allergyCustomizationFragment2"
+            android:id="@+id/allergyCustomizationFragmentInUserPreferencesGraph"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.AllergyCustomizationFragment"
             android:label="AllergyCustomizationFragment"
             tools:layout="@layout/fragment_diet_customization">
@@ -200,7 +204,7 @@
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/cuisineCustomizationFragment2"
+            android:id="@+id/cuisineCustomizationFragmentInUserPreferencesGraph"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.CuisineCustomizationFragment"
             android:label="CuisineCustomizationFragment">
             <action
@@ -214,7 +218,7 @@
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/dietCustomizationFragment2"
+            android:id="@+id/dietCustomizationFragmentInUserPreferencesGraphInUserPreferencesGraph"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.DietCustomizationFragment"
             android:label="DietCustomizationFragment">
             <action
@@ -228,7 +232,7 @@
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/dislikedIngredientsCustomizationFragment"
+            android:id="@+id/dislikedIngredientsCustomizationFragmentInUserPreferencesGraph"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.DislikedIngredientsCustomizationFragment"
             android:label="DislikedIngredientsCustomizationFragment">
             <action
@@ -242,7 +246,7 @@
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/mealsNumberCustomizationFragment"
+            android:id="@+id/mealsNumberCustomizationFragmentInUserPreferencesGraph"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.MealsNumberCustomizationFragment"
             android:label="MealsNumberCustomizationFragment">
             <action
@@ -256,7 +260,7 @@
                 app:argType="string" />
         </fragment>
         <fragment
-            android:id="@+id/recipeTypeCustomizationFragment"
+            android:id="@+id/recipeTypeCustomizationFragmentInUserPreferencesGraph"
             android:name="piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui.RecipeTypeCustomizationFragment"
             android:label="RecipeTypeCustomizationFragment"
             tools:layout="@layout/fragment_recipe_type_customization">
@@ -270,5 +274,8 @@
                 android:defaultValue="UserPreferencesFragment"
                 app:argType="string" />
         </fragment>
+        <argument
+            android:name="originOfNavigation"
+            android:defaultValue="UserPreferences" />
     </navigation>
 </navigation>

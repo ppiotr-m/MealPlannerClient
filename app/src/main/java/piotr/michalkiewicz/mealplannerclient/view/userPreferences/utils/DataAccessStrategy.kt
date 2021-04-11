@@ -1,10 +1,9 @@
 package piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
+import piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource
 
 fun <A> performGetOperationNoDB(
     networkCall: suspend () -> Resource<A>
@@ -26,10 +25,10 @@ fun <T> performGetOperation(
 ): LiveData<Resource<T>> =
     liveData(Dispatchers.IO) {
         val dbResponse = databaseQuery.invoke()
-        if(dbResponse != null) {
+        if (dbResponse != null) {
             emit(Resource.success(dbResponse))
-        } else {
-            //emit(Resource.loading())
+        } else if (dbResponse == null) {
+            emit(Resource.loading())
         }
 
         val networkResponse = networkCall.invoke()
@@ -46,19 +45,18 @@ fun <T> performSetOperation(
     databaseQuery: () -> T,
     networkCall: suspend () -> Resource<T>,
     saveCallResult: suspend (T) -> Unit
-): LiveData<Resource<T>> =
-    liveData(Dispatchers.IO) {
-        if (data != null) {
-            emit(Resource.success(data))
-        }
-
-        val networkResponse = networkCall.invoke()
-        if (networkResponse.status == Resource.Status.SUCCESS) {
-            saveCallResult(networkResponse.data ?: return@liveData)
-            emit(networkResponse)
-        } else if (networkResponse.status == Resource.Status.ERROR) {
-            emit(Resource.error(networkResponse.message ?: return@liveData))
-            val dbResponse = databaseQuery.invoke()
-            emit(Resource.success(dbResponse))
-        }
+): LiveData<Resource<T>> = liveData(Dispatchers.IO) {
+    if (data != null) {
+        emit(Resource.success(data))
     }
+
+    val networkResponse = networkCall.invoke()
+    if (networkResponse.status == Resource.Status.SUCCESS) {
+        saveCallResult(networkResponse.data ?: return@liveData)
+        emit(networkResponse)
+    } else if (networkResponse.status == Resource.Status.ERROR) {
+        emit(Resource.error(networkResponse.message ?: return@liveData))
+        val dbResponse = databaseQuery.invoke()
+        emit(Resource.success(dbResponse))
+    }
+}

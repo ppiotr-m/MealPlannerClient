@@ -21,8 +21,8 @@ enum class Diet(val value: String) {
     @SerializedName("vegan")
     VEGAN("vegan"),
 
-    @SerializedName("lowcarb")
-    LOWCARB("lowcarb"),
+    @SerializedName("lowCarb")
+    LOWCARB("lowCarb"),
 
     @SerializedName("ketogenic")
     KETOGENIC("ketogenic");

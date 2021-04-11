@@ -25,18 +25,6 @@
         </intent-filter>
         </activity>
         <activity android:name=".view.recipes.CookingModeActivity" />
-        <activity android:name=".view.userPreferences.oldFragments.EditActivityLevelActivity" />
-        <activity android:name=".view.userPreferences.oldFragments.EditAgeActivity" />
-        <activity android:name=".view.userPreferences.oldFragments.EditGoalActivity" />
-        <activity android:name=".view.userPreferences.oldFragments.EditWeightActivity" />
-        <activity android:name=".view.userPreferences.oldFragments.EditHeightActivity" />
-        <activity android:name=".view.userPreferences.oldFragments.EditDietActivity" />
-        <activity android:name=".view.userPreferences.oldFragments.EditDislikedIngredientsActivity" />
-        <activity android:name=".view.userPreferences.oldFragments.EditAllergiesActivity" />
-        <activity
-            android:name=".view.userPreferences.oldFragments.EditLocationActivity"
-            android:label="@string/title_activity_edit_location" />
-        <activity android:name=".view.userPreferences.oldFragments.EditPasswordActivity" />
         <activity android:name=".view.recipes.CookingStepsActivity" />
         <activity android:name=".view.recipes.IngredientsActivity" />
         <activity

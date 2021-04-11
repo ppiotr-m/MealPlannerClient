@@ -9,28 +9,37 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButtonToggleGroup
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCuisineCustomizationBinding
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PERSONALIZATION_PROCESS
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.USER_PREFERENCES_FRAGMENT
+import piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Resource
 
 class CuisineCustomizationFragment : PersonalizationCustomFragment() {
 
     private val args: CuisineCustomizationFragmentArgs by navArgs()
     private lateinit var binding: FragmentCuisineCustomizationBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         setupBinding(inflater, container)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         initButtonDataObserver()
         initConfirmButton()
-        return binding.root
+        navController = findNavController()
     }
 
     private fun setupBinding(inflater: LayoutInflater, container: ViewGroup?) {
@@ -49,9 +58,11 @@ class CuisineCustomizationFragment : PersonalizationCustomFragment() {
     }
 
     private fun initButtonDataObserver() {
+        EspressoIdlingResource.increment()
         viewModel.cuisineButtonsDataReady.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 takeActionBasedOnStatus(viewModel.getAllCuisineDataResource())
+                EspressoIdlingResource.decrement()
             }
         })
     }
