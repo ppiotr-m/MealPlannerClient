@@ -1,7 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,13 +15,16 @@ import piotr.michalkiewicz.mealplannerclient.auth.LoginListener
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.EMAIL_REGEX
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MAX_PASSWORD_LENGTH
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MIN_EMAIL_LENGTH
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MIN_PASSWORD_LENGTH
 import piotr.michalkiewicz.mealplannerclient.view.login.service.LoginStarter
 import piotr.michalkiewicz.mealplannerclient.view.login.service.TempUserData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import javax.inject.Inject
 
 class LoginFragment : Fragment() {
     private val loginClient = LoginClient()
@@ -65,10 +67,12 @@ class LoginFragment : Fragment() {
 
     private fun setOnClickListeners() {
         loginBtn.setOnClickListener {
-            loginStarter.login(
-                emailET.text.toString(),
-                passwordET.text.toString()
-            )
+            if (validateCredentials()) {
+                loginStarter.login(
+                    emailET.text.toString(),
+                    passwordET.text.toString()
+                )
+            }
         }
 
         createAccountTV.setOnClickListener {
@@ -93,6 +97,36 @@ class LoginFragment : Fragment() {
                 loginStarter.login(userAccount.username, userAccount.username)
             }
         })
+    }
+
+    private fun validateCredentials(): Boolean {
+        if (validateEmail() && validatePassword()) return true
+        showInvalidCredentialsToast()
+        return false
+    }
+
+    private fun validateEmail(): Boolean {
+        if (emailET.text.toString().length >= MIN_EMAIL_LENGTH &&
+            emailET.text.toString().matches(EMAIL_REGEX)
+        ) return true
+        return false
+    }
+
+    private fun validatePassword(): Boolean {
+        if (passwordET.text.toString().length > MIN_PASSWORD_LENGTH ||
+            passwordET.text.toString().length < MAX_PASSWORD_LENGTH
+        ) return true
+        return false
+    }
+
+    private fun showInvalidCredentialsToast() {
+        activity?.runOnUiThread {
+            Toast.makeText(
+                activity,
+                R.string.invalid_login_credentials,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
 

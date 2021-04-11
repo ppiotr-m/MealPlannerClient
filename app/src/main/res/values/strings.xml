@@ -137,6 +137,7 @@
     <string name="sign_up_server_error">There was an error during account creation,
         please contact administrator for help.</string>
     <string name="invalid_email">Invalid email. Please correct.</string>
+    <string name="invalid_login_credentials">Invalid login credentials. Please correct.</string>
     <string name="sign_up_incomplete_data">You need to fill in all the fields!</string>
     <string name="all">All</string>
     <string name="goal_hint">e.g. -0.5/+0.5 or 0</string>

@@ -25,6 +25,11 @@ class ConstantValues {
         const val INGREDIENTS_DATA = "ingredients"
         const val COOKING_STEPS_DATA = "cooking_steps"
         const val RECORD_AUDIO_REQUEST_CODE = 433
+        const val MIN_EMAIL_LENGTH = 6
+        const val MIN_PASSWORD_LENGTH = 6
+        const val MAX_PASSWORD_LENGTH = 50
+        val EMAIL_REGEX =
+            Regex("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
 
         const val USER_PREFERENCES_KEY = "userPreferences"
         const val USER_PREFERENCES_FRAGMENT = "UserPreferencesFragment"

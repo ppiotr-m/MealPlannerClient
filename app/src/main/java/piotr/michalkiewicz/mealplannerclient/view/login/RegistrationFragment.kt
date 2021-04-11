@@ -13,6 +13,10 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.SingUpUserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.EMAIL_REGEX
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MAX_PASSWORD_LENGTH
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MIN_EMAIL_LENGTH
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MIN_PASSWORD_LENGTH
 import piotr.michalkiewicz.mealplannerclient.view.login.service.LoginStarter
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,12 +25,6 @@ import retrofit2.Response
 class RegistrationFragment : Fragment() {
     private val HTTP_OK_CODE = 200
     private val HTTP_OK_CODE_CREATED = 201
-    private val MIN_EMAIL_LENGTH = 6
-    private val MIN_PASSWORD_LENGTH = 6
-    private val MAX_PASSWORD_LENGTH = 50
-    private val EMAIL_REGEX =
-        Regex("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
-
     private lateinit var loginStarter: LoginStarter
     private lateinit var navController: NavController
 
