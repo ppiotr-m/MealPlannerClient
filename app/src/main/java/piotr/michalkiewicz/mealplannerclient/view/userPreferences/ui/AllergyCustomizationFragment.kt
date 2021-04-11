@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButtonToggleGroup
 import kotlinx.coroutines.runBlocking
@@ -17,22 +19,29 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentAllergyCustomizationBinding
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PERSONALIZATION_PROCESS
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.USER_PREFERENCES_FRAGMENT
+import piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Resource
 
 class AllergyCustomizationFragment : PersonalizationCustomFragment() {
 
     private val args: AllergyCustomizationFragmentArgs by navArgs()
     private lateinit var binding: FragmentAllergyCustomizationBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         setupBinding(inflater, container)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         initButtonDataObserver()
         initConfirmButton()
-        return binding.root
+        navController = findNavController()
     }
 
     private fun setupViewModel() {
@@ -41,9 +50,11 @@ class AllergyCustomizationFragment : PersonalizationCustomFragment() {
     }
 
     private fun initButtonDataObserver() {
+        EspressoIdlingResource.increment()
         viewModel.allergyButtonsDataReady.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 takeActionBasedOnStatus(viewModel.getAllAllergiesDataResource())
+                EspressoIdlingResource.decrement()
             }
         })
     }

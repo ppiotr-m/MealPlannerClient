@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.view.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import javax.inject.Inject
 
 class LoginFragment : Fragment() {
     private val loginClient = LoginClient()
@@ -39,7 +41,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setOnClickListeners()
         navController = findNavController()
         loginStarter = LoginStarter(
@@ -53,6 +54,7 @@ class LoginFragment : Fragment() {
         if (refreshToken == null || refreshToken.length < 10) {
             return
         }
+        //mozna zmienic na coroutines, poczytac o klasach anonimowych
         loginClient.refreshToken(Objects.requireNonNull(refreshToken), object : LoginListener {
             override fun loginFailed() {}
             override fun loginSuccessful() {

@@ -6,27 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentUserPreferencesBinding
 import piotr.michalkiewicz.mealplannerclient.user.model.UserPreferences
+import piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Resource
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserPreferencesFragment : Fragment() {
-    private val viewModel: UserPreferencesViewModel by navGraphViewModels(R.id.UserPreferencesGraph) {
+
+    private lateinit var binding: FragmentUserPreferencesBinding
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    val viewModel: UserPreferencesViewModel by navGraphViewModels(R.id.UserPreferencesGraph) {
         defaultViewModelProviderFactory
     }
-    private lateinit var binding: FragmentUserPreferencesBinding
-    @Inject lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,8 +35,13 @@ class UserPreferencesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setUpDataBinding(inflater, container)
-        initAllLiveDataObservers()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.userPreferencesViewModel = viewModel
+        initAllLiveDataObservers()
     }
 
     private fun setUpDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
@@ -46,7 +52,6 @@ class UserPreferencesFragment : Fragment() {
             false
         )
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.userPreferencesViewModel = viewModel
     }
 
     private fun initAllLiveDataObservers() {
@@ -61,9 +66,9 @@ class UserPreferencesFragment : Fragment() {
     }
 
     private fun startObservingNavigateToRecipeTypeLiveData() {
-        viewModel.navigateToRecipeTypes.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToRecipeTypes.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                navController.navigate(
+                findNavController().navigate(
                     UserPreferencesFragmentDirections.actionUserPreferencesFragmentToRecipeTypeCustomizationFragment()
                 )
             }
@@ -71,9 +76,9 @@ class UserPreferencesFragment : Fragment() {
     }
 
     private fun startObservingNavigateToCuisinesLiveData() {
-        viewModel.navigateToCuisines.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToCuisines.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                navController.navigate(
+                findNavController().navigate(
                     UserPreferencesFragmentDirections.actionUserPreferencesFragmentToCuisineCustomizationFragment2()
                 )
             }
@@ -81,9 +86,9 @@ class UserPreferencesFragment : Fragment() {
     }
 
     private fun startObservingNavigateToDietsLiveData() {
-        viewModel.navigateToDiets.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToDiets.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                navController.navigate(
+                findNavController().navigate(
                     UserPreferencesFragmentDirections.actionUserPreferencesFragmentToDietCustomizationFragment2()
                 )
             }
@@ -91,9 +96,9 @@ class UserPreferencesFragment : Fragment() {
     }
 
     private fun startObservingNavigateToCookingPreferencesLiveData() {
-        viewModel.navigateToCookingPreferences.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToCookingPreferences.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                navController.navigate(
+                findNavController().navigate(
                     UserPreferencesFragmentDirections.actionUserPreferencesFragmentToMealsNumberCustomizationFragment()
                 )
             }
@@ -101,9 +106,9 @@ class UserPreferencesFragment : Fragment() {
     }
 
     private fun startObservingNavigateToAllergiesLiveData() {
-        viewModel.navigateToAllergies.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToAllergies.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                navController.navigate(
+                findNavController().navigate(
                     UserPreferencesFragmentDirections.actionUserPreferencesFragmentToAllergyCustomizationFragment2()
                 )
             }
@@ -111,9 +116,9 @@ class UserPreferencesFragment : Fragment() {
     }
 
     private fun startObservingNavigateToDislikedIngredientsLiveData() {
-        viewModel.navigateToDislikedIngredients.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToDislikedIngredients.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                navController.navigate(
+                findNavController().navigate(
                     UserPreferencesFragmentDirections.actionUserPreferencesFragmentToDislikedIngredientsCustomizationFragment()
                 )
             }
@@ -121,18 +126,20 @@ class UserPreferencesFragment : Fragment() {
     }
 
     private fun startObservingUserPreferencesLiveData() {
-        viewModel.userPreferencesResource.observe(viewLifecycleOwner, Observer {
+        EspressoIdlingResource.increment()
+        viewModel.userPreferencesResource.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     Log.i("UserPreferencesFragment", "Success!")
                     if (it != null) {
                         inflateAllChipGroups(it)
+                        EspressoIdlingResource.decrement()
                     }
-
                 }
                 Resource.Status.ERROR -> {
                     Log.i("UserPreferencesFragment", "Error!")
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    EspressoIdlingResource.decrement()
                 }
                 Resource.Status.LOADING ->
                     Log.i("UserPreferencesFragment", "Loading")

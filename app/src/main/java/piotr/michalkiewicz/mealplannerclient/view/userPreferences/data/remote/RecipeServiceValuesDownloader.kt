@@ -3,7 +3,6 @@ package piotr.michalkiewicz.mealplannerclient.view.userPreferences.data.remote
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import piotr.michalkiewicz.mealplannerclient.auth.AuthServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeServiceApi
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Resource
 import javax.inject.Inject
@@ -13,8 +12,7 @@ import javax.inject.Inject
 class RecipeServiceValuesDownloader @Inject constructor(
     private val recipeServiceApi: RecipeServiceApi,
     private val baseDataSourceImpl: BaseDataSource
-): AuthServiceGenerator() {
-
+) {
     suspend fun getAllDietsNames(): Resource<List<String>> =
         baseDataSourceImpl.getResult { recipeServiceApi.getAllDiets() }
 

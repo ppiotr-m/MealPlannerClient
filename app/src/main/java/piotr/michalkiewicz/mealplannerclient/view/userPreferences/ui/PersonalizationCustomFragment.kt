@@ -1,18 +1,9 @@
 package piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui
 
-import android.content.res.ColorStateList
-import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
-import androidx.appcompat.content.res.AppCompatResources.getColorStateList
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,8 +16,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 abstract class PersonalizationCustomFragment : Fragment() {
 
-    @Inject protected lateinit var navController: NavController
-    protected lateinit var viewModel: UserPreferencesViewModel
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    lateinit var viewModel: UserPreferencesViewModel
+
     @Inject protected lateinit var recipeServiceValuesDownloader: RecipeServiceValuesDownloader
 
     protected fun getViewModel(originOfNavigation: String): UserPreferencesViewModel {

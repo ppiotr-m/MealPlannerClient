@@ -1,13 +1,18 @@
 package piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButtonToggleGroup
 import piotr.michalkiewicz.mealplannerclient.R
@@ -15,6 +20,8 @@ import piotr.michalkiewicz.mealplannerclient.databinding.FragmentMealsNumberCust
 import piotr.michalkiewicz.mealplannerclient.user.model.UserPreferences
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PERSONALIZATION_PROCESS
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.USER_PREFERENCES_FRAGMENT
+import piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource
+import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Resource
 
 class MealsNumberCustomizationFragment : PersonalizationCustomFragment(),
     View.OnClickListener {
@@ -25,6 +32,7 @@ class MealsNumberCustomizationFragment : PersonalizationCustomFragment(),
     private lateinit var userPreferenceValues: MutableMap<String, Int>
     private val args: MealsNumberCustomizationFragmentArgs by navArgs()
     private lateinit var binding: FragmentMealsNumberCustomizationBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +50,38 @@ class MealsNumberCustomizationFragment : PersonalizationCustomFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-
+        navController = findNavController()
         viewModel = getViewModel(args.originOfNavigation)
-        viewModel.userPreferencesResource.observe(viewLifecycleOwner, Observer { })
+        viewModel.initMealsNumbersCustomizationButtonsData()
+        EspressoIdlingResource.increment()
+        viewModel.mealsNumbersCustomizationButtonsDataReady.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled().let {
+                takeActionBasedOnResult(viewModel.userPreferencesResource.value!!)
+                EspressoIdlingResource.decrement()
+            }
+        })
 
         initConfirmButton()
+    }
 
+    private fun takeActionBasedOnResult(resource: Resource<UserPreferences?>){
+        when (resource.status) {
+            Resource.Status.SUCCESS -> {
+                resource.data?.let { it1 ->
+                    initAllButtons()
+                    initBaseButtonsValues()
+                }
+            }
+            Resource.Status.ERROR -> {
+                Log.i("UserPreferencesFragment", "Error!")
+                Toast.makeText(requireContext(), resource.message, Toast.LENGTH_SHORT).show()
+            }
+            Resource.Status.LOADING ->
+                Log.i("DislikedIngredientsFrat", "Loading")
+        }
+    }
+
+    private fun initAllButtons() {
         addButtonsToLayout(binding.portionAmountLayout, BASIC_PORTION_CUSTOMIZATION_BUTTONS, 1)
         addButtonsToLayout(
             binding.cookingTimePreferenceLayout,
@@ -63,8 +97,6 @@ class MealsNumberCustomizationFragment : PersonalizationCustomFragment(),
                 binding.mealPerPlanLayout
             )
         )
-        initBaseButtonsValues()
-
     }
 
     private fun initCustomizationButtons(linearLayouts: List<MaterialButtonToggleGroup>) {

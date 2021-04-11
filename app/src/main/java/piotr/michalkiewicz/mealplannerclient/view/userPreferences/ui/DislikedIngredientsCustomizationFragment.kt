@@ -1,6 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.userPreferences.ui
 
-import  android.os.Bundle
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,27 +10,37 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentDislikedIngredientsCustBinding
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PERSONALIZATION_PROCESS
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.USER_PREFERENCES_FRAGMENT
+import piotr.michalkiewicz.mealplannerclient.utils.EspressoIdlingResource
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Resource
 
 class DislikedIngredientsCustomizationFragment : PersonalizationCustomFragment() {
 
     private val args: DislikedIngredientsCustomizationFragmentArgs by navArgs()
     private lateinit var binding: FragmentDislikedIngredientsCustBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         setupBinding(inflater, container)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = findNavController()
         setupViewModel()
         initButtonDataObserver()
         initConfirmButton()
-        return binding.root
+
     }
 
     private fun setupBinding(inflater: LayoutInflater, container: ViewGroup?) {
@@ -49,9 +59,11 @@ class DislikedIngredientsCustomizationFragment : PersonalizationCustomFragment()
     }
 
     private fun initButtonDataObserver() {
+        EspressoIdlingResource.increment()
         viewModel.dislikedButtonsDataReady.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 takeActionBasedOnStatus(viewModel.getAllProductsDataResource())
+                EspressoIdlingResource.decrement()
             }
         })
     }
@@ -69,13 +81,17 @@ class DislikedIngredientsCustomizationFragment : PersonalizationCustomFragment()
 
     private fun setConfirmBtnOnClickListener() {
         binding.confirmBtn.setOnClickListener {
-            viewModel.setDislikedIngredients(getAllMarkedButtonsNames())
+            setUsersDislikedIngredients()
             if (args.originOfNavigation == PERSONALIZATION_PROCESS) {
                 navController.navigate(R.id.action_disIngredientsCustomizationFragment_to_recipeTypeCustomizationPersonalizationFragment)
             } else if (args.originOfNavigation == USER_PREFERENCES_FRAGMENT) {
                 navController.navigate(R.id.action_dislikedIngredientsCustomizationFragment_to_userPreferencesFragment)
             }
         }
+    }
+
+    private fun setUsersDislikedIngredients() {
+        viewModel.setDislikedIngredients(getAllMarkedButtonsNames())
     }
 
     private fun takeActionBasedOnStatus(resource: Resource<List<String>?>?) {

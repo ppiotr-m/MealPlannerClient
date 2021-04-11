@@ -15,6 +15,7 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
+import piotr.michalkiewicz.mealplannerclient.view.MainActivity.Companion.MY_PREFERENCES
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -60,7 +61,7 @@ class ShoppingListFragment : Fragment() {
     }
 
     private fun getShoppingListFromSharedPrefs(): ArrayList<RecipeIngredient>? {
-        val json = MainActivity.MY_PREFERENCES.getString(ConstantValues.SHOPPING_LIST_SHARED_PREF, "")
+        val json = MY_PREFERENCES.getString(ConstantValues.SHOPPING_LIST_SHARED_PREF, "")
 
         if (json!!.isEmpty()) return null
 
@@ -122,7 +123,7 @@ class ShoppingListFragment : Fragment() {
     private fun saveShoppingListToSharedPrefs(recipeIngredientList: List<RecipeIngredient>) {
         val dataInJson = Gson().toJson(recipeIngredientList)
 
-        with(MainActivity.MY_PREFERENCES.edit()) {
+        with(MY_PREFERENCES.edit()) {
             putString(ConstantValues.SHOPPING_LIST_SHARED_PREF, dataInJson)
             commit()
         }

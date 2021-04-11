@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.content_start_customization.*
 import kotlinx.coroutines.runBlocking
 import piotr.michalkiewicz.mealplannerclient.R
@@ -13,6 +15,7 @@ import piotr.michalkiewicz.mealplannerclient.user.UserServiceGenerator
 class StartCustomizationFragment : PersonalizationCustomFragment() {
 
     private val userServiceGenerator = UserServiceGenerator()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +26,7 @@ class StartCustomizationFragment : PersonalizationCustomFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = findNavController()
         setOnClickListeners()
     }
 

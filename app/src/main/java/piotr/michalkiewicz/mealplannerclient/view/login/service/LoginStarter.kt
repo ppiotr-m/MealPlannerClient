@@ -3,8 +3,6 @@ package piotr.michalkiewicz.mealplannerclient.view.login.service
 import android.os.Handler
 import android.os.Looper
 import androidx.navigation.NavController
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.auth.LoginClient

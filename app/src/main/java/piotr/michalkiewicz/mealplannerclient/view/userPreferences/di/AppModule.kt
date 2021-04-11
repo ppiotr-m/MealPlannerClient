@@ -24,7 +24,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
-class AppModule {
+object AppModule {
 
     @Singleton
     @Provides
@@ -37,24 +37,30 @@ class AppModule {
         .build()
 
     @Provides
+    @Singleton
     fun provideGson(): Gson = GsonBuilder()
         .registerTypeAdapter(Bitmap::class.java, BinaryToBitmapConverter())
         .setLenient()
         .create()
 
     @Provides
+    @Singleton
     fun provideUserApi(retrofit: Retrofit): UserAPI = retrofit.create(UserAPI::class.java)
 
     @Provides
+    @Singleton
     fun provideBaseDataSource(): BaseDataSource = BaseDataSourceImpl()
 
     @Provides
+    @Singleton
     fun provideRecipeServiceApi(retrofit: Retrofit): RecipeServiceApi =
         retrofit.create(RecipeServiceApi::class.java)
 
     @Provides
+    @Singleton
     fun okHttpClient(): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(AuthInterceptor())
         .authenticator(AuthAuthenticator())
         .build()
+
 }
