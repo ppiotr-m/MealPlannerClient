@@ -46,11 +46,11 @@ class ShoppingListManager {
         saveShoppingListToSharedPrefs(updatedShoppingListMap)
     }
 
-    fun getShoppingListMapFromSharedPrefs(): Map<String, RecipeIngredient>? {
+    fun getShoppingListMapFromSharedPrefs(): Map<String, RecipeIngredient> {
         val json =
             MainActivity.MY_PREFERENCES.getString(ConstantValues.SHOPPING_LIST_SHARED_PREF, "")
 
-        if (json!!.isEmpty()) return null
+        if (json!!.isEmpty()) return emptyMap()
         try {
             val storedShoppingList =
                 Gson().fromJson(
@@ -62,7 +62,7 @@ class ShoppingListManager {
             Log.e(ConstantValues.TAG, e.localizedMessage)
             e.printStackTrace()
         }
-        return null
+        return emptyMap()
     }
 
     private fun saveShoppingListToSharedPrefs(recipeIngredientListMap: Map<String, RecipeIngredient>) {

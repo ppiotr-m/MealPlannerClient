@@ -78,6 +78,7 @@ class RecipeFragment : Fragment() {
     private fun setupObservers() {
         recipeViewModel.recipeData.observe(viewLifecycleOwner, {
             //  TODO
+            enableButtons()
         })
 
         recipeViewModel.recipeFeatchErrorOccurred.observe(viewLifecycleOwner, {
@@ -88,8 +89,19 @@ class RecipeFragment : Fragment() {
 
         recipeViewModel.navigateToIngredientsFragment.observe(viewLifecycleOwner, {
             if (it) {
+                recipeViewModel.resetNavigationToIngredientsFragment()
                 findNavController().navigate(R.id.action_recipeFragment_to_ingredientsFragment)
             }
         })
+    }
+
+    private fun disableButtons() {
+        binding.goToIngredientsBtn.isEnabled = false
+        binding.goToCookingStepsBtn.isEnabled = false
+    }
+
+    private fun enableButtons() {
+        binding.goToIngredientsBtn.isEnabled = true
+        binding.goToCookingStepsBtn.isEnabled = true
     }
 }

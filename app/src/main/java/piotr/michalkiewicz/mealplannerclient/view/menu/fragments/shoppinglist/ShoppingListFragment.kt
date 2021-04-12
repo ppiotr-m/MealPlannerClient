@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.view.menu.fragments
+package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import piotr.michalkiewicz.mealplannerclient.databinding.FragmentShoppingListBin
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.viewmodel.ShoppingListViewModel
-import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeIngredientsListAdapter
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist.adapters.ShoppingListAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 
 class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeListener {
@@ -43,6 +43,10 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
 
     private fun setupObservers() {
         shoppingListViewModel.shoppingListItems.observe(viewLifecycleOwner, {
+            if (it.isEmpty()) {
+                showEmptyShoppingList()
+                return@observe
+            }
             //  TODO Ugly solution
             val conversionList = arrayListOf<RecipeIngredient>()
             conversionList.addAll(it.values)
@@ -63,11 +67,11 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
 
     private fun initIngedientsRecyclerView(data: List<RecipeIngredient>) {
         binding.recipeIngredientsListRV.layoutManager = LinearLayoutManager(requireContext())
-        binding.recipeIngredientsListRV.adapter = RecipeIngredientsListAdapter(data, this)
+        binding.recipeIngredientsListRV.adapter = ShoppingListAdapter(data, this)
     }
 
     private fun showEmptyShoppingList() {
-        //  TODO
+        binding.emptyShoppingListTV.visibility = View.VISIBLE
     }
 
     private fun deleteProducts() {

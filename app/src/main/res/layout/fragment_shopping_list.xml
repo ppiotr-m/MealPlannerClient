@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.menu.fragments.ShoppingListFragment">
+        tools:context=".view.menu.fragments.shoppinglist.ShoppingListFragment">
 
         <TextView
             android:id="@+id/shoppingListLabelTV"
@@ -50,5 +50,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/emptyShoppingListTV"
+            style="@style/bigPlainText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shopping_list_empty"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shoppingListLabelTV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

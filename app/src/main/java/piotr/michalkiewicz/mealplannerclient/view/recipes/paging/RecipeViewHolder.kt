@@ -45,7 +45,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
     companion object {
         fun create(parent: ViewGroup): RecipeViewHolder {
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.recipe_list_item, parent, false)
+                .inflate(R.layout.list_item_recipe, parent, false)
             return RecipeViewHolder(view)
         }
     }

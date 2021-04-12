@@ -1,5 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.shoppinglist.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
@@ -10,7 +11,7 @@ class ShoppingListViewModel : ViewModel() {
     private val shoppingListManager = ShoppingListManager()
 
     private val _shoppingListItems = MutableLiveData<Map<String, RecipeIngredient>>()
-    val shoppingListItems = _shoppingListItems
+    val shoppingListItems: LiveData<Map<String, RecipeIngredient>> = _shoppingListItems
 
     init {
         _shoppingListItems.value = shoppingListManager.getShoppingListMapFromSharedPrefs()

@@ -1,21 +1,21 @@
-package piotr.michalkiewicz.mealplannerclient.view.recipes.adapters
+package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import piotr.michalkiewicz.mealplannerclient.databinding.ListItemIngredientBinding
+import piotr.michalkiewicz.mealplannerclient.databinding.ListItemShoppingListBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 
-class RecipeIngredientsListAdapter(
+class ShoppingListAdapter(
     private val data: List<RecipeIngredient>,
     private val onCheckedChangeListener: RecipeIngredientListOnCheckedChangeListener
 ) :
-    RecyclerView.Adapter<RecipeIngredientsListAdapter.ViewHolder>() {
+    RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ListItemIngredientBinding.inflate(inflater)
+        val binding = ListItemShoppingListBinding.inflate(inflater)
 
         return ViewHolder(binding, onCheckedChangeListener)
     }
@@ -28,14 +28,14 @@ class RecipeIngredientsListAdapter(
 
     //  TODO Handle listener in XML
     class ViewHolder(
-        private val binding: ListItemIngredientBinding,
+        private val binding: ListItemShoppingListBinding,
         private val onCheckedChangeListener: RecipeIngredientListOnCheckedChangeListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RecipeIngredient) {
             binding.recipeIngredient = item
-            binding.recipeIngredientListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
+            binding.shoppingListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
                 onCheckedChangeListener.onCheckboxSelected(
                     (checkbox.tag as RecipeIngredient),
                     isChecked
@@ -43,9 +43,9 @@ class RecipeIngredientsListAdapter(
             }
 
             with(binding) {
-                recipeIngredientListItemCB.text = item.name
-                recipeIngredientListAmountTV.text = item.amount
-                recipeIngredientListItemUnitTV.text = item.unit
+                shoppingListItemCB.text = item.name
+                shoppingListAmountTV.text = item.amount
+                shoppingListItemUnitTV.text = item.unit
             }
         }
     }
