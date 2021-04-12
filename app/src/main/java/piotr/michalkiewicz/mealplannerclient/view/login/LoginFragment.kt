@@ -15,12 +15,10 @@ import piotr.michalkiewicz.mealplannerclient.auth.LoginListener
 import piotr.michalkiewicz.mealplannerclient.auth.MyPreference
 import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.EMAIL_REGEX
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MAX_PASSWORD_LENGTH
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MIN_EMAIL_LENGTH
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MIN_PASSWORD_LENGTH
 import piotr.michalkiewicz.mealplannerclient.view.login.service.LoginStarter
 import piotr.michalkiewicz.mealplannerclient.view.login.service.TempUserData
+import piotr.michalkiewicz.mealplannerclient.view.login.utils.FieldsValidation.validateEmail
+import piotr.michalkiewicz.mealplannerclient.view.login.utils.FieldsValidation.validatePassword
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -100,22 +98,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun validateCredentials(): Boolean {
-        if (validateEmail() && validatePassword()) return true
+        if (validateEmail(emailET.toString()) && validatePassword(passwordET.toString())) return true
         showInvalidCredentialsToast()
-        return false
-    }
-
-    private fun validateEmail(): Boolean {
-        if (emailET.text.toString().length >= MIN_EMAIL_LENGTH &&
-            emailET.text.toString().matches(EMAIL_REGEX)
-        ) return true
-        return false
-    }
-
-    private fun validatePassword(): Boolean {
-        if (passwordET.text.toString().length > MIN_PASSWORD_LENGTH ||
-            passwordET.text.toString().length < MAX_PASSWORD_LENGTH
-        ) return true
         return false
     }
 

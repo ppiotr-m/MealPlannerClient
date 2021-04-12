@@ -13,11 +13,8 @@ import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.SingUpUserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.EMAIL_REGEX
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MAX_PASSWORD_LENGTH
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MIN_EMAIL_LENGTH
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.MIN_PASSWORD_LENGTH
 import piotr.michalkiewicz.mealplannerclient.view.login.service.LoginStarter
+import piotr.michalkiewicz.mealplannerclient.view.login.utils.FieldsValidation
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -82,18 +79,13 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun validateEmail(): Boolean {
-        if (emailET.text.toString().length >= MIN_EMAIL_LENGTH &&
-            emailET.text.toString().matches(EMAIL_REGEX)
-        ) return true
-
+        if(FieldsValidation.validateEmail(emailET.text.toString())) return true
         emailET.error = resources.getString(R.string.invalid_email)
         return false
     }
 
     private fun validatePassword(): Boolean {
-        if (passwordET.text.toString().length < MIN_PASSWORD_LENGTH ||
-            passwordET.text.toString().length > MAX_PASSWORD_LENGTH
-        ) {
+        if (FieldsValidation.validatePassword(passwordET.toString())) {
             passwordET.error = resources.getString(R.string.password_too_short)
             return false
         }
