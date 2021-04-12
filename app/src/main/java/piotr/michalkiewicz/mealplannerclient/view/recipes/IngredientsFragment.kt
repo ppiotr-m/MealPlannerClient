@@ -15,13 +15,8 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeIngredientsListAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel
-import java.util.*
 
 class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListener {
-
-    private var data: ArrayList<RecipeIngredient>? = null
-    private val productsOriginalNames = ArrayList<String>()
-    private val selectedIngredients = ArrayList<RecipeIngredient>()
 
     private lateinit var recipeViewModel: RecipeViewModel
     private lateinit var binding: FragmentIngredientsBinding
@@ -70,10 +65,6 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
     private fun showNoItemSelectedToast() {
         Toast.makeText(requireContext(), R.string.no_ingredient_selected, Toast.LENGTH_SHORT).show()
 
-    }
-
-    private fun checkIfAnyIngredientSelected(): Boolean {
-        return !selectedIngredients.isEmpty()
     }
 
     override fun onCheckboxSelected(item: RecipeIngredient, isChecked: Boolean) {

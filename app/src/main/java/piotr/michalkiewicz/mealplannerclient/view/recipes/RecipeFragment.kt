@@ -93,6 +93,13 @@ class RecipeFragment : Fragment() {
                 findNavController().navigate(R.id.action_recipeFragment_to_ingredientsFragment)
             }
         })
+
+        recipeViewModel.navigateToCookingStepsFragment.observe(viewLifecycleOwner, {
+            if (it) {
+                recipeViewModel.resetNavigationToCookingStepsFragment()
+                findNavController().navigate(R.id.action_recipeFragment_to_cookingStepsFragment)
+            }
+        })
     }
 
     private fun disableButtons() {

@@ -37,7 +37,6 @@
             android:name=".view.userPreferences.oldFragments.EditLocationActivity"
             android:label="@string/title_activity_edit_location" />
         <activity android:name=".view.userPreferences.oldFragments.EditPasswordActivity" />
-        <activity android:name=".view.recipes.CookingStepsActivity" />
         <activity android:name=".view.recipes.IngredientsFragment" />
         <activity
             android:name=".view.recipes.RecipeFragment"

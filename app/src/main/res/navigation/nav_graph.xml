@@ -286,10 +286,17 @@
         <action
             android:id="@+id/action_recipeFragment_to_ingredientsFragment"
             app:destination="@id/ingredientsFragment" />
+        <action
+            android:id="@+id/action_recipeFragment_to_cookingStepsFragment"
+            app:destination="@id/cookingStepsFragment" />
     </fragment>
     <fragment
         android:id="@+id/ingredientsFragment"
         android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.IngredientsFragment"
         android:label="fragment_ingredients"
         tools:layout="@layout/fragment_ingredients" />
+    <fragment
+        android:id="@+id/cookingStepsFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.CookingStepsFragment"
+        android:label="CookingStepsFragment" />
 </navigation>

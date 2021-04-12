@@ -15,7 +15,6 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.utils.ShoppingListManager
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
-import piotr.michalkiewicz.mealplannerclient.utils.ObservationEvent
 
 class RecipeViewModel(
     private val recipeAPI: RecipeAPI,
@@ -31,9 +30,8 @@ class RecipeViewModel(
     private val _navigateToIngredientsFragment = MutableLiveData(false)
     val navigateToIngredientsFragment: LiveData<Boolean> = _navigateToIngredientsFragment
 
-    private val _navigateToCookingStepsFragment = MutableLiveData(ObservationEvent(false))
-    val navigateToCookingStepsFragment: LiveData<ObservationEvent<Boolean>> =
-        _navigateToCookingStepsFragment
+    private val _navigateToCookingStepsFragment = MutableLiveData(false)
+    val navigateToCookingStepsFragment: LiveData<Boolean> = _navigateToCookingStepsFragment
 
     //  TODO Should somehow bind it to checkboxes so their state is wired to this list from the beginning
     //  Passing viewmodel to ingredient list item and checking if contains tag model might work
@@ -76,6 +74,10 @@ class RecipeViewModel(
     }
 
     fun resetNavigationToIngredientsFragment() {
+        _navigateToIngredientsFragment.value = false
+    }
+
+    fun resetNavigationToCookingStepsFragment() {
         _navigateToIngredientsFragment.value = false
     }
 
