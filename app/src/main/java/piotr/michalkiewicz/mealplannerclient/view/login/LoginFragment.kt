@@ -1,7 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +17,12 @@ import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.view.login.service.LoginStarter
 import piotr.michalkiewicz.mealplannerclient.view.login.service.TempUserData
+import piotr.michalkiewicz.mealplannerclient.view.login.utils.FieldsValidation.validateEmail
+import piotr.michalkiewicz.mealplannerclient.view.login.utils.FieldsValidation.validatePassword
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import javax.inject.Inject
 
 class LoginFragment : Fragment() {
     private val loginClient = LoginClient()
@@ -65,10 +65,12 @@ class LoginFragment : Fragment() {
 
     private fun setOnClickListeners() {
         loginBtn.setOnClickListener {
-            loginStarter.login(
-                emailET.text.toString(),
-                passwordET.text.toString()
-            )
+            if (validateCredentials()) {
+                loginStarter.login(
+                    emailET.text.toString(),
+                    passwordET.text.toString()
+                )
+            }
         }
 
         createAccountTV.setOnClickListener {
@@ -93,6 +95,22 @@ class LoginFragment : Fragment() {
                 loginStarter.login(userAccount.username, userAccount.username)
             }
         })
+    }
+
+    private fun validateCredentials(): Boolean {
+        if (validateEmail(emailET.toString()) && validatePassword(passwordET.toString())) return true
+        showInvalidCredentialsToast()
+        return false
+    }
+
+    private fun showInvalidCredentialsToast() {
+        activity?.runOnUiThread {
+            Toast.makeText(
+                activity,
+                R.string.invalid_login_credentials,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
 

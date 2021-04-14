@@ -14,6 +14,7 @@ import piotr.michalkiewicz.mealplannerclient.user.SignUpServiceGenerator
 import piotr.michalkiewicz.mealplannerclient.user.model.SingUpUserAccount
 import piotr.michalkiewicz.mealplannerclient.user.model.UserAccount
 import piotr.michalkiewicz.mealplannerclient.view.login.service.LoginStarter
+import piotr.michalkiewicz.mealplannerclient.view.login.utils.FieldsValidation
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,12 +22,6 @@ import retrofit2.Response
 class RegistrationFragment : Fragment() {
     private val HTTP_OK_CODE = 200
     private val HTTP_OK_CODE_CREATED = 201
-    private val MIN_EMAIL_LENGTH = 6
-    private val MIN_PASSWORD_LENGTH = 6
-    private val MAX_PASSWORD_LENGTH = 50
-    private val EMAIL_REGEX =
-        Regex("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
-
     private lateinit var loginStarter: LoginStarter
     private lateinit var navController: NavController
 
@@ -84,18 +79,13 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun validateEmail(): Boolean {
-        if (emailET.text.toString().length >= MIN_EMAIL_LENGTH &&
-            emailET.text.toString().matches(EMAIL_REGEX)
-        ) return true
-
+        if(FieldsValidation.validateEmail(emailET.text.toString())) return true
         emailET.error = resources.getString(R.string.invalid_email)
         return false
     }
 
     private fun validatePassword(): Boolean {
-        if (passwordET.text.toString().length < MIN_PASSWORD_LENGTH ||
-            passwordET.text.toString().length > MAX_PASSWORD_LENGTH
-        ) {
+        if (FieldsValidation.validatePassword(passwordET.toString())) {
             passwordET.error = resources.getString(R.string.password_too_short)
             return false
         }
