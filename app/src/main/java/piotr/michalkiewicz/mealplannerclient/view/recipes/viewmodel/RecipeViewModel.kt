@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
+import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.utils.ShoppingListManager
@@ -36,6 +37,9 @@ class RecipeViewModel(
     //  TODO Should somehow bind it to checkboxes so their state is wired to this list from the beginning
     //  Passing viewmodel to ingredient list item and checking if contains tag model might work
     private val selectedIngredients = mutableListOf<RecipeIngredient>()
+
+    private val _currentCookingStep = MutableLiveData<InstructionStep>()
+    val currentCookingStep: LiveData<InstructionStep> = _currentCookingStep
 
     fun initialize(recipeId: String) {
         viewModelScope.launch {
@@ -77,6 +81,10 @@ class RecipeViewModel(
         _navigateToIngredientsFragment.value = false
     }
 
+    fun navigateToCookingSteps() {
+        _navigateToCookingStepsFragment.value = true
+    }
+
     fun resetNavigationToCookingStepsFragment() {
         _navigateToIngredientsFragment.value = false
     }
@@ -87,5 +95,13 @@ class RecipeViewModel(
         fun setImageBitmap(imageView: ImageView, imageBitmap: Bitmap?) {
             imageView.setImageBitmap(imageBitmap)
         }
+    }
+
+    fun goToNextStep() {
+
+    }
+
+    private fun setNextStepIfExists() {
+
     }
 }
