@@ -1,7 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel
 
 import android.graphics.Bitmap
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
@@ -15,7 +14,6 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.utils.ShoppingListManager
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 
 class RecipeViewModel(
     private val recipeAPI: RecipeAPI,
@@ -28,26 +26,27 @@ class RecipeViewModel(
     private val _recipeFetchErrorOccurred = MutableLiveData(false)
     val recipeFeatchErrorOccurred: LiveData<Boolean> = _recipeFetchErrorOccurred
 
+    //  TODO Should somehow bind it to checkboxes so their state is wired to this list from the beginning
+    private val selectedIngredients = mutableListOf<RecipeIngredient>()
+
     private val _navigateToIngredientsFragment = MutableLiveData(false)
     val navigateToIngredientsFragment: LiveData<Boolean> = _navigateToIngredientsFragment
 
     private val _navigateToCookingStepsFragment = MutableLiveData(false)
     val navigateToCookingStepsFragment: LiveData<Boolean> = _navigateToCookingStepsFragment
 
-    //  TODO Should somehow bind it to checkboxes so their state is wired to this list from the beginning
-    //  Passing viewmodel to ingredient list item and checking if contains tag model might work
-    private val selectedIngredients = mutableListOf<RecipeIngredient>()
-
+    private val _lastStepReached = MutableLiveData(false)
+    val lastStepReached: LiveData<Boolean> = _lastStepReached
+    private var currentStepIndex = 0
     private val _currentCookingStep = MutableLiveData<InstructionStep>()
     val currentCookingStep: LiveData<InstructionStep> = _currentCookingStep
 
     fun initialize(recipeId: String) {
         viewModelScope.launch {
             val response = recipeAPI.getRecipeForId(recipeId)
-
             if (response.isSuccessful) {
                 _recipeData.value = response.body()
-                selectedIngredients.addAll(recipeData.value!!.recipeIngredients)
+                prepareThisViewModelForIngredientsFragment()
             } else {
                 _recipeFetchErrorOccurred.value = true
             }
@@ -57,12 +56,11 @@ class RecipeViewModel(
     fun saveItemsToShoppingListAndReturn() {
         val shoppingListManager =
             ShoppingListManager()     //  TODO When HILT added, move to constructor
-
         shoppingListManager.saveIngredientsToStoredShoppingList(selectedIngredients)
+    }
 
-        val map = shoppingListManager.getShoppingListMapFromSharedPrefs()
-
-        Log.d(TAG, "Shopping list item count: " + map.values.size)
+    private fun prepareThisViewModelForIngredientsFragment() {
+        selectedIngredients.addAll(recipeData.value!!.recipeIngredients)
     }
 
     fun recipeIngredientListCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
@@ -79,6 +77,11 @@ class RecipeViewModel(
 
     fun resetNavigationToIngredientsFragment() {
         _navigateToIngredientsFragment.value = false
+    }
+
+    private fun prepareThisViewModelForCookingModeFragment() {
+        _currentCookingStep.value =
+            recipeData.value!!.instructionSteps[currentStepIndex]  //  TODO Consider handling this (NoSuchElementException)
     }
 
     fun navigateToCookingSteps() {
@@ -98,10 +101,36 @@ class RecipeViewModel(
     }
 
     fun goToNextStep() {
-
+        setNextStepIfExists()
     }
 
     private fun setNextStepIfExists() {
+        currentStepIndex += 1
+        if (!isLastStepReached()) {
+            _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+        } else {
+            _lastStepReached.value = true
+        }
+    }
 
+    private fun isLastStepReached(): Boolean {
+        return currentStepIndex == (recipeData.value!!.instructionSteps.size - 1)
+    }
+
+    fun goToPreviousStep() {
+        setPreviousStepIfExists()
+    }
+
+    private fun setPreviousStepIfExists() {
+        currentStepIndex -= 1
+        if (!isFirstStepReached()) {
+            _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+        } else {
+            _lastStepReached.value = true
+        }
+    }
+
+    private fun isFirstStepReached(): Boolean {
+        return currentStepIndex == 0
     }
 }
