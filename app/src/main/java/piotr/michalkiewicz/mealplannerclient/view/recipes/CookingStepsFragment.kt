@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookingStepsBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
@@ -38,6 +40,16 @@ class CookingStepsFragment : Fragment() {
     private fun init() {
         initViewModel()
         initCookingStepsRecyclerView(getCookingStepsListFromViewModel())
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        recipeViewModel.navigateToCookingModeFragment.observe(viewLifecycleOwner, {
+            if (it) {
+                findNavController().navigate(R.id.action_cookingStepsFragment_to_cookingModeFragment)
+                recipeViewModel.resetNavigationToCookingModeFragment()
+            }
+        })
     }
 
     private fun getCookingStepsListFromViewModel(): List<InstructionStep> {

@@ -35,6 +35,9 @@ class RecipeViewModel(
     private val _navigateToCookingStepsFragment = MutableLiveData(false)
     val navigateToCookingStepsFragment: LiveData<Boolean> = _navigateToCookingStepsFragment
 
+    private val _navigateToCookingModeFragment = MutableLiveData(false)
+    val navigateToCookingModeFragment: LiveData<Boolean> = _navigateToCookingModeFragment
+
     private val _lastStepReached = MutableLiveData(false)
     val lastStepReached: LiveData<Boolean> = _lastStepReached
     private var currentStepIndex = 0
@@ -47,6 +50,7 @@ class RecipeViewModel(
             if (response.isSuccessful) {
                 _recipeData.value = response.body()
                 prepareThisViewModelForIngredientsFragment()
+                prepareThisViewModelForCookingModeFragment()
             } else {
                 _recipeFetchErrorOccurred.value = true
             }
@@ -89,7 +93,15 @@ class RecipeViewModel(
     }
 
     fun resetNavigationToCookingStepsFragment() {
-        _navigateToIngredientsFragment.value = false
+        _navigateToCookingStepsFragment.value = false
+    }
+
+    fun navigateToCookingMode() {
+        _navigateToCookingModeFragment.value = true
+    }
+
+    fun resetNavigationToCookingModeFragment() {
+        _navigateToCookingModeFragment.value = false
     }
 
     companion object {

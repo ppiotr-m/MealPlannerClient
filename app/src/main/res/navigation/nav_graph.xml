@@ -298,5 +298,13 @@
     <fragment
         android:id="@+id/cookingStepsFragment"
         android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.CookingStepsFragment"
-        android:label="CookingStepsFragment" />
+        android:label="CookingStepsFragment">
+        <action
+            android:id="@+id/action_cookingStepsFragment_to_cookingModeFragment"
+            app:destination="@id/cookingModeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cookingModeFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.CookingModeFragment"
+        android:label="CookingModeFragment" />
 </navigation>
