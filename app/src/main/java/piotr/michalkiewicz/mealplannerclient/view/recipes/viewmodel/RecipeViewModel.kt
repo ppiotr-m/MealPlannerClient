@@ -1,6 +1,7 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel
 
 import android.graphics.Bitmap
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
@@ -14,6 +15,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.utils.ShoppingListManager
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 
 class RecipeViewModel(
     private val recipeAPI: RecipeAPI,
@@ -38,11 +40,13 @@ class RecipeViewModel(
     private val _navigateToCookingModeFragment = MutableLiveData(false)
     val navigateToCookingModeFragment: LiveData<Boolean> = _navigateToCookingModeFragment
 
-    private val _lastStepReached = MutableLiveData(false)
-    val lastStepReached: LiveData<Boolean> = _lastStepReached
+    private val _isLastStepReached = MutableLiveData(false)
+    val isLastStepReached: LiveData<Boolean> = _isLastStepReached
     private var currentStepIndex = 0
     private val _currentCookingStep = MutableLiveData<InstructionStep>()
     val currentCookingStep: LiveData<InstructionStep> = _currentCookingStep
+    private val _isCurrentStepTheFirst = MutableLiveData(true)
+    val isCurrentStepTheFirst: LiveData<Boolean> = _isCurrentStepTheFirst
 
     fun initialize(recipeId: String) {
         viewModelScope.launch {
@@ -114,32 +118,39 @@ class RecipeViewModel(
 
     fun goToNextStep() {
         setNextStepIfExists()
+        _isCurrentStepTheFirst.value = false
     }
 
     private fun setNextStepIfExists() {
+        Log.d(TAG, "Setting next step if exists, current step index: " + currentStepIndex)
         currentStepIndex += 1
         if (!isLastStepReached()) {
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+
         } else {
-            _lastStepReached.value = true
+            _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+            _isLastStepReached.value = true
         }
     }
 
     private fun isLastStepReached(): Boolean {
-        return currentStepIndex == (recipeData.value!!.instructionSteps.size - 1)
+        return currentStepIndex >= (recipeData.value!!.instructionSteps.size - 1)
     }
 
     fun goToPreviousStep() {
         setPreviousStepIfExists()
+        _isLastStepReached.value = false
     }
 
     private fun setPreviousStepIfExists() {
         currentStepIndex -= 1
-        if (!isFirstStepReached()) {
+        if (isFirstStepReached()) {
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+            _isCurrentStepTheFirst.value = true
         } else {
-            _lastStepReached.value = true
+            _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
         }
+
     }
 
     private fun isFirstStepReached(): Boolean {

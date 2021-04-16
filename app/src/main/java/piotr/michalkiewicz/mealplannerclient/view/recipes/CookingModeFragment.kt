@@ -34,6 +34,7 @@ class CookingModeFragment : Fragment() {
 
     private fun init() {
         initViewModel()
+        setupObservers()
     }
 
     private fun initViewModel() {
@@ -45,4 +46,34 @@ class CookingModeFragment : Fragment() {
         binding.viewModel = recipeViewModel
     }
 
+    private fun setupObservers() {
+        recipeViewModel.isCurrentStepTheFirst.observe(viewLifecycleOwner, {
+            if (it) {
+                setButtonsForFirstStep()
+            } else {
+                binding.previousStepBtn.visibility = View.VISIBLE
+            }
+        })
+        recipeViewModel.isLastStepReached.observe(viewLifecycleOwner, {
+            if (it) {
+                setButtonsForFinalStep()
+            } else {
+                showNextBtnAndHideFinishBtn()
+            }
+        })
+    }
+
+    private fun setButtonsForFinalStep() {
+        binding.nextStepBtn.visibility = View.GONE
+        binding.cookingModeFinishBtn.visibility = View.VISIBLE
+    }
+
+    private fun setButtonsForFirstStep() {
+        binding.previousStepBtn.visibility = View.GONE
+    }
+
+    private fun showNextBtnAndHideFinishBtn() {
+        binding.nextStepBtn.visibility = View.VISIBLE
+        binding.cookingModeFinishBtn.visibility = View.GONE
+    }
 }
