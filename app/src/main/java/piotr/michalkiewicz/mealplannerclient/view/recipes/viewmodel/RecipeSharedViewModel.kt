@@ -40,6 +40,12 @@ class RecipeSharedViewModel(
     private val _navigateToCookingModeFragment = MutableLiveData(false)
     val navigateToCookingModeFragment: LiveData<Boolean> = _navigateToCookingModeFragment
 
+    private val _cookingModeFinished = MutableLiveData(false)
+    val cookingModeFinished: LiveData<Boolean> = _cookingModeFinished
+
+    private val _navigateBack = MutableLiveData(false)
+    val navigateBack: LiveData<Boolean> = _navigateBack
+
     private val _isLastStepReached = MutableLiveData(false)
     val isLastStepReached: LiveData<Boolean> = _isLastStepReached
     private var currentStepIndex = 0
@@ -65,6 +71,7 @@ class RecipeSharedViewModel(
         val shoppingListManager =
             ShoppingListManager()     //  TODO When HILT added, move to constructor
         shoppingListManager.saveIngredientsToStoredShoppingList(selectedIngredients)
+        _navigateBack.value = true
     }
 
     private fun prepareThisViewModelForIngredientsFragment() {
@@ -79,6 +86,10 @@ class RecipeSharedViewModel(
         }
     }
 
+    fun resetNavigateBack() {
+        _navigateBack.value = false
+    }
+
     fun navigateToIngredients() {
         _navigateToIngredientsFragment.value = true
     }
@@ -88,6 +99,7 @@ class RecipeSharedViewModel(
     }
 
     private fun prepareThisViewModelForCookingModeFragment() {
+        currentStepIndex = 0
         _currentCookingStep.value =
             recipeData.value!!.instructionSteps[currentStepIndex]  //  TODO Consider handling this (NoSuchElementException)
     }
@@ -114,6 +126,15 @@ class RecipeSharedViewModel(
         fun setImageBitmap(imageView: ImageView, imageBitmap: Bitmap?) {
             imageView.setImageBitmap(imageBitmap)
         }
+    }
+
+    fun finishCookingMode() {
+        _cookingModeFinished.value = true
+        prepareThisViewModelForCookingModeFragment()
+    }
+
+    fun resetCookingModeFinished() {
+        _cookingModeFinished.value = false
     }
 
     fun goToNextStep() {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookingModeBinding
@@ -57,6 +58,13 @@ class CookingModeFragment : Fragment() {
                 setButtonsForFinalStep()
             } else {
                 showNextBtnAndHideFinishBtn()
+            }
+        })
+        recipeSharedViewModel.cookingModeFinished.observe(viewLifecycleOwner, {
+            if (it) {
+                findNavController().popBackStack()
+                recipeSharedViewModel.resetNavigateBack()
+                setButtonsForFirstStep()
             }
         })
     }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import piotr.michalkiewicz.mealplannerclient.R
@@ -43,6 +44,7 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
     private fun init() {
         initViewModel()
         initIngedientsRecyclerView(getRecipeIngredientsListFromViewModel())
+        setupObservers()
     }
 
     private fun initViewModel() {
@@ -51,6 +53,15 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
 
     private fun getRecipeIngredientsListFromViewModel(): List<RecipeIngredient> {
         return recipeSharedViewModel.recipeData.value!!.recipeIngredients
+    }
+
+    private fun setupObservers() {
+        recipeSharedViewModel.navigateBack.observe(viewLifecycleOwner, {
+            if (it) {
+                findNavController().popBackStack()
+                recipeSharedViewModel.resetNavigateBack()   //  TODO Not sure if this is the right solution
+            }
+        })
     }
 
     private fun initIngedientsRecyclerView(data: List<RecipeIngredient>) {
@@ -64,7 +75,7 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
 
     }
 
-    override fun onCheckboxSelected(item: RecipeIngredient, isChecked: Boolean) {
+    override fun onCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
         recipeSharedViewModel.recipeIngredientListCheckboxClicked(item, isChecked)
     }
 }

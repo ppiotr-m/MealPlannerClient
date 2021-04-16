@@ -36,7 +36,7 @@ class RecipeIngredientsListAdapter(
         fun bind(item: RecipeIngredient) {
             binding.recipeIngredient = item
             binding.recipeIngredientListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
-                onCheckedChangeListener.onCheckboxSelected(
+                onCheckedChangeListener.onCheckboxClicked(
                     (checkbox.tag as RecipeIngredient),
                     isChecked
                 )

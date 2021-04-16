@@ -47,10 +47,10 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
                 showEmptyShoppingList()
                 return@observe
             }
-            //  TODO Ugly solution
-            val conversionList = arrayListOf<RecipeIngredient>()
-            conversionList.addAll(it.values)
-            initIngedientsRecyclerView(conversionList)
+            initIngedientsRecyclerView(it.values)
+        })
+        shoppingListViewModel.checker.observe(viewLifecycleOwner, {
+            binding.recipeIngredientsListRV.adapter!!.notifyDataSetChanged()
         })
     }
 
@@ -65,7 +65,7 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
         binding.viewModel = shoppingListViewModel
     }
 
-    private fun initIngedientsRecyclerView(data: List<RecipeIngredient>) {
+    private fun initIngedientsRecyclerView(data: MutableCollection<RecipeIngredient>) {
         binding.recipeIngredientsListRV.layoutManager = LinearLayoutManager(requireContext())
         binding.recipeIngredientsListRV.adapter = ShoppingListAdapter(data, this)
     }
@@ -74,10 +74,8 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
         binding.emptyShoppingListTV.visibility = View.VISIBLE
     }
 
-    private fun deleteProducts() {
-    }
-
-    override fun onCheckboxSelected(item: RecipeIngredient, isChecked: Boolean) {
+    override fun onCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
+        shoppingListViewModel.ingredientCheckboxClicked(item, isChecked)
     }
 
 }

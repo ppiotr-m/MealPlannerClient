@@ -8,7 +8,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 
 class ShoppingListAdapter(
-    private val data: List<RecipeIngredient>,
+    private val data: MutableCollection<RecipeIngredient>,
     private val onCheckedChangeListener: RecipeIngredientListOnCheckedChangeListener
 ) :
     RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>() {
@@ -20,7 +20,8 @@ class ShoppingListAdapter(
         return ViewHolder(binding, onCheckedChangeListener)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(data.elementAt(position))
 
     override fun getItemCount(): Int {
         return data.size
@@ -36,12 +37,11 @@ class ShoppingListAdapter(
         fun bind(item: RecipeIngredient) {
             binding.recipeIngredient = item
             binding.shoppingListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
-                onCheckedChangeListener.onCheckboxSelected(
+                onCheckedChangeListener.onCheckboxClicked(
                     (checkbox.tag as RecipeIngredient),
                     isChecked
                 )
             }
-
             with(binding) {
                 shoppingListItemCB.text = item.name
                 shoppingListAmountTV.text = item.amount

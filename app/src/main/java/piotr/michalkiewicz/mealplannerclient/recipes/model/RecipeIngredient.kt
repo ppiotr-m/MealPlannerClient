@@ -14,10 +14,10 @@ data class RecipeIngredient(
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false
         val that = o as RecipeIngredient
-        return originalName == that.originalName
+        return name == that.name
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(originalName)
+        return Objects.hash(name)
     }
 }

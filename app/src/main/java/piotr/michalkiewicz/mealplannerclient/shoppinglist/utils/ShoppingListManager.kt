@@ -5,14 +5,14 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
 class ShoppingListManager {
 
     fun saveIngredientsToStoredShoppingList(ingredientsList: List<RecipeIngredient>) {
-
-        var currentShoppingMap = getShoppingListMapFromSharedPrefs()
-        var updatedShoppingListMap = mutableMapOf<String, RecipeIngredient>()
+        val currentShoppingMap = getShoppingListMapFromSharedPrefs()
+        val updatedShoppingListMap = mutableMapOf<String, RecipeIngredient>()
 
         if (currentShoppingMap != null) {
             updatedShoppingListMap.putAll(currentShoppingMap)
@@ -63,6 +63,24 @@ class ShoppingListManager {
             e.printStackTrace()
         }
         return emptyMap()
+    }
+
+    fun deleteIngredientsFromStoredShoppingList(ingredientsList: List<RecipeIngredient>) {
+        val currentShoppingMap = getShoppingListMapFromSharedPrefs()
+        val updatedShoppingListMap = mutableMapOf<String, RecipeIngredient>()
+
+        Log.d(TAG, "Removing ingredients, list size: " + ingredientsList.size)
+
+        if (!currentShoppingMap.isEmpty()) {
+            Log.d(TAG, "Removing ingredients, list not empty")
+            updatedShoppingListMap.putAll(currentShoppingMap)
+            ingredientsList.forEach {
+                if (currentShoppingMap.containsKey(it.name)) {
+                    updatedShoppingListMap.remove(it.name)
+                }
+            }
+        }
+        saveShoppingListToSharedPrefs(updatedShoppingListMap)
     }
 
     private fun saveShoppingListToSharedPrefs(recipeIngredientListMap: Map<String, RecipeIngredient>) {
