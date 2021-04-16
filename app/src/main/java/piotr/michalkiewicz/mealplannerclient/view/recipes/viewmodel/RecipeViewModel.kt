@@ -150,7 +150,6 @@ class RecipeViewModel(
         } else {
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
         }
-
     }
 
     private fun isFirstStepReached(): Boolean {
