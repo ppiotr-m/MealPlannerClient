@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.navGraphViewModels
+import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookingModeBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
-import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel
+import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeSharedViewModel
 
 class CookingModeFragment : Fragment() {
 
-    private lateinit var recipeViewModel: RecipeViewModel
     private lateinit var binding: FragmentCookingModeBinding
+    private val recipeSharedViewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
+        Injection.provideRecipesViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,23 +41,18 @@ class CookingModeFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        recipeViewModel = ViewModelProvider(
-            requireActivity(),
-            Injection.provideRecipesViewModelFactory(requireContext())
-        ).get(RecipeViewModel::class.java)
-
-        binding.viewModel = recipeViewModel
+        binding.viewModel = recipeSharedViewModel
     }
 
     private fun setupObservers() {
-        recipeViewModel.isCurrentStepTheFirst.observe(viewLifecycleOwner, {
+        recipeSharedViewModel.isCurrentStepTheFirst.observe(viewLifecycleOwner, {
             if (it) {
                 setButtonsForFirstStep()
             } else {
                 binding.previousStepBtn.visibility = View.VISIBLE
             }
         })
-        recipeViewModel.isLastStepReached.observe(viewLifecycleOwner, {
+        recipeSharedViewModel.isLastStepReached.observe(viewLifecycleOwner, {
             if (it) {
                 setButtonsForFinalStep()
             } else {

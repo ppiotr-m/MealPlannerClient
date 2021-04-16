@@ -17,7 +17,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.utils.ShoppingListManager
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
 
-class RecipeViewModel(
+class RecipeSharedViewModel(
     private val recipeAPI: RecipeAPI,
     private val recipesDatabase: RecipesDatabase
 ) : ViewModel() {

@@ -6,17 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentRecipeBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
-import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel
+import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeSharedViewModel
 
 class RecipeFragment : Fragment() {
 
-    private lateinit var recipeViewModel: RecipeViewModel
     private lateinit var binding: FragmentRecipeBinding
+    private val recipeSharedViewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
+        Injection.provideRecipesViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,25 +43,22 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        recipeViewModel = ViewModelProvider(
-            requireActivity(),
-            Injection.provideRecipesViewModelFactory(requireContext())
-        ).get(RecipeViewModel::class.java)
+//        recipeViewModel = ViewModelProvider(
+//            this,
+//            Injection.provideRecipesViewModelFactory(requireContext())
+//        ).get(RecipeViewModel::class.java)
+        binding.viewModel = recipeSharedViewModel
 
         val recipeId = retriveRecipeIdPassedWithNavigation()
-
-        binding.viewModel = recipeViewModel
-
         if (recipeId != null) {
-            recipeViewModel.initialize(recipeId)
+            recipeSharedViewModel.initialize(recipeId)
         } else {
             handleNullRecipeId()
         }
     }
 
     private fun retriveRecipeIdPassedWithNavigation(): String? {
-        val bundle = arguments ?: return null
-        return RecipeFragmentArgs.fromBundle(bundle).recipeId
+        return arguments?.getString("recipeId")
     }
 
     private fun handleNullRecipeId() {
@@ -76,27 +75,27 @@ class RecipeFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        recipeViewModel.recipeData.observe(viewLifecycleOwner, {
+        recipeSharedViewModel.recipeData.observe(viewLifecycleOwner, {
             //  TODO
             enableButtons()
         })
 
-        recipeViewModel.recipeFeatchErrorOccurred.observe(viewLifecycleOwner, {
+        recipeSharedViewModel.recipeFeatchErrorOccurred.observe(viewLifecycleOwner, {
             if (it) {
                 handleRecipeFetchingError()
             }
         })
 
-        recipeViewModel.navigateToIngredientsFragment.observe(viewLifecycleOwner, {
+        recipeSharedViewModel.navigateToIngredientsFragment.observe(viewLifecycleOwner, {
             if (it) {
-                recipeViewModel.resetNavigationToIngredientsFragment()
+                recipeSharedViewModel.resetNavigationToIngredientsFragment()
                 findNavController().navigate(R.id.action_recipeFragment_to_ingredientsFragment)
             }
         })
 
-        recipeViewModel.navigateToCookingStepsFragment.observe(viewLifecycleOwner, {
+        recipeSharedViewModel.navigateToCookingStepsFragment.observe(viewLifecycleOwner, {
             if (it) {
-                recipeViewModel.resetNavigationToCookingStepsFragment()
+                recipeSharedViewModel.resetNavigationToCookingStepsFragment()
                 findNavController().navigate(R.id.action_recipeFragment_to_cookingStepsFragment)
             }
         })

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel" />
+            type="piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeSharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

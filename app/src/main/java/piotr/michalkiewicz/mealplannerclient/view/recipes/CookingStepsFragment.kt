@@ -5,20 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentCookingStepsBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
 import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.CookingStepsAdapter
-import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeViewModel
+import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeSharedViewModel
 
 class CookingStepsFragment : Fragment() {
 
-    private lateinit var recipeViewModel: RecipeViewModel
     private lateinit var binding: FragmentCookingStepsBinding
+    private val recipeSharedViewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
+        Injection.provideRecipesViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,16 +46,16 @@ class CookingStepsFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        recipeViewModel.navigateToCookingModeFragment.observe(viewLifecycleOwner, {
+        recipeSharedViewModel.navigateToCookingModeFragment.observe(viewLifecycleOwner, {
             if (it) {
                 findNavController().navigate(R.id.action_cookingStepsFragment_to_cookingModeFragment)
-                recipeViewModel.resetNavigationToCookingModeFragment()
+                recipeSharedViewModel.resetNavigationToCookingModeFragment()
             }
         })
     }
 
     private fun getCookingStepsListFromViewModel(): List<InstructionStep> {
-        return recipeViewModel.recipeData.value!!.instructionSteps
+        return recipeSharedViewModel.recipeData.value!!.instructionSteps
     }
 
     private fun initCookingStepsRecyclerView(data: List<InstructionStep>) {
@@ -62,11 +64,6 @@ class CookingStepsFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        recipeViewModel = ViewModelProvider(
-            requireActivity(),
-            Injection.provideRecipesViewModelFactory(requireContext())
-        ).get(RecipeViewModel::class.java)
-
-        binding.viewModel = recipeViewModel
+        binding.viewModel = recipeSharedViewModel
     }
 }
