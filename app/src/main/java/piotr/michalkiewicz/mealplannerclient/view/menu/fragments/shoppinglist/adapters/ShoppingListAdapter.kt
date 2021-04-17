@@ -1,52 +1,65 @@
 package piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.ArrayAdapter
 import piotr.michalkiewicz.mealplannerclient.databinding.ListItemShoppingListBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 
 class ShoppingListAdapter(
-    private val data: MutableCollection<RecipeIngredient>,
-    private val onCheckedChangeListener: RecipeIngredientListOnCheckedChangeListener
-) :
-    RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>() {
+    context: Context,
+    private val data: List<RecipeIngredient>,
+    private val onCheckboxClickListener: RecipeIngredientListOnCheckedChangeListener
+) : ArrayAdapter<RecipeIngredient>(context, -1, data) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ListItemShoppingListBinding.inflate(inflater)
+    private val checkBoxesStateMaintainerList: MutableList<RecipeIngredient> = mutableListOf()
 
-        return ViewHolder(binding, onCheckedChangeListener)
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val binding =
+            ListItemShoppingListBinding.inflate(LayoutInflater.from(context), parent, false)
+        val listItem = data[position]
+
+        handleCheckboxState(listItem, binding)
+        setCheckboxStateListener(listItem, binding)
+        setViewWithData(listItem, binding)
+        return binding.root
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(data.elementAt(position))
-
-    override fun getItemCount(): Int {
-        return data.size
+    private fun handleCheckboxState(
+        listItem: RecipeIngredient,
+        binding: ListItemShoppingListBinding
+    ) {
+        if (checkBoxesStateMaintainerList.contains(listItem)) {
+            binding.shoppingListItemCB.isChecked = true
+        }
     }
 
-    //  TODO Handle listener in XML
-    class ViewHolder(
-        private val binding: ListItemShoppingListBinding,
-        private val onCheckedChangeListener: RecipeIngredientListOnCheckedChangeListener
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    private fun setCheckboxStateListener(
+        listItem: RecipeIngredient,
+        binding: ListItemShoppingListBinding
+    ) {
+        binding.recipeIngredient = listItem
+        binding.shoppingListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
+            if (isChecked) {
+                checkBoxesStateMaintainerList.add(listItem)
+            } else {
+                checkBoxesStateMaintainerList.remove(listItem)
+            }
+            onCheckboxClickListener.onCheckboxClicked(
+                (checkbox.tag as RecipeIngredient),
+                isChecked
+            )
+        }
+    }
 
-        fun bind(item: RecipeIngredient) {
-            binding.recipeIngredient = item
-            binding.shoppingListItemCB.setOnCheckedChangeListener { checkbox, isChecked ->
-                onCheckedChangeListener.onCheckboxClicked(
-                    (checkbox.tag as RecipeIngredient),
-                    isChecked
-                )
-            }
-            with(binding) {
-                shoppingListItemCB.text = item.name
-                shoppingListAmountTV.text = item.amount
-                shoppingListItemUnitTV.text = item.unit
-            }
+    private fun setViewWithData(listItem: RecipeIngredient, binding: ListItemShoppingListBinding) {
+        with(binding) {
+            shoppingListItemCB.text = listItem.name
+            shoppingListAmountTV.text = listItem.amount
+            shoppingListItemUnitTV.text = listItem.unit
         }
     }
 }

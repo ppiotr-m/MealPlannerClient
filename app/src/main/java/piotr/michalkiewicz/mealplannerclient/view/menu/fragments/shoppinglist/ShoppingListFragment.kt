@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentShoppingListBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.viewmodel.ShoppingListViewModel
-import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist.adapters.ShoppingListViewAdapter
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist.adapters.ShoppingListAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 
 class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeListener {
@@ -74,7 +73,7 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
 
     private fun initIngedientsRecyclerView(data: List<RecipeIngredient>) {
         binding.recipeIngredientsListView.adapter =
-            ShoppingListViewAdapter(requireContext(), R.layout.list_item_shopping_list, data, this)
+            ShoppingListAdapter(requireContext(), data, this)
     }
 
     private fun showEmptyShoppingList() {

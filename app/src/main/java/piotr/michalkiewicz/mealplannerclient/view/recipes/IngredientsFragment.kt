@@ -8,12 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentIngredientsBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
-import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.RecipeIngredientsListAdapter
+import piotr.michalkiewicz.mealplannerclient.view.recipes.adapters.IngredientsListAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeSharedViewModel
 
@@ -71,8 +70,8 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
     }
 
     private fun initIngedientsRecyclerView(data: List<RecipeIngredient>) {
-        binding.recipeIngredientsListRV.layoutManager = LinearLayoutManager(requireContext())
-        binding.recipeIngredientsListRV.adapter = RecipeIngredientsListAdapter(data, this)
+        binding.recipeIngredientsListView.adapter =
+            IngredientsListAdapter(requireContext(), data, this)
     }
 
     //  TODO Wire it to rest of code

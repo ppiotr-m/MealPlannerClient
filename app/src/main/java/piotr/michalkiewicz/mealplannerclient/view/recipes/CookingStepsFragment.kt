@@ -52,6 +52,11 @@ class CookingStepsFragment : Fragment() {
                 recipeSharedViewModel.resetNavigationToCookingModeFragment()
             }
         })
+        recipeSharedViewModel.cookingModeNotAvailable.observe(viewLifecycleOwner, {
+            if (it) {
+                setUiToNoCookingMode()
+            }
+        })
     }
 
     private fun getCookingStepsListFromViewModel(): List<InstructionStep> {
@@ -65,5 +70,9 @@ class CookingStepsFragment : Fragment() {
 
     private fun initViewModel() {
         binding.viewModel = recipeSharedViewModel
+    }
+
+    private fun setUiToNoCookingMode() {
+        binding.cookingModeBtn.visibility = View.GONE
     }
 }

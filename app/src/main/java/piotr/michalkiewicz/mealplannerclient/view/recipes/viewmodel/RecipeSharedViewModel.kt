@@ -22,6 +22,8 @@ class RecipeSharedViewModel(
     private val recipesDatabase: RecipesDatabase
 ) : ViewModel() {
 
+    private val MINIMUM_COOKING_STEPS_COUNT_FOR_COOKING_MODE = 3
+
     private val _recipeData = MutableLiveData<MealTimeRecipe>()
     val recipeData: LiveData<MealTimeRecipe> = _recipeData
 
@@ -48,6 +50,9 @@ class RecipeSharedViewModel(
 
     private val _addingEmptyIngredientsList = MutableLiveData(false)
     val addingEmptyIngredientsList: LiveData<Boolean> = _addingEmptyIngredientsList
+
+    private val _cookingModeNotAvailable = MutableLiveData<Boolean>(false)
+    val cookingModeNotAvailable = _cookingModeNotAvailable
 
     private val _isLastStepReached = MutableLiveData(false)
     val isLastStepReached: LiveData<Boolean> = _isLastStepReached
@@ -84,6 +89,16 @@ class RecipeSharedViewModel(
         selectedIngredients.addAll(recipeData.value!!.recipeIngredients)
     }
 
+    private fun prepareThisViewModelForCookingModeFragment() {
+        if (recipeData.value!!.instructionSteps.size >= MINIMUM_COOKING_STEPS_COUNT_FOR_COOKING_MODE) {
+            currentStepIndex = 0
+            _currentCookingStep.value =
+                recipeData.value!!.instructionSteps[currentStepIndex]  //  TODO Consider handling this (IndexOufOfBoundsException)
+        } else {
+            _cookingModeNotAvailable.value = true
+        }
+    }
+
     fun recipeIngredientListCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
         if (isChecked) {
             selectedIngredients.add(item)
@@ -108,12 +123,6 @@ class RecipeSharedViewModel(
         _addingEmptyIngredientsList.value = false
     }
 
-    private fun prepareThisViewModelForCookingModeFragment() {
-        currentStepIndex = 0
-        _currentCookingStep.value =
-            recipeData.value!!.instructionSteps[currentStepIndex]  //  TODO Consider handling this (NoSuchElementException)
-    }
-
     fun navigateToCookingSteps() {
         _navigateToCookingStepsFragment.value = true
     }
@@ -128,14 +137,6 @@ class RecipeSharedViewModel(
 
     fun resetNavigationToCookingModeFragment() {
         _navigateToCookingModeFragment.value = false
-    }
-
-    companion object {
-        @JvmStatic
-        @BindingAdapter("android:imageBitmap")
-        fun setImageBitmap(imageView: ImageView, imageBitmap: Bitmap?) {
-            imageView.setImageBitmap(imageBitmap)
-        }
     }
 
     fun finishCookingMode() {
@@ -197,5 +198,13 @@ class RecipeSharedViewModel(
 
     private fun isFirstStepReached(): Boolean {
         return currentStepIndex == 0
+    }
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("android:imageBitmap")
+        fun setImageBitmap(imageView: ImageView, imageBitmap: Bitmap?) {
+            imageView.setImageBitmap(imageBitmap)
+        }
     }
 }
