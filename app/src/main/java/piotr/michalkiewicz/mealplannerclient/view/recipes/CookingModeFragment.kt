@@ -63,8 +63,10 @@ class CookingModeFragment : Fragment() {
         recipeSharedViewModel.cookingModeFinished.observe(viewLifecycleOwner, {
             if (it) {
                 findNavController().popBackStack()
-                recipeSharedViewModel.resetNavigateBack()
                 setButtonsForFirstStep()
+                recipeSharedViewModel.resetLastStepReached()
+                recipeSharedViewModel.resetIsFirstStep()
+                recipeSharedViewModel.resetFinishCooking()
             }
         })
     }

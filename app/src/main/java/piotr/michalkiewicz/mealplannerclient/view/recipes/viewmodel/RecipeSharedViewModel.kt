@@ -133,6 +133,10 @@ class RecipeSharedViewModel(
         prepareThisViewModelForCookingModeFragment()
     }
 
+    fun resetFinishCooking() {
+        _cookingModeFinished.value = false
+    }
+
     fun resetCookingModeFinished() {
         _cookingModeFinished.value = false
     }
@@ -156,6 +160,14 @@ class RecipeSharedViewModel(
 
     private fun isLastStepReached(): Boolean {
         return currentStepIndex >= (recipeData.value!!.instructionSteps.size - 1)
+    }
+
+    fun resetIsFirstStep() {
+        _isCurrentStepTheFirst.value = true
+    }
+
+    fun resetLastStepReached() {
+        _isLastStepReached.value = false
     }
 
     fun goToPreviousStep() {
