@@ -59,10 +59,14 @@ class ShoppingListManager {
                 ) as Map<String, RecipeIngredient>
             return storedShoppingList
         } catch (e: ClassCastException) {
-            Log.e(ConstantValues.TAG, e.localizedMessage)
+            Log.e(TAG, e.localizedMessage)
             e.printStackTrace()
         }
         return emptyMap()
+    }
+
+    fun getShoppingListFromSharedPrefs(): MutableList<RecipeIngredient> {
+        return getShoppingListMapFromSharedPrefs().values.toMutableList()
     }
 
     fun deleteIngredientsFromStoredShoppingList(ingredientsList: List<RecipeIngredient>) {

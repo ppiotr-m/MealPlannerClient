@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="recipeIngredient"
             type="piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient" />

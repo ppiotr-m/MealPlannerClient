@@ -10,16 +10,17 @@ class ShoppingListViewModel : ViewModel() {
 
     private val shoppingListManager = ShoppingListManager()
 
-    private val _shoppingListItems = MutableLiveData<MutableMap<String, RecipeIngredient>>()
-    val shoppingListItems: LiveData<MutableMap<String, RecipeIngredient>> = _shoppingListItems
+    private val _shoppingListItems = MutableLiveData<MutableList<RecipeIngredient>>()
+    val shoppingListItems: LiveData<MutableList<RecipeIngredient>> = _shoppingListItems
 
     private val selectedIngredients = mutableListOf<RecipeIngredient>()
 
-    val checker = MutableLiveData(false)
+    private val _ingredientsDeletedNotifier = MutableLiveData(false)
+    val ingredientsDeletedNotifier: LiveData<Boolean> = _ingredientsDeletedNotifier
 
     init {
         _shoppingListItems.value =
-            shoppingListManager.getShoppingListMapFromSharedPrefs().toMutableMap()
+            shoppingListManager.getShoppingListFromSharedPrefs()
     }
 
     fun ingredientCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
@@ -33,9 +34,17 @@ class ShoppingListViewModel : ViewModel() {
     fun deleteSelectedIngredients() {
         shoppingListManager.deleteIngredientsFromStoredShoppingList(selectedIngredients)
         selectedIngredients.forEach {
-            _shoppingListItems.value!!.remove(it.name)
+            _shoppingListItems.value!!.remove(it)
         }
+        selectedIngredients.clear()
+        _ingredientsDeletedNotifier.value = true
+    }
 
-        checker.value = true
+    fun resetIngredientsDeletedNotifier() {
+        _ingredientsDeletedNotifier.value = false
+    }
+
+    fun isShoppingListEmpty(): Boolean {
+        return _shoppingListItems.value!!.isEmpty()
     }
 }

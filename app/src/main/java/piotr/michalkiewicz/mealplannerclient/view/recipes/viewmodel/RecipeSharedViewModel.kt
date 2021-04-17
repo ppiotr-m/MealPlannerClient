@@ -46,6 +46,9 @@ class RecipeSharedViewModel(
     private val _navigateBack = MutableLiveData(false)
     val navigateBack: LiveData<Boolean> = _navigateBack
 
+    private val _addingEmptyIngredientsList = MutableLiveData(false)
+    val addingEmptyIngredientsList: LiveData<Boolean> = _addingEmptyIngredientsList
+
     private val _isLastStepReached = MutableLiveData(false)
     val isLastStepReached: LiveData<Boolean> = _isLastStepReached
     private var currentStepIndex = 0
@@ -68,8 +71,11 @@ class RecipeSharedViewModel(
     }
 
     fun saveItemsToShoppingListAndReturn() {
-        val shoppingListManager =
-            ShoppingListManager()     //  TODO When HILT added, move to constructor
+        if (selectedIngredients.isEmpty()) {
+            _addingEmptyIngredientsList.value = true
+            return
+        }
+        val shoppingListManager = ShoppingListManager()
         shoppingListManager.saveIngredientsToStoredShoppingList(selectedIngredients)
         _navigateBack.value = true
     }
@@ -96,6 +102,10 @@ class RecipeSharedViewModel(
 
     fun resetNavigationToIngredientsFragment() {
         _navigateToIngredientsFragment.value = false
+    }
+
+    fun resetAddingToEmptyShoppingList() {
+        _addingEmptyIngredientsList.value = false
     }
 
     private fun prepareThisViewModelForCookingModeFragment() {

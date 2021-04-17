@@ -62,6 +62,12 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
                 recipeSharedViewModel.resetNavigateBack()   //  TODO Not sure if this is the right solution
             }
         })
+        recipeSharedViewModel.addingEmptyIngredientsList.observe(viewLifecycleOwner, {
+            if (it) {
+                showNoItemSelectedToast()
+                recipeSharedViewModel.resetAddingToEmptyShoppingList()
+            }
+        })
     }
 
     private fun initIngedientsRecyclerView(data: List<RecipeIngredient>) {

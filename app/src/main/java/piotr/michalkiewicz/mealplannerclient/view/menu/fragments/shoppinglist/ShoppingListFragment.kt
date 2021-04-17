@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentShoppingListBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.viewmodel.ShoppingListViewModel
-import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist.adapters.ShoppingListAdapter
+import piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist.adapters.ShoppingListViewAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 
 class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeListener {
@@ -47,10 +48,16 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
                 showEmptyShoppingList()
                 return@observe
             }
-            initIngedientsRecyclerView(it.values)
+            initIngedientsRecyclerView(it)
         })
-        shoppingListViewModel.checker.observe(viewLifecycleOwner, {
-            binding.recipeIngredientsListRV.adapter!!.notifyDataSetChanged()
+        shoppingListViewModel.ingredientsDeletedNotifier.observe(viewLifecycleOwner, {
+            if (it) {
+                (binding.recipeIngredientsListView.adapter as BaseAdapter).notifyDataSetChanged()
+                shoppingListViewModel.resetIngredientsDeletedNotifier()
+                if (shoppingListViewModel.isShoppingListEmpty()) {
+                    showEmptyShoppingList()
+                }
+            }
         })
     }
 
@@ -65,9 +72,9 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
         binding.viewModel = shoppingListViewModel
     }
 
-    private fun initIngedientsRecyclerView(data: MutableCollection<RecipeIngredient>) {
-        binding.recipeIngredientsListRV.layoutManager = LinearLayoutManager(requireContext())
-        binding.recipeIngredientsListRV.adapter = ShoppingListAdapter(data, this)
+    private fun initIngedientsRecyclerView(data: List<RecipeIngredient>) {
+        binding.recipeIngredientsListView.adapter =
+            ShoppingListViewAdapter(requireContext(), R.layout.list_item_shopping_list, data, this)
     }
 
     private fun showEmptyShoppingList() {
@@ -77,5 +84,4 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
     override fun onCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
         shoppingListViewModel.ingredientCheckboxClicked(item, isChecked)
     }
-
 }
