@@ -73,10 +73,7 @@ class ShoppingListManager {
         val currentShoppingMap = getShoppingListMapFromSharedPrefs()
         val updatedShoppingListMap = mutableMapOf<String, RecipeIngredient>()
 
-        Log.d(TAG, "Removing ingredients, list size: " + ingredientsList.size)
-
         if (!currentShoppingMap.isEmpty()) {
-            Log.d(TAG, "Removing ingredients, list not empty")
             updatedShoppingListMap.putAll(currentShoppingMap)
             ingredientsList.forEach {
                 if (currentShoppingMap.containsKey(it.name)) {

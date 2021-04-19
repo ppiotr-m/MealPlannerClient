@@ -10,6 +10,7 @@ data class RecipeIngredient(
     val kind: String,
     val name: String
 ) : Serializable {
+
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false

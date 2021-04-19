@@ -46,6 +46,12 @@ class CookingModeFragment : Fragment() {
     }
 
     private fun setupObservers() {
+        setupObserverForIsCurrentStepTheFirst()
+        setupObserverForIsLastStepReached()
+        setupObserverForCookingModeFinished()
+    }
+
+    private fun setupObserverForIsCurrentStepTheFirst() {
         recipeSharedViewModel.isCurrentStepTheFirst.observe(viewLifecycleOwner, {
             if (it) {
                 setButtonsForFirstStep()
@@ -53,6 +59,9 @@ class CookingModeFragment : Fragment() {
                 binding.previousStepBtn.visibility = View.VISIBLE
             }
         })
+    }
+
+    private fun setupObserverForIsLastStepReached() {
         recipeSharedViewModel.isLastStepReached.observe(viewLifecycleOwner, {
             if (it) {
                 setButtonsForFinalStep()
@@ -60,6 +69,9 @@ class CookingModeFragment : Fragment() {
                 showNextBtnAndHideFinishBtn()
             }
         })
+    }
+
+    private fun setupObserverForCookingModeFinished() {
         recipeSharedViewModel.cookingModeFinished.observe(viewLifecycleOwner, {
             if (it) {
                 findNavController().popBackStack()

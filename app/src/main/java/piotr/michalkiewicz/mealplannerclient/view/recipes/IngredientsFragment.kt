@@ -41,26 +41,30 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
     }
 
     private fun init() {
-        initViewModel()
-        initIngedientsRecyclerView(getRecipeIngredientsListFromViewModel())
+        setViewModelForLayout()
+        initIngedientsRecyclerView(recipeSharedViewModel.getRecipeIngredients())
         setupObservers()
     }
 
-    private fun initViewModel() {
+    private fun setViewModelForLayout() {
         binding.viewModel = recipeSharedViewModel
     }
 
-    private fun getRecipeIngredientsListFromViewModel(): List<RecipeIngredient> {
-        return recipeSharedViewModel.recipeData.value!!.recipeIngredients
+    private fun setupObservers() {
+        setupObserverForNavigateBack()
+        setupObserverForAddingEmptyIngredientsList()
     }
 
-    private fun setupObservers() {
+    private fun setupObserverForNavigateBack() {
         recipeSharedViewModel.navigateBack.observe(viewLifecycleOwner, {
             if (it) {
                 findNavController().popBackStack()
                 recipeSharedViewModel.resetNavigateBack()   //  TODO Not sure if this is the right solution
             }
         })
+    }
+
+    private fun setupObserverForAddingEmptyIngredientsList() {
         recipeSharedViewModel.addingEmptyIngredientsList.observe(viewLifecycleOwner, {
             if (it) {
                 showNoItemSelectedToast()

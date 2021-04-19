@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import piotr.michalkiewicz.mealplannerclient.databinding.ListItemShoppingListBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
+import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.REDUNDANT_LAYOUT_ID
 import piotr.michalkiewicz.mealplannerclient.view.recipes.interfaces.RecipeIngredientListOnCheckedChangeListener
 
 class ShoppingListAdapter(
     context: Context,
     private val data: List<RecipeIngredient>,
     private val onCheckboxClickListener: RecipeIngredientListOnCheckedChangeListener
-) : ArrayAdapter<RecipeIngredient>(context, -1, data) {
+) : ArrayAdapter<RecipeIngredient>(context, REDUNDANT_LAYOUT_ID, data) {
 
     private val checkBoxesStateMaintainerList: MutableList<RecipeIngredient> = mutableListOf()
 

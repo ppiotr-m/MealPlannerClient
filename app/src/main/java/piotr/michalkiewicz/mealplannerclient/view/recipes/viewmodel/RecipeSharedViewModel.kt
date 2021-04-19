@@ -75,6 +75,14 @@ class RecipeSharedViewModel(
         }
     }
 
+    fun getInstructionSteps(): List<InstructionStep> {
+        return recipeData.value!!.instructionSteps
+    }
+
+    fun getRecipeIngredients(): List<RecipeIngredient> {
+        return recipeData.value!!.recipeIngredients
+    }
+
     fun saveItemsToShoppingListAndReturn() {
         if (selectedIngredients.isEmpty()) {
             _addingEmptyIngredientsList.value = true

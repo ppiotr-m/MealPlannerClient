@@ -40,18 +40,26 @@ class CookingStepsFragment : Fragment() {
     }
 
     private fun init() {
-        initViewModel()
-        initCookingStepsRecyclerView(getCookingStepsListFromViewModel())
+        setViewModelForLayout()
+        initCookingStepsRecyclerView(recipeSharedViewModel.getInstructionSteps())
         setupObservers()
     }
 
     private fun setupObservers() {
+        setupNavigateToCookingModeObserver()
+        setupCookingModeNotAvailableObserver()
+    }
+
+    private fun setupNavigateToCookingModeObserver() {
         recipeSharedViewModel.navigateToCookingModeFragment.observe(viewLifecycleOwner, {
             if (it) {
                 findNavController().navigate(R.id.action_cookingStepsFragment_to_cookingModeFragment)
                 recipeSharedViewModel.resetNavigationToCookingModeFragment()
             }
         })
+    }
+
+    private fun setupCookingModeNotAvailableObserver() {
         recipeSharedViewModel.cookingModeNotAvailable.observe(viewLifecycleOwner, {
             if (it) {
                 setUiToNoCookingMode()
@@ -59,16 +67,12 @@ class CookingStepsFragment : Fragment() {
         })
     }
 
-    private fun getCookingStepsListFromViewModel(): List<InstructionStep> {
-        return recipeSharedViewModel.recipeData.value!!.instructionSteps
-    }
-
     private fun initCookingStepsRecyclerView(data: List<InstructionStep>) {
         binding.cookingStepsRV.layoutManager = LinearLayoutManager(requireContext())
         binding.cookingStepsRV.adapter = CookingStepsAdapter(data)
     }
 
-    private fun initViewModel() {
+    private fun setViewModelForLayout() {
         binding.viewModel = recipeSharedViewModel
     }
 

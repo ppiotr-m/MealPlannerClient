@@ -11,8 +11,7 @@ import java.io.IOException
 class RecipesByTypeDataSource(
     private val recipeAPI: RecipeAPI,
     private val queryParam: String
-) :
-    PagingSource<Int, MealTimeRecipe>() {
+) : PagingSource<Int, MealTimeRecipe>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MealTimeRecipe> {
 

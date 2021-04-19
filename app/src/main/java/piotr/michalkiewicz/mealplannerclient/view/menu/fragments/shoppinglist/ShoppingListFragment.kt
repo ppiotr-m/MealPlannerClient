@@ -42,6 +42,11 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
     }
 
     private fun setupObservers() {
+        setupObserverForShoppingListItems()
+        setupObserverForIngredientsDeletion()
+    }
+
+    private fun setupObserverForShoppingListItems() {
         shoppingListViewModel.shoppingListItems.observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
                 showEmptyShoppingList()
@@ -49,6 +54,9 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
             }
             initIngedientsRecyclerView(it)
         })
+    }
+
+    private fun setupObserverForIngredientsDeletion() {
         shoppingListViewModel.ingredientsDeletedNotifier.observe(viewLifecycleOwner, {
             if (it) {
                 (binding.recipeIngredientsListView.adapter as BaseAdapter).notifyDataSetChanged()
