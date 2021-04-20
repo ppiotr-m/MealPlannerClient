@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import kotlinx.coroutines.flow.Flow
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTagDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.data_source.RecipesByTypeDataSource
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.datasource.RecipesByDietRemoteMediator
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE_SIZE
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PREFETCH_DISTANCE
 

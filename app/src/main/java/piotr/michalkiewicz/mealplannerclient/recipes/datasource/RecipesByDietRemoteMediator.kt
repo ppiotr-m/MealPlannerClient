@@ -5,10 +5,10 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeItemRemoteKeys
+import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeAPI
 import java.io.IOException
 import java.io.InvalidObjectException
 

@@ -2,8 +2,8 @@ package piotr.michalkiewicz.mealplannerclient.recipes.data_source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPES_STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException

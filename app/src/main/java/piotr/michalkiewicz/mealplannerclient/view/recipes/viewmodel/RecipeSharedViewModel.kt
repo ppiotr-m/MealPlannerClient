@@ -8,17 +8,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
-import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
 import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
+import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.utils.ShoppingListManager
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Event
 
 class RecipeSharedViewModel(
-    private val recipeAPI: RecipeAPI,
-    private val recipesDatabase: RecipesDatabase
+    private val recipeAPI: RecipeAPI
 ) : ViewModel() {
 
     private val MINIMUM_COOKING_STEPS_COUNT_FOR_COOKING_MODE = 3
@@ -26,8 +24,8 @@ class RecipeSharedViewModel(
     private val _recipeData = MutableLiveData<MealTimeRecipe>()
     val recipeData: LiveData<MealTimeRecipe> = _recipeData
 
-    private val _recipeFetchErrorOccurred = MutableLiveData(false)
-    val recipeFeatchErrorOccurred: LiveData<Boolean> = _recipeFetchErrorOccurred
+    private val _recipeFetchErrorOccurred = MutableLiveData<Event>()
+    val recipeFeatchErrorOccurred: LiveData<Event> = _recipeFetchErrorOccurred
 
     //  TODO Should somehow bind it to checkboxes so their state is wired to this list from the beginning
     private val selectedIngredients = mutableListOf<RecipeIngredient>()
@@ -63,6 +61,7 @@ class RecipeSharedViewModel(
     private val _middleStepReached = MutableLiveData<Event>()
     val middleStepReached: LiveData<Event> = _middleStepReached
 
+    //  TODO Add repository with strategy and resource
     fun initialize(recipeId: String) {
         viewModelScope.launch {
             val response = recipeAPI.getRecipeForId(recipeId)
@@ -71,7 +70,7 @@ class RecipeSharedViewModel(
                 prepareThisViewModelForIngredientsFragment()
                 prepareThisViewModelForCookingModeFragment()
             } else {
-                _recipeFetchErrorOccurred.value = true
+                setRecipeFetchErrorOccurred()
             }
         }
     }
@@ -88,6 +87,10 @@ class RecipeSharedViewModel(
         } else {
             disableCookingMode()
         }
+    }
+
+    private fun setRecipeFetchErrorOccurred() {
+        _recipeFetchErrorOccurred.value = Event()
     }
 
     private fun disableCookingMode() {
@@ -149,16 +152,8 @@ class RecipeSharedViewModel(
         setNextStepIfExists()
     }
 
-    private fun setNextStepIfExists() {
-        currentStepIndex += 1
-        if (!isLastStepReached()) {
-            _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
-            setMiddleStep()
-
-        } else {
-            _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
-            setLastStep()
-        }
+    fun goToPreviousStep() {
+        setPreviousStepIfExists()
     }
 
     private fun setFirstStep() {
@@ -173,16 +168,24 @@ class RecipeSharedViewModel(
         _lastStepReached.value = Event()
     }
 
-    private fun isCurrentStepInMiddle(): Boolean {
-        return ((0 < currentStepIndex) && (currentStepIndex < (recipeData.value!!.instructionSteps.size - 1)))
+    private fun isFirstStepReached(): Boolean {
+        return currentStepIndex == 0
     }
 
     private fun isLastStepReached(): Boolean {
         return currentStepIndex >= (recipeData.value!!.instructionSteps.size - 1)
     }
 
-    fun goToPreviousStep() {
-        setPreviousStepIfExists()
+    private fun setNextStepIfExists() {
+        currentStepIndex += 1
+        if (!isLastStepReached()) {
+            _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+            setMiddleStep()
+
+        } else {
+            _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+            setLastStep()
+        }
     }
 
     private fun setPreviousStepIfExists() {
@@ -194,10 +197,6 @@ class RecipeSharedViewModel(
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
             setMiddleStep()
         }
-    }
-
-    private fun isFirstStepReached(): Boolean {
-        return currentStepIndex == 0
     }
 
     companion object {

@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.api
+package piotr.michalkiewicz.mealplannerclient.recipes.remote.api
 
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipesSearchResponse

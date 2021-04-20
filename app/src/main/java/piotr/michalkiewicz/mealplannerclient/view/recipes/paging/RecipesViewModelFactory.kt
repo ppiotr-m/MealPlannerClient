@@ -2,8 +2,8 @@ package piotr.michalkiewicz.mealplannerclient.view.recipes.paging
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.recipes.database.RecipesDatabase
+import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeSharedViewModel
 
 class RecipesViewModelFactory(
@@ -17,7 +17,7 @@ class RecipesViewModelFactory(
             return RecipesSearchViewModel(recipesService, recipesDatabase) as T
         } else if (modelClass.isAssignableFrom(RecipeSharedViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return RecipeSharedViewModel(recipesService, recipesDatabase) as T
+            return RecipeSharedViewModel(recipesService) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -11,6 +11,8 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/recipeDetailViewContainer"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -82,7 +84,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
-                    android:enabled="false"
                     android:text="@string/ingredients"
                     android:onClick="@{(v) -> viewModel.navigateToIngredients()}"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +95,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:enabled="false"
                     android:text="@string/cooking_steps"
                     android:onClick="@{(v) -> viewModel.navigateToCookingSteps()}"
                     app:layout_constraintEnd_toEndOf="parent"

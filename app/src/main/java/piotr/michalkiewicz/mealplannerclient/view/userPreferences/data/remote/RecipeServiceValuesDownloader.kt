@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import piotr.michalkiewicz.mealplannerclient.auth.AuthServiceGenerator
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeServiceApi
+import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeServiceApi
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Resource
 import javax.inject.Inject
 

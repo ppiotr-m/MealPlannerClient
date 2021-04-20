@@ -91,13 +91,13 @@ class RecipeFragment : Fragment() {
 
     private fun setupObserverForRecipeData() {
         viewModel.recipeData.observe(viewLifecycleOwner, {
-            enableButtons()
+            enableView()
         })
     }
 
     private fun setupObserverForRecipeFetchError() {
         viewModel.recipeFeatchErrorOccurred.observe(viewLifecycleOwner, {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 handleRecipeFetchingError()
             }
         })
@@ -119,13 +119,7 @@ class RecipeFragment : Fragment() {
         })
     }
 
-    private fun disableButtons() {
-        binding.goToIngredientsBtn.isEnabled = false
-        binding.goToCookingStepsBtn.isEnabled = false
-    }
-
-    private fun enableButtons() {
-        binding.goToIngredientsBtn.isEnabled = true
-        binding.goToCookingStepsBtn.isEnabled = true
+    private fun enableView() {
+        binding.recipeDetailViewContainer.visibility = View.VISIBLE
     }
 }
