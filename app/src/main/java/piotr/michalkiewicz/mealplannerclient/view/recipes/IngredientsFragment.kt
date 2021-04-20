@@ -19,35 +19,44 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeShared
 class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListener {
 
     private lateinit var binding: FragmentIngredientsBinding
-    private val recipeSharedViewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
-        Injection.provideRecipesViewModelFactory(requireContext())
-    }
+    private lateinit var viewModel: RecipeSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentIngredientsBinding.inflate(inflater)
+        setupDataBinding(inflater)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.lifecycleOwner = viewLifecycleOwner
         init()
     }
 
     private fun init() {
+        viewModel = getViewModel()
         setViewModelForLayout()
-        initIngedientsRecyclerView(recipeSharedViewModel.getRecipeIngredients())
+        initIngedientsRecyclerView(viewModel.getRecipeIngredients())
         setupObservers()
     }
 
+    private fun setupDataBinding(inflater: LayoutInflater) {
+        binding = FragmentIngredientsBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
+    }
+
+    private fun getViewModel(): RecipeSharedViewModel {
+        val viewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
+            Injection.provideRecipesViewModelFactory(requireContext())
+        }
+        return viewModel
+    }
+
     private fun setViewModelForLayout() {
-        binding.viewModel = recipeSharedViewModel
+        binding.viewModel = viewModel
     }
 
     private fun setupObservers() {
@@ -56,19 +65,17 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
     }
 
     private fun setupObserverForNavigateBack() {
-        recipeSharedViewModel.navigateBack.observe(viewLifecycleOwner, {
+        viewModel.navigateBackIngredientsToRecipe.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
                 findNavController().popBackStack()
-                recipeSharedViewModel.resetNavigateBack()   //  TODO Not sure if this is the right solution
             }
         })
     }
 
     private fun setupObserverForAddingEmptyIngredientsList() {
-        recipeSharedViewModel.addingEmptyIngredientsList.observe(viewLifecycleOwner, {
+        viewModel.noIngredientsSelectedAddition.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
                 showNoItemSelectedToast()
-                recipeSharedViewModel.resetAddingToEmptyShoppingList()
             }
         })
     }
@@ -78,13 +85,11 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
             IngredientsListAdapter(requireContext(), data, this)
     }
 
-    //  TODO Wire it to rest of code
     private fun showNoItemSelectedToast() {
         Toast.makeText(requireContext(), R.string.no_ingredient_selected, Toast.LENGTH_SHORT).show()
-
     }
 
     override fun onCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
-        recipeSharedViewModel.recipeIngredientListCheckboxClicked(item, isChecked)
+        viewModel.recipeIngredientListCheckboxClicked(item, isChecked)
     }
 }

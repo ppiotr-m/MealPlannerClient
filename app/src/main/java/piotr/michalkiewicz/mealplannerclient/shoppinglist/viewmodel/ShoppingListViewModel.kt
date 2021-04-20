@@ -19,6 +19,9 @@ class ShoppingListViewModel : ViewModel() {
     private val _ingredientsDeletedNotifier = MutableLiveData<Event>()
     val ingredientsDeletedNotifier: LiveData<Event> = _ingredientsDeletedNotifier
 
+    private val _nothingToDeleteNotifier = MutableLiveData<Event>()
+    val nothingToDeleteNotifier = _nothingToDeleteNotifier
+
     init {
         _shoppingListItems.value =
             shoppingListManager.getShoppingListFromSharedPrefs()
@@ -33,16 +36,24 @@ class ShoppingListViewModel : ViewModel() {
     }
 
     fun deleteSelectedIngredients() {
+        if (selectedIngredients.isEmpty()) {
+            setNothingToDelete()
+            return
+        }
         shoppingListManager.deleteIngredientsFromStoredShoppingList(selectedIngredients)
         selectedIngredients.forEach {
             _shoppingListItems.value!!.remove(it)
         }
         selectedIngredients.clear()
+        setIngredientsDeletedNotifier()
+    }
+
+    private fun setIngredientsDeletedNotifier() {
         _ingredientsDeletedNotifier.value = Event()
     }
 
-    fun resetIngredientsDeletedNotifier() {
-        _ingredientsDeletedNotifier.value = Event()
+    private fun setNothingToDelete() {
+        _nothingToDeleteNotifier.value = Event()
     }
 
     fun isShoppingListEmpty(): Boolean {

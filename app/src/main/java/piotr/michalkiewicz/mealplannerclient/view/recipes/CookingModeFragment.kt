@@ -15,29 +15,31 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeShared
 class CookingModeFragment : Fragment() {
 
     private lateinit var binding: FragmentCookingModeBinding
-    private lateinit var recipeSharedViewModel: RecipeSharedViewModel
-
+    private lateinit var viewModel: RecipeSharedViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCookingModeBinding.inflate(inflater)
+        setupDataBinding(inflater)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.lifecycleOwner = viewLifecycleOwner
         init()
     }
 
     private fun init() {
-        recipeSharedViewModel = getViewModel()
+        viewModel = getViewModel()
         setViewModelForLayout()
         setupObservers()
+    }
+
+    private fun setupDataBinding(inflater: LayoutInflater) {
+        binding = FragmentCookingModeBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun getViewModel(): RecipeSharedViewModel {
@@ -48,43 +50,45 @@ class CookingModeFragment : Fragment() {
     }
 
     private fun setViewModelForLayout() {
-        binding.viewModel = recipeSharedViewModel
+        binding.viewModel = viewModel
     }
 
     private fun setupObservers() {
         setupObserverForIsCurrentStepTheFirst()
         setupObserverForIsLastStepReached()
         setupObserverForCookingModeFinished()
+        setupObserverForMiddleStep()
     }
 
     private fun setupObserverForIsCurrentStepTheFirst() {
-        recipeSharedViewModel.isCurrentStepTheFirst.observe(viewLifecycleOwner, {
-            if (it) {
+        viewModel.firstStepReached.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let {
                 setButtonsForFirstStep()
-            } else {
-                binding.previousStepBtn.visibility = View.VISIBLE
             }
         })
     }
 
     private fun setupObserverForIsLastStepReached() {
-        recipeSharedViewModel.isLastStepReached.observe(viewLifecycleOwner, {
-            if (it) {
+        viewModel.lastStepReached.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let {
                 setButtonsForFinalStep()
-            } else {
-                showNextBtnAndHideFinishBtn()
+            }
+        })
+    }
+
+    private fun setupObserverForMiddleStep() {
+        viewModel.middleStepReached.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let {
+                setButtonsForMiddleStep()
             }
         })
     }
 
     private fun setupObserverForCookingModeFinished() {
-        recipeSharedViewModel.cookingModeFinished.observe(viewLifecycleOwner, {
+        viewModel.cookingModeFinished.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
                 findNavController().popBackStack()
                 setButtonsForFirstStep()
-                recipeSharedViewModel.resetLastStepReached()
-                recipeSharedViewModel.resetIsFirstStep()
-//                recipeSharedViewModel.resetFinishCooking()
             }
         })
     }
@@ -98,8 +102,9 @@ class CookingModeFragment : Fragment() {
         binding.previousStepBtn.visibility = View.GONE
     }
 
-    private fun showNextBtnAndHideFinishBtn() {
+    private fun setButtonsForMiddleStep() {
         binding.nextStepBtn.visibility = View.VISIBLE
+        binding.previousStepBtn.visibility = View.VISIBLE
         binding.cookingModeFinishBtn.visibility = View.GONE
     }
 }

@@ -18,30 +18,33 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeShared
 class CookingStepsFragment : Fragment() {
 
     private lateinit var binding: FragmentCookingStepsBinding
-    private lateinit var recipeSharedViewModel: RecipeSharedViewModel
+    private lateinit var viewModel: RecipeSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCookingStepsBinding.inflate(inflater)
+        setupDataBinding(inflater)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.lifecycleOwner = viewLifecycleOwner
         init()
     }
 
     private fun init() {
-        recipeSharedViewModel = getViewModel()
+        viewModel = getViewModel()
         setViewModelForLayout()
-        initCookingStepsRecyclerView(recipeSharedViewModel.getInstructionSteps())
+        initCookingStepsRecyclerView(viewModel.getInstructionSteps())
         setupObservers()
+    }
+
+    private fun setupDataBinding(inflater: LayoutInflater) {
+        binding = FragmentCookingStepsBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun getViewModel(): RecipeSharedViewModel {
@@ -57,16 +60,15 @@ class CookingStepsFragment : Fragment() {
     }
 
     private fun setupNavigateToCookingModeObserver() {
-        recipeSharedViewModel.navigateToCookingModeFragment.observe(viewLifecycleOwner, {
+        viewModel.navigateToCookingModeFragment.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
-                findNavController().navigate(CookingStepsFragmentDirections.actionCookingStepsFragmentToCookingModeFragment())
-                recipeSharedViewModel.resetNavigationToCookingModeFragment()
+                findNavController().navigate(R.id.action_cookingStepsFragment_to_cookingModeFragment)
             }
         })
     }
 
     private fun setupCookingModeNotAvailableObserver() {
-        recipeSharedViewModel.cookingModeNotAvailable.observe(viewLifecycleOwner, {
+        viewModel.cookingModeNotAvailable.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
                 setUiToNoCookingMode()
             }
@@ -79,7 +81,7 @@ class CookingStepsFragment : Fragment() {
     }
 
     private fun setViewModelForLayout() {
-        binding.viewModel = recipeSharedViewModel
+        binding.viewModel = viewModel
     }
 
     private fun setUiToNoCookingMode() {

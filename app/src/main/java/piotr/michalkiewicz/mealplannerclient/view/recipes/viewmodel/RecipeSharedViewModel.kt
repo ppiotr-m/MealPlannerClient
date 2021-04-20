@@ -26,8 +26,8 @@ class RecipeSharedViewModel(
     private val _recipeData = MutableLiveData<MealTimeRecipe>()
     val recipeData: LiveData<MealTimeRecipe> = _recipeData
 
-    private val _recipeFetchErrorOccurred = MutableLiveData<Event>()
-    val recipeFetchErrorOccurred: LiveData<Event> = _recipeFetchErrorOccurred
+    private val _recipeFetchErrorOccurred = MutableLiveData(false)
+    val recipeFeatchErrorOccurred: LiveData<Boolean> = _recipeFetchErrorOccurred
 
     //  TODO Should somehow bind it to checkboxes so their state is wired to this list from the beginning
     private val selectedIngredients = mutableListOf<RecipeIngredient>()
@@ -44,22 +44,24 @@ class RecipeSharedViewModel(
     private val _cookingModeFinished = MutableLiveData<Event>()
     val cookingModeFinished: LiveData<Event> = _cookingModeFinished
 
-    private val _navigateBack = MutableLiveData<Event>()
-    val navigateBack: LiveData<Event> = _navigateBack
+    private val _navigateBackIngredientsToRecipe = MutableLiveData<Event>()
+    val navigateBackIngredientsToRecipe: LiveData<Event> = _navigateBackIngredientsToRecipe
 
-    private val _addingEmptyIngredientsList = MutableLiveData<Event>()
-    val addingEmptyIngredientsList: LiveData<Event> = _addingEmptyIngredientsList
+    private val _noIngredientsSelectedAddition = MutableLiveData<Event>()
+    val noIngredientsSelectedAddition: LiveData<Event> = _noIngredientsSelectedAddition
 
     private val _cookingModeNotAvailable = MutableLiveData<Event>()
     val cookingModeNotAvailable: LiveData<Event> = _cookingModeNotAvailable
 
-    private val _isLastStepReached = MutableLiveData(false)
-    val isLastStepReached: LiveData<Boolean> = _isLastStepReached
     private var currentStepIndex = 0
     private val _currentCookingStep = MutableLiveData<InstructionStep>()
     val currentCookingStep: LiveData<InstructionStep> = _currentCookingStep
-    private val _isCurrentStepTheFirst = MutableLiveData(true)
-    val isCurrentStepTheFirst: LiveData<Boolean> = _isCurrentStepTheFirst
+    private val _lastStepReached = MutableLiveData<Event>()
+    val lastStepReached: LiveData<Event> = _lastStepReached
+    private val _firstStepReached = MutableLiveData<Event>()
+    val firstStepReached: LiveData<Event> = _firstStepReached
+    private val _middleStepReached = MutableLiveData<Event>()
+    val middleStepReached: LiveData<Event> = _middleStepReached
 
     fun initialize(recipeId: String) {
         viewModelScope.launch {
@@ -69,27 +71,9 @@ class RecipeSharedViewModel(
                 prepareThisViewModelForIngredientsFragment()
                 prepareThisViewModelForCookingModeFragment()
             } else {
-                _recipeFetchErrorOccurred.value = Event()
+                _recipeFetchErrorOccurred.value = true
             }
         }
-    }
-
-    fun getInstructionSteps(): List<InstructionStep> {
-        return recipeData.value!!.instructionSteps
-    }
-
-    fun getRecipeIngredients(): List<RecipeIngredient> {
-        return recipeData.value!!.recipeIngredients
-    }
-
-    fun saveItemsToShoppingListAndReturn() {
-        if (selectedIngredients.isEmpty()) {
-            _addingEmptyIngredientsList.value = Event()
-            return
-        }
-        val shoppingListManager = ShoppingListManager()
-        shoppingListManager.saveIngredientsToStoredShoppingList(selectedIngredients)
-        _navigateBack.value = Event()
     }
 
     private fun prepareThisViewModelForIngredientsFragment() {
@@ -102,8 +86,34 @@ class RecipeSharedViewModel(
             _currentCookingStep.value =
                 recipeData.value!!.instructionSteps[currentStepIndex]  //  TODO Consider handling this (IndexOufOfBoundsException)
         } else {
-            _cookingModeNotAvailable.value = Event()
+            disableCookingMode()
         }
+    }
+
+    private fun disableCookingMode() {
+        _cookingModeNotAvailable.value = Event()
+    }
+
+    fun getInstructionSteps(): List<InstructionStep> {
+        return recipeData.value!!.instructionSteps
+    }
+
+    fun getRecipeIngredients(): List<RecipeIngredient> {
+        return recipeData.value!!.recipeIngredients
+    }
+
+    fun saveItemsToShoppingListAndReturn() {
+        if (selectedIngredients.isEmpty()) {
+            noIngredientsSelected()
+            return
+        }
+        val shoppingListManager = ShoppingListManager()
+        shoppingListManager.saveIngredientsToStoredShoppingList(selectedIngredients)
+        navigateBackIngredientsToRecipe()
+    }
+
+    private fun noIngredientsSelected() {
+        _noIngredientsSelectedAddition.value = Event()
     }
 
     fun recipeIngredientListCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
@@ -114,35 +124,19 @@ class RecipeSharedViewModel(
         }
     }
 
-    fun resetNavigateBack() {
-        _navigateBack.value = Event()
+    private fun navigateBackIngredientsToRecipe() {
+        _navigateBackIngredientsToRecipe.value = Event()
     }
 
     fun navigateToIngredients() {
         _navigateToIngredientsFragment.value = Event()
     }
 
-    fun resetNavigationToIngredientsFragment() {
-        _navigateToIngredientsFragment.value = Event()
-    }
-
-    fun resetAddingToEmptyShoppingList() {
-        _addingEmptyIngredientsList.value = Event()
-    }
-
     fun navigateToCookingSteps() {
         _navigateToCookingStepsFragment.value = Event()
     }
 
-    fun resetNavigationToCookingStepsFragment() {
-        _navigateToCookingStepsFragment.value = Event()
-    }
-
     fun navigateToCookingMode() {
-        _navigateToCookingModeFragment.value = Event()
-    }
-
-    fun resetNavigationToCookingModeFragment() {
         _navigateToCookingModeFragment.value = Event()
     }
 
@@ -151,54 +145,54 @@ class RecipeSharedViewModel(
         prepareThisViewModelForCookingModeFragment()
     }
 
-//    fun resetFinishCooking() {
-//        _cookingModeFinished.value = Event()
-//    }
-
-//    fun resetCookingModeFinished() {
-//        _cookingModeFinished.value = Event()
-//    }
-
     fun goToNextStep() {
         setNextStepIfExists()
-        _isCurrentStepTheFirst.value = false
     }
 
     private fun setNextStepIfExists() {
         currentStepIndex += 1
         if (!isLastStepReached()) {
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+            setMiddleStep()
 
         } else {
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
-            _isLastStepReached.value = true
+            setLastStep()
         }
+    }
+
+    private fun setFirstStep() {
+        _firstStepReached.value = Event()
+    }
+
+    private fun setMiddleStep() {
+        _middleStepReached.value = Event()
+    }
+
+    private fun setLastStep() {
+        _lastStepReached.value = Event()
+    }
+
+    private fun isCurrentStepInMiddle(): Boolean {
+        return ((0 < currentStepIndex) && (currentStepIndex < (recipeData.value!!.instructionSteps.size - 1)))
     }
 
     private fun isLastStepReached(): Boolean {
         return currentStepIndex >= (recipeData.value!!.instructionSteps.size - 1)
     }
 
-    fun resetIsFirstStep() {
-        _isCurrentStepTheFirst.value = true
-    }
-
-    fun resetLastStepReached() {
-        _isLastStepReached.value = false
-    }
-
     fun goToPreviousStep() {
         setPreviousStepIfExists()
-        _isLastStepReached.value = false
     }
 
     private fun setPreviousStepIfExists() {
         currentStepIndex -= 1
         if (isFirstStepReached()) {
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
-            _isCurrentStepTheFirst.value = true
+            setFirstStep()
         } else {
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]
+            setMiddleStep()
         }
     }
 

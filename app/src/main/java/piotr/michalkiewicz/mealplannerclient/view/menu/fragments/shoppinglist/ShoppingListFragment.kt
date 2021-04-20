@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.databinding.FragmentShoppingListBinding
 import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
@@ -24,16 +26,19 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentShoppingListBinding.inflate(inflater)
+        setupDataBinding(inflater)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.lifecycleOwner = viewLifecycleOwner
         init()
+    }
+
+    private fun setupDataBinding(inflater: LayoutInflater) {
+        binding = FragmentShoppingListBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun init() {
@@ -44,6 +49,7 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
     private fun setupObservers() {
         setupObserverForShoppingListItems()
         setupObserverForIngredientsDeletion()
+        setupObserverForNothingToDelete()
     }
 
     private fun setupObserverForShoppingListItems() {
@@ -60,11 +66,16 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
         shoppingListViewModel.ingredientsDeletedNotifier.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
                 (binding.recipeIngredientsListView.adapter as BaseAdapter).notifyDataSetChanged()
-                shoppingListViewModel.resetIngredientsDeletedNotifier()
                 if (shoppingListViewModel.isShoppingListEmpty()) {
                     showEmptyShoppingList()
                 }
             }
+        })
+    }
+
+    private fun setupObserverForNothingToDelete() {
+        shoppingListViewModel.nothingToDeleteNotifier.observe(viewLifecycleOwner, {
+            showNothingToDeleteToast()
         })
     }
 
@@ -91,4 +102,9 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
     override fun onCheckboxClicked(item: RecipeIngredient, isChecked: Boolean) {
         shoppingListViewModel.ingredientCheckboxClicked(item, isChecked)
     }
+
+    private fun showNothingToDeleteToast() {
+        Toast.makeText(requireContext(), R.string.no_ingredient_selected, Toast.LENGTH_SHORT).show()
+    }
 }
+

@@ -16,7 +16,7 @@ class IngredientsListAdapter(
     private val onCheckboxClickListener: RecipeIngredientListOnCheckedChangeListener
 ) : ArrayAdapter<RecipeIngredient>(context, REDUNDANT_LAYOUT_ID, data) {
 
-    private val checkBoxesStateMaintainerList: MutableList<RecipeIngredient> = mutableListOf()
+    private val checkBoxesStateMaintainerList: MutableList<RecipeIngredient> = data.toMutableList()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding =
@@ -33,9 +33,8 @@ class IngredientsListAdapter(
         listItem: RecipeIngredient,
         binding: ListItemIngredientBinding
     ) {
-        if (checkBoxesStateMaintainerList.contains(listItem)) {
-            binding.recipeIngredientListItemCB.isChecked = true
-        }
+        binding.recipeIngredientListItemCB.isChecked =
+            checkBoxesStateMaintainerList.contains(listItem)
     }
 
     private fun setCheckboxStateListener(
