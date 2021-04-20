@@ -58,7 +58,7 @@ class ShoppingListFragment : Fragment(), RecipeIngredientListOnCheckedChangeList
 
     private fun setupObserverForIngredientsDeletion() {
         shoppingListViewModel.ingredientsDeletedNotifier.observe(viewLifecycleOwner, {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 (binding.recipeIngredientsListView.adapter as BaseAdapter).notifyDataSetChanged()
                 shoppingListViewModel.resetIngredientsDeletedNotifier()
                 if (shoppingListViewModel.isShoppingListEmpty()) {

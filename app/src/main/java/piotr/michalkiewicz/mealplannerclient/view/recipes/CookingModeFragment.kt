@@ -15,9 +15,7 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeShared
 class CookingModeFragment : Fragment() {
 
     private lateinit var binding: FragmentCookingModeBinding
-    private val recipeSharedViewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
-        Injection.provideRecipesViewModelFactory(requireContext())
-    }
+    private lateinit var recipeSharedViewModel: RecipeSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,11 +35,19 @@ class CookingModeFragment : Fragment() {
     }
 
     private fun init() {
-        initViewModel()
+        recipeSharedViewModel = getViewModel()
+        setViewModelForLayout()
         setupObservers()
     }
 
-    private fun initViewModel() {
+    private fun getViewModel(): RecipeSharedViewModel {
+        val viewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
+            Injection.provideRecipesViewModelFactory(requireContext())
+        }
+        return viewModel
+    }
+
+    private fun setViewModelForLayout() {
         binding.viewModel = recipeSharedViewModel
     }
 
@@ -73,12 +79,12 @@ class CookingModeFragment : Fragment() {
 
     private fun setupObserverForCookingModeFinished() {
         recipeSharedViewModel.cookingModeFinished.observe(viewLifecycleOwner, {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 findNavController().popBackStack()
                 setButtonsForFirstStep()
                 recipeSharedViewModel.resetLastStepReached()
                 recipeSharedViewModel.resetIsFirstStep()
-                recipeSharedViewModel.resetFinishCooking()
+//                recipeSharedViewModel.resetFinishCooking()
             }
         })
     }

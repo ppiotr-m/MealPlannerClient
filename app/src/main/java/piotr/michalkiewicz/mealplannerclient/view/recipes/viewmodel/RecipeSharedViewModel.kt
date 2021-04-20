@@ -1,7 +1,6 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel
 
 import android.graphics.Bitmap
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
@@ -15,7 +14,7 @@ import piotr.michalkiewicz.mealplannerclient.recipes.model.InstructionStep
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.utils.ShoppingListManager
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.TAG
+import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Event
 
 class RecipeSharedViewModel(
     private val recipeAPI: RecipeAPI,
@@ -27,32 +26,32 @@ class RecipeSharedViewModel(
     private val _recipeData = MutableLiveData<MealTimeRecipe>()
     val recipeData: LiveData<MealTimeRecipe> = _recipeData
 
-    private val _recipeFetchErrorOccurred = MutableLiveData(false)
-    val recipeFeatchErrorOccurred: LiveData<Boolean> = _recipeFetchErrorOccurred
+    private val _recipeFetchErrorOccurred = MutableLiveData<Event>()
+    val recipeFetchErrorOccurred: LiveData<Event> = _recipeFetchErrorOccurred
 
     //  TODO Should somehow bind it to checkboxes so their state is wired to this list from the beginning
     private val selectedIngredients = mutableListOf<RecipeIngredient>()
 
-    private val _navigateToIngredientsFragment = MutableLiveData(false)
-    val navigateToIngredientsFragment: LiveData<Boolean> = _navigateToIngredientsFragment
+    private val _navigateToIngredientsFragment = MutableLiveData<Event>()
+    val navigateToIngredientsFragment: LiveData<Event> = _navigateToIngredientsFragment
 
-    private val _navigateToCookingStepsFragment = MutableLiveData(false)
-    val navigateToCookingStepsFragment: LiveData<Boolean> = _navigateToCookingStepsFragment
+    private val _navigateToCookingStepsFragment = MutableLiveData<Event>()
+    val navigateToCookingStepsFragment: LiveData<Event> = _navigateToCookingStepsFragment
 
-    private val _navigateToCookingModeFragment = MutableLiveData(false)
-    val navigateToCookingModeFragment: LiveData<Boolean> = _navigateToCookingModeFragment
+    private val _navigateToCookingModeFragment = MutableLiveData<Event>()
+    val navigateToCookingModeFragment: LiveData<Event> = _navigateToCookingModeFragment
 
-    private val _cookingModeFinished = MutableLiveData(false)
-    val cookingModeFinished: LiveData<Boolean> = _cookingModeFinished
+    private val _cookingModeFinished = MutableLiveData<Event>()
+    val cookingModeFinished: LiveData<Event> = _cookingModeFinished
 
-    private val _navigateBack = MutableLiveData(false)
-    val navigateBack: LiveData<Boolean> = _navigateBack
+    private val _navigateBack = MutableLiveData<Event>()
+    val navigateBack: LiveData<Event> = _navigateBack
 
-    private val _addingEmptyIngredientsList = MutableLiveData(false)
-    val addingEmptyIngredientsList: LiveData<Boolean> = _addingEmptyIngredientsList
+    private val _addingEmptyIngredientsList = MutableLiveData<Event>()
+    val addingEmptyIngredientsList: LiveData<Event> = _addingEmptyIngredientsList
 
-    private val _cookingModeNotAvailable = MutableLiveData<Boolean>(false)
-    val cookingModeNotAvailable = _cookingModeNotAvailable
+    private val _cookingModeNotAvailable = MutableLiveData<Event>()
+    val cookingModeNotAvailable: LiveData<Event> = _cookingModeNotAvailable
 
     private val _isLastStepReached = MutableLiveData(false)
     val isLastStepReached: LiveData<Boolean> = _isLastStepReached
@@ -70,7 +69,7 @@ class RecipeSharedViewModel(
                 prepareThisViewModelForIngredientsFragment()
                 prepareThisViewModelForCookingModeFragment()
             } else {
-                _recipeFetchErrorOccurred.value = true
+                _recipeFetchErrorOccurred.value = Event()
             }
         }
     }
@@ -85,12 +84,12 @@ class RecipeSharedViewModel(
 
     fun saveItemsToShoppingListAndReturn() {
         if (selectedIngredients.isEmpty()) {
-            _addingEmptyIngredientsList.value = true
+            _addingEmptyIngredientsList.value = Event()
             return
         }
         val shoppingListManager = ShoppingListManager()
         shoppingListManager.saveIngredientsToStoredShoppingList(selectedIngredients)
-        _navigateBack.value = true
+        _navigateBack.value = Event()
     }
 
     private fun prepareThisViewModelForIngredientsFragment() {
@@ -103,7 +102,7 @@ class RecipeSharedViewModel(
             _currentCookingStep.value =
                 recipeData.value!!.instructionSteps[currentStepIndex]  //  TODO Consider handling this (IndexOufOfBoundsException)
         } else {
-            _cookingModeNotAvailable.value = true
+            _cookingModeNotAvailable.value = Event()
         }
     }
 
@@ -116,49 +115,49 @@ class RecipeSharedViewModel(
     }
 
     fun resetNavigateBack() {
-        _navigateBack.value = false
+        _navigateBack.value = Event()
     }
 
     fun navigateToIngredients() {
-        _navigateToIngredientsFragment.value = true
+        _navigateToIngredientsFragment.value = Event()
     }
 
     fun resetNavigationToIngredientsFragment() {
-        _navigateToIngredientsFragment.value = false
+        _navigateToIngredientsFragment.value = Event()
     }
 
     fun resetAddingToEmptyShoppingList() {
-        _addingEmptyIngredientsList.value = false
+        _addingEmptyIngredientsList.value = Event()
     }
 
     fun navigateToCookingSteps() {
-        _navigateToCookingStepsFragment.value = true
+        _navigateToCookingStepsFragment.value = Event()
     }
 
     fun resetNavigationToCookingStepsFragment() {
-        _navigateToCookingStepsFragment.value = false
+        _navigateToCookingStepsFragment.value = Event()
     }
 
     fun navigateToCookingMode() {
-        _navigateToCookingModeFragment.value = true
+        _navigateToCookingModeFragment.value = Event()
     }
 
     fun resetNavigationToCookingModeFragment() {
-        _navigateToCookingModeFragment.value = false
+        _navigateToCookingModeFragment.value = Event()
     }
 
     fun finishCookingMode() {
-        _cookingModeFinished.value = true
+        _cookingModeFinished.value = Event()
         prepareThisViewModelForCookingModeFragment()
     }
 
-    fun resetFinishCooking() {
-        _cookingModeFinished.value = false
-    }
+//    fun resetFinishCooking() {
+//        _cookingModeFinished.value = Event()
+//    }
 
-    fun resetCookingModeFinished() {
-        _cookingModeFinished.value = false
-    }
+//    fun resetCookingModeFinished() {
+//        _cookingModeFinished.value = Event()
+//    }
 
     fun goToNextStep() {
         setNextStepIfExists()
@@ -166,7 +165,6 @@ class RecipeSharedViewModel(
     }
 
     private fun setNextStepIfExists() {
-        Log.d(TAG, "Setting next step if exists, current step index: " + currentStepIndex)
         currentStepIndex += 1
         if (!isLastStepReached()) {
             _currentCookingStep.value = recipeData.value!!.instructionSteps[currentStepIndex]

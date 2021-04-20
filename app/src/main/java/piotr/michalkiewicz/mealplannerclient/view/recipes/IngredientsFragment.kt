@@ -57,7 +57,7 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
 
     private fun setupObserverForNavigateBack() {
         recipeSharedViewModel.navigateBack.observe(viewLifecycleOwner, {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 findNavController().popBackStack()
                 recipeSharedViewModel.resetNavigateBack()   //  TODO Not sure if this is the right solution
             }
@@ -66,7 +66,7 @@ class IngredientsFragment : Fragment(), RecipeIngredientListOnCheckedChangeListe
 
     private fun setupObserverForAddingEmptyIngredientsList() {
         recipeSharedViewModel.addingEmptyIngredientsList.observe(viewLifecycleOwner, {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 showNoItemSelectedToast()
                 recipeSharedViewModel.resetAddingToEmptyShoppingList()
             }

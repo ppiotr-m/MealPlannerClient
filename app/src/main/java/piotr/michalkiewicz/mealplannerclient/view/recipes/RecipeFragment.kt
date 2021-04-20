@@ -16,9 +16,7 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeShared
 class RecipeFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipeBinding
-    private val recipeSharedViewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
-        Injection.provideRecipesViewModelFactory(requireContext())
-    }
+    private lateinit var recipeSharedViewModel: RecipeSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +36,7 @@ class RecipeFragment : Fragment() {
     }
 
     private fun init() {
+        recipeSharedViewModel = getViewModel()
         setupViewModelForLayout()
         setDataForViewModel()
         setupObservers()
@@ -56,6 +55,13 @@ class RecipeFragment : Fragment() {
         binding.viewModel = recipeSharedViewModel
     }
 
+    private fun getViewModel(): RecipeSharedViewModel {
+        val viewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
+            Injection.provideRecipesViewModelFactory(requireContext())
+        }
+        return viewModel
+    }
+
     private fun retriveRecipeIdPassedWithNavigation(): String? {
         return arguments?.getString("recipeId")
     }
@@ -66,7 +72,6 @@ class RecipeFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    //  TODO Implement specific logic
     private fun handleRecipeFetchingError() {
         Toast.makeText(requireContext(), R.string.recipe_fetch_error, Toast.LENGTH_LONG)
             .show()
@@ -87,8 +92,8 @@ class RecipeFragment : Fragment() {
     }
 
     private fun setupObserverForRecipeFetchError() {
-        recipeSharedViewModel.recipeFeatchErrorOccurred.observe(viewLifecycleOwner, {
-            if (it) {
+        recipeSharedViewModel.recipeFetchErrorOccurred.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let {
                 handleRecipeFetchingError()
             }
         })
@@ -96,18 +101,18 @@ class RecipeFragment : Fragment() {
 
     private fun setupObserverForNavigationToIngredientsFragment() {
         recipeSharedViewModel.navigateToIngredientsFragment.observe(viewLifecycleOwner, {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 recipeSharedViewModel.resetNavigationToIngredientsFragment()
-                findNavController().navigate(R.id.action_recipeFragment_to_ingredientsFragment)
+                findNavController().navigate(RecipeFragmentDirections.actionRecipeFragmentToIngredientsFragment())
             }
         })
     }
 
     private fun setupObserverForNavigationToCookingStepsFragment() {
         recipeSharedViewModel.navigateToCookingStepsFragment.observe(viewLifecycleOwner, {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 recipeSharedViewModel.resetNavigationToCookingStepsFragment()
-                findNavController().navigate(R.id.action_recipeFragment_to_cookingStepsFragment)
+                findNavController().navigate(RecipeFragmentDirections.actionRecipeFragmentToCookingStepsFragment())
             }
         })
     }

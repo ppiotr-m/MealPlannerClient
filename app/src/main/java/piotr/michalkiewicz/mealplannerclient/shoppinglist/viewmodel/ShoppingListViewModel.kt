@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipeIngredient
 import piotr.michalkiewicz.mealplannerclient.shoppinglist.utils.ShoppingListManager
+import piotr.michalkiewicz.mealplannerclient.view.userPreferences.utils.Event
 
 class ShoppingListViewModel : ViewModel() {
 
@@ -15,8 +16,8 @@ class ShoppingListViewModel : ViewModel() {
 
     private val selectedIngredients = mutableListOf<RecipeIngredient>()
 
-    private val _ingredientsDeletedNotifier = MutableLiveData(false)
-    val ingredientsDeletedNotifier: LiveData<Boolean> = _ingredientsDeletedNotifier
+    private val _ingredientsDeletedNotifier = MutableLiveData<Event>()
+    val ingredientsDeletedNotifier: LiveData<Event> = _ingredientsDeletedNotifier
 
     init {
         _shoppingListItems.value =
@@ -37,11 +38,11 @@ class ShoppingListViewModel : ViewModel() {
             _shoppingListItems.value!!.remove(it)
         }
         selectedIngredients.clear()
-        _ingredientsDeletedNotifier.value = true
+        _ingredientsDeletedNotifier.value = Event()
     }
 
     fun resetIngredientsDeletedNotifier() {
-        _ingredientsDeletedNotifier.value = false
+        _ingredientsDeletedNotifier.value = Event()
     }
 
     fun isShoppingListEmpty(): Boolean {

@@ -18,9 +18,7 @@ import piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeShared
 class CookingStepsFragment : Fragment() {
 
     private lateinit var binding: FragmentCookingStepsBinding
-    private val recipeSharedViewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
-        Injection.provideRecipesViewModelFactory(requireContext())
-    }
+    private lateinit var recipeSharedViewModel: RecipeSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +38,17 @@ class CookingStepsFragment : Fragment() {
     }
 
     private fun init() {
+        recipeSharedViewModel = getViewModel()
         setViewModelForLayout()
         initCookingStepsRecyclerView(recipeSharedViewModel.getInstructionSteps())
         setupObservers()
+    }
+
+    private fun getViewModel(): RecipeSharedViewModel {
+        val viewModel: RecipeSharedViewModel by navGraphViewModels(R.id.recipeNavGraph) {
+            Injection.provideRecipesViewModelFactory(requireContext())
+        }
+        return viewModel
     }
 
     private fun setupObservers() {
@@ -52,8 +58,8 @@ class CookingStepsFragment : Fragment() {
 
     private fun setupNavigateToCookingModeObserver() {
         recipeSharedViewModel.navigateToCookingModeFragment.observe(viewLifecycleOwner, {
-            if (it) {
-                findNavController().navigate(R.id.action_cookingStepsFragment_to_cookingModeFragment)
+            it.getContentIfNotHandled()?.let {
+                findNavController().navigate(CookingStepsFragmentDirections.actionCookingStepsFragmentToCookingModeFragment())
                 recipeSharedViewModel.resetNavigationToCookingModeFragment()
             }
         })
@@ -61,7 +67,7 @@ class CookingStepsFragment : Fragment() {
 
     private fun setupCookingModeNotAvailableObserver() {
         recipeSharedViewModel.cookingModeNotAvailable.observe(viewLifecycleOwner, {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 setUiToNoCookingMode()
             }
         })
