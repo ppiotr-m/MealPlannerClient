@@ -228,5 +228,7 @@
     <string name="user_preferences_graph_name">User Preferences</string>
     <string name="confirm_btn_alt_text">Approve and Exit</string>
     <string name="meal_per_plan_label">Meals per plan</string>
-
+    <string name="general_unexpected_error">Ups, something went wrong.</string>
+    <string name="recipe_fetch_error">Error occurred while fetching recipe data</string>
+    <string name="shopping_list_empty">Shopping list is empty.</string>
 </resources>

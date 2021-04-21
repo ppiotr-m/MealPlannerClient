@@ -12,8 +12,8 @@ object FieldsValidation {
     }
 
     fun validatePassword(password: String): Boolean {
-        if (password.length > ConstantValues.MIN_PASSWORD_LENGTH ||
-            password.length < ConstantValues.MAX_PASSWORD_LENGTH
+        if (password.length >= ConstantValues.MIN_PASSWORD_LENGTH ||
+            password.length <= ConstantValues.MAX_PASSWORD_LENGTH
         ) return true
         return false
     }

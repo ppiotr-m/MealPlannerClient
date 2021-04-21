@@ -1,15 +1,16 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.api
+package piotr.michalkiewicz.mealplannerclient.recipes.remote.api
 
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.model.RecipesSearchResponse
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RecipeAPI {
 
     @GET("/recipes/getById")
-    fun getRecipeForId(@Query("id") recipeId: String): Call<MealTimeRecipe>
+    suspend fun getRecipeForId(@Query("id") recipeId: String): Response<MealTimeRecipe>
 
     @GET("/recipes/getByDiet")
     fun getRecipeForDiet(@Query("recipeDiet") dietType: String): Call<List<MealTimeRecipe>>

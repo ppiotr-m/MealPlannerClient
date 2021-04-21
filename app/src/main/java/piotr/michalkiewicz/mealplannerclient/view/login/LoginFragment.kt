@@ -98,7 +98,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun validateCredentials(): Boolean {
-        if (validateEmail(emailET.toString()) && validatePassword(passwordET.toString())) return true
+        if (validateEmail(emailET.text.toString()) && validatePassword(passwordET.text.toString())) return true
         showInvalidCredentialsToast()
         return false
     }

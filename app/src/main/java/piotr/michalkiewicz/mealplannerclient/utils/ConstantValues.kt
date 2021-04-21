@@ -5,10 +5,12 @@ import android.graphics.Color
 class ConstantValues {
     companion object {
         //DEV cieniu local host
-//        const val BASE_URL = "http://192.168.1.10:8080"
+        const val BASE_URL = "http://192.168.1.10:8080"
+        //DEV cieniu work
+//        const val BASE_URL = "http://10.0.0.4:8080"
 
         //Bartu localhost
-        const val BASE_URL = "https://meal-time-test.herokuapp.com/"
+//        const val BASE_URL = "https://meal-time-test.herokuapp.com/"
 
         //Kolej localhost
         //const val BASE_URL = "http://10.0.2.2:8080/"
@@ -25,8 +27,8 @@ class ConstantValues {
         const val INGREDIENTS_DATA = "ingredients"
         const val COOKING_STEPS_DATA = "cooking_steps"
         const val RECORD_AUDIO_REQUEST_CODE = 433
-        const val MIN_EMAIL_LENGTH = 6
-        const val MIN_PASSWORD_LENGTH = 6
+        const val MIN_EMAIL_LENGTH = 4
+        const val MIN_PASSWORD_LENGTH = 4
         const val MAX_PASSWORD_LENGTH = 50
         val EMAIL_REGEX =
             Regex("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
@@ -40,5 +42,7 @@ class ConstantValues {
         const val PAGE_SIZE = 5
         const val PREFETCH_DISTANCE = 5
         const val RECIPES_STARTING_PAGE_INDEX = 0
+
+        const val REDUNDANT_LAYOUT_ID = -1
     }
 }

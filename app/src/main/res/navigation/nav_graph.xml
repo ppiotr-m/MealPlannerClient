@@ -42,10 +42,18 @@
         android:id="@+id/cookbookScreenFragment"
         android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.CookbookScreenFragment"
         android:label="fragment_cookbook_screen"
-        tools:layout="@layout/fragment_cookbook_screen" />
+        tools:layout="@layout/fragment_cookbook_screen">
+        <action
+            android:id="@+id/action_cookbookScreenFragment_to_recipeFragment"
+            app:destination="@id/recipeNavGraph">
+            <argument
+                android:name="recipeId"
+                app:argType="string" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/shoppingListFragment"
-        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.ShoppingListFragment"
+        android:name="piotr.michalkiewicz.mealplannerclient.view.menu.fragments.shoppinglist.ShoppingListFragment"
         android:label="fragment_shopping_list"
         tools:layout="@layout/fragment_shopping_list" />
     <fragment
@@ -277,5 +285,38 @@
         <argument
             android:name="originOfNavigation"
             android:defaultValue="UserPreferences" />
+    </navigation>
+    <navigation
+        android:id="@+id/recipeNavGraph"
+        app:startDestination="@id/recipeFragment">
+        <fragment
+            android:id="@+id/cookingModeFragment"
+            android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.CookingModeFragment"
+            android:label="CookingModeFragment" />
+        <fragment
+            android:id="@+id/cookingStepsFragment"
+            android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.CookingStepsFragment"
+            android:label="CookingStepsFragment">
+            <action
+                android:id="@+id/action_cookingStepsFragment_to_cookingModeFragment"
+                app:destination="@id/cookingModeFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/ingredientsFragment"
+            android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.IngredientsFragment"
+            android:label="fragment_ingredients"
+            tools:layout="@layout/fragment_ingredients" />
+        <fragment
+            android:id="@+id/recipeFragment"
+            android:name="piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeFragment"
+            android:label="fragment_recipe"
+            tools:layout="@layout/fragment_recipe">
+            <action
+                android:id="@+id/action_recipeFragment_to_ingredientsFragment"
+                app:destination="@id/ingredientsFragment" />
+            <action
+                android:id="@+id/action_recipeFragment_to_cookingStepsFragment"
+                app:destination="@id/cookingStepsFragment" />
+        </fragment>
     </navigation>
 </navigation>

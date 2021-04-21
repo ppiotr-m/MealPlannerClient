@@ -1,4 +1,4 @@
-package piotr.michalkiewicz.mealplannerclient.recipes.api
+package piotr.michalkiewicz.mealplannerclient.recipes.remote.api
 
 import retrofit2.Call
 import retrofit2.Response

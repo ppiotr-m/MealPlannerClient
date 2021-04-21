@@ -5,8 +5,10 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.interfaces.CookbookItemOnClickListener
 
-class RecipesAdapter : PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
+class RecipesAdapter(val onItemClickListener: CookbookItemOnClickListener) :
+    PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return RecipeViewHolder.create(parent)
@@ -15,7 +17,7 @@ class RecipesAdapter : PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val repoItem = getItem(position)
         if (repoItem != null) {
-            (holder as RecipeViewHolder).bind(repoItem)
+            (holder as RecipeViewHolder).bind(repoItem, onItemClickListener)
         }
     }
 

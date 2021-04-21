@@ -12,8 +12,8 @@ import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import piotr.michalkiewicz.mealplannerclient.auth.authenticator.AuthAuthenticator
 import piotr.michalkiewicz.mealplannerclient.auth.interceptor.AuthInterceptor
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeServiceApi
 import piotr.michalkiewicz.mealplannerclient.recipes.model.conversion.BinaryToBitmapConverter
+import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeServiceApi
 import piotr.michalkiewicz.mealplannerclient.user.api.UserAPI
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues
 import piotr.michalkiewicz.mealplannerclient.view.userPreferences.data.remote.BaseDataSource

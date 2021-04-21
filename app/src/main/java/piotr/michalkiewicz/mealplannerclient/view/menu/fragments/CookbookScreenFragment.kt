@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,15 +22,17 @@ import piotr.michalkiewicz.mealplannerclient.recipes.Injection
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesAdapter
 import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.RecipesSearchViewModel
+import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.interfaces.CookbookItemOnClickListener
 
-
-class CookbookScreenFragment : Fragment() {
+class CookbookScreenFragment : Fragment(), CookbookItemOnClickListener {
 
     private lateinit var binding: FragmentCookbookScreenBinding
     private lateinit var viewModel: RecipesSearchViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_cookbook_screen, container, false)
     }
 
@@ -38,16 +41,16 @@ class CookbookScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentCookbookScreenBinding.inflate(layoutInflater)
+        initViewModel()
+        initRecipeRecyclerViews()
+    }
 
+    private fun initViewModel() {
         viewModel = ViewModelProvider(
             this,
-            Injection.provideViewModelFactory(
-                requireContext().applicationContext
-            )
-        )
-            .get(RecipesSearchViewModel::class.java)
+            Injection.provideRecipesViewModelFactory(requireContext().applicationContext)
+        ).get(RecipesSearchViewModel::class.java)
 
-        initRecipeRecyclerViews()
     }
 
     @ExperimentalPagingApi
@@ -95,17 +98,6 @@ class CookbookScreenFragment : Fragment() {
         }
     }
 
-    private fun launchCoroutineAllRecipesForRecyclerView(recyclerView: RecyclerView) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.allRecipesApiData().collect {
-                it.let {
-                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
-                            .submitData(it)
-                }
-            }
-        }
-    }
-
     private fun createHorizontalRecipesList(labelText: String): View {
         val root = layoutInflater.inflate(R.layout.horizontal_recipes_list,
                 recipesByCategoriesLayoutContainer, true) as ViewGroup
@@ -121,7 +113,7 @@ class CookbookScreenFragment : Fragment() {
             view.findViewById<RecyclerView>(R.id.recipesHorizontalRecyclerView)
         horizontalRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        horizontalRecyclerView.adapter = RecipesAdapter()
+        horizontalRecyclerView.adapter = RecipesAdapter(this)
 
         return view
     }
@@ -147,6 +139,17 @@ class CookbookScreenFragment : Fragment() {
                     .findViewById(R.id.recipesHorizontalRecyclerView), categoryValue
             )
         }
+    }
 
+    override fun onItemClicked(recipeId: String) {
+        navigateToRecipeFragment(recipeId)
+    }
+
+    private fun navigateToRecipeFragment(recipeId: String) {
+        val directions =
+            CookbookScreenFragmentDirections.actionCookbookScreenFragmentToRecipeFragment(
+                recipeId
+            )
+        findNavController().navigate(directions)
     }
 }

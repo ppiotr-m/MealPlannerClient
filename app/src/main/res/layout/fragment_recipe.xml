@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.recipes.RecipeFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeSharedViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/recipeDetailViewContainer"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/recipeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:imageBitmap="@{viewModel.recipeData.image}"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipeTitleDetailTV" />
+
+            <TextView
+                android:id="@+id/cookingTimeLabelTV"
+                style="@style/normalTextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/cooking_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipeImageView" />
+
+            <TextView
+                android:id="@+id/likedByLabelTV"
+                style="@style/normalTextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/likes"
+                app:layout_constraintStart_toStartOf="@+id/cookingTimeLabelTV"
+                app:layout_constraintTop_toBottomOf="@+id/cookingTimeLabelTV" />
+
+            <TextView
+                android:id="@+id/goodForLabelTV"
+                style="@style/normalTextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/good_for"
+                app:layout_constraintStart_toStartOf="@+id/likedByLabelTV"
+                app:layout_constraintTop_toBottomOf="@+id/likedByLabelTV" />
+
+            <LinearLayout
+                android:id="@+id/buttonsContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goodForLabelTV">
+
+                <Button
+                    android:id="@+id/goToIngredientsBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:text="@string/ingredients"
+                    android:onClick="@{(v) -> viewModel.navigateToIngredients()}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/goodForLabelTV" />
+
+                <Button
+                    android:id="@+id/goToCookingStepsBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:text="@string/cooking_steps"
+                    android:onClick="@{(v) -> viewModel.navigateToCookingSteps()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/goToIngredientsBtn"
+                    app:layout_constraintTop_toTopOf="@+id/goToIngredientsBtn" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/aboutLabelTV"
+                style="@style/bigPlainText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/about_meal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonsContainer" />
+
+            <TextView
+                android:id="@+id/aboutMealTV"
+                style="@style/recipeAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{viewModel.recipeData.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/aboutLabelTV" />
+
+            <TextView
+                android:id="@+id/commentsSectionTV"
+                style="@style/bigPlainText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/comments_section"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/aboutMealTV" />
+
+            <LinearLayout
+                android:id="@+id/commentsSectionLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/commentsSectionTV" />
+
+            <TextView
+                android:id="@+id/cookingTimeTV"
+                style="@style/normalTextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.recipeData.cookTime)}"
+                app:layout_constraintBottom_toBottomOf="@+id/cookingTimeLabelTV"
+                app:layout_constraintStart_toEndOf="@id/barrier5"
+                app:layout_constraintTop_toTopOf="@+id/cookingTimeLabelTV" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="likedByLabelTV,cookingTimeLabelTV,goodForLabelTV"
+                tools:layout_editor_absoluteX="411dp" />
+
+            <TextView
+                android:id="@+id/likedByTV"
+                style="@style/normalTextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.recipeData.totalLikes)}"
+                app:layout_constraintBottom_toBottomOf="@+id/likedByLabelTV"
+                app:layout_constraintStart_toEndOf="@id/barrier5"
+                app:layout_constraintTop_toTopOf="@+id/likedByLabelTV" />
+            <!--  TODO Insert proper value for goodFor.text or remove-->
+            <TextView
+                android:id="@+id/goodForTV"
+                style="@style/normalTextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{String.valueOf(viewModel.recipeData.suitableForDiet[0])}"
+                app:layout_constraintBottom_toBottomOf="@+id/goodForLabelTV"
+                app:layout_constraintStart_toEndOf="@id/barrier5"
+                app:layout_constraintTop_toTopOf="@+id/goodForLabelTV" />
+
+            <TextView
+                android:id="@+id/recipeTitleDetailTV"
+                style="@style/bigPlainText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{viewModel.recipeData.name}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

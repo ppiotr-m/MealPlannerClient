@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.recipes.IngredientsFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="piotr.michalkiewicz.mealplannerclient.shoppinglist.viewmodel.ShoppingListViewModel" />
+            type="piotr.michalkiewicz.mealplannerclient.view.recipes.viewmodel.RecipeSharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.menu.fragments.shoppinglist.ShoppingListFragment">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/shoppingListLabelTV"
+            android:id="@+id/listOfIngredientsLabelTV"
             style="@style/bigPlainText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/shopping_list"
+            android:text="@string/list_of_ingredients"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toTopOf="@+id/addProductsToShoppingListBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shoppingListLabelTV" />
+            app:layout_constraintTop_toBottomOf="@+id/listOfIngredientsLabelTV" />
 
         <Button
             android:id="@+id/addProductsToShoppingListBtn"
@@ -46,22 +46,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/delete"
-            android:onClick="@{() -> viewModel.deleteSelectedIngredients()}"
+            android:onClick="@{() -> viewModel.saveItemsToShoppingListAndReturn()}"
+            android:text="@string/add_to_shopping_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/emptyShoppingListTV"
-            style="@style/bigPlainText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/shopping_list_empty"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shoppingListLabelTV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

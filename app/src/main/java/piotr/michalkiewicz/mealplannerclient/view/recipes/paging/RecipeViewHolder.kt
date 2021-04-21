@@ -1,6 +1,5 @@
 package piotr.michalkiewicz.mealplannerclient.view.recipes.paging
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +8,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import piotr.michalkiewicz.mealplannerclient.R
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPE_ID
-import piotr.michalkiewicz.mealplannerclient.view.recipes.RecipeActivity
+import piotr.michalkiewicz.mealplannerclient.view.recipes.paging.interfaces.CookbookItemOnClickListener
 
 class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHolder(recipeCardView) {
     private val recipeTitle: TextView = recipeCardView.findViewById(R.id.recipeCardTitle)
     private val cookbookThumbnail: ImageView = recipeCardView.findViewById(R.id.recipeCardThumbnail)
 
     private lateinit var recipe: MealTimeRecipe
+    private lateinit var onItemClickListener: CookbookItemOnClickListener
 
-    fun bind(recipe: MealTimeRecipe?) {
+    fun bind(recipe: MealTimeRecipe?, onItemClickListener: CookbookItemOnClickListener) {
+        this.onItemClickListener = onItemClickListener
         if (recipe == null) {
             val resources = itemView.resources
             recipeTitle.text = resources.getString(R.string.loading)
@@ -28,11 +28,9 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
         }
     }
 
-    private fun addOnClickListener(recipeId: String){
+    private fun addOnClickListener(recipeId: String) {
         recipeCardView.setOnClickListener {
-            val intent = Intent(recipeCardView.context, RecipeActivity::class.java)
-            intent.putExtra(RECIPE_ID, recipeId)
-            recipeCardView.context.startActivity(intent)
+            onItemClickListener.onItemClicked(recipeId)
         }
     }
 
@@ -47,7 +45,7 @@ class RecipeViewHolder(private val recipeCardView: View) : RecyclerView.ViewHold
     companion object {
         fun create(parent: ViewGroup): RecipeViewHolder {
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.recipe_list_item, parent, false)
+                .inflate(R.layout.list_item_recipe, parent, false)
             return RecipeViewHolder(view)
         }
     }

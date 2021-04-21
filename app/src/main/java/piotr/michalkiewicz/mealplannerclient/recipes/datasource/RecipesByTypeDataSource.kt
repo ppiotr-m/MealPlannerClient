@@ -1,8 +1,9 @@
 package piotr.michalkiewicz.mealplannerclient.recipes.data_source
 
 import androidx.paging.PagingSource
-import piotr.michalkiewicz.mealplannerclient.recipes.api.RecipeAPI
+import androidx.paging.PagingState
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
+import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.RECIPES_STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException
@@ -10,8 +11,7 @@ import java.io.IOException
 class RecipesByTypeDataSource(
     private val recipeAPI: RecipeAPI,
     private val queryParam: String
-) :
-    PagingSource<Int, MealTimeRecipe>() {
+) : PagingSource<Int, MealTimeRecipe>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MealTimeRecipe> {
 
@@ -30,5 +30,9 @@ class RecipesByTypeDataSource(
         } catch (exception: HttpException) {
             return LoadResult.Error(exception)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, MealTimeRecipe>): Int? {
+        return state.anchorPosition
     }
 }
