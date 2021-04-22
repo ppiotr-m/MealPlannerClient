@@ -10,6 +10,8 @@ import piotr.michalkiewicz.mealplannerclient.view.MainActivity
 
 class ShoppingListManager {
 
+    private val formatHandler = AmountFormatHandler()
+
     fun saveIngredientsToStoredShoppingList(ingredientsList: List<RecipeIngredient>) {
         val currentShoppingMap = getShoppingListMapFromSharedPrefs()
         val updatedShoppingListMap = mutableMapOf<String, RecipeIngredient>()
@@ -24,7 +26,9 @@ class ShoppingListManager {
                         val storedShoppingListItem = currentShoppingMap[it.name]
                         if (storedShoppingListItem!!.unit == it.unit) {
                             val amountSum =
-                                storedShoppingListItem.amount.toDouble() + it.amount.toDouble()
+                                formatHandler.normalizeAmount(storedShoppingListItem.amount) + formatHandler.normalizeAmount(
+                                    it.amount
+                                )
                             val updatedShoppingListItem =
                                 storedShoppingListItem.copy(amount = amountSum.toString())
                             updatedShoppingListMap[it.name] =
