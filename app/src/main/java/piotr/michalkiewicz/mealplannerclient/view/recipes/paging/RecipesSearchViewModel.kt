@@ -11,12 +11,13 @@ import piotr.michalkiewicz.mealplannerclient.recipes.datasource.RecipesByDietRem
 import piotr.michalkiewicz.mealplannerclient.recipes.model.MealTimeRecipe
 import piotr.michalkiewicz.mealplannerclient.recipes.remote.api.RecipeAPI
 import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PAGE_SIZE
-import piotr.michalkiewicz.mealplannerclient.utils.ConstantValues.Companion.PREFETCH_DISTANCE
 
 class RecipesSearchViewModel(
     private val recipeAPI: RecipeAPI,
     private val recipesDatabase: RecipesDatabase
 ) : ViewModel() {
+
+    private val PREFETCH_DISTANCE = 5
 
     @ExperimentalPagingApi
     fun recipesByDietApiData(queryParam: String): Flow<PagingData<MealTimeRecipe>> {

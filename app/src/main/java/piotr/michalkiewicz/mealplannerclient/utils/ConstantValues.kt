@@ -5,9 +5,9 @@ import android.graphics.Color
 class ConstantValues {
     companion object {
         //DEV cieniu local host
-        const val BASE_URL = "http://192.168.1.10:8080"
+//        const val BASE_URL = "http://192.168.1.10:8080"
         //DEV cieniu work
-//        const val BASE_URL = "http://10.0.0.4:8080"
+        const val BASE_URL = "http://10.0.0.4:8080"
 
         //Bartu localhost
 //        const val BASE_URL = "https://meal-time-test.herokuapp.com/"
@@ -40,7 +40,6 @@ class ConstantValues {
         const val CHECKED_BUTTON_COLOR = Color.LTGRAY
         const val DEFAULT_BUTTON_COLOR = Color.BLACK
         const val PAGE_SIZE = 5
-        const val PREFETCH_DISTANCE = 5
         const val RECIPES_STARTING_PAGE_INDEX = 0
 
         const val REDUNDANT_LAYOUT_ID = -1

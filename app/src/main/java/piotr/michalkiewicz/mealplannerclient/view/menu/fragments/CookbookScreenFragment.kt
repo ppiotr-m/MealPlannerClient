@@ -57,8 +57,8 @@ class CookbookScreenFragment : Fragment(), CookbookItemOnClickListener {
     private fun initRecipeRecyclerViews() {
         attachRecipesRecyclerView("diet", "VEGAN")
         attachRecipesRecyclerView("diet", "STANDARD")
-        attachRecipesRecyclerView("diet", "VEGETARIAN")
-        attachRecipesRecyclerView("diet", "PALEO")
+//        attachRecipesRecyclerView("diet", "VEGETARIAN")
+//        attachRecipesRecyclerView("diet", "PALEO")
     }
 
     @ExperimentalPagingApi
@@ -71,6 +71,7 @@ class CookbookScreenFragment : Fragment(), CookbookItemOnClickListener {
                 it.let {
                     (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>)
                         .submitData(it)
+                    (recyclerView.adapter as PagingDataAdapter<MealTimeRecipe, RecyclerView.ViewHolder>).notifyDataSetChanged()
                 }
             }
         }
