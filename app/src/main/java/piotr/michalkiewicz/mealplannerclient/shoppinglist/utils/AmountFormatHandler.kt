@@ -7,7 +7,13 @@ class AmountFormatHandler {
         return try {
             amount.toDouble()
         } catch (e: NumberFormatException) {
-            parseAmountWithSlash(amount)
+            return if (amount.contains('/', false)) {
+                parseAmountWithSlash(amount)
+            } else if (amount.contains('-', false)) {
+                parseAmountWithDash(amount)
+            } else {
+                return -1.0
+            }
         }
     }
 
@@ -24,5 +30,12 @@ class AmountFormatHandler {
             return result.toDouble()
         }
         return -1.0
+    }
+
+    private fun parseAmountWithDash(amount: String): Double {
+        val slashIndex = amount.indexOf('-', 0, false)
+        if (slashIndex <= 0) return -1.0
+        if (slashIndex == 1) return amount[0].toString().toDouble()
+        return amount.substring(0, slashIndex - 1).toDouble()
     }
 }
